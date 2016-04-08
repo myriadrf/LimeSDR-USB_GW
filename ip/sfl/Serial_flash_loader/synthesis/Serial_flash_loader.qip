@@ -1,0 +1,41 @@
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_TOOL_NAME "Qsys"
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_TOOL_VERSION "15.0"
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -library "Serial_flash_loader" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../Serial_flash_loader.sopcinfo"]
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name SLD_INFO "QSYS_NAME Serial_flash_loader HAS_SOPCINFO 1 GENERATION_ID 1448699085"
+set_global_assignment -library "Serial_flash_loader" -name MISC_FILE [file join $::quartus(qip_path) "../Serial_flash_loader.cmp"]
+set_global_assignment -library "Serial_flash_loader" -name SLD_FILE [file join $::quartus(qip_path) "Serial_flash_loader.debuginfo"]
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_TARGETED_DEVICE_FAMILY "Cyclone IV E"
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_GENERATED_DEVICE_FAMILY "{Cyclone IV E}"
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_QSYS_MODE "STANDALONE"
+set_global_assignment -name SYNTHESIS_ONLY_QIP ON
+set_global_assignment -library "Serial_flash_loader" -name MISC_FILE [file join $::quartus(qip_path) "../../Serial_flash_loader.qsys"]
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_NAME "U2VyaWFsX2ZsYXNoX2xvYWRlcg=="
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_DISPLAY_NAME "U2VyaWFsX2ZsYXNoX2xvYWRlcg=="
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_REPORT_HIERARCHY "On"
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_VERSION "MS4w"
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTQ0ODY5OTA4NQ==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBJViBF::QXV0byBERVZJQ0VfRkFNSUxZ"
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::RVA0Q0U0MEYyM0M4::QXV0byBERVZJQ0U="
+set_global_assignment -entity "Serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::OA==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_NAME "YWx0ZXJhX3NlcmlhbF9mbGFzaF9sb2FkZXI="
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_DISPLAY_NAME "QWx0ZXJhIFNlcmlhbCBGbGFzaCBMb2FkZXI="
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_INTERNAL "Off"
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_AUTHOR "QWx0ZXJhIENvcnBvcmF0aW9u"
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_VERSION "MTUuMA=="
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_DESCRIPTION "VGhlIEFsdGVyYSBTZXJpYWwgRmxhc2ggTG9hZGVyIG1lZ2FmdW5jdGlvbiBwcm92aWRlcyBhIGJyaWRnZSB0aGF0IGFsbG93cyAgaW4tc3lzdGVtIEpUQUcgcHJvZ3JhbW1pbmcgbWV0aG9kIGZvciBzZXJpYWwgY29uZmlndXJhdGlvbiBkZXZpY2VzLg=="
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_PARAMETER "SU5URU5ERURfREVWSUNFX0ZBTUlMWQ==::Q3ljbG9uZSBJViBF::SU5URU5ERURfREVWSUNFX0ZBTUlMWQ=="
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_PARAMETER "Z3VpX3NoYXJlZF9hY2Nlc3M=::ZmFsc2U=::U2hhcmUgQVNNSSBpbnRlcmZhY2Ugd2l0aCB5b3VyIGRlc2lnbg=="
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_PARAMETER "RU5IQU5DRURfTU9ERQ==::dHJ1ZQ==::VXNlIGVuaGFuY2VkIG1vZGUgU0ZM"
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_PARAMETER "RU5BQkxFX1NIQVJFRF9BQ0NFU1M=::T0ZG::RU5BQkxFX1NIQVJFRF9BQ0NFU1M="
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_PARAMETER "RU5BQkxFX1FVQURfU1BJX1NVUFBPUlQ=::ZmFsc2U=::RU5BQkxFX1FVQURfU1BJX1NVUFBPUlQ="
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_COMPONENT_PARAMETER "TkNTT19XSURUSA==::MQ==::TkNTT19XSURUSA=="
+
+set_global_assignment -library "Serial_flash_loader" -name VERILOG_FILE [file join $::quartus(qip_path) "Serial_flash_loader.v"]
+set_global_assignment -library "Serial_flash_loader" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_serial_flash_loader.v"]
+
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_TOOL_NAME "altera_serial_flash_loader"
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_TOOL_VERSION "15.0"
+set_global_assignment -entity "altera_serial_flash_loader" -library "Serial_flash_loader" -name IP_TOOL_ENV "Qsys"

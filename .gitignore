@@ -1,0 +1,60 @@
+### Altera Quartus II 15.0 ###
+
+#---------------
+# db files
+#--------------
+*.ammdb
+*.bpm
+*.cdb
+*.dat
+*.ddb
+*.flock
+*.hdb
+*.hier_info
+*.hif
+*.hsd
+*.idb
+*.logdb
+*.rdb
+*.tdb
+*.wrk
+*.cmp
+*.kpt
+*.tdf
+*.db_info
+*.sci
+*.qmsg
+*.tmw_info
+
+#--------------
+#output files
+#--------------
+*.rpt
+*.done
+*.smsg
+*.summary
+*.jdi
+*.pin
+*.sld
+#--------------
+# other files
+#--------------
+#*.tcl
+ddr2_phy_autodetectedpins.tcl
+alt_sld_fab_wrapper_hw.tcl
+*.csv
+*.rpt
+*.txt
+*.qws
+*.qarlog
+*.qar
+*.json
+*.bak
+*.html
+*.xml
+
+#--------------
+# generated folders
+#--------------
+simulation/
+incremental_db/
