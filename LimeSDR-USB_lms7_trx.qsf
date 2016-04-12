@@ -279,7 +279,6 @@ set_global_assignment -name VHDL_FILE src/spi/pllcfg.vhd
 set_global_assignment -name VHDL_FILE src/rx_modules/fifo_inst.vhd
 set_global_assignment -name VHDL_FILE src/testing/pkt_tester.vhd
 set_global_assignment -name BDF_FILE symbols/LTE_tx_path.bdf
-set_global_assignment -name VHDL_FILE src/tx_packets/tx_pct_data_mimo_v2.vhd
 set_global_assignment -name BDF_FILE symbols/FX3_slave.bdf
 set_global_assignment -name VHDL_FILE src/general/my_busmux.vhd
 set_global_assignment -name VHDL_FILE src/testing/test_data_dd.vhd
@@ -291,7 +290,6 @@ set_global_assignment -name VHDL_FILE src/reg_phase_shift/simple_reg.vhd
 set_global_assignment -name VHDL_FILE src/reg_phase_shift/phase_shift.vhd
 set_global_assignment -name QIP_FILE ip/pll_reconfig_module/pll_reconfig_module.qip
 set_global_assignment -name VHDL_FILE src/data_manipulation/decompress.vhd
-set_global_assignment -name VHDL_FILE src/tx_packets/tx_pct_data_mimo.vhd
 set_global_assignment -name VHDL_FILE src/tx_packets/sample_nr_cnt_mimo.vhd
 set_global_assignment -name VHDL_FILE src/rx_packets/wr_rx_fifo_v2.vhd
 set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/sl_ctrl.vhd
@@ -325,4 +323,7 @@ set_global_assignment -name VHDL_FILE src/spi/pllcfg_top.vhd
 set_global_assignment -name VHDL_FILE src/spi/fpgacfg.vhd
 set_global_assignment -name VHDL_FILE src/general/my_sw.vhd
 set_global_assignment -name SIGNALTAP_FILE signal_tap/debug.stp
+set_global_assignment -name VHDL_FILE src/rx_modules/wr_rx_fifo_v3.vhd
+set_global_assignment -name VHDL_FILE src/tx_modules/rd_tx_fifo.vhd
+set_global_assignment -name VHDL_FILE src/tx_packets/tx_pct_data_mimo_v3.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

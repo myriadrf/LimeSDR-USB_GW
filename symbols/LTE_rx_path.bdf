@@ -538,90 +538,6 @@ agreement for further details.
 	(annotation_block (parameter)(rect 248 688 459 730))
 )
 (symbol
-	(rect 1208 736 1488 912)
-	(text "wr_rx_fifo_v2" (rect 5 0 73 12)(font "Arial" ))
-	(text "inst20" (rect 8 160 37 172)(font "Arial" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "clk" (rect 0 0 14 12)(font "Arial" ))
-		(text "clk" (rect 21 27 35 39)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "reset_n" (rect 0 0 36 12)(font "Arial" ))
-		(text "reset_n" (rect 21 43 57 55)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 0 64)
-		(input)
-		(text "fr_start" (rect 0 0 36 12)(font "Arial" ))
-		(text "fr_start" (rect 21 59 57 71)(font "Arial" ))
-		(line (pt 0 64)(pt 16 64))
-	)
-	(port
-		(pt 0 80)
-		(input)
-		(text "mimo_en" (rect 0 0 44 12)(font "Arial" ))
-		(text "mimo_en" (rect 21 75 65 87)(font "Arial" ))
-		(line (pt 0 80)(pt 16 80))
-	)
-	(port
-		(pt 0 96)
-		(input)
-		(text "en" (rect 0 0 11 12)(font "Arial" ))
-		(text "en" (rect 21 91 32 103)(font "Arial" ))
-		(line (pt 0 96)(pt 16 96))
-	)
-	(port
-		(pt 0 112)
-		(input)
-		(text "diq_h[sample_wdth..0]" (rect 0 0 109 12)(font "Arial" ))
-		(text "diq_h[sample_wdth..0]" (rect 21 107 130 119)(font "Arial" ))
-		(line (pt 0 112)(pt 16 112)(line_width 3))
-	)
-	(port
-		(pt 0 128)
-		(input)
-		(text "diq_l[sample_wdth..0]" (rect 0 0 106 12)(font "Arial" ))
-		(text "diq_l[sample_wdth..0]" (rect 21 123 127 135)(font "Arial" ))
-		(line (pt 0 128)(pt 16 128)(line_width 3))
-	)
-	(port
-		(pt 0 144)
-		(input)
-		(text "fifo_wfull" (rect 0 0 46 12)(font "Arial" ))
-		(text "fifo_wfull" (rect 21 139 67 151)(font "Arial" ))
-		(line (pt 0 144)(pt 16 144))
-	)
-	(port
-		(pt 280 32)
-		(output)
-		(text "diq[2*sample_wdth-1..0]" (rect 0 0 118 12)(font "Arial" ))
-		(text "diq[2*sample_wdth-1..0]" (rect 160 27 278 39)(font "Arial" ))
-		(line (pt 280 32)(pt 264 32)(line_width 3))
-	)
-	(port
-		(pt 280 48)
-		(output)
-		(text "fifo_wr" (rect 0 0 34 12)(font "Arial" ))
-		(text "fifo_wr" (rect 231 43 265 55)(font "Arial" ))
-		(line (pt 280 48)(pt 264 48))
-	)
-	(parameter
-		"sample_wdth"
-		"diq_width"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(drawing
-		(rectangle (rect 16 16 264 160))
-	)
-	(annotation_block (parameter)(rect 1208 704 1430 732))
-)
-(symbol
 	(rect 2824 712 3136 984)
 	(text "rx_pct_data_v2" (rect 5 0 81 12)(font "Arial" ))
 	(text "inst" (rect 8 256 25 268)(font "Arial" ))
@@ -1015,6 +931,97 @@ agreement for further details.
 		(arc (pt 31 37)(pt 30 12)(rect 18 12 43 37))
 	)
 )
+(symbol
+	(rect 1208 736 1488 944)
+	(text "wr_rx_fifo_v3" (rect 5 0 73 12)(font "Arial" ))
+	(text "inst2" (rect 8 192 31 204)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 14 12)(font "Arial" ))
+		(text "clk" (rect 21 27 35 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "reset_n" (rect 0 0 36 12)(font "Arial" ))
+		(text "reset_n" (rect 21 43 57 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "fr_start" (rect 0 0 36 12)(font "Arial" ))
+		(text "fr_start" (rect 21 59 57 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "mimo_en" (rect 0 0 44 12)(font "Arial" ))
+		(text "mimo_en" (rect 21 75 65 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "ch_en[1..0]" (rect 0 0 55 12)(font "Arial" ))
+		(text "ch_en[1..0]" (rect 21 91 76 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 3))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "en" (rect 0 0 11 12)(font "Arial" ))
+		(text "en" (rect 21 107 32 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "diq_h[sample_wdth..0]" (rect 0 0 109 12)(font "Arial" ))
+		(text "diq_h[sample_wdth..0]" (rect 21 123 130 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128)(line_width 3))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "diq_l[sample_wdth..0]" (rect 0 0 106 12)(font "Arial" ))
+		(text "diq_l[sample_wdth..0]" (rect 21 139 127 151)(font "Arial" ))
+		(line (pt 0 144)(pt 16 144)(line_width 3))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "fifo_wfull" (rect 0 0 46 12)(font "Arial" ))
+		(text "fifo_wfull" (rect 21 155 67 167)(font "Arial" ))
+		(line (pt 0 160)(pt 16 160))
+	)
+	(port
+		(pt 280 32)
+		(output)
+		(text "diq[2*sample_wdth-1..0]" (rect 0 0 118 12)(font "Arial" ))
+		(text "diq[2*sample_wdth-1..0]" (rect 160 27 278 39)(font "Arial" ))
+		(line (pt 280 32)(pt 264 32)(line_width 3))
+	)
+	(port
+		(pt 280 48)
+		(output)
+		(text "fifo_wr" (rect 0 0 34 12)(font "Arial" ))
+		(text "fifo_wr" (rect 231 43 265 55)(font "Arial" ))
+		(line (pt 280 48)(pt 264 48))
+	)
+	(parameter
+		"sample_wdth"
+		"diq_width"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 264 192))
+	)
+	(annotation_block (parameter)(rect 1488 704 1710 732))
+)
 (connector
 	(text "ENABLE_RXIQSEL_2" (rect -499 384 -393 396)(font "Arial" ))
 	(pt -520 400)
@@ -1293,41 +1300,19 @@ agreement for further details.
 	(pt 248 784)
 )
 (connector
-	(text "fifo24_full" (rect 1092 864 1142 876)(font "Arial" ))
-	(pt 1208 880)
-	(pt 1072 880)
-)
-(connector
 	(text "clk" (rect 1081 752 1095 764)(font "Arial" ))
 	(pt 1208 768)
 	(pt 1072 768)
 )
 (connector
-	(text "fr_start" (rect 1149 784 1185 796)(font "Arial" ))
+	(text "fr_start" (rect 1085 784 1121 796)(font "Arial" ))
 	(pt 1072 800)
 	(pt 1208 800)
 )
 (connector
-	(text "mimo_en" (rect 1091 800 1135 812)(font "Arial" ))
+	(text "mimo_en" (rect 1083 800 1127 812)(font "Arial" ))
 	(pt 1208 816)
 	(pt 1072 816)
-)
-(connector
-	(text "rx_en" (rect 1118 816 1145 828)(font "Arial" ))
-	(pt 1072 832)
-	(pt 1208 832)
-)
-(connector
-	(text "dd_data_h[diq_width..0]" (rect 1141 832 1256 844)(font "Arial" ))
-	(pt 1072 848)
-	(pt 1208 848)
-	(bus)
-)
-(connector
-	(text "dd_data_l[diq_width..0]" (rect 1102 848 1214 860)(font "Arial" ))
-	(pt 1208 864)
-	(pt 1072 864)
-	(bus)
 )
 (connector
 	(pt 1032 784)
@@ -1343,6 +1328,34 @@ agreement for further details.
 	(text "wrrxfifo_wr" (rect 1502 768 1556 780)(font "Arial" ))
 	(pt 1488 784)
 	(pt 1640 784)
+)
+(connector
+	(text "fifo24_full" (rect 1084 880 1134 892)(font "Arial" ))
+	(pt 1208 896)
+	(pt 1072 896)
+)
+(connector
+	(text "dd_data_l[diq_width..0]" (rect 1086 864 1198 876)(font "Arial" ))
+	(pt 1208 880)
+	(pt 1072 880)
+	(bus)
+)
+(connector
+	(text "dd_data_h[diq_width..0]" (rect 1085 848 1200 860)(font "Arial" ))
+	(pt 1208 864)
+	(pt 1072 864)
+	(bus)
+)
+(connector
+	(text "rx_en" (rect 1086 832 1113 844)(font "Arial" ))
+	(pt 1208 848)
+	(pt 1072 848)
+)
+(connector
+	(text "lte_ch_en[1..0]" (rect 1086 816 1159 828)(font "Arial" ))
+	(pt 1072 832)
+	(pt 1208 832)
+	(bus)
 )
 (connector
 	(text "rxpct_infiford" (rect 3148 728 3214 740)(font "Arial" ))

@@ -1,0 +1,187 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus II License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 16 16 296 288)
+	(text "tx_pct_data_mimo_v3" (rect 5 0 97 12)(font "Arial" ))
+	(text "inst" (rect 8 256 20 268)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 10 12)(font "Arial" ))
+		(text "clk" (rect 21 27 31 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "reset_n" (rect 0 0 30 12)(font "Arial" ))
+		(text "reset_n" (rect 21 43 51 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 1))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "reset_n_fifo_wclk" (rect 0 0 71 12)(font "Arial" ))
+		(text "reset_n_fifo_wclk" (rect 21 59 92 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 1))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "pct_samplenr[63..0]" (rect 0 0 79 12)(font "Arial" ))
+		(text "pct_samplenr[63..0]" (rect 21 75 100 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 3))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "fifo_wclk" (rect 0 0 35 12)(font "Arial" ))
+		(text "fifo_wclk" (rect 21 91 56 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 1))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "fifo_wrreq" (rect 0 0 41 12)(font "Arial" ))
+		(text "fifo_wrreq" (rect 21 107 62 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112)(line_width 1))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "fifo_data[31..0]" (rect 0 0 59 12)(font "Arial" ))
+		(text "fifo_data[31..0]" (rect 21 123 80 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128)(line_width 3))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "fifo_rclk" (rect 0 0 33 12)(font "Arial" ))
+		(text "fifo_rclk" (rect 21 139 54 151)(font "Arial" ))
+		(line (pt 0 144)(pt 16 144)(line_width 1))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "sample_width[1..0]" (rect 0 0 71 12)(font "Arial" ))
+		(text "sample_width[1..0]" (rect 21 155 92 167)(font "Arial" ))
+		(line (pt 0 160)(pt 16 160)(line_width 3))
+	)
+	(port
+		(pt 0 176)
+		(input)
+		(text "tx_en" (rect 0 0 22 12)(font "Arial" ))
+		(text "tx_en" (rect 21 171 43 183)(font "Arial" ))
+		(line (pt 0 176)(pt 16 176)(line_width 1))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "lte_synch_dis" (rect 0 0 55 12)(font "Arial" ))
+		(text "lte_synch_dis" (rect 21 187 76 199)(font "Arial" ))
+		(line (pt 0 192)(pt 16 192)(line_width 1))
+	)
+	(port
+		(pt 0 208)
+		(input)
+		(text "mimo_en" (rect 0 0 37 12)(font "Arial" ))
+		(text "mimo_en" (rect 21 203 58 215)(font "Arial" ))
+		(line (pt 0 208)(pt 16 208)(line_width 1))
+	)
+	(port
+		(pt 0 224)
+		(input)
+		(text "fr_start" (rect 0 0 30 12)(font "Arial" ))
+		(text "fr_start" (rect 21 219 51 231)(font "Arial" ))
+		(line (pt 0 224)(pt 16 224)(line_width 1))
+	)
+	(port
+		(pt 0 240)
+		(input)
+		(text "ch_en[1..0]" (rect 0 0 43 12)(font "Arial" ))
+		(text "ch_en[1..0]" (rect 21 235 64 247)(font "Arial" ))
+		(line (pt 0 240)(pt 16 240)(line_width 3))
+	)
+	(port
+		(pt 280 32)
+		(output)
+		(text "tx_outfifo_rdy" (rect 0 0 57 12)(font "Arial" ))
+		(text "tx_outfifo_rdy" (rect 202 27 259 39)(font "Arial" ))
+		(line (pt 280 32)(pt 264 32)(line_width 1))
+	)
+	(port
+		(pt 280 48)
+		(output)
+		(text "tst_aclr_ext" (rect 0 0 47 12)(font "Arial" ))
+		(text "tst_aclr_ext" (rect 212 43 259 55)(font "Arial" ))
+		(line (pt 280 48)(pt 264 48)(line_width 1))
+	)
+	(port
+		(pt 280 64)
+		(output)
+		(text "dd_data_h[smpl_width..0]" (rect 0 0 101 12)(font "Arial" ))
+		(text "dd_data_h[smpl_width..0]" (rect 158 59 259 71)(font "Arial" ))
+		(line (pt 280 64)(pt 264 64)(line_width 3))
+	)
+	(port
+		(pt 280 80)
+		(output)
+		(text "dd_data_l[smpl_width..0]" (rect 0 0 97 12)(font "Arial" ))
+		(text "dd_data_l[smpl_width..0]" (rect 162 75 259 87)(font "Arial" ))
+		(line (pt 280 80)(pt 264 80)(line_width 3))
+	)
+	(parameter
+		"dev_family"
+		"Cyclone IV E"
+		""
+		(type "PARAMETER_STRING")	)
+	(parameter
+		"num_of_fifo"
+		"3"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"fifo_size"
+		"10"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"pct_size"
+		"1024"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"dcmpr_fifo"
+		"10"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"smpl_width"
+		"12"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 264 256)(line_width 1))
+	)
+	(annotation_block (parameter)(rect 296 -64 396 16))
+)

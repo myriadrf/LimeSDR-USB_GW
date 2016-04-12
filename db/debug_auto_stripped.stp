@@ -1385,7 +1385,7 @@
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/04/08 14:56:30  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="1" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger CRC="E3329B1" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/04/08 14:56:30  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="1" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="false" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
           <level enabled="yes" name="condition1" type="basic">
@@ -1421,26 +1421,9 @@
       <single attribute="setup vertical scroll position" value="0"/>
     </position_info>
   </instance>
-  <global_info>
-    <single attribute="active instance" value="2"/>
-    <single attribute="config widget visible" value="1"/>
-    <single attribute="data log widget visible" value="1"/>
-    <single attribute="hierarchy widget visible" value="1"/>
-    <single attribute="instance widget visible" value="1"/>
-    <single attribute="jtag widget visible" value="1"/>
-    <single attribute="lock mode" value="0"/>
-    <single attribute="sof manager visible" value="1"/>
-    <multi attribute="frame size" size="2" value="1920,1137"/>
-    <multi attribute="jtag widget size" size="2" value="334,189"/>
-  </global_info>
-  <instance enabled="true" entity_name="sld_signaltap" is_auto_node="yes" name="wr_rx_fifo_v3" source_file="sld_signaltap.vhd">
+  <instance enabled="true" entity_name="sld_signaltap" is_auto_node="yes" is_expanded="true" name="wr_rx_fifo_v3" source_file="sld_signaltap.vhd">
     <node_ip_info instance_id="2" mfg_id="110" node_id="0" version="6"/>
-    <position_info>
-      <single attribute="active tab" value="1"/>
-      <single attribute="setup vertical scroll position" value="0"/>
-      <single attribute="setup horizontal scroll position" value="0"/>
-    </position_info>
-    <signal_set global_temp="1" name="signal_set: 2016/04/12 13:47:34  #0">
+    <signal_set global_temp="1" is_expanded="true" name="signal_set: 2016/04/12 13:47:34  #0">
       <clock name="LTE_rx_path:inst13|wr_rx_fifo_v3:inst2|clk" polarity="posedge" tap_mode="classic"/>
       <config ram_type="AUTO" reserved_data_nodes="0" reserved_storage_qualifier_nodes="0" reserved_trigger_nodes="0" sample_depth="128" trigger_in_enable="no" trigger_out_enable="no"/>
       <top_entity/>
@@ -1864,7 +1847,7 @@
         <trigger_in_editor/>
         <trigger_out_editor/>
       </presentation>
-      <trigger attribute_mem_mode="false" gap_record="true" global_temp="1" name="trigger: 2016/04/12 13:47:34  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="1" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
+      <trigger CRC="4C78502F" attribute_mem_mode="false" gap_record="true" global_temp="1" is_expanded="true" name="trigger: 2016/04/12 13:47:34  #1" position="pre" power_up_trigger_mode="false" record_data_gap="true" segment_size="1" storage_mode="off" storage_qualifier_disabled="no" storage_qualifier_port_is_pin="true" storage_qualifier_port_name="auto_stp_external_storage_qualifier" storage_qualifier_port_tap_mode="classic" trigger_type="circular">
         <power_up_trigger position="pre" storage_qualifier_disabled="no"/>
         <events use_custom_flow_control="no">
           <level enabled="yes" name="condition1" type="basic">
@@ -1895,5 +1878,23 @@
         </storage_qualifier_events>
       </trigger>
     </signal_set>
+    <position_info>
+      <single attribute="active tab" value="1"/>
+      <single attribute="setup horizontal scroll position" value="0"/>
+      <single attribute="setup vertical scroll position" value="0"/>
+    </position_info>
   </instance>
+  <static_plugin_mnemonics/>
+  <global_info>
+    <single attribute="active instance" value="2"/>
+    <single attribute="config widget visible" value="1"/>
+    <single attribute="data log widget visible" value="1"/>
+    <single attribute="hierarchy widget visible" value="1"/>
+    <single attribute="instance widget visible" value="1"/>
+    <single attribute="jtag widget visible" value="1"/>
+    <single attribute="lock mode" value="0"/>
+    <single attribute="sof manager visible" value="1"/>
+    <multi attribute="frame size" size="2" value="1920,1137"/>
+    <multi attribute="jtag widget size" size="2" value="334,189"/>
+  </global_info>
 </session>

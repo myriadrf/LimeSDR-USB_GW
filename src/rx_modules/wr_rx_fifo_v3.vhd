@@ -1,6 +1,6 @@
 
 -- ----------------------------------------------------------------------------	
--- FILE: 	wr_rx_fifo_v2.vhd
+-- FILE: 	wr_rx_fifo_v3.vhd
 -- DESCRIPTION:	writes fifo when right iq sel is captured
 -- DATE:	June 17, 2015
 -- AUTHOR(s):	Lime Microsystems
@@ -13,7 +13,7 @@ use ieee.numeric_std.all;
 -- ----------------------------------------------------------------------------
 -- Entity declaration
 -- ----------------------------------------------------------------------------
-entity wr_rx_fifo_v2 is
+entity wr_rx_fifo_v3 is
   generic(sample_wdth : integer:=12);
   port (
         --input ports 
@@ -30,12 +30,12 @@ entity wr_rx_fifo_v2 is
 			fifo_wfull	: in std_logic
  
         );
-end wr_rx_fifo_v2;
+end wr_rx_fifo_v3;
 
 -- ----------------------------------------------------------------------------
 -- Architecture
 -- ----------------------------------------------------------------------------
-architecture arch of wr_rx_fifo_v2 is
+architecture arch of wr_rx_fifo_v3 is
 --declare signals,  components here
 type state_type is (idle, wait_fr_start, fr_start_rec, wr_fifo, pack_data);
 signal fifo_sig	: std_logic;
@@ -43,6 +43,7 @@ signal diq_l_reg	: std_logic_vector(sample_wdth downto 0);    --iqsel & diq
 
 signal curretnt_state, next_state : state_type;
 signal iq_sel		   	:  std_logic;
+signal iq_sel_int  : std_logic;
 
 signal diqin_h_reg		: std_logic_vector(sample_wdth downto 0);
 signal diqin_l_reg		: std_logic_vector(sample_wdth downto 0);
@@ -50,7 +51,8 @@ signal diqin_l_reg		: std_logic_vector(sample_wdth downto 0);
   
 begin
   
-	iq_sel<=diqin_h_reg(sample_wdth) and diqin_l_reg(sample_wdth); 
+	iq_sel<=diqin_h_reg(sample_wdth) and diqin_l_reg(sample_wdth);
+	iq_sel_int<=iq_sel when fr_start='1' else not iq_sel;
 -- ----------------------------------------------------------------------------
 --main state machine
 -- ----------------------------------------------------------------------------
@@ -127,10 +129,14 @@ end process;
 -- ----------------------------------------------------------------------------
 --fifo write signal formation 
 -- ----------------------------------------------------------------------------
-process(curretnt_state)begin
-	if (curretnt_state=wr_fifo) then
+process(curretnt_state, ch_en, iq_sel_int, mimo_en)begin
+	if (curretnt_state=wr_fifo and (ch_en="11" or mimo_en='0')) then
 		  fifo_sig <= '1'; 
-	else
+	elsif (curretnt_state=wr_fifo and ch_en="01") then
+      fifo_sig <= iq_sel_int; 
+	elsif (curretnt_state=wr_fifo and ch_en="10") then
+      fifo_sig <= not iq_sel_int; 
+	else 
 		  fifo_sig <= '0';
 	end if;	
 end process;

@@ -17,10 +17,11 @@ entity test_data_dd is
         --input ports 
         clk       : in std_logic;
         reset_n   : in std_logic;
-		  fr_start	: in std_logic;
+		    fr_start	 : in std_logic;
+		    mimo_en   : in std_logic;
 		  
-		  data_h		: out std_logic_vector(12 downto 0);
-		  data_l		: out std_logic_vector(12 downto 0)
+		    data_h		  : out std_logic_vector(12 downto 0);
+		    data_l		  : out std_logic_vector(12 downto 0)
 
         --output ports 
         
@@ -55,8 +56,8 @@ begin
 	 
 iq_sel_out<= iq_sel when fr_start='0' else not iq_sel;
 
-data_l<=iq_sel_out & "0" & std_logic_vector(cnt_l) & '0';
-data_h<=iq_sel_out & "0" & std_logic_vector(cnt_h) & '1';
+data_l<=iq_sel_out & "0" & std_logic_vector(cnt_l) & '0' when mimo_en='1' else iq_sel_out & "00" & std_logic_vector(cnt_l);
+data_h<=iq_sel_out & "0" & std_logic_vector(cnt_h) & '1' when mimo_en='1' else iq_sel_out & "00" & std_logic_vector(cnt_h);
   
 end arch;
 

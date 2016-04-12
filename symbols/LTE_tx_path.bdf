@@ -734,215 +734,6 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 1184 472 1472 744)
-	(text "tx_pct_data_mimo_v2" (rect 5 0 114 12)(font "Arial" ))
-	(text "inst6" (rect 8 256 31 268)(font "Arial" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "clk" (rect 0 0 14 12)(font "Arial" ))
-		(text "clk" (rect 21 27 35 39)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "reset_n" (rect 0 0 36 12)(font "Arial" ))
-		(text "reset_n" (rect 21 43 57 55)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 0 64)
-		(input)
-		(text "reset_n_fifo_wclk" (rect 0 0 87 12)(font "Arial" ))
-		(text "reset_n_fifo_wclk" (rect 21 59 108 71)(font "Arial" ))
-		(line (pt 0 64)(pt 16 64))
-	)
-	(port
-		(pt 0 80)
-		(input)
-		(text "pct_samplenr[63..0]" (rect 0 0 97 12)(font "Arial" ))
-		(text "pct_samplenr[63..0]" (rect 21 75 118 87)(font "Arial" ))
-		(line (pt 0 80)(pt 16 80)(line_width 3))
-	)
-	(port
-		(pt 0 96)
-		(input)
-		(text "fifo_wclk" (rect 0 0 44 12)(font "Arial" ))
-		(text "fifo_wclk" (rect 21 91 65 103)(font "Arial" ))
-		(line (pt 0 96)(pt 16 96))
-	)
-	(port
-		(pt 0 112)
-		(input)
-		(text "fifo_wrreq" (rect 0 0 49 12)(font "Arial" ))
-		(text "fifo_wrreq" (rect 21 107 70 119)(font "Arial" ))
-		(line (pt 0 112)(pt 16 112))
-	)
-	(port
-		(pt 0 128)
-		(input)
-		(text "fifo_data[31..0]" (rect 0 0 76 12)(font "Arial" ))
-		(text "fifo_data[31..0]" (rect 21 123 97 135)(font "Arial" ))
-		(line (pt 0 128)(pt 16 128)(line_width 3))
-	)
-	(port
-		(pt 0 144)
-		(input)
-		(text "fifo_rclk" (rect 0 0 41 12)(font "Arial" ))
-		(text "fifo_rclk" (rect 21 139 62 151)(font "Arial" ))
-		(line (pt 0 144)(pt 16 144))
-	)
-	(port
-		(pt 0 160)
-		(input)
-		(text "sample_width[1..0]" (rect 0 0 92 12)(font "Arial" ))
-		(text "sample_width[1..0]" (rect 21 155 113 167)(font "Arial" ))
-		(line (pt 0 160)(pt 16 160)(line_width 3))
-	)
-	(port
-		(pt 0 176)
-		(input)
-		(text "tx_en" (rect 0 0 27 12)(font "Arial" ))
-		(text "tx_en" (rect 21 171 48 183)(font "Arial" ))
-		(line (pt 0 176)(pt 16 176))
-	)
-	(port
-		(pt 0 192)
-		(input)
-		(text "lte_synch_dis" (rect 0 0 68 12)(font "Arial" ))
-		(text "lte_synch_dis" (rect 21 187 89 199)(font "Arial" ))
-		(line (pt 0 192)(pt 16 192))
-	)
-	(port
-		(pt 0 208)
-		(input)
-		(text "mimo_en" (rect 0 0 44 12)(font "Arial" ))
-		(text "mimo_en" (rect 21 203 65 215)(font "Arial" ))
-		(line (pt 0 208)(pt 16 208))
-	)
-	(port
-		(pt 0 224)
-		(input)
-		(text "fr_start" (rect 0 0 36 12)(font "Arial" ))
-		(text "fr_start" (rect 21 219 57 231)(font "Arial" ))
-		(line (pt 0 224)(pt 16 224))
-	)
-	(port
-		(pt 288 32)
-		(output)
-		(text "tx_outfifo_rdy" (rect 0 0 70 12)(font "Arial" ))
-		(text "tx_outfifo_rdy" (rect 208 27 278 39)(font "Arial" ))
-		(line (pt 288 32)(pt 272 32))
-	)
-	(port
-		(pt 288 48)
-		(output)
-		(text "fifo_q[15..0]" (rect 0 0 61 12)(font "Arial" ))
-		(text "fifo_q[15..0]" (rect 216 43 277 55)(font "Arial" ))
-		(line (pt 288 48)(pt 272 48)(line_width 3))
-	)
-	(port
-		(pt 288 64)
-		(output)
-		(text "tst_aclr_ext" (rect 0 0 57 12)(font "Arial" ))
-		(text "tst_aclr_ext" (rect 219 59 276 71)(font "Arial" ))
-		(line (pt 288 64)(pt 272 64))
-	)
-	(port
-		(pt 288 80)
-		(output)
-		(text "dd_data_h[smpl_width..0]" (rect 0 0 125 12)(font "Arial" ))
-		(text "dd_data_h[smpl_width..0]" (rect 162 75 287 87)(font "Arial" ))
-		(line (pt 288 80)(pt 272 80)(line_width 3))
-	)
-	(port
-		(pt 288 96)
-		(output)
-		(text "dd_data_l[smpl_width..0]" (rect 0 0 121 12)(font "Arial" ))
-		(text "dd_data_l[smpl_width..0]" (rect 165 91 286 103)(font "Arial" ))
-		(line (pt 288 96)(pt 272 96)(line_width 3))
-	)
-	(port
-		(pt 288 112)
-		(output)
-		(text "dd_data_h_r[smpl_width..0]" (rect 0 0 134 12)(font "Arial" ))
-		(text "dd_data_h_r[smpl_width..0]" (rect 154 107 288 119)(font "Arial" ))
-		(line (pt 288 112)(pt 272 112)(line_width 3))
-	)
-	(port
-		(pt 288 128)
-		(output)
-		(text "dd_data_l_r[smpl_width..0]" (rect 0 0 130 12)(font "Arial" ))
-		(text "dd_data_l_r[smpl_width..0]" (rect 157 123 287 135)(font "Arial" ))
-		(line (pt 288 128)(pt 272 128)(line_width 3))
-	)
-	(port
-		(pt 288 144)
-		(output)
-		(text "rd_cnt_ext[15..0]" (rect 0 0 83 12)(font "Arial" ))
-		(text "rd_cnt_ext[15..0]" (rect 197 139 280 151)(font "Arial" ))
-		(line (pt 288 144)(pt 272 144)(line_width 3))
-	)
-	(port
-		(pt 288 160)
-		(output)
-		(text "test_data_out[31..0]" (rect 0 0 99 12)(font "Arial" ))
-		(text "test_data_out[31..0]" (rect 184 155 283 167)(font "Arial" ))
-		(line (pt 288 160)(pt 272 160)(line_width 3))
-	)
-	(port
-		(pt 288 176)
-		(output)
-		(text "error_out" (rect 0 0 43 12)(font "Arial" ))
-		(text "error_out" (rect 231 171 274 183)(font "Arial" ))
-		(line (pt 288 176)(pt 272 176))
-	)
-	(port
-		(pt 288 192)
-		(output)
-		(text "error_out_fx3" (rect 0 0 66 12)(font "Arial" ))
-		(text "error_out_fx3" (rect 212 187 278 199)(font "Arial" ))
-		(line (pt 288 192)(pt 272 192))
-	)
-	(port
-		(pt 288 208)
-		(output)
-		(text "test_fx3_cnt[31..0]" (rect 0 0 94 12)(font "Arial" ))
-		(text "test_fx3_cnt[31..0]" (rect 188 203 282 215)(font "Arial" ))
-		(line (pt 288 208)(pt 272 208)(line_width 3))
-	)
-	(parameter
-		"num_of_fifo"
-		"3"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"fifo_size"
-		"10"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"pct_size"
-		"2048"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"dcmpr_fifo"
-		"10"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"smpl_width"
-		"12"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(drawing
-		(rectangle (rect 16 16 272 256))
-	)
-	(annotation_block (parameter)(rect 1472 384 1662 468))
-)
-(symbol
 	(rect 424 280 672 456)
 	(text "sample_nr_cnt_mimo" (rect 5 0 110 12)(font "Arial" ))
 	(text "inst1" (rect 8 160 31 172)(font "Arial" ))
@@ -1074,7 +865,7 @@ agreement for further details.
 	(annotation_block (parameter)(rect 1232 168 1443 210))
 )
 (symbol
-	(rect 1208 800 1456 912)
+	(rect 1280 840 1528 952)
 	(text "lms7002_ddout" (rect 5 0 79 12)(font "Arial" ))
 	(text "inst7" (rect 8 96 31 108)(font "Arial" ))
 	(port
@@ -1109,14 +900,14 @@ agreement for further details.
 		(pt 248 32)
 		(output)
 		(text "txiq[iq_width-1..0]" (rect 0 0 86 12)(font "Arial" ))
-		(text "txiq[iq_width-1..0]" (rect 155 27 227 39)(font "Arial" ))
+		(text "txiq[iq_width-1..0]" (rect 155 27 241 39)(font "Arial" ))
 		(line (pt 248 32)(pt 232 32)(line_width 3))
 	)
 	(port
 		(pt 248 48)
 		(output)
 		(text "txiqsel" (rect 0 0 31 12)(font "Arial" ))
-		(text "txiqsel" (rect 201 43 227 55)(font "Arial" ))
+		(text "txiqsel" (rect 201 43 232 55)(font "Arial" ))
 		(line (pt 248 48)(pt 232 48))
 	)
 	(parameter
@@ -1132,7 +923,172 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 232 96))
 	)
-	(annotation_block (parameter)(rect 1464 752 1675 794))
+	(annotation_block (parameter)(rect 1536 792 1747 834))
+)
+(symbol
+	(rect 1272 488 1552 760)
+	(text "tx_pct_data_mimo_v3" (rect 5 0 114 12)(font "Arial" ))
+	(text "inst9" (rect 8 256 31 268)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 14 12)(font "Arial" ))
+		(text "clk" (rect 21 27 35 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "reset_n" (rect 0 0 36 12)(font "Arial" ))
+		(text "reset_n" (rect 21 43 57 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "reset_n_fifo_wclk" (rect 0 0 87 12)(font "Arial" ))
+		(text "reset_n_fifo_wclk" (rect 21 59 108 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "pct_samplenr[63..0]" (rect 0 0 97 12)(font "Arial" ))
+		(text "pct_samplenr[63..0]" (rect 21 75 118 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 3))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "fifo_wclk" (rect 0 0 44 12)(font "Arial" ))
+		(text "fifo_wclk" (rect 21 91 65 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "fifo_wrreq" (rect 0 0 49 12)(font "Arial" ))
+		(text "fifo_wrreq" (rect 21 107 70 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "fifo_data[31..0]" (rect 0 0 76 12)(font "Arial" ))
+		(text "fifo_data[31..0]" (rect 21 123 97 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128)(line_width 3))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "fifo_rclk" (rect 0 0 41 12)(font "Arial" ))
+		(text "fifo_rclk" (rect 21 139 62 151)(font "Arial" ))
+		(line (pt 0 144)(pt 16 144))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "sample_width[1..0]" (rect 0 0 92 12)(font "Arial" ))
+		(text "sample_width[1..0]" (rect 21 155 113 167)(font "Arial" ))
+		(line (pt 0 160)(pt 16 160)(line_width 3))
+	)
+	(port
+		(pt 0 176)
+		(input)
+		(text "tx_en" (rect 0 0 27 12)(font "Arial" ))
+		(text "tx_en" (rect 21 171 48 183)(font "Arial" ))
+		(line (pt 0 176)(pt 16 176))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "lte_synch_dis" (rect 0 0 68 12)(font "Arial" ))
+		(text "lte_synch_dis" (rect 21 187 89 199)(font "Arial" ))
+		(line (pt 0 192)(pt 16 192))
+	)
+	(port
+		(pt 0 208)
+		(input)
+		(text "mimo_en" (rect 0 0 44 12)(font "Arial" ))
+		(text "mimo_en" (rect 21 203 65 215)(font "Arial" ))
+		(line (pt 0 208)(pt 16 208))
+	)
+	(port
+		(pt 0 224)
+		(input)
+		(text "fr_start" (rect 0 0 36 12)(font "Arial" ))
+		(text "fr_start" (rect 21 219 57 231)(font "Arial" ))
+		(line (pt 0 224)(pt 16 224))
+	)
+	(port
+		(pt 0 240)
+		(input)
+		(text "ch_en[1..0]" (rect 0 0 55 12)(font "Arial" ))
+		(text "ch_en[1..0]" (rect 21 235 76 247)(font "Arial" ))
+		(line (pt 0 240)(pt 16 240)(line_width 3))
+	)
+	(port
+		(pt 280 32)
+		(output)
+		(text "tx_outfifo_rdy" (rect 0 0 70 12)(font "Arial" ))
+		(text "tx_outfifo_rdy" (rect 200 27 259 39)(font "Arial" ))
+		(line (pt 280 32)(pt 264 32))
+	)
+	(port
+		(pt 280 48)
+		(output)
+		(text "tst_aclr_ext" (rect 0 0 57 12)(font "Arial" ))
+		(text "tst_aclr_ext" (rect 211 43 259 55)(font "Arial" ))
+		(line (pt 280 48)(pt 264 48))
+	)
+	(port
+		(pt 280 64)
+		(output)
+		(text "dd_data_h[smpl_width..0]" (rect 0 0 125 12)(font "Arial" ))
+		(text "dd_data_h[smpl_width..0]" (rect 154 59 259 71)(font "Arial" ))
+		(line (pt 280 64)(pt 264 64)(line_width 3))
+	)
+	(port
+		(pt 280 80)
+		(output)
+		(text "dd_data_l[smpl_width..0]" (rect 0 0 121 12)(font "Arial" ))
+		(text "dd_data_l[smpl_width..0]" (rect 157 75 259 87)(font "Arial" ))
+		(line (pt 280 80)(pt 264 80)(line_width 3))
+	)
+	(parameter
+		"dev_family"
+		"Cyclone IV E"
+		""
+		(type "PARAMETER_STRING")	)
+	(parameter
+		"num_of_fifo"
+		"3"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"fifo_size"
+		"10"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"pct_size"
+		"2048"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"dcmpr_fifo"
+		"10"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"smpl_width"
+		"12"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 264 256))
+	)
+	(annotation_block (parameter)(rect 1552 384 1778 482))
 )
 (connector
 	(text "lte_ch_en_mclk2rx_pll[15..0]" (rect 294 376 434 388)(font "Arial" ))
@@ -1359,16 +1315,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "pct_buff_aclr" (rect 1490 520 1556 532)(font "Arial" ))
-	(pt 1472 536)
-	(pt 1608 536)
-)
-(connector
-	(text "tx_outfifo_rdy" (rect 1493 488 1563 500)(font "Arial" ))
-	(pt 1472 504)
-	(pt 1608 504)
-)
-(connector
 	(text "tx_outfifo_rdy" (rect 2125 568 2195 580)(font "Arial" ))
 	(pt 2104 584)
 	(pt 2240 584)
@@ -1384,59 +1330,6 @@ agreement for further details.
 	(pt 2032 216)
 )
 (connector
-	(text "TX_clk" (rect 1056 488 1087 500)(font "Arial" ))
-	(pt 1184 504)
-	(pt 1032 504)
-)
-(connector
-	(text "stream_rxen_lmlclk" (rect 1059 504 1154 516)(font "Arial" ))
-	(pt 1032 520)
-	(pt 1184 520)
-)
-(connector
-	(text "pct_samplenr[63..0]" (rect 1061 536 1158 548)(font "Arial" ))
-	(pt 1032 552)
-	(pt 1184 552)
-	(bus)
-)
-(connector
-	(text "lte_smpl_width_lmlclk[1..0]" (rect 1057 616 1189 628)(font "Arial" ))
-	(pt 1032 632)
-	(pt 1184 632)
-	(bus)
-)
-(connector
-	(text "lte_mimo_en_lmlclk" (rect 1056 664 1152 676)(font "Arial" ))
-	(pt 1032 680)
-	(pt 1184 680)
-)
-(connector
-	(text "stream_rxen_lmlclk" (rect 1051 632 1146 644)(font "Arial" ))
-	(pt 1184 648)
-	(pt 1032 648)
-)
-(connector
-	(text "lte_synch_dis_lmlclk" (rect 1065 648 1167 660)(font "Arial" ))
-	(pt 1032 664)
-	(pt 1184 664)
-)
-(connector
-	(text "pct_wr" (rect 1082 568 1113 580)(font "Arial" ))
-	(pt 1032 584)
-	(pt 1184 584)
-)
-(connector
-	(text "pct_data[31..0]" (rect 1064 584 1138 596)(font "Arial" ))
-	(pt 1184 600)
-	(pt 1032 600)
-	(bus)
-)
-(connector
-	(text "fr_start" (rect 1095 680 1131 692)(font "Arial" ))
-	(pt 1032 696)
-	(pt 1184 696)
-)
-(connector
 	(text "H" (rect -207 1192 -199 1204)(font "Arial" ))
 	(pt -104 1208)
 	(pt -248 1208)
@@ -1450,11 +1343,6 @@ agreement for further details.
 	(text "stream_rxen" (rect -231 1208 -170 1220)(font "Arial" ))
 	(pt -248 1224)
 	(pt -104 1224)
-)
-(connector
-	(text "rxen_pct_clk" (rect 1078 520 1140 532)(font "Arial" ))
-	(pt 1032 536)
-	(pt 1184 536)
 )
 (connector
 	(text "RX_clk" (rect 297 296 331 308)(font "Arial" ))
@@ -1485,11 +1373,6 @@ agreement for further details.
 	(text "pct_wrclk" (rect -207 1176 -161 1188)(font "Arial" ))
 	(pt -248 1192)
 	(pt -104 1192)
-)
-(connector
-	(text "pct_wrclk" (rect 1073 552 1119 564)(font "Arial" ))
-	(pt 1032 568)
-	(pt 1184 568)
 )
 (connector
 	(pt 80 920)
@@ -1529,11 +1412,6 @@ agreement for further details.
 	(pt 296 616)
 )
 (connector
-	(text "TX_clk" (rect 1056 600 1087 612)(font "Arial" ))
-	(pt 1184 616)
-	(pt 1032 616)
-)
-(connector
 	(text "fr_start" (rect -41 744 -5 756)(font "Arial" ))
 	(pt -104 760)
 	(pt 48 760)
@@ -1560,49 +1438,133 @@ agreement for further details.
 	(pt 2240 680)
 )
 (connector
-	(text "dd_data_h[12..0]" (rect 1515 536 1597 548)(font "Arial" ))
-	(pt 1608 552)
-	(pt 1472 552)
+	(text "TX_clk" (rect 1144 504 1175 516)(font "Arial" ))
+	(pt 1272 520)
+	(pt 1120 520)
+)
+(connector
+	(text "stream_rxen_lmlclk" (rect 1147 520 1242 532)(font "Arial" ))
+	(pt 1120 536)
+	(pt 1272 536)
+)
+(connector
+	(text "rxen_pct_clk" (rect 1142 536 1204 548)(font "Arial" ))
+	(pt 1120 552)
+	(pt 1272 552)
+)
+(connector
+	(text "pct_samplenr[63..0]" (rect 1141 552 1238 564)(font "Arial" ))
+	(pt 1120 568)
+	(pt 1272 568)
 	(bus)
 )
 (connector
-	(text "dd_data_l[12..0]" (rect 1511 552 1590 564)(font "Arial" ))
-	(pt 1608 568)
-	(pt 1472 568)
+	(text "pct_wrclk" (rect 1145 568 1191 580)(font "Arial" ))
+	(pt 1120 584)
+	(pt 1272 584)
+)
+(connector
+	(text "pct_wr" (rect 1146 584 1177 596)(font "Arial" ))
+	(pt 1120 600)
+	(pt 1272 600)
+)
+(connector
+	(text "pct_data[31..0]" (rect 1144 600 1218 612)(font "Arial" ))
+	(pt 1272 616)
+	(pt 1120 616)
 	(bus)
 )
 (connector
-	(text "TX_clk" (rect 1080 816 1111 828)(font "Arial" ))
-	(pt 1208 832)
-	(pt 1056 832)
+	(text "TX_clk" (rect 1144 616 1175 628)(font "Arial" ))
+	(pt 1272 632)
+	(pt 1120 632)
 )
 (connector
-	(text "stream_rxen_lmlclk" (rect 1107 832 1202 844)(font "Arial" ))
-	(pt 1056 848)
-	(pt 1208 848)
-)
-(connector
-	(text "txiq[11..0]" (rect 1517 816 1566 828)(font "Arial" ))
-	(pt 1456 832)
-	(pt 1592 832)
+	(text "lte_smpl_width_lmlclk[1..0]" (rect 1145 632 1277 644)(font "Arial" ))
+	(pt 1272 648)
+	(pt 1120 648)
 	(bus)
 )
 (connector
-	(text "txiqsel" (rect 1496 832 1527 844)(font "Arial" ))
-	(pt 1456 848)
-	(pt 1584 848)
+	(text "lte_synch_dis_lmlclk" (rect 1145 664 1247 676)(font "Arial" ))
+	(pt 1272 680)
+	(pt 1120 680)
 )
 (connector
-	(text "dd_data_h[12..0]" (rect 1099 848 1181 860)(font "Arial" ))
-	(pt 1208 864)
-	(pt 1056 864)
+	(text "lte_mimo_en_lmlclk" (rect 1144 680 1240 692)(font "Arial" ))
+	(pt 1272 696)
+	(pt 1120 696)
+)
+(connector
+	(text "fr_start" (rect 1143 696 1179 708)(font "Arial" ))
+	(pt 1272 712)
+	(pt 1120 712)
+)
+(connector
+	(text "lte_ch_en[1..0]" (rect 1138 712 1211 724)(font "Arial" ))
+	(pt 1272 728)
+	(pt 1120 728)
 	(bus)
 )
 (connector
-	(text "dd_data_l[12..0]" (rect 1095 864 1174 876)(font "Arial" ))
-	(pt 1208 880)
-	(pt 1056 880)
+	(text "tx_outfifo_rdy" (rect 1573 504 1643 516)(font "Arial" ))
+	(pt 1552 520)
+	(pt 1688 520)
+)
+(connector
+	(text "pct_buff_aclr" (rect 1570 520 1636 532)(font "Arial" ))
+	(pt 1552 536)
+	(pt 1688 536)
+)
+(connector
+	(text "dd_data_h[12..0]" (rect 1595 536 1677 548)(font "Arial" ))
+	(pt 1552 552)
+	(pt 1688 552)
 	(bus)
+)
+(connector
+	(text "dd_data_l[12..0]" (rect 1591 552 1670 564)(font "Arial" ))
+	(pt 1552 568)
+	(pt 1688 568)
+	(bus)
+)
+(connector
+	(text "TX_clk" (rect 1152 856 1183 868)(font "Arial" ))
+	(pt 1280 872)
+	(pt 1128 872)
+)
+(connector
+	(text "stream_rxen_lmlclk" (rect 1179 872 1274 884)(font "Arial" ))
+	(pt 1128 888)
+	(pt 1280 888)
+)
+(connector
+	(text "txiq[11..0]" (rect 1589 856 1638 868)(font "Arial" ))
+	(pt 1528 872)
+	(pt 1664 872)
+	(bus)
+)
+(connector
+	(text "txiqsel" (rect 1568 872 1599 884)(font "Arial" ))
+	(pt 1528 888)
+	(pt 1656 888)
+)
+(connector
+	(text "dd_data_h[12..0]" (rect 1171 888 1253 900)(font "Arial" ))
+	(pt 1280 904)
+	(pt 1128 904)
+	(bus)
+)
+(connector
+	(text "dd_data_l[12..0]" (rect 1167 904 1246 916)(font "Arial" ))
+	(pt 1280 920)
+	(pt 1128 920)
+	(bus)
+)
+(connector
+	(text "stream_rxen_lmlclk" (rect 1147 648 1242 660)(font "Arial" ))
+	(pt 1272 664)
+	(pt 1120 664)
 )
 (text "LML TX interface synchronization" (rect 272 120 675 144)(font "Arial" (font_size 16)(bold)))
 (text "stream_rxen" (rect 160 608 231 622)(font "Arial" (font_size 8)))
