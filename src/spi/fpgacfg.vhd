@@ -51,6 +51,7 @@ entity fpgacfg is
 		rx_en				: out std_logic;
 		tx_en				: out std_logic;
 		stream_load		: out std_logic;
+		SPI_SS			: out std_logic_vector(15 downto 0);
 		
 		LMS1_SS			: out std_logic;
 --		LMS2_SS			: out std_logic;
@@ -99,6 +100,8 @@ architecture fpgacfg_arch of fpgacfg is
 	for all: mcfg32wm_fsm use entity work.mcfg32wm_fsm(mcfg32wm_fsm_arch);
 
 begin
+
+
 	-- ---------------------------------------------------------------------------------------------
 	-- Finite state machines
 	-- ---------------------------------------------------------------------------------------------
@@ -185,7 +188,7 @@ begin
 			--Read only registers
 			mem(0)	<= "0000000000001110"; -- 00 frre, Board ID (LimeSDR-USB)
 			mem(1)	<= "0000000000000001"; -- 00 free, Function (1)
-			mem(2)	<= "0000000000001010"; -- 00 free, GW wersion (A)
+			mem(2)	<= "0000000000001011"; -- 00 free, GW wersion (B)
 			mem(3)	<= "0000000000000000"; -- 16 free, (Reserved)
 			--FPGA direct clocking
 			mem(4)	<= "0000000000000000"; --  0 free, phase_reg_sel
@@ -216,11 +219,11 @@ begin
 					mem(to_integer(unsigned(inst_reg(4 downto 0)))) <= din_reg(14 downto 0) & sdin;
 				end if;
 				
-				--if dout_reg_len = '0' then
-					--mem(9)  <= bsigi(14 downto 0) & bstate;
-					--mem(10) <= bsigq(7 downto 0) & bsigi(22 downto 15);
-					--mem(11)(14 downto 0) <= bsigq(22 downto 8);
-				--end if;
+				if dout_reg_len = '0' then
+--					for_loop : for i in 0 to 3 loop 				
+--						mem(3)(i+4) <= not mem(3)(i);
+--					end loop;
+				end if;
 				
 		end if;
 	end process ram;
@@ -244,30 +247,21 @@ begin
 		rx_en				<= mem(10) (0);
 		tx_en				<= mem(10) (1);
 		stream_load		<= mem(10) (2);
+
+		for_loop : for i in 0 to 15 generate --to prevent SPI_SS to go low on same time as sen
+			SPI_SS(i)<= mem(18)(i) OR (NOT sen);
+		end generate;
 		
 
---		LMS3_SS 			<= mem(18)(2);
---		LMS4_SS 			<= mem(18)(3);
---		LMS5_SS 			<= mem(18)(4);
---		LMS6_SS 			<= mem(18)(5);
---		LMS7_SS 			<= mem(18)(6);
---		LMS8_SS 			<= mem(18)(7);
-
---		ADF_SS 			<= mem(18)(8);
---		DAC_SS 			<= mem(18)(9);
---		POT1_SS 			<= mem(18)(10);
-	
-		LMS1_SS 				<= mem(19)(0);
---		LMS1_SS 				<= mem(20)(1);  --by old map
+		LMS1_SS 				<= mem(19)(0) OR (NOT sen); --to prevent SPI_SS to go low on same time as sen
 		LMS1_RESET 			<= mem(19)(1);
---		LMS1_RESET 			<= mem(20)(0); --by old map
 		LMS1_CORE_LDO_EN 	<= mem(19)(2);
 		LMS1_TXNRX1			<= mem(19)(3); 
 		LMS1_TXNRX2 		<= mem(19)(4);
 		LMS1_TXEN			<= mem(19)(5); 
 		LMS1_RXEN 			<= mem(19)(6);
 	
---		LMS2_SS 				<= mem(18)(8);
+--		LMS2_SS 				<= mem(19)(8) OR (NOT sen); --to prevent SPI_SS to go low on same time as sen
 --		LMS2_RESET 			<= mem(19)(9);
 --		LMS2_CORE_LDO_EN	<= mem(19)(10); 
 --		LMS2_TXNRX1			<= mem(19)(11);
