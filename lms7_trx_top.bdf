@@ -351,7 +351,7 @@ agreement for further details.
 	(input)
 	(rect -720 1136 -544 1152)
 	(text "INPUT" (rect 133 0 161 10)(font "Arial" (font_size 6)))
-	(text "ADF_MUXOUT" (rect 5 0 79 12)(font "Arial" ))
+	(text "ADF_MUXOUT" (rect 5 0 78 12)(font "Arial" ))
 	(pt 176 8)
 	(drawing
 		(line (pt 92 12)(pt 117 12))
@@ -363,6 +363,22 @@ agreement for further details.
 	)
 	(text "VCC" (rect 136 7 156 17)(font "Arial" (font_size 6)))
 	(annotation_block (location)(rect -768 1152 -720 1168))
+)
+(pin
+	(input)
+	(rect -88 752 80 768)
+	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
+	(text "FAN_CTRL" (rect 5 0 62 12)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
 )
 (pin
 	(output)
@@ -703,23 +719,6 @@ agreement for further details.
 		(line (pt 78 12)(pt 82 8))
 	)
 	(annotation_block (location)(rect 1784 3264 1840 3280))
-)
-(pin
-	(output)
-	(rect 320 784 496 800)
-	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
-	(text "FAN_CTRL" (rect 90 0 146 12)(font "Arial" ))
-	(pt 0 8)
-	(drawing
-		(line (pt 0 8)(pt 52 8))
-		(line (pt 52 4)(pt 78 4))
-		(line (pt 52 12)(pt 78 12))
-		(line (pt 52 12)(pt 52 4))
-		(line (pt 78 4)(pt 82 8))
-		(line (pt 82 8)(pt 78 12))
-		(line (pt 78 12)(pt 82 8))
-	)
-	(annotation_block (location)(rect 496 800 544 816))
 )
 (pin
 	(output)
@@ -1271,30 +1270,6 @@ agreement for further details.
 	(rect 336 2016 384 2048)
 	(text "WIRE" (rect 1 0 24 10)(font "Arial" (font_size 6)))
 	(text "inst28" (rect 3 21 32 33)(font "Arial" ))
-	(port
-		(pt 0 16)
-		(input)
-		(text "IN" (rect 2 7 13 19)(font "Courier New" (bold))(invisible))
-		(text "IN" (rect 2 7 13 19)(font "Courier New" (bold))(invisible))
-		(line (pt 0 16)(pt 14 16))
-	)
-	(port
-		(pt 48 16)
-		(output)
-		(text "OUT" (rect 32 7 49 19)(font "Courier New" (bold))(invisible))
-		(text "OUT" (rect 32 7 49 19)(font "Courier New" (bold))(invisible))
-		(line (pt 32 16)(pt 48 16))
-	)
-	(drawing
-		(line (pt 14 7)(pt 32 16))
-		(line (pt 14 25)(pt 14 7))
-		(line (pt 14 25)(pt 32 16))
-	)
-)
-(symbol
-	(rect 176 776 224 808)
-	(text "WIRE" (rect 1 0 24 10)(font "Arial" (font_size 6)))
-	(text "inst7" (rect 3 21 26 33)(font "Arial" ))
 	(port
 		(pt 0 16)
 		(input)
@@ -3551,14 +3526,6 @@ agreement for further details.
 	(text "pllcfg_start[0]" (rect 920 1152 988 1164)(font "Arial" ))
 	(pt 920 1168)
 	(pt 1032 1168)
-)
-(connector
-	(pt 224 792)
-	(pt 320 792)
-)
-(connector
-	(pt 176 792)
-	(pt 80 792)
 )
 (connector
 	(text "fpga_alive" (rect -284 976 -233 988)(font "Arial" ))
