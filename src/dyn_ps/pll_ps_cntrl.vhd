@@ -61,7 +61,7 @@ reset_n_const<='1';
  	        when s0 =>
 						ph_step<='0';
 						phase_inc<=(others=>'0'); 
- 	          if begin_ps='1' then  
+ 	          if begin_ps='1' and unsigned(phase)> 0 then  
 						state<=s1;
  	          else
 						state<=s0;

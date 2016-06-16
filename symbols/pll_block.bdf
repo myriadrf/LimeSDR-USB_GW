@@ -1764,46 +1764,6 @@ agreement for further details.
 	(pt 2040 944)
 )
 (connector
-	(pt 1064 928)
-	(pt 1184 928)
-)
-(connector
-	(text "pll_ph_done" (rect 1075 960 1132 972)(font "Arial" ))
-	(pt 1072 976)
-	(pt 1184 976)
-)
-(connector
-	(text "phase[9..0]" (rect 1099 928 1154 940)(font "Arial" ))
-	(pt 1184 944)
-	(pt 1072 944)
-	(bus)
-)
-(connector
-	(text "phase_ps_en" (rect 1086 944 1150 956)(font "Arial" ))
-	(pt 1184 960)
-	(pt 1072 960)
-)
-(connector
-	(text "pll_lock" (rect 1076 976 1112 988)(font "Arial" ))
-	(pt 1072 992)
-	(pt 1184 992)
-)
-(connector
-	(text "reconfig_en" (rect 1088 992 1145 1004)(font "Arial" ))
-	(pt 1184 1008)
-	(pt 1072 1008)
-)
-(connector
-	(text "phasestep" (rect 1389 896 1439 908)(font "Arial" ))
-	(pt 1368 912)
-	(pt 1432 912)
-)
-(connector
-	(text "scanclk" (rect 1072 896 1109 908)(font "Arial" ))
-	(pt 1184 912)
-	(pt 1072 912)
-)
-(connector
 	(text "wr_rom" (rect 1408 704 1443 716)(font "Arial" ))
 	(pt 1400 720)
 	(pt 1448 720)
@@ -1865,11 +1825,6 @@ agreement for further details.
 	(pt 2432 456)
 )
 (connector
-	(text "ps_status" (rect 1383 912 1431 924)(font "Arial" ))
-	(pt 1368 928)
-	(pt 1432 928)
-)
-(connector
 	(text "ps_status" (rect 2455 456 2503 468)(font "Arial" ))
 	(pt 2432 472)
 	(pt 2504 472)
@@ -1904,6 +1859,51 @@ agreement for further details.
 	(text "load_phreg" (rect 2256 1152 2309 1164)(font "Arial" ))
 	(pt 2352 1168)
 	(pt 2232 1168)
+)
+(connector
+	(pt 1064 928)
+	(pt 1184 928)
+)
+(connector
+	(text "pll_ph_done" (rect 1075 960 1132 972)(font "Arial" ))
+	(pt 1072 976)
+	(pt 1184 976)
+)
+(connector
+	(text "phase[9..0]" (rect 1099 928 1154 940)(font "Arial" ))
+	(pt 1184 944)
+	(pt 1072 944)
+	(bus)
+)
+(connector
+	(text "phase_ps_en" (rect 1086 944 1150 956)(font "Arial" ))
+	(pt 1184 960)
+	(pt 1072 960)
+)
+(connector
+	(text "pll_lock" (rect 1076 976 1112 988)(font "Arial" ))
+	(pt 1072 992)
+	(pt 1184 992)
+)
+(connector
+	(text "reconfig_en" (rect 1088 992 1145 1004)(font "Arial" ))
+	(pt 1184 1008)
+	(pt 1072 1008)
+)
+(connector
+	(text "phasestep" (rect 1389 896 1439 908)(font "Arial" ))
+	(pt 1368 912)
+	(pt 1432 912)
+)
+(connector
+	(text "scanclk" (rect 1072 896 1109 908)(font "Arial" ))
+	(pt 1184 912)
+	(pt 1072 912)
+)
+(connector
+	(text "ps_status" (rect 1383 912 1431 924)(font "Arial" ))
+	(pt 1368 928)
+	(pt 1432 928)
 )
 (text "PLL and pll control" (rect 504 168 731 192)(font "Arial" (font_size 16)(bold)))
 (rectangle (rect 480 160 2920 1352)(color 0 85 0)(line_width 2))
