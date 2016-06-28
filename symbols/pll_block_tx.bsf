@@ -1,0 +1,170 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus II License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 16 16 280 304)
+	(text "pll_block_tx" (rect 5 0 71 14)(font "Arial" (font_size 8)))
+	(text "inst" (rect 8 272 25 284)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "pll_inclk0" (rect 0 0 50 14)(font "Arial" (font_size 8)))
+		(text "pll_inclk0" (rect 21 27 71 41)(font "Arial" (font_size 8)))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "pll_areset" (rect 0 0 55 14)(font "Arial" (font_size 8)))
+		(text "pll_areset" (rect 21 43 76 57)(font "Arial" (font_size 8)))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "clk" (rect 0 0 15 14)(font "Arial" (font_size 8)))
+		(text "clk" (rect 21 59 36 73)(font "Arial" (font_size 8)))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "reset" (rect 0 0 29 14)(font "Arial" (font_size 8)))
+		(text "reset" (rect 21 75 50 89)(font "Arial" (font_size 8)))
+		(line (pt 0 80)(pt 16 80))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "phase[9..0]" (rect 0 0 63 14)(font "Arial" (font_size 8)))
+		(text "phase[9..0]" (rect 21 91 84 105)(font "Arial" (font_size 8)))
+		(line (pt 0 96)(pt 16 96)(line_width 3))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "phase_ps_en" (rect 0 0 77 14)(font "Arial" (font_size 8)))
+		(text "phase_ps_en" (rect 21 107 98 121)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 16 112))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "phase_up_dn" (rect 0 0 77 14)(font "Arial" (font_size 8)))
+		(text "phase_up_dn" (rect 21 123 98 137)(font "Arial" (font_size 8)))
+		(line (pt 0 128)(pt 16 128))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "phase_cnt_sel[2..0]" (rect 0 0 112 14)(font "Arial" (font_size 8)))
+		(text "phase_cnt_sel[2..0]" (rect 21 139 133 153)(font "Arial" (font_size 8)))
+		(line (pt 0 144)(pt 16 144)(line_width 3))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "reconfig_data[143..0]" (rect 0 0 121 14)(font "Arial" (font_size 8)))
+		(text "reconfig_data[143..0]" (rect 21 155 142 169)(font "Arial" (font_size 8)))
+		(line (pt 0 160)(pt 16 160)(line_width 3))
+	)
+	(port
+		(pt 0 176)
+		(input)
+		(text "reconfig_en" (rect 0 0 68 14)(font "Arial" (font_size 8)))
+		(text "reconfig_en" (rect 21 171 89 185)(font "Arial" (font_size 8)))
+		(line (pt 0 176)(pt 16 176))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "ovrsmpl_clk" (rect 0 0 67 14)(font "Arial" (font_size 8)))
+		(text "ovrsmpl_clk" (rect 21 187 88 201)(font "Arial" (font_size 8)))
+		(line (pt 0 192)(pt 16 192))
+	)
+	(port
+		(pt 0 208)
+		(input)
+		(text "ovrsmpl_reset_n" (rect 0 0 95 14)(font "Arial" (font_size 8)))
+		(text "ovrsmpl_reset_n" (rect 21 203 116 217)(font "Arial" (font_size 8)))
+		(line (pt 0 208)(pt 16 208))
+	)
+	(port
+		(pt 0 224)
+		(input)
+		(text "drct_clk_en" (rect 0 0 66 14)(font "Arial" (font_size 8)))
+		(text "drct_clk_en" (rect 21 219 87 233)(font "Arial" (font_size 8)))
+		(line (pt 0 224)(pt 16 224))
+	)
+	(port
+		(pt 0 240)
+		(input)
+		(text "load_phreg" (rect 0 0 63 14)(font "Arial" (font_size 8)))
+		(text "load_phreg" (rect 21 235 84 249)(font "Arial" (font_size 8)))
+		(line (pt 0 240)(pt 16 240))
+	)
+	(port
+		(pt 0 256)
+		(input)
+		(text "phase_reg_sel[7..0]" (rect 0 0 113 14)(font "Arial" (font_size 8)))
+		(text "phase_reg_sel[7..0]" (rect 21 251 134 265)(font "Arial" (font_size 8)))
+		(line (pt 0 256)(pt 16 256)(line_width 3))
+	)
+	(port
+		(pt 264 32)
+		(output)
+		(text "c0" (rect 0 0 14 14)(font "Arial" (font_size 8)))
+		(text "c0" (rect 229 27 243 41)(font "Arial" (font_size 8)))
+		(line (pt 264 32)(pt 248 32))
+	)
+	(port
+		(pt 264 48)
+		(output)
+		(text "c1" (rect 0 0 14 14)(font "Arial" (font_size 8)))
+		(text "c1" (rect 229 43 243 57)(font "Arial" (font_size 8)))
+		(line (pt 264 48)(pt 248 48))
+	)
+	(port
+		(pt 264 64)
+		(output)
+		(text "pll_locked" (rect 0 0 55 14)(font "Arial" (font_size 8)))
+		(text "pll_locked" (rect 188 59 243 73)(font "Arial" (font_size 8)))
+		(line (pt 264 64)(pt 248 64))
+	)
+	(port
+		(pt 264 80)
+		(output)
+		(text "reconfig_status" (rect 0 0 89 14)(font "Arial" (font_size 8)))
+		(text "reconfig_status" (rect 154 75 243 89)(font "Arial" (font_size 8)))
+		(line (pt 264 80)(pt 248 80))
+	)
+	(port
+		(pt 264 96)
+		(output)
+		(text "cfg_busy" (rect 0 0 54 14)(font "Arial" (font_size 8)))
+		(text "cfg_busy" (rect 189 91 243 105)(font "Arial" (font_size 8)))
+		(line (pt 264 96)(pt 248 96))
+	)
+	(drawing
+		(rectangle (rect 16 16 248 272))
+	)
+)

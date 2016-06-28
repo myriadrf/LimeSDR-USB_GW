@@ -265,7 +265,205 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to FX3_DQ[18]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to FX3_DQ[17]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to FX3_DQ[16]
 set_global_assignment -name POST_FLOW_SCRIPT_FILE "quartus_sh:gen_prg_files.tcl"
-set_global_assignment -name SEARCH_PATH "h:\\working_dir\\altera\\sodera_proj\\lms7_trx_lte\\symbols"
+set_location_assignment PIN_K8 -to FPGA_SPI1_SCLK
+set_location_assignment PIN_L8 -to FPGA_SPI1_MOSI
+set_location_assignment PIN_J3 -to FPGA_SPI1_DAC_SS
+set_location_assignment PIN_J5 -to FPGA_SPI1_ADF_SS
+set_location_assignment PIN_E6 -to FPGA_SPI0_SCLK
+set_location_assignment PIN_D7 -to FPGA_SPI0_MOSI
+set_location_assignment PIN_C8 -to FPGA_SPI0_MISO
+set_location_assignment PIN_D10 -to FPGA_SPI0_LMS_SS
+set_location_assignment PIN_J2 -to ADF_MUXOUT
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_odt[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_odt[0]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_clk[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_clk[0]
+set_instance_assignment -name PAD_TO_CORE_DELAY 0 -to DDR2_1_clk[0]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_clk_n[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_clk_n[0]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_cs_n[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_cs_n[0]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_cke[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_cke[0]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_addr[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_addr[0]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_addr[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_addr[1]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_addr[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_addr[2]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_addr[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_addr[3]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_addr[4]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_addr[4]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_addr[5]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_addr[5]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_addr[6]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_addr[6]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_addr[7]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_addr[7]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_addr[8]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_addr[8]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_addr[9]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_addr[9]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_addr[10]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_addr[10]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_addr[11]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_addr[11]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_addr[12]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_addr[12]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_ba[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_ba[0]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_ba[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_ba[1]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_ba[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_ba[2]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_ras_n
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_ras_n
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_cas_n
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_cas_n
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_we_n
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to DDR2_1_we_n
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[0]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[1]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[2]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[3]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[4]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[4]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[5]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[5]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[6]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[6]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[7]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[7]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[8]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[8]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[9]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[9]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[10]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[10]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[11]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[11]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[12]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[12]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[13]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[13]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[14]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[14]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dq[15]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dq[15]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dqs[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dqs[0]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dqs[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dqs[1]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dm[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dm[0]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to DDR2_1_dm[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DDR2_1_dm[1]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[0]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[1]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[2]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[3]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[4]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[5]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[6]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[7]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[8]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[9]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[10]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[11]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[12]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[13]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[14]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dq[15]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[0]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[1]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[2]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[3]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[4]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[5]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[6]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[7]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[8]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[9]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[10]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[11]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[12]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[13]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[14]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dq[15]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dqs[0]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dqs[1]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dqs[0]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dqs[1]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dm[0]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to DDR2_1_dm[1]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dm[0]
+set_instance_assignment -name OUTPUT_ENABLE_GROUP 3078784 -to DDR2_1_dm[1]
+set_instance_assignment -name CKN_CK_PAIR ON -from DDR2_1_clk_n[0] -to DDR2_1_clk[0]
+set_location_assignment PIN_AA4 -to DDR2_1_dq[15]
+set_location_assignment PIN_U9 -to DDR2_1_dq[14]
+set_location_assignment PIN_Y7 -to DDR2_1_dq[13]
+set_location_assignment PIN_W8 -to DDR2_1_dq[12]
+set_location_assignment PIN_V8 -to DDR2_1_dq[11]
+set_location_assignment PIN_W7 -to DDR2_1_dq[10]
+set_location_assignment PIN_AA5 -to DDR2_1_dq[9]
+set_location_assignment PIN_W6 -to DDR2_1_dq[8]
+set_location_assignment PIN_Y10 -to DDR2_1_dq[7]
+set_location_assignment PIN_AA8 -to DDR2_1_dq[6]
+set_location_assignment PIN_W10 -to DDR2_1_dq[5]
+set_location_assignment PIN_V11 -to DDR2_1_dq[4]
+set_location_assignment PIN_AA9 -to DDR2_1_dq[3]
+set_location_assignment PIN_AB7 -to DDR2_1_dq[2]
+set_location_assignment PIN_AB8 -to DDR2_1_dq[1]
+set_location_assignment PIN_U10 -to DDR2_1_dq[0]
+set_location_assignment PIN_V10 -to DDR2_1_dqs[1]
+set_location_assignment PIN_AB9 -to DDR2_1_dqs[0]
+set_location_assignment PIN_V5 -to DDR2_1_dm[1]
+set_location_assignment PIN_AA7 -to DDR2_1_dm[0]
+set_location_assignment PIN_U7 -to DDR2_1_clk[0]
+set_location_assignment PIN_U8 -to DDR2_1_clk_n[0]
+set_location_assignment PIN_T8 -to DDR2_1_addr[12]
+set_location_assignment PIN_W2 -to DDR2_1_addr[11]
+set_location_assignment PIN_Y6 -to DDR2_1_addr[10]
+set_location_assignment PIN_V7 -to DDR2_1_addr[9]
+set_location_assignment PIN_Y1 -to DDR2_1_addr[8]
+set_location_assignment PIN_AB5 -to DDR2_1_addr[7]
+set_location_assignment PIN_Y2 -to DDR2_1_addr[6]
+set_location_assignment PIN_AB3 -to DDR2_1_addr[5]
+set_location_assignment PIN_AA1 -to DDR2_1_addr[4]
+set_location_assignment PIN_V6 -to DDR2_1_addr[3]
+set_location_assignment PIN_Y3 -to DDR2_1_addr[2]
+set_location_assignment PIN_AA3 -to DDR2_1_addr[1]
+set_location_assignment PIN_W1 -to DDR2_1_addr[0]
+set_location_assignment PIN_V3 -to DDR2_1_ba[1]
+set_location_assignment PIN_V4 -to DDR2_1_ba[0]
+set_location_assignment PIN_T4 -to DDR2_1_cas_n
+set_location_assignment PIN_R7 -to DDR2_1_cke[0]
+set_location_assignment PIN_R6 -to DDR2_1_cs_n[0]
+set_location_assignment PIN_P6 -to DDR2_1_odt[0]
+set_location_assignment PIN_T5 -to DDR2_1_ras_n
+set_location_assignment PIN_T7 -to DDR2_1_we_n
+set_location_assignment PIN_V1 -to DDR2_1_ba[2]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to FPGA_SPI1_DAC_SS
+set_global_assignment -name VHDL_FILE src/general/rstn_pulse.vhd
+set_global_assignment -name BDF_FILE symbols/pll_block_tx.bdf
+set_global_assignment -name QIP_FILE ip/clk0_sw/clk0_sw/synthesis/clk0_sw.qip
+set_global_assignment -name BDF_FILE symbols/pll_block.bdf
+set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/wfm_wcmd_fsm.vhd
+set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/wfm_rcmd_fsm.vhd
+set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/wfm_player_top.vhd
+set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/wfm_player.vhd
+set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/wfm_pct_gen.vhd
+set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/pct_payload_extrct.vhd
+set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/ddr2_data_check.vhd
+set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/LFSR.vhd
+set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/ddr2_cmdfifo_tst.vhd
+set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/DDR2_ctrl_top.vhd
+set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/DDR2_arb.vhd
 set_global_assignment -name VHDL_FILE src/spi/pllcfg.vhd
 set_global_assignment -name VHDL_FILE src/rx_modules/fifo_inst.vhd
 set_global_assignment -name VHDL_FILE src/testing/pkt_tester.vhd
@@ -304,7 +502,6 @@ set_global_assignment -name QIP_FILE ip/ch_mux/ch_mux.qip
 set_global_assignment -name VHDL_FILE src/general/bus_synch.vhd
 set_global_assignment -name BDF_FILE symbols/rx_synchronizers.bdf
 set_global_assignment -name BDF_FILE symbols/tx_synchronizers.bdf
-set_global_assignment -name BDF_FILE symbols/pll_block.bdf
 set_global_assignment -name VHDL_FILE src/testing/fx3_fifo_data.vhd
 set_global_assignment -name VHDL_FILE src/rx_modules/lms7002_ddin.vhd
 set_global_assignment -name VHDL_FILE src/tx_modules/lms7002_ddout.vhd
@@ -317,15 +514,11 @@ set_global_assignment -name SIGNALTAP_FILE signal_tap/debug.stp
 set_global_assignment -name VHDL_FILE src/rx_modules/wr_rx_fifo_v3.vhd
 set_global_assignment -name VHDL_FILE src/tx_modules/rd_tx_fifo.vhd
 set_global_assignment -name VHDL_FILE src/tx_packets/tx_pct_data_mimo_v3.vhd
-set_location_assignment PIN_K8 -to FPGA_SPI1_SCLK
-set_location_assignment PIN_L8 -to FPGA_SPI1_MOSI
-set_location_assignment PIN_J3 -to FPGA_SPI1_DAC_SS
-set_location_assignment PIN_J5 -to FPGA_SPI1_ADF_SS
-set_location_assignment PIN_E6 -to FPGA_SPI0_SCLK
-set_location_assignment PIN_D7 -to FPGA_SPI0_MOSI
-set_location_assignment PIN_C8 -to FPGA_SPI0_MISO
-set_location_assignment PIN_D10 -to FPGA_SPI0_LMS_SS
-set_location_assignment PIN_J2 -to ADF_MUXOUT
 set_global_assignment -name VHDL_FILE src/general/led_ctrl_adf_dac.vhd
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to FPGA_SPI1_DAC_SS
+set_global_assignment -name QIP_FILE ip/ddr2/ddr2.qip
+set_global_assignment -name SEARCH_PATH "h:\\working_dir\\altera\\limesdr-usb\\lms7_trx\\symbols"
+set_global_assignment -name SEARCH_PATH symbols/
+set_global_assignment -name SEARCH_PATH "ip/ddr2/ddr2_high_performance_controller-library"
+set_global_assignment -name SEARCH_PATH ip/ddr2/.
+set_global_assignment -name SEARCH_PATH "ip/ddr2/altmemphy-library"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -3,14 +3,15 @@ set_time_format -unit ns -decimal_places 3
 #=======================Timing parameters===================================
 #LMS7002
 	#LMS_MCLK2 period
-set MCLK2_period	6.25
-set MCLK1_period	6.25
+set MCLK2_period	5
+set MCLK1_period	5
 	#Setup and hold times from datasheet
-set LMS7_Tsu	1
+set LMS7_Tsu	1.5
 set LMS7_Th		.2
 	#Calculated expresions
 set LMS7_max_dly [expr $MCLK2_period/4 - $LMS7_Tsu]
 set LMS7_min_dly [expr $LMS7_Th - $MCLK2_period/4]
+
 #=======================Base clocks=============================================
 #FPGA pll
 create_clock -period "27MHz" 			-name SI_CLK0 					[get_ports SI_CLK0]
@@ -34,7 +35,7 @@ create_generated_clock -name LMS_FCLK2 \
 create_generated_clock -name LMS_LATCH_CLK \
 								-source [get_pins inst32|inst35|altpll_component|auto_generated|pll1|inclk[0]] \
 								-phase 90 [get_pins inst32|inst35|altpll_component|auto_generated|pll1|clk[1]]
-
+								
 #====================Other clock constraints=====================================
 derive_pll_clocks
 derive_clock_uncertainty
@@ -63,6 +64,7 @@ set_input_delay -clock [get_clocks fx3_clk_virt] -min 0.225 [get_ports {FX3_DQ*}
 #FX3
 set_output_delay -clock [get_clocks fx3_clk_virt] -max 2.5 [get_ports {FX3_DQ* FX3_CTL1 FX3_CTL7}]
 set_output_delay -clock [get_clocks fx3_clk_virt] -min 0.75 [get_ports {FX3_DQ* FX3_CTL1 FX3_CTL7}] -add_delay
+
 
 #====================Asyncronous clocks==========================================
 
