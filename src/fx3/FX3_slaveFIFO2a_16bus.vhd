@@ -55,6 +55,7 @@ entity FX3_slaveFIFO2a_16bus is
 		--infifo signals (FX3->FPGA)
 		infifo_wrreq		: out std_logic;
 		infifo_wrusedw		: in std_logic_vector(fpga_infifo_size-1 downto 0);
+		infifo_rdy			: in std_logic;
 		--in buffer signals (FX3->FPGA)
 		in_buffer_rdy		: in std_logic; -- ensure that in_buffer_rdy is asserted only when buffer can accept more than infifo_lowlimit words.
 		in_buffer_wrreq	: out std_logic;
@@ -392,7 +393,7 @@ end process;
 
   --comb internal signals
 	outfifo_ready			<= '1' when unsigned(outfifo_rdusedw) >= outfifo_uplimit else '0';
-	infifo_ready			<= '1' when unsigned(infifo_wrusedw) < (fpga_infifo_wwords - infifo_lowlimit) else '0';
+	infifo_ready			<= '1' when unsigned(infifo_wrusedw) < (fpga_infifo_wwords - infifo_lowlimit) and infifo_rdy='1' else '0';
 	infifo_starving		<= infifo_ready when in_dest_sel='1' else 
 								in_buffer_rdy;
 	infifo_write <= not slrd_streamOUT_n when slrd_streamOUT_n='1' else 

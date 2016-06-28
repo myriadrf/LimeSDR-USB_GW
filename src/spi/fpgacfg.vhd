@@ -72,6 +72,7 @@ entity fpgacfg is
 --		LMS2_TXEN			: out std_logic;
 --		LMS2_RXEN			: out std_logic
 
+
 	);
 end fpgacfg;
 
@@ -188,7 +189,7 @@ begin
 			--Read only registers
 			mem(0)	<= "0000000000001110"; -- 00 frre, Board ID (LimeSDR-USB)
 			mem(1)	<= "0000000000000001"; -- 00 free, Function (1)
-			mem(2)	<= "0000000000001011"; -- 00 free, GW wersion (B)
+			mem(2)	<= "0000000000001101"; -- 00 free, GW wersion (D)
 			mem(3)	<= "0000000000000000"; -- 16 free, (Reserved)
 			--FPGA direct clocking
 			mem(4)	<= "0000000000000000"; --  0 free, phase_reg_sel
@@ -205,8 +206,8 @@ begin
 			mem(14)	<= "0000000000000000"; -- 16 free, (Reserved)
 			mem(15)	<= "0000000000000000"; -- 16 free, (Reserved)
 			--Peripheral config
-			mem(16)	<= "0000000000000000"; -- 16 free, (Reserved)
-			mem(17)	<= "0000000000000000"; -- 16 free, (Reserved)
+			mem(16)	<= "0000000000011000"; -- 16 free, (Reserved)
+			mem(17)	<= "0000000000000010"; -- 16 free, (Reserved)
 			mem(18)  <= "1111111111111111"; --  0 free, SPI_SS[15:0]
 			mem(19)	<= "0110111101101111"; --  0 free, rsrvd,LMS2_RXEN,LMS2_TXEN,LMS2_TXNRX2,LMS2_TXNRX1,LMS2_CORE_LDO_EN,LMS2_RESET,LMS2_SS,rsrvd,LMS1_RXEN,LMS1_TXEN,LMS1_TXNRX2,LMS1_TXNRX1,LMS1_CORE_LDO_EN,LMS1_RESET,LMS1_SS
 			mem(20)	<= "0000000000000011"; --  0 free, (Reserved LMS control)
@@ -268,6 +269,7 @@ begin
 --		LMS2_TXNRX2			<= mem(19)(12);
 --		LMS2_TXEN			<= mem(19)(13);
 --		LMS2_RXEN			<= mem(19)(14);
+
 
 
 end fpgacfg_arch;
