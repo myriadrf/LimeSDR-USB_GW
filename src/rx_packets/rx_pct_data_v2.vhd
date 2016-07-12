@@ -272,7 +272,7 @@ main_fsm : process(current_main_state, en_reg1, infifo_rdusedw, outfifo_wrusedw,
 --          end if;
 --        end if;
 
-			 if unsigned(infifo_rdusedw)>=compr_size  then --2-- to check that there is enough samples to write compress 
+			 if unsigned(infifo_rdusedw)>=to_integer(compr_size)*2  then --2-- to check that there is enough samples to write compress 
             next_main_state<=wr_samples;
           else 
             next_main_state<=check_fifo;
@@ -282,7 +282,7 @@ main_fsm : process(current_main_state, en_reg1, infifo_rdusedw, outfifo_wrusedw,
 		  
     when check_fifo =>   --check that there is enough samples for compressing data in infifo
 		if allpct_wr_cnt<pct_size/8-1 then  
-		  if unsigned(infifo_rdusedw)>=compr_size then --2
+		  if unsigned(infifo_rdusedw)>=to_integer(compr_size)*2 then --2
             next_main_state<=wr_samples;
           else 
             next_main_state<=check_fifo;
@@ -297,7 +297,7 @@ main_fsm : process(current_main_state, en_reg1, infifo_rdusedw, outfifo_wrusedw,
 			 if infifo_empty='1' then 
 				next_main_state<=check_fifo;
           elsif compr_cnt=compr_size-1 then 
-				if unsigned(infifo_rdusedw)>=compr_size and infifo_empty='0' then
+				if unsigned(infifo_rdusedw)>=to_integer(compr_size)*2 and infifo_empty='0' then
               next_main_state<=wr_samples;
             else 
               next_main_state<=check_fifo;
