@@ -50,7 +50,10 @@ entity fpgacfg is
 		txpct_loss_clr	: out std_logic;
 		rx_en				: out std_logic;
 		tx_en				: out std_logic;
-		stream_load		: out std_logic;
+		wfm_ch_en		: out std_logic_vector(15 downto 0);
+		wfm_play			: out std_logic;
+		wfm_load			: out std_logic;
+		wfm_smpl_width	: out std_logic_vector(1 downto 0);
 		SPI_SS			: out std_logic_vector(15 downto 0);
 		
 		LMS1_SS			: out std_logic;
@@ -189,7 +192,7 @@ begin
 			--Read only registers
 			mem(0)	<= "0000000000001110"; -- 00 frre, Board ID (LimeSDR-USB)
 			mem(1)	<= "0000000000000001"; -- 00 free, Function (1)
-			mem(2)	<= "0000000000001110"; -- 00 free, GW wersion (E)
+			mem(2)	<= "0000000000001111"; -- 00 free, GW wersion (F)
 			mem(3)	<= "0000000000000000"; -- 16 free, (Reserved)
 			--FPGA direct clocking
 			mem(4)	<= "0000000000000000"; --  0 free, phase_reg_sel
@@ -199,11 +202,11 @@ begin
 			mem(7)	<= "0000000000000011"; --  0 free, ch_en[15:0]
 			mem(8)	<= "0000000100000010"; --  6 free, synch_dis, mimo_int_en, reserved[5:0], smpl_width[1:0]
 			mem(9)	<= "0000000000000011"; -- 14 free, txpct_loss_clr, smpl_nr_clr,			
-			mem(10)	<= "0000000000000000"; -- 13 free, stream_load, tx_en, rx_en,
+			mem(10)	<= "0000000000000000"; -- 14 free, tx_en, rx_en,
 			mem(11)	<= "0000000000000000"; -- 16 free, (Reserved)
-			mem(12)	<= "0000000000000000"; -- 16 free, (Reserved)
-			mem(13)	<= "0000000000000000"; -- 16 free, (Reserved)
-			mem(14)	<= "0000000000000000"; -- 16 free, (Reserved)
+			mem(12)	<= "0000000000000011"; --  0 free, wfm_ch_en
+			mem(13)	<= "0000000000000000"; --  0 free, Reserved,wfm_load,wfm_play,Reserved
+			mem(14)	<= "0000000000000010"; -- 14 free, Reserved,wfm_smpl_width
 			mem(15)	<= "0000000000000000"; -- 16 free, (Reserved)
 			--Peripheral config
 			mem(16)	<= "0000000000011000"; -- 16 free, (Reserved)
@@ -247,7 +250,11 @@ begin
 		txpct_loss_clr	<= mem(9) (1);
 		rx_en				<= mem(10) (0);
 		tx_en				<= mem(10) (1);
-		stream_load		<= mem(10) (2);
+		
+		wfm_ch_en		<= mem(12) (15 downto 0);
+		wfm_play			<= mem(13) (1);
+		wfm_load			<= mem(13) (2);
+		wfm_smpl_width	<= mem(13) (1 downto 0);
 
 		for_loop : for i in 0 to 15 generate --to prevent SPI_SS to go low on same time as sen
 			SPI_SS(i)<= mem(18)(i) OR (NOT sen);

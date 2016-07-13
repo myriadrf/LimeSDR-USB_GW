@@ -245,7 +245,7 @@ main_fsm : process(current_main_state, en_reg1, infifo_rdusedw, outfifo_wrusedw,
 		
     when check_outfifo => --check that there is enough space for one packet 
 --		if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/2 or skip_packets_sig='1' then
-		if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8 or skip_packets_sig='1' then
+		if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8-5 or skip_packets_sig='1' then
 		--if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8 or skip_packets_sig='1' then --(use when testing loopback in FPGA)
         next_main_state<=wr_head; 
       else
@@ -307,7 +307,7 @@ main_fsm : process(current_main_state, en_reg1, infifo_rdusedw, outfifo_wrusedw,
           end if;
         else
 			--if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/2 or skip_packets_sig='1' then
-			if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8-1 or skip_packets_sig='1' then
+			if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8-5 or skip_packets_sig='1' then
 			--if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8 or skip_packets_sig='1' then --(use when testing loopback in FPGA) 			 
             next_main_state<=wr_head; 
           else
@@ -594,7 +594,7 @@ fsm : process(current_state, infifo_rdusedw, allpct_wr_cnt, outfifo_wrusedw, out
 			end if;
 	when skip_packets =>								--skip some packets to freeup some space in outfifo and infifo 
 			--if allpct_wr_cnt>=pct_size/2-1 and unsigned(infifo_rdusedw)<256 and unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/2 then 
-			if allpct_wr_cnt>=pct_size/8-1 and unsigned(infifo_rdusedw)<256 and unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8 then
+			if allpct_wr_cnt>=pct_size/8-1 and unsigned(infifo_rdusedw)<256 and unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8-5 then
 					next_state<=idle;
 			else 
 					next_state<=skip_packets;

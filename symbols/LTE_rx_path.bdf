@@ -1325,11 +1325,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "wrrxfifo_wr" (rect 1502 768 1556 780)(font "Arial" ))
-	(pt 1488 784)
-	(pt 1640 784)
-)
-(connector
 	(text "fifo24_full" (rect 1084 880 1134 892)(font "Arial" ))
 	(pt 1208 896)
 	(pt 1072 896)
@@ -1452,6 +1447,11 @@ agreement for further details.
 	(pt 2824 904)
 	(pt 2624 904)
 	(bus)
+)
+(connector
+	(text "wrrxfifo_wr" (rect 1502 768 1556 780)(font "Arial" ))
+	(pt 1488 784)
+	(pt 1640 784)
 )
 (text "LTE RX path" (rect -800 -216 -646 -192)(font "Arial" (font_size 16)(bold)))
 (rectangle (rect -848 -232 3736 1832)(color 0 0 0)(line_width 3))
