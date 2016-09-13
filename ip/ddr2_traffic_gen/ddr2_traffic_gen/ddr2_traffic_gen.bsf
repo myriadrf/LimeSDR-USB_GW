@@ -1,0 +1,189 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus II License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 0 0 480 272)
+	(text "ddr2_traffic_gen" (rect 191 -1 258 11)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 256 20 268)(font "Arial" ))
+	(port
+		(pt 480 72)
+		(input)
+		(text "avl_ready" (rect 0 0 41 12)(font "Arial" (font_size 8)))
+		(text "avl_ready" (rect 429 61 483 72)(font "Arial" (font_size 8)))
+		(line (pt 480 72)(pt 336 72)(line_width 1))
+	)
+	(port
+		(pt 480 136)
+		(input)
+		(text "avl_rdata[31..0]" (rect 0 0 61 12)(font "Arial" (font_size 8)))
+		(text "avl_rdata[31..0]" (rect 404 125 500 136)(font "Arial" (font_size 8)))
+		(line (pt 480 136)(pt 336 136)(line_width 3))
+	)
+	(port
+		(pt 480 184)
+		(input)
+		(text "avl_rdata_valid" (rect 0 0 61 12)(font "Arial" (font_size 8)))
+		(text "avl_rdata_valid" (rect 403 173 493 184)(font "Arial" (font_size 8)))
+		(line (pt 480 184)(pt 336 184)(line_width 1))
+	)
+	(port
+		(pt 0 72)
+		(input)
+		(text "clk" (rect 0 0 10 12)(font "Arial" (font_size 8)))
+		(text "clk" (rect 4 61 22 72)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 144 72)(line_width 1))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "reset_n" (rect 0 0 30 12)(font "Arial" (font_size 8)))
+		(text "reset_n" (rect 4 101 46 112)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 144 112)(line_width 1))
+	)
+	(port
+		(pt 480 88)
+		(output)
+		(text "avl_addr[24..0]" (rect 0 0 61 12)(font "Arial" (font_size 8)))
+		(text "avl_addr[24..0]" (rect 405 77 495 88)(font "Arial" (font_size 8)))
+		(line (pt 480 88)(pt 336 88)(line_width 3))
+	)
+	(port
+		(pt 480 104)
+		(output)
+		(text "avl_size[1..0]" (rect 0 0 50 12)(font "Arial" (font_size 8)))
+		(text "avl_size[1..0]" (rect 415 93 499 104)(font "Arial" (font_size 8)))
+		(line (pt 480 104)(pt 336 104)(line_width 3))
+	)
+	(port
+		(pt 480 120)
+		(output)
+		(text "avl_wdata[31..0]" (rect 0 0 63 12)(font "Arial" (font_size 8)))
+		(text "avl_wdata[31..0]" (rect 398 109 494 120)(font "Arial" (font_size 8)))
+		(line (pt 480 120)(pt 336 120)(line_width 3))
+	)
+	(port
+		(pt 480 152)
+		(output)
+		(text "avl_write_req" (rect 0 0 54 12)(font "Arial" (font_size 8)))
+		(text "avl_write_req" (rect 409 141 487 152)(font "Arial" (font_size 8)))
+		(line (pt 480 152)(pt 336 152)(line_width 1))
+	)
+	(port
+		(pt 480 168)
+		(output)
+		(text "avl_read_req" (rect 0 0 54 12)(font "Arial" (font_size 8)))
+		(text "avl_read_req" (rect 412 157 484 168)(font "Arial" (font_size 8)))
+		(line (pt 480 168)(pt 336 168)(line_width 1))
+	)
+	(port
+		(pt 480 200)
+		(output)
+		(text "avl_be[3..0]" (rect 0 0 47 12)(font "Arial" (font_size 8)))
+		(text "avl_be[3..0]" (rect 421 189 493 200)(font "Arial" (font_size 8)))
+		(line (pt 480 200)(pt 336 200)(line_width 3))
+	)
+	(port
+		(pt 480 216)
+		(output)
+		(text "avl_burstbegin" (rect 0 0 57 12)(font "Arial" (font_size 8)))
+		(text "avl_burstbegin" (rect 406 205 490 216)(font "Arial" (font_size 8)))
+		(line (pt 480 216)(pt 336 216)(line_width 1))
+	)
+	(port
+		(pt 0 152)
+		(output)
+		(text "pnf_per_bit[31..0]" (rect 0 0 69 12)(font "Arial" (font_size 8)))
+		(text "pnf_per_bit[31..0]" (rect 4 141 112 152)(font "Arial" (font_size 8)))
+		(line (pt 0 152)(pt 144 152)(line_width 3))
+	)
+	(port
+		(pt 0 168)
+		(output)
+		(text "pnf_per_bit_persist[31..0]" (rect 0 0 101 12)(font "Arial" (font_size 8)))
+		(text "pnf_per_bit_persist[31..0]" (rect 4 157 160 168)(font "Arial" (font_size 8)))
+		(line (pt 0 168)(pt 144 168)(line_width 3))
+	)
+	(port
+		(pt 0 208)
+		(output)
+		(text "pass" (rect 0 0 18 12)(font "Arial" (font_size 8)))
+		(text "pass" (rect 4 197 28 208)(font "Arial" (font_size 8)))
+		(line (pt 0 208)(pt 144 208)(line_width 1))
+	)
+	(port
+		(pt 0 224)
+		(output)
+		(text "fail" (rect 0 0 10 12)(font "Arial" (font_size 8)))
+		(text "fail" (rect 4 213 28 224)(font "Arial" (font_size 8)))
+		(line (pt 0 224)(pt 144 224)(line_width 1))
+	)
+	(port
+		(pt 0 240)
+		(output)
+		(text "test_complete" (rect 0 0 55 12)(font "Arial" (font_size 8)))
+		(text "test_complete" (rect 4 229 82 240)(font "Arial" (font_size 8)))
+		(line (pt 0 240)(pt 144 240)(line_width 1))
+	)
+	(drawing
+		(text "avl" (rect 337 43 692 99)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "waitrequest_n" (rect 274 67 626 144)(font "Arial" (color 0 0 0)))
+		(text "address" (rect 299 83 640 176)(font "Arial" (color 0 0 0)))
+		(text "burstcount" (rect 288 99 636 208)(font "Arial" (color 0 0 0)))
+		(text "writedata" (rect 295 115 644 240)(font "Arial" (color 0 0 0)))
+		(text "readdata" (rect 296 131 640 272)(font "Arial" (color 0 0 0)))
+		(text "write" (rect 313 147 656 304)(font "Arial" (color 0 0 0)))
+		(text "read" (rect 314 163 652 336)(font "Arial" (color 0 0 0)))
+		(text "readdatavalid" (rect 276 179 630 368)(font "Arial" (color 0 0 0)))
+		(text "byteenable" (rect 287 195 634 400)(font "Arial" (color 0 0 0)))
+		(text "beginbursttransfer" (rect 254 211 616 432)(font "Arial" (color 0 0 0)))
+		(text "avl_clock" (rect 92 43 238 99)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 149 67 316 144)(font "Arial" (color 0 0 0)))
+		(text "avl_reset" (rect 91 83 236 179)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "reset_n" (rect 149 107 340 224)(font "Arial" (color 0 0 0)))
+		(text "pnf" (rect 126 123 270 259)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "pnf_per_bit" (rect 149 147 364 304)(font "Arial" (color 0 0 0)))
+		(text "pnf_per_bit_persist" (rect 149 163 412 336)(font "Arial" (color 0 0 0)))
+		(text "status" (rect 109 179 254 371)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "pass" (rect 149 203 322 416)(font "Arial" (color 0 0 0)))
+		(text "fail" (rect 149 219 322 448)(font "Arial" (color 0 0 0)))
+		(text "test_complete" (rect 149 235 376 480)(font "Arial" (color 0 0 0)))
+		(text " ddr2_traffic_gen " (rect 404 256 916 522)(font "Arial" ))
+		(line (pt 144 32)(pt 336 32)(line_width 1))
+		(line (pt 336 32)(pt 336 256)(line_width 1))
+		(line (pt 144 256)(pt 336 256)(line_width 1))
+		(line (pt 144 32)(pt 144 256)(line_width 1))
+		(line (pt 335 52)(pt 335 220)(line_width 1))
+		(line (pt 334 52)(pt 334 220)(line_width 1))
+		(line (pt 145 52)(pt 145 76)(line_width 1))
+		(line (pt 146 52)(pt 146 76)(line_width 1))
+		(line (pt 145 92)(pt 145 116)(line_width 1))
+		(line (pt 146 92)(pt 146 116)(line_width 1))
+		(line (pt 145 132)(pt 145 172)(line_width 1))
+		(line (pt 146 132)(pt 146 172)(line_width 1))
+		(line (pt 145 188)(pt 145 244)(line_width 1))
+		(line (pt 146 188)(pt 146 244)(line_width 1))
+		(line (pt 0 0)(pt 480 0)(line_width 1))
+		(line (pt 480 0)(pt 480 272)(line_width 1))
+		(line (pt 0 272)(pt 480 272)(line_width 1))
+		(line (pt 0 0)(pt 0 272)(line_width 1))
+	)
+)

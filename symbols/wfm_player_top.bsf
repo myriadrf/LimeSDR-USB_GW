@@ -21,9 +21,9 @@ agreement for further details.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 384 352)
+	(rect 16 16 384 448)
 	(text "wfm_player_top" (rect 5 0 71 12)(font "Arial" ))
-	(text "inst" (rect 8 320 20 332)(font "Arial" ))
+	(text "inst" (rect 8 416 20 428)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -114,6 +114,20 @@ agreement for further details.
 		(text "iq_clk" (rect 0 0 22 12)(font "Arial" ))
 		(text "iq_clk" (rect 21 219 43 231)(font "Arial" ))
 		(line (pt 0 224)(pt 16 224)(line_width 1))
+	)
+	(port
+		(pt 0 240)
+		(input)
+		(text "begin_test" (rect 0 0 40 12)(font "Arial" ))
+		(text "begin_test" (rect 21 235 61 247)(font "Arial" ))
+		(line (pt 0 240)(pt 16 240)(line_width 1))
+	)
+	(port
+		(pt 0 256)
+		(input)
+		(text "insert_error" (rect 0 0 47 12)(font "Arial" ))
+		(text "insert_error" (rect 21 251 68 263)(font "Arial" ))
+		(line (pt 0 256)(pt 16 256)(line_width 1))
 	)
 	(port
 		(pt 368 32)
@@ -214,6 +228,41 @@ agreement for further details.
 		(line (pt 368 240)(pt 352 240)(line_width 1))
 	)
 	(port
+		(pt 368 320)
+		(output)
+		(text "pnf_per_bit[31..0]" (rect 0 0 69 12)(font "Arial" ))
+		(text "pnf_per_bit[31..0]" (rect 278 315 347 327)(font "Arial" ))
+		(line (pt 368 320)(pt 352 320)(line_width 3))
+	)
+	(port
+		(pt 368 336)
+		(output)
+		(text "pnf_per_bit_persist[31..0]" (rect 0 0 101 12)(font "Arial" ))
+		(text "pnf_per_bit_persist[31..0]" (rect 246 331 347 343)(font "Arial" ))
+		(line (pt 368 336)(pt 352 336)(line_width 3))
+	)
+	(port
+		(pt 368 352)
+		(output)
+		(text "pass" (rect 0 0 18 12)(font "Arial" ))
+		(text "pass" (rect 329 347 347 359)(font "Arial" ))
+		(line (pt 368 352)(pt 352 352)(line_width 1))
+	)
+	(port
+		(pt 368 368)
+		(output)
+		(text "fail" (rect 0 0 10 12)(font "Arial" ))
+		(text "fail" (rect 337 363 347 375)(font "Arial" ))
+		(line (pt 368 368)(pt 352 368)(line_width 1))
+	)
+	(port
+		(pt 368 384)
+		(output)
+		(text "test_complete" (rect 0 0 55 12)(font "Arial" ))
+		(text "test_complete" (rect 292 379 347 391)(font "Arial" ))
+		(line (pt 368 384)(pt 352 384)(line_width 1))
+	)
+	(port
 		(pt 368 256)
 		(bidir)
 		(text "mem_clk[0..0]" (rect 0 0 57 12)(font "Arial" ))
@@ -302,7 +351,7 @@ agreement for further details.
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
-		(rectangle (rect 16 16 352 320)(line_width 1))
+		(rectangle (rect 16 16 352 416)(line_width 1))
 	)
 	(annotation_block (parameter)(rect 384 -64 484 16))
 )

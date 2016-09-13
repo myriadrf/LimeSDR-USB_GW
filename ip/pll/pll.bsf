@@ -132,7 +132,7 @@ agreement for further details.
 	)
 	(drawing
 		(text "Cyclone IV E" (rect 300 233 655 477)(font "Arial" ))
-		(text "inclk0 frequency: 200.000 MHz" (rect 130 140 388 291)(font "Arial" ))
+		(text "inclk0 frequency: 160.000 MHz" (rect 130 140 388 291)(font "Arial" ))
 		(text "Operation Mode: Src Sync Comp" (rect 130 153 396 317)(font "Arial" ))
 		(text "Clk " (rect 131 174 276 359)(font "Arial" ))
 		(text "Ratio" (rect 152 174 324 359)(font "Arial" ))
@@ -144,7 +144,7 @@ agreement for further details.
 		(text "50.00" (rect 216 188 453 387)(font "Arial" ))
 		(text "c1" (rect 134 202 275 415)(font "Arial" ))
 		(text "1/1" (rect 157 202 324 415)(font "Arial" ))
-		(text "0.00" (rect 184 202 384 415)(font "Arial" ))
+		(text "90.00" (rect 182 202 385 415)(font "Arial" ))
 		(text "50.00" (rect 216 202 453 415)(font "Arial" ))
 		(line (pt 0 0)(pt 377 0))
 		(line (pt 377 0)(pt 377 250))

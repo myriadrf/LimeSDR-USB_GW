@@ -71,7 +71,15 @@ entity wfm_player_top is
 		mem_clk					: inout std_logic_vector (0 DOWNTO 0);
 		mem_clk_n				: inout std_logic_vector (0 DOWNTO 0);
 		mem_dq					: inout std_logic_vector (15 DOWNTO 0);
-		mem_dqs					: inout std_logic_vector (1 DOWNTO 0) 
+		mem_dqs					: inout std_logic_vector (1 DOWNTO 0);
+		begin_test				: in std_logic;
+		insert_error			: in std_logic;
+		pnf_per_bit			 	: out std_logic_vector(31 downto 0);
+		pnf_per_bit_persist 	: out std_logic_vector(31 downto 0);
+		pass                	: out std_logic;
+		fail                	: out std_logic; 
+		test_complete       	: out std_logic
+		
         
         );
 end wfm_player_top;
@@ -228,7 +236,14 @@ component DDR2_ctrl_top is
 		mem_clk				: inout std_logic_vector (0 DOWNTO 0);
 		mem_clk_n			: inout std_logic_vector (0 DOWNTO 0);
 		mem_dq				: inout std_logic_vector (15 DOWNTO 0);
-		mem_dqs				: inout std_logic_vector (1 DOWNTO 0)
+		mem_dqs				: inout std_logic_vector (1 DOWNTO 0);
+		begin_test				: in std_logic;
+		insert_error			: in std_logic;
+		pnf_per_bit				: out std_logic_vector(31 downto 0);
+		pnf_per_bit_persist 	: out std_logic_vector(31 downto 0);
+		pass                	: out std_logic;
+		fail                	: out std_logic; 
+		test_complete       	: out std_logic
 
       --output ports 
         
@@ -477,7 +492,14 @@ port map(
 		mem_clk					=> mem_clk,
 		mem_clk_n				=> mem_clk_n,
 		mem_dq					=> mem_dq,
-		mem_dqs					=> mem_dqs
+		mem_dqs					=> mem_dqs,
+		begin_test				=> begin_test,
+		insert_error			=> insert_error,
+		pnf_per_bit				=> pnf_per_bit, 
+		pnf_per_bit_persist  => pnf_per_bit_persist,
+		pass                	=> pass,
+		fail                	=> fail, 
+		test_complete       	=> test_complete
 	
     );
 	 

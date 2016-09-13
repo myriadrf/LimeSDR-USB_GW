@@ -307,12 +307,13 @@ main_fsm : process(current_main_state, en_reg1, infifo_rdusedw, outfifo_wrusedw,
           end if;
         else
 			--if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/2 or skip_packets_sig='1' then
-			if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8-5 or skip_packets_sig='1' then
-			--if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8 or skip_packets_sig='1' then --(use when testing loopback in FPGA) 			 
-            next_main_state<=wr_head; 
-          else
-            next_main_state<=idle;
-          end if;
+--			if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8-5 or skip_packets_sig='1' then
+--			--if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8 or skip_packets_sig='1' then --(use when testing loopback in FPGA) 			 
+--            next_main_state<=wr_head; 
+--          else
+--            next_main_state<=idle;
+--          end if;
+			next_main_state<=idle;
         end if;
 		  
     when others =>
@@ -559,8 +560,8 @@ cmpr_inst : compress_v2
 	else
 		skip_packets_sig<='0';
 	end if;
-end process; 
-	
+end process;
+
 -------------------------------------------------------------------------------
 --packet skipping state machine
 -------------------------------------------------------------------------------
@@ -575,7 +576,7 @@ end process;
 -------------------------------------------------------------------------------
 --packet skipping state combo
 -------------------------------------------------------------------------------
-fsm : process(current_state, infifo_rdusedw, allpct_wr_cnt, outfifo_wrusedw, outfifo_reserve) begin
+fsm : process(current_state, infifo_rdusedw, allpct_wr_cnt, outfifo_wrusedw, outfifo_reserve, current_main_state) begin
   next_state <= current_state;
   case current_state is
     when idle =>
@@ -587,7 +588,7 @@ fsm : process(current_state, infifo_rdusedw, allpct_wr_cnt, outfifo_wrusedw, out
 		end if;
 	when wait_pct_end =>                      --make sure that full packet is written to outfifo
 			--if allpct_wr_cnt>=pct_size/2-1 or allpct_wr_cnt=0 then
-			if allpct_wr_cnt>=pct_size/8-1 or allpct_wr_cnt=0 then 	
+			if (allpct_wr_cnt>=pct_size/8-1 and current_main_state=wr_samples) or current_main_state=idle then 	
 					next_state<=skip_packets;
 			else 
 				next_state<=wait_pct_end;

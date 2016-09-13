@@ -64,7 +64,14 @@ entity DDR2_ctrl_top is
 		mem_clk				: inout std_logic_vector (0 DOWNTO 0);
 		mem_clk_n			: inout std_logic_vector (0 DOWNTO 0);
 		mem_dq				: inout std_logic_vector (15 DOWNTO 0);
-		mem_dqs				: inout std_logic_vector (1 DOWNTO 0)
+		mem_dqs				: inout std_logic_vector (1 DOWNTO 0);
+		begin_test				: in std_logic;
+		insert_error			: in std_logic;
+		pnf_per_bit         : out std_logic_vector(31 downto 0);   
+		pnf_per_bit_persist 	: out std_logic_vector(31 downto 0);
+		pass                	: out std_logic;
+		fail                	: out std_logic; 
+		test_complete       	: out std_logic
 
       --output ports 
         
@@ -109,6 +116,28 @@ signal ddr2arb_local_wdata			: std_logic_vector(cntrl_bus_size*2*cntrl_rate-1 do
 signal ddr2arb_local_be				: std_logic_vector(4*cntrl_rate-1 downto 0);
 signal ddr2arb_local_size			: std_logic_vector(1 downto 0);	
 
+--avalon MM bus signals
+signal avl_ready           : std_logic;
+signal avl_addr            : std_logic_vector(24 downto 0);
+signal avl_size            : std_logic_vector(1 downto 0);
+signal avl_wdata           : std_logic_vector(31 downto 0);
+signal avl_rdata, avl_rdata_error    : std_logic_vector(31 downto 0);
+signal avl_write_req       : std_logic;
+signal avl_read_req        : std_logic;
+signal avl_rdata_valid     : std_logic;
+signal avl_be              : std_logic_vector(3 downto 0);
+signal avl_burstbegin      : std_logic; 
+
+signal tst_ready           : std_logic;
+signal tst_addr            : std_logic_vector(24 downto 0);
+signal tst_size            : std_logic_vector(1 downto 0);
+signal tst_wdata           : std_logic_vector(31 downto 0);
+signal tst_rdata, tst_rdata_error    : std_logic_vector(31 downto 0);
+signal tst_write_req       : std_logic;
+signal tst_read_req        : std_logic;
+signal tst_rdata_valid     : std_logic;
+signal tst_be              : std_logic_vector(3 downto 0);
+signal tst_burstbegin      : std_logic;   
 
 component fifo_inst is
   generic(dev_family	     : string  := "Cyclone IV E";
@@ -211,6 +240,28 @@ component ddr2 IS
 		mem_dqs				: INOUT STD_LOGIC_VECTOR (1 DOWNTO 0)
 	);
 END component;
+
+component ddr2_traffic_gen is
+	port (
+		avl_ready           : in  std_logic                     := '0';             --       avl.waitrequest_n
+		avl_addr            : out std_logic_vector(24 downto 0);                    --          .address
+		avl_size            : out std_logic_vector(1 downto 0);                     --          .burstcount
+		avl_wdata           : out std_logic_vector(31 downto 0);                    --          .writedata
+		avl_rdata           : in  std_logic_vector(31 downto 0) := (others => '0'); --          .readdata
+		avl_write_req       : out std_logic;                                        --          .write
+		avl_read_req        : out std_logic;                                        --          .read
+		avl_rdata_valid     : in  std_logic                     := '0';             --          .readdatavalid
+		avl_be              : out std_logic_vector(3 downto 0);                     --          .byteenable
+		avl_burstbegin      : out std_logic;                                        --          .beginbursttransfer
+		clk                 : in  std_logic                     := '0';             -- avl_clock.clk
+		reset_n             : in  std_logic                     := '0';             -- avl_reset.reset_n
+		pnf_per_bit         : out std_logic_vector(31 downto 0);                    --       pnf.pnf_per_bit
+		pnf_per_bit_persist : out std_logic_vector(31 downto 0);                    --          .pnf_per_bit_persist
+		pass                : out std_logic;                                        --    status.pass
+		fail                : out std_logic;                                        --          .fail
+		test_complete       : out std_logic                                         --          .test_complete
+	);
+end component;
 
   
 begin
@@ -332,21 +383,42 @@ DDR2_arb_inst :  DDR2_arb
 --    end process;
 
 
+traffic_gen_inst : ddr2_traffic_gen
+	port map (
+		avl_ready				=> ddr2_local_ready,
+		avl_addr					=> tst_addr,
+		avl_size					=> tst_size,
+		avl_wdata				=> tst_wdata,
+		avl_rdata				=> tst_rdata,
+		avl_write_req			=> tst_write_req,
+		avl_read_req			=> tst_read_req,
+		avl_rdata_valid		=> tst_rdata_valid,
+		avl_be					=> tst_be,
+		avl_burstbegin			=> tst_burstbegin,
+		clk						=> ddr2_phy_clk,
+		reset_n					=> begin_test, --ddr2_local_init_done,
+		pnf_per_bit				=> pnf_per_bit,
+		pnf_per_bit_persist	=> pnf_per_bit_persist,
+		pass						=> pass,
+		fail						=> fail,
+		test_complete			=> test_complete 
+	);	
+
 ddr2_inst : ddr2
 	PORT map (
-		local_address		=> ddr2arb_local_addr, 
-		local_write_req	=> ddr2arb_local_write_req, 
-		local_read_req		=> ddr2arb_local_read_req, 
-		local_burstbegin	=> ddr2arb_local_burstbegin, 
-		local_wdata			=> ddr2arb_local_wdata, 
-		local_be				=> ddr2arb_local_be, 
-		local_size			=> ddr2arb_local_size, 
+		local_address		=> avl_addr, 
+		local_write_req	=> avl_write_req, 
+		local_read_req		=> avl_read_req, 
+		local_burstbegin	=> avl_burstbegin, 
+		local_wdata			=> avl_wdata, 
+		local_be				=> avl_be, 
+		local_size			=> avl_size, 
 		global_reset_n		=> global_reset_n, 
 		pll_ref_clk			=> pll_ref_clk, 
 		soft_reset_n		=> soft_reset_n, 
 		local_ready			=> ddr2_local_ready, 
-		local_rdata			=> local_rdata, 
-		local_rdata_valid	=> local_rdata_valid, 
+		local_rdata			=> avl_rdata, 
+		local_rdata_valid	=> avl_rdata_valid, 
 		local_refresh_ack	=> open, 
 		local_init_done	=> ddr2_local_init_done, 
 		reset_phy_clk_n	=> open, 
@@ -368,6 +440,20 @@ ddr2_inst : ddr2
 		mem_dq				=> mem_dq, 
 		mem_dqs				=> mem_dqs 
 	);
+
+avl_addr 		<= tst_addr 		when begin_test='1' else ddr2arb_local_addr;
+avl_write_req	<=	tst_write_req 	when begin_test='1' else ddr2arb_local_write_req;
+avl_read_req	<=	tst_read_req 	when begin_test='1' else ddr2arb_local_read_req;
+avl_burstbegin <= tst_burstbegin when begin_test='1' else ddr2arb_local_burstbegin;
+avl_wdata		<= tst_wdata 		when begin_test='1' else ddr2arb_local_wdata;
+avl_be			<= tst_be 			when begin_test='1' else ddr2arb_local_be;
+avl_size			<= tst_size 		when begin_test='1' else ddr2arb_local_size;
+
+local_rdata				<= avl_rdata;
+local_rdata_valid 	<= avl_rdata_valid;
+
+tst_rdata			<= avl_rdata(31 downto 1) & '0' when insert_error='1' else avl_rdata;
+tst_rdata_valid 	<= avl_rdata_valid when begin_test='1' else '0';
 
 
 phy_clk<=ddr2_phy_clk;
