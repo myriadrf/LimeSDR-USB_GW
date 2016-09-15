@@ -1118,7 +1118,7 @@ agreement for further details.
 		(text "50.00" (rect 216 188 243 200)(font "Arial" ))
 		(text "c1" (rect 134 202 145 214)(font "Arial" ))
 		(text "1/1" (rect 157 202 172 214)(font "Arial" ))
-		(text "90.00" (rect 182 202 209 214)(font "Arial" ))
+		(text "0.00" (rect 184 202 205 214)(font "Arial" ))
 		(text "50.00" (rect 216 202 243 214)(font "Arial" ))
 		(line (pt 0 0)(pt 377 0))
 		(line (pt 377 0)(pt 377 250))

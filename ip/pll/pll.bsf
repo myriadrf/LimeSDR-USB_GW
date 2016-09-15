@@ -144,7 +144,7 @@ agreement for further details.
 		(text "50.00" (rect 216 188 453 387)(font "Arial" ))
 		(text "c1" (rect 134 202 275 415)(font "Arial" ))
 		(text "1/1" (rect 157 202 324 415)(font "Arial" ))
-		(text "90.00" (rect 182 202 385 415)(font "Arial" ))
+		(text "0.00" (rect 184 202 384 415)(font "Arial" ))
 		(text "50.00" (rect 216 202 453 415)(font "Arial" ))
 		(line (pt 0 0)(pt 377 0))
 		(line (pt 377 0)(pt 377 250))

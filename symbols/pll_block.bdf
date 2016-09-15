@@ -1118,7 +1118,7 @@ agreement for further details.
 		(text "50.00" (rect 216 188 243 200)(font "Arial" ))
 		(text "c1" (rect 134 202 145 214)(font "Arial" ))
 		(text "1/1" (rect 157 202 172 214)(font "Arial" ))
-		(text "90.00" (rect 182 202 209 214)(font "Arial" ))
+		(text "0.00" (rect 184 202 205 214)(font "Arial" ))
 		(text "50.00" (rect 216 202 243 214)(font "Arial" ))
 		(line (pt 0 0)(pt 377 0))
 		(line (pt 377 0)(pt 377 250))
@@ -1309,11 +1309,6 @@ agreement for further details.
 	(text "pll_arst" (rect 952 912 987 924)(font "Arial" ))
 	(pt 944 928)
 	(pt 1016 928)
-)
-(connector
-	(text "c0_ddr" (rect 2529 280 2562 292)(font "Arial" ))
-	(pt 2648 296)
-	(pt 2504 296)
 )
 (connector
 	(text "c0_ddr" (rect 2049 704 2082 716)(font "Arial" ))
@@ -1508,16 +1503,6 @@ agreement for further details.
 	(pt 2504 472)
 )
 (connector
-	(text "c1_out" (rect 2531 312 2564 324)(font "Arial" ))
-	(pt 2504 328)
-	(pt 2648 328)
-)
-(connector
-	(text "c0_out" (rect 1739 736 1772 748)(font "Arial" ))
-	(pt 1736 752)
-	(pt 1832 752)
-)
-(connector
 	(text "pll_lock" (rect 2516 352 2552 364)(font "Arial" ))
 	(pt 2504 368)
 	(pt 2648 368)
@@ -1601,6 +1586,21 @@ agreement for further details.
 	(text "pll_lock" (rect 2228 416 2264 428)(font "Arial" ))
 	(pt 2208 432)
 	(pt 2360 432)
+)
+(connector
+	(text "c0_ddr" (rect 2529 280 2562 292)(font "Arial" ))
+	(pt 2648 296)
+	(pt 2504 296)
+)
+(connector
+	(text "c0_out" (rect 1739 736 1772 748)(font "Arial" ))
+	(pt 1736 752)
+	(pt 1832 752)
+)
+(connector
+	(text "c1_out" (rect 2531 312 2564 324)(font "Arial" ))
+	(pt 2504 328)
+	(pt 2648 328)
 )
 (text "PLL and pll control" (rect 504 168 731 192)(font "Arial" (font_size 16)(bold)))
 (rectangle (rect 480 160 2920 1352)(color 0 85 0)(line_width 2))

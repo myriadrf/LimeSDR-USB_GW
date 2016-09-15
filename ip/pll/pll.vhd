@@ -186,7 +186,7 @@ BEGIN
 		clk1_divide_by => 1,
 		clk1_duty_cycle => 50,
 		clk1_multiply_by => 1,
-		clk1_phase_shift => "1563",
+		clk1_phase_shift => "0",
 		compensate_clock => "CLK1",
 		inclk0_input_frequency => 6250,
 		intended_device_family => "Cyclone IV E",
@@ -323,7 +323,7 @@ END SYN;
 -- Retrieval info: PRIVATE: PHASE_RECONFIG_FEATURE_ENABLED STRING "1"
 -- Retrieval info: PRIVATE: PHASE_RECONFIG_INPUTS_CHECK STRING "1"
 -- Retrieval info: PRIVATE: PHASE_SHIFT0 STRING "0.00000000"
--- Retrieval info: PRIVATE: PHASE_SHIFT1 STRING "90.00000000"
+-- Retrieval info: PRIVATE: PHASE_SHIFT1 STRING "0.00000000"
 -- Retrieval info: PRIVATE: PHASE_SHIFT_STEP_ENABLED_CHECK STRING "0"
 -- Retrieval info: PRIVATE: PHASE_SHIFT_UNIT0 STRING "deg"
 -- Retrieval info: PRIVATE: PHASE_SHIFT_UNIT1 STRING "deg"
@@ -368,7 +368,7 @@ END SYN;
 -- Retrieval info: CONSTANT: CLK1_DIVIDE_BY NUMERIC "1"
 -- Retrieval info: CONSTANT: CLK1_DUTY_CYCLE NUMERIC "50"
 -- Retrieval info: CONSTANT: CLK1_MULTIPLY_BY NUMERIC "1"
--- Retrieval info: CONSTANT: CLK1_PHASE_SHIFT STRING "1563"
+-- Retrieval info: CONSTANT: CLK1_PHASE_SHIFT STRING "0"
 -- Retrieval info: CONSTANT: COMPENSATE_CLOCK STRING "CLK1"
 -- Retrieval info: CONSTANT: INCLK0_INPUT_FREQUENCY NUMERIC "6250"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"

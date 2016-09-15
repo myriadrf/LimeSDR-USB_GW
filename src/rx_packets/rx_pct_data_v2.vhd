@@ -100,7 +100,7 @@ signal skip_packets_sig	 : std_logic;
 
 --state machine signals
 type main_states   is (idle, check_infifo, check_outfifo, wr_head, wr_cnt, check_fifo,  
-                       wr_samples);
+                       wr_samples, wait_data, pct_end);
 signal current_main_state, next_main_state :   main_states;
 
 --state machine signals
@@ -232,7 +232,7 @@ end process;
 --main state machine combo
 -------------------------------------------------------------------------------
 main_fsm : process(current_main_state, en_reg1, infifo_rdusedw, outfifo_wrusedw, head_cnt, 
-                    allpct_wr_cnt, infifo_empty, compr_cnt, compr_size, outfifo_reserve, compr_reserve, skip_packets_sig) begin
+                    allpct_wr_cnt, infifo_empty, compr_cnt, compr_size, outfifo_reserve, compr_reserve, skip_packets_sig, cmprsd_data_valid) begin
   next_main_state <= current_main_state;
   case current_main_state is
     
@@ -313,8 +313,20 @@ main_fsm : process(current_main_state, en_reg1, infifo_rdusedw, outfifo_wrusedw,
 --          else
 --            next_main_state<=idle;
 --          end if;
-			next_main_state<=idle;
+			next_main_state<=wait_data;
         end if;
+	when wait_data => 
+		if cmprsd_data_valid='0' then 
+			next_main_state<= pct_end;
+		else 
+			next_main_state<=wait_data;
+		end if;
+	when pct_end => 
+		if cmprsd_data_valid='0' then 
+			next_main_state<= idle;
+		else 
+			next_main_state<=pct_end;
+		end if;
 		  
     when others =>
         next_main_state<=idle;
@@ -588,14 +600,14 @@ fsm : process(current_state, infifo_rdusedw, allpct_wr_cnt, outfifo_wrusedw, out
 		end if;
 	when wait_pct_end =>                      --make sure that full packet is written to outfifo
 			--if allpct_wr_cnt>=pct_size/2-1 or allpct_wr_cnt=0 then
-			if (allpct_wr_cnt>=pct_size/8-1 and current_main_state=wr_samples) or current_main_state=idle then 	
+			if current_main_state=idle then 	
 					next_state<=skip_packets;
 			else 
 				next_state<=wait_pct_end;
 			end if;
 	when skip_packets =>								--skip some packets to freeup some space in outfifo and infifo 
 			--if allpct_wr_cnt>=pct_size/2-1 and unsigned(infifo_rdusedw)<256 and unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/2 then 
-			if allpct_wr_cnt>=pct_size/8-1 and unsigned(infifo_rdusedw)<256 and unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8-5 then
+			if current_main_state=idle and unsigned(infifo_rdusedw)<256 and unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8-5 then
 					next_state<=idle;
 			else 
 					next_state<=skip_packets;
