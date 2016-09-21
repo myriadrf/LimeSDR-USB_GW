@@ -668,6 +668,7 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to SI_CLK6
 set_global_assignment -name SEED 1
 set_global_assignment -name SYNCHRONIZER_IDENTIFICATION AUTO
 set_instance_assignment -name VIRTUAL_PIN ON -to CLK_VIRT
+set_global_assignment -name VHDL_FILE src/general/FX3_LED_ctrl.vhd
 set_global_assignment -name VHDL_FILE src/rx_modules/rx_path.vhd
 set_global_assignment -name VHDL_FILE src/rx_packets/diq2_samples.vhd
 set_global_assignment -name VHDL_FILE src/revision/revision.vhd
@@ -739,7 +740,6 @@ set_global_assignment -name VHDL_FILE src/self_test/ddr2_tester.vhd
 set_global_assignment -name VHDL_FILE src/self_test/tstcfg.vhd
 set_global_assignment -name VHDL_FILE src/general/FPGA_LED1_cntrl.vhd
 set_global_assignment -name VHDL_FILE src/general/FPGA_LED2_ctrl.vhd
-set_global_assignment -name VHDL_FILE src/general/FX3_LED_ctrl.vhd
 set_global_assignment -name VHDL_FILE src/self_test/clock_test.vhd
 set_global_assignment -name VHDL_FILE src/self_test/clk_no_ref_test.vhd
 set_global_assignment -name VHDL_FILE src/self_test/clk_with_ref_test.vhd
