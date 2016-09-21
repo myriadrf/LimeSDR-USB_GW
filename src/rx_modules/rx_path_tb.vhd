@@ -66,7 +66,7 @@ port map(
 		data_src				=> '1',
 		fr_start				=> '0',
 		mimo_en				=> '1',
-		ch_en					=> "0000000000000011",
+		ch_en					=> "0000000000000001",
 		smpl_width			=> "10",
 		--other
 		pct_clr_detect		=> '0',

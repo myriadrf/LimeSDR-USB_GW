@@ -106,6 +106,7 @@ dataout_valid<=dec_fifo_wr;
 fifo_d<=fifo_d7 & fifo_d6 & fifo_d5 & fifo_d4 & fifo_d3 & fifo_d2 & fifo_d1 & fifo_d0; 
 --reset<=not reset_n;
   
+ 
   
  process(state, data_in_valid) begin
 	if ((state = dec12_2 or state = dec14_3 or state = dec14_6 or state = dec16_3) and data_in_valid='1') then
@@ -240,8 +241,10 @@ end process;
        when dec16_0 => --1
   			   if data_in_valid='1' then 
 			     next_state<=dec16_1;
-			     fifo_d0<=data_in(15 downto 0);
-			     fifo_d1<=data_in(31 downto 16);		   
+--			     fifo_d0<=data_in(15 downto 0);
+--			     fifo_d1<=data_in(31 downto 16);
+					fifo_d0<="0000" & data_in(15 downto 4);
+					fifo_d1<="0000" & data_in(31 downto 20);
 			  	else  
 			  	  next_state<=dec16_0;
 			  	  fifo_d0<=(others=>'0');
@@ -253,20 +256,26 @@ end process;
 			   else 
 			     next_state<=dec16_1;
 			   end if;
-			   	fifo_d2<=data_in(15 downto 0);
-			    fifo_d3<=data_in(31 downto 16);		 
+--			     fifo_d0<=data_in(15 downto 0);
+--			     fifo_d1<=data_in(31 downto 16);
+					fifo_d2<="0000" & data_in(15 downto 4);
+					fifo_d3<="0000" & data_in(31 downto 20);		 
 			 when dec16_2 => --2
 			   if data_in_valid='1' then
 			     next_state<=dec16_3;
 			   else 
 			     next_state<=dec16_2;
 			   end if;
-			   	fifo_d4<=data_in(15 downto 0);
-			    fifo_d5<=data_in(31 downto 16);			      
+--			     fifo_d0<=data_in(15 downto 0);
+--			     fifo_d1<=data_in(31 downto 16);
+					fifo_d4<="0000" & data_in(15 downto 4);
+					fifo_d5<="0000" & data_in(31 downto 20);		      
 			 when dec16_3 => --2
 			   next_state<=dec16_0;
-			   	fifo_d6<=data_in(15 downto 0);
-			    fifo_d7<=data_in(31 downto 16);			 		 
+--			     fifo_d0<=data_in(15 downto 0);
+--			     fifo_d1<=data_in(31 downto 16);
+					fifo_d6<="0000" & data_in(15 downto 4);
+					fifo_d7<="0000" & data_in(31 downto 20);		 		 
 			   	  
 			 when others =>
 				 next_state <= idle;

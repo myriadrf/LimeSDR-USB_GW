@@ -114,7 +114,7 @@ set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
 set_global_assignment -name ON_CHIP_BITSTREAM_DECOMPRESSION OFF
-set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
+set_global_assignment -name OPTIMIZATION_MODE "HIGH PERFORMANCE EFFORT"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
@@ -668,7 +668,6 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to SI_CLK6
 set_global_assignment -name SEED 1
 set_global_assignment -name SYNCHRONIZER_IDENTIFICATION AUTO
 set_instance_assignment -name VIRTUAL_PIN ON -to CLK_VIRT
-set_global_assignment -name QIP_FILE ip/clkctrl/clkctrl/synthesis/clkctrl.qip
 set_global_assignment -name VHDL_FILE src/rx_modules/rx_path.vhd
 set_global_assignment -name VHDL_FILE src/rx_packets/diq2_samples.vhd
 set_global_assignment -name VHDL_FILE src/revision/revision.vhd

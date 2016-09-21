@@ -256,7 +256,17 @@ PORT MAP(
 
 			);
  
-inst3_diq0<=(63 downto 48 => '0') & inst2_q;
+inst3_diq0<=inst2_q(47 downto 36) & "0000" & 
+				inst2_q(35 downto 24) & "0000" & 
+				inst2_q(23 downto 12) & "0000" & 
+				inst2_q(11 downto 0)  & "0000";
+				
+				
+----12bit samples are packed to 16 bit words with sign extension 
+--inst3_diq0<=(63 downto 60 => inst2_q(47)) & inst2_q(47 downto 36) & 
+--				(47 downto 44 => inst2_q(35)) & inst2_q(35 downto 24) & 
+--				(31 downto 28 => inst2_q(23)) & inst2_q(23 downto 12) & 
+--				(15 downto 12 => inst2_q(11)) & inst2_q(11 downto 0);				
 
 wrrxfifo_wr<=inst1_fifo_wr;
 end arch;   

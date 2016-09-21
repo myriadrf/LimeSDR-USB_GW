@@ -67,7 +67,7 @@ signal compr_cnt        : unsigned(2 downto 0);
 signal check_cnt        : unsigned (15 downto 0); -- can be removed, used for debuging
 --packet signals and registers
 signal pct_header       : std_logic_vector(15 downto 0);
-signal pct_smplnr       : std_logic_vector(15 downto 0);
+signal pct_smplnr       : std_logic_vector(63 downto 0);
 signal pct_rsrvd0, pct_rsrvd1, pct_rsrvd2, pct_rsrvd3   : std_logic_vector(15 downto 0);
 signal pct_rsrvd			: std_logic_vector(63 downto 0); 
 signal sample_nrcnt     : unsigned(7 downto 0);
@@ -81,8 +81,6 @@ signal head_wr_sig      : std_logic;
 signal infifo_rd_sig    : std_logic;
 signal outfifo_wr_sig   : std_logic;
 signal outfifo_reserve  : unsigned(outfifo_wrsize-2 downto 0);
---signal outfifo_reserve  : unsigned(outfifo_wrsize-5 downto 0); --(use when testing loopback in FPGA)
---and this also if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8 or skip_packets_sig='1' then
 signal outfifo_limit    : unsigned(outfifo_wrsize-1 downto 0);
 signal compr_reserve  	: integer;
 
@@ -102,6 +100,9 @@ signal skip_packets_sig	 : std_logic;
 type main_states   is (idle, check_infifo, check_outfifo, wr_head, wr_cnt, check_fifo,  
                        wr_samples, wait_data, pct_end);
 signal current_main_state, next_main_state :   main_states;
+
+signal infiford_cnt	 	: unsigned(15 downto 0);
+signal infiford_limit	: unsigned(15 downto 0);
 
 --state machine signals
 type states   is (idle, wait_pct_end, skip_packets);
@@ -142,22 +143,19 @@ end component;
   
 begin
 
---
---	pct_wr_end<='1' when allpct_wr_cnt=pct_size/2-1 else 
---	            '0';
+infiford_limit<= 	x"02A7" when sample_width_reg1="10" else 
+						x"01FD" when sample_width_reg1="01" else --to do
+						x"01FD";
 
 
-	pct_wr_end<='1' when allpct_wr_cnt=pct_size/8-1 else 
-	            '0';
+pct_wr_end<='1' when allpct_wr_cnt=pct_size/8-1 else 
+            '0';
   
-  
---  cmpr_dain<="0000"  & diq0(11 downto 0) when sample_width_reg1="10" else 
---             "00" 	& diq0(13 downto 0) when sample_width_reg1="01" else
---              diq0;
 
-  cmpr_dain<="0000000000000000"  & diq0(47 downto 0) when sample_width_reg1="10" else 
-             "00000000" 	& diq0(55 downto 0) when sample_width_reg1="01" else
-              diq0;
+cmpr_dain <= "0000000000000000"  & diq0(63 downto 52) &  diq0(47 downto 36) & diq0(31 downto 20) & diq0(15 downto 4) when sample_width_reg1="10" else 
+					"00000000" 			& diq0(63 downto 50) &  diq0(47 downto 34) & diq0(31 downto 18) & diq0(15 downto 2) when sample_width_reg1="01" else
+					diq0;				  
+				  
   
 --packet reserved bits  
   pct_rsrvd0<="000000000000" & tx_pct_loss_detect & infifo_rdusedw(infifo_rdsize-1 downto infifo_rdsize-3);
@@ -172,13 +170,11 @@ begin
 
 
 --for calculating out fifo limit  
-  compr_size<="0001" when sample_width_reg1="00" else 
+  compr_size<="0010" when sample_width_reg1="00" else 
               "1000" when sample_width_reg1="01" else
               "0100";
+				  
   outfifo_reserve<=(others=>'1'); 
---  compr_reserve<= 0 when sample_width_reg1="00" else 
---                  6 when sample_width_reg1="01" else
---                  2;  
   
 -------------------------------------------------------------------------------
 -- out fifo wr signal when writing header
@@ -232,105 +228,79 @@ end process;
 --main state machine combo
 -------------------------------------------------------------------------------
 main_fsm : process(current_main_state, en_reg1, infifo_rdusedw, outfifo_wrusedw, head_cnt, 
-                    allpct_wr_cnt, infifo_empty, compr_cnt, compr_size, outfifo_reserve, compr_reserve, skip_packets_sig, cmprsd_data_valid) begin
-  next_main_state <= current_main_state;
-  case current_main_state is
+							allpct_wr_cnt, infifo_empty, compr_cnt, compr_size, outfifo_reserve, compr_reserve, skip_packets_sig, 
+							cmprsd_data_valid, infiford_cnt, infiford_limit) begin
+	next_main_state <= current_main_state;
+	case current_main_state is
     
-    when idle =>
-      if en_reg1='1' then 
-        next_main_state<=check_outfifo;
-      else
-        next_main_state<=idle;
-      end if;
+		when idle =>			--idle wait for enable
+			if en_reg1='1' then 
+				next_main_state<=check_outfifo;
+			else
+				next_main_state<=idle;
+			end if;
 		
-    when check_outfifo => --check that there is enough space for one packet 
---		if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/2 or skip_packets_sig='1' then
-		if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8-5 or skip_packets_sig='1' then
-		--if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8 or skip_packets_sig='1' then --(use when testing loopback in FPGA)
-        next_main_state<=wr_head; 
-      else
-        next_main_state<=idle;
-      end if;
+		when check_outfifo => --check that there is enough space for one packet 
+			if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8-5 or skip_packets_sig='1' then
+				next_main_state<=wr_head; 
+			else
+				next_main_state<=idle;
+			end if;
       
-    when wr_head =>       --write reserved bits to packet
---        if head_cnt<3 then 
---          next_main_state<=wr_head;
---        else
---          next_main_state<=wr_cnt;
---        end if;
+		when wr_head =>       --write reserved bits to packet		  
+			next_main_state<=wr_cnt;
 		  
-          next_main_state<=wr_cnt;
-		  
-    when wr_cnt =>        --write sample nr counter value to packet          
---        if head_cnt<3 then 
---          next_main_state<=wr_cnt;
---        else
---			 if unsigned(infifo_rdusedw)>=2  then -- to check that there is enough samples to write compress 
---            next_main_state<=wr_samples;
---          else 
---            next_main_state<=check_fifo;
---          end if;
---        end if;
-
-			 if unsigned(infifo_rdusedw)>=to_integer(compr_size)*2  then --2-- to check that there is enough samples to write compress 
-            next_main_state<=wr_samples;
-          else 
-            next_main_state<=check_fifo;
-          end if;
-
-
-		  
-    when check_fifo =>   --check that there is enough samples for compressing data in infifo
-		if allpct_wr_cnt<pct_size/8-1 then  
-		  if unsigned(infifo_rdusedw)>=to_integer(compr_size)*2 then --2
-            next_main_state<=wr_samples;
-          else 
-            next_main_state<=check_fifo;
-          end if;
-		else 
-			next_main_state<=idle;
-		end if;
-          
-    when wr_samples =>  --fill rest of the packet with compressed samples
---        if allpct_wr_cnt<pct_size/2-1 then 
-        if allpct_wr_cnt<pct_size/8-1 then 
-			 if infifo_empty='1' then 
+		when wr_cnt =>        --write sample nr counter value to packet          
+			if unsigned(infifo_rdusedw)>=to_integer(compr_size)*2  then --2-- to check that there is enough samples to write compress 
+				next_main_state<=wr_samples;
+			else 
 				next_main_state<=check_fifo;
-          elsif compr_cnt=compr_size-1 then 
-				if unsigned(infifo_rdusedw)>=to_integer(compr_size)*2 and infifo_empty='0' then
-              next_main_state<=wr_samples;
-            else 
-              next_main_state<=check_fifo;
-            end if;
-          else
-            next_main_state<=wr_samples;
-          end if;
-        else
-			--if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/2 or skip_packets_sig='1' then
---			if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8-5 or skip_packets_sig='1' then
---			--if unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8 or skip_packets_sig='1' then --(use when testing loopback in FPGA) 			 
---            next_main_state<=wr_head; 
---          else
---            next_main_state<=idle;
---          end if;
-			next_main_state<=wait_data;
-        end if;
-	when wait_data => 
-		if cmprsd_data_valid='0' then 
-			next_main_state<= pct_end;
-		else 
-			next_main_state<=wait_data;
-		end if;
-	when pct_end => 
-		if cmprsd_data_valid='0' then 
-			next_main_state<= idle;
-		else 
-			next_main_state<=pct_end;
-		end if;
+			end if;
 		  
-    when others =>
-        next_main_state<=idle;
-  end case;
+		when check_fifo =>   --check that there is enough samples for compressing data in infifo
+			if infiford_cnt<infiford_limit then  
+				if unsigned(infifo_rdusedw)>=to_integer(compr_size)*2 then --2
+					next_main_state<=wr_samples;
+				else 
+					next_main_state<=check_fifo;
+				end if;
+			else 
+				next_main_state<=idle;
+			end if;
+          
+		when wr_samples =>  --fill rest of the packet with compressed samples
+			if  infiford_cnt<infiford_limit then 
+				if infifo_empty='1' then 
+					next_main_state<=check_fifo;
+				elsif compr_cnt=compr_size-1 then 
+					if unsigned(infifo_rdusedw)>=to_integer(compr_size)*2 and infifo_empty='0' then
+						next_main_state<=wr_samples;
+					else 
+						next_main_state<=check_fifo;
+					end if;
+				else
+					next_main_state<=wr_samples;
+				end if;
+			else
+				next_main_state<=wait_data;
+			end if;
+		  
+		when wait_data => 	--wait when there is no valid data comming from commpress module
+			if cmprsd_data_valid='0' then 
+				next_main_state<= pct_end;
+			else 
+				next_main_state<=wait_data;
+			end if;
+		when pct_end => 		--packet end state
+			if cmprsd_data_valid='0' then 
+				next_main_state<= idle;
+			else 
+				next_main_state<=pct_end;
+			end if;
+		  
+		when others =>
+			next_main_state<=idle;
+	end case;
 end process;
 
 
@@ -438,7 +408,7 @@ end process;
  	    end if;
     end process; 
 -------------------------------------------------------------------------------
--- to count active channels (!!! not sure if this will work on high frequency !!!)
+-- to count active channels
 -------------------------------------------------------------------------------    
       process (reset_n, clk) 
         variable sum : integer := 0; 
@@ -483,7 +453,29 @@ end process;
  	      end if;
  	    end if;
     end process;
-    
+ 
+
+-------------------------------------------------------------------------------
+-- counter 
+-------------------------------------------------------------------------------   
+      process(reset_n, clk)
+    begin
+      if reset_n='0' then
+          infiford_cnt<=(others=>'0');
+ 	    elsif (clk'event and clk = '1') then
+ 	      if en_reg1='1' then
+ 	        if infifo_rd_sig='1' then 
+ 	            if infiford_cnt<infiford_limit then   
+ 	                infiford_cnt<=infiford_cnt+1;
+ 	            else 
+ 	              infiford_cnt<=(others=>'0');
+ 	            end if;
+ 	        end if;
+ 	      else
+ 	        infiford_cnt<=infiford_cnt;
+ 	      end if;
+ 	    end if;
+    end process; 
     
 -------------------------------------------------------------------------------
 -- detect cleared packets in tx path
@@ -510,23 +502,11 @@ end process;
 -------------------------------------------------------------------------------
 -- pct header and sample nr muxes
 -------------------------------------------------------------------------------
---pct_header<=pct_rsrvd0 when head_cnt="00" else 
---            pct_rsrvd1 when head_cnt="01" else 
---            pct_rsrvd2 when head_cnt="10" else
---            pct_rsrvd3;
---            
---pct_smplnr<=lpmcnt_q(15 downto 0) when head_cnt="00" else 
---            lpmcnt_q(31 downto 16) when head_cnt="01" else 
---            lpmcnt_q(47 downto 32) when head_cnt="10" else
---            lpmcnt_q(63 downto 48);            
---                      
---outfifo_data<=pct_header when allpct_wr_cnt<4 else 
---              pct_smplnr when allpct_wr_cnt<8 else 
---              cmprsd_data;
-				           
-                      
+
+pct_smplnr<=(lpmcnt_q(62 downto 0) & '0')  when active_ch_cnt_reg1=1 else  lpmcnt_q(63 downto 0);                  
+
 outfifo_data<=pct_rsrvd when allpct_wr_cnt<1 else 
-              lpmcnt_q(61 downto 0) & "00" 	when allpct_wr_cnt<2 else 
+              pct_smplnr 	when allpct_wr_cnt<2 else 
               cmprsd_data;
 -------------------------------------------------------------------------------
 -- port maps of modules
@@ -556,12 +536,7 @@ cmpr_inst : compress_v2
 		q 			=> lpmcnt_q
 	);
 	
-	
-	
-	--lpmcnt_aclr<= not en_reg1;
-	lpmcnt_cnten<='1' when sample_nrcnt=active_ch_cnt_reg1*2-1 and infifo_rd_sig='1' else '0'; 
-
-
+lpmcnt_cnten<=infifo_rd_sig;
 	
 -------------------------------------------------------------------------------
 --packet skipping signal
@@ -589,32 +564,29 @@ end process;
 --packet skipping state combo
 -------------------------------------------------------------------------------
 fsm : process(current_state, infifo_rdusedw, allpct_wr_cnt, outfifo_wrusedw, outfifo_reserve, current_main_state) begin
-  next_state <= current_state;
-  case current_state is
-    when idle =>
-		--if unsigned(infifo_rdusedw)>30719 then --detect when infifo is about to become full(change this value depending on fifo size)
-		if unsigned(infifo_rdusedw)>512 then --detect when infifo is about to become full(change this value depending on fifo size)
-			next_state<=wait_pct_end;
-		else 
-			next_state<=idle;
-		end if;
-	when wait_pct_end =>                      --make sure that full packet is written to outfifo
-			--if allpct_wr_cnt>=pct_size/2-1 or allpct_wr_cnt=0 then
+	next_state <= current_state;
+	case current_state is
+		when idle =>
+			if unsigned(infifo_rdusedw)>512 then --detect when infifo is about to become full(change this value depending on fifo size)
+				next_state<=wait_pct_end;
+			else 
+				next_state<=idle;
+			end if;
+		when wait_pct_end =>                      --make sure that full packet is written to outfifo
 			if current_main_state=idle then 	
-					next_state<=skip_packets;
+				next_state<=skip_packets;
 			else 
 				next_state<=wait_pct_end;
 			end if;
-	when skip_packets =>								--skip some packets to freeup some space in outfifo and infifo 
-			--if allpct_wr_cnt>=pct_size/2-1 and unsigned(infifo_rdusedw)<256 and unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/2 then 
+		when skip_packets =>								--skip some packets to freeup some space in outfifo and infifo 
 			if current_main_state=idle and unsigned(infifo_rdusedw)<256 and unsigned(outfifo_wrusedw)<outfifo_reserve-pct_size/8-5 then
-					next_state<=idle;
+				next_state<=idle;
 			else 
-					next_state<=skip_packets;
+				next_state<=skip_packets;
 			end if;		
-	 when others=>
+		when others=>
 			next_state<=idle;
-	 end case;
+	end case;
 end process;
  
   

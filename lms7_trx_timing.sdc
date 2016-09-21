@@ -23,8 +23,8 @@ set min_diq2_data_delay [expr $min_diq2_length * $tPD_stripline]
 set max_mclk2_delay		[expr $mclk2_length * $tPD_stripline]
 set min_mclk2_delay		[expr $mclk2_length * $tPD_stripline]
 	#Calculated expresions
-set LMS7_diq2_max_dly [expr $max_diq2_data_delay + $MCLK2_period/2 - $LMS7_Tsu - $min_mclk2_delay]
-set LMS7_diq2_min_dly [expr $min_diq2_data_delay + $LMS7_Th - $min_mclk2_delay]
+set LMS_DIQ2_max_dly [expr $max_diq2_data_delay + $MCLK2_period/2 - $LMS7_Tsu - $min_mclk2_delay]
+set LMS_DIQ2_min_dly [expr $min_diq2_data_delay + $LMS7_Th - $min_mclk2_delay]
 
 
 
@@ -77,16 +77,41 @@ create_clock -period "1MHz" 			-name BRDG_SPI_SCLK			[get_ports BRDG_SPI_SCLK]
 create_clock -period $FX3_period 	-name FX3_PCLK					[get_ports FX3_PCLK] -waveform {5 10}
 
 #======================Virtual clocks============================================
-create_clock -name LMS_LAUNCH_CLK	-period $MCLK2_period
-create_clock -name FX3_PCLK_VIRT		-period $FX3_period 	  
+create_clock -name LMS_DIQ2_LAUNCH_CLK	-period $MCLK2_period
+create_clock -name FX3_PCLK_VIRT				-period $FX3_period 	  
 
 #======================Generated clocks==========================================
-create_generated_clock -name LMS_FCLK2 \
+create_generated_clock -name LMS_FCLK1_CLK \
+								-source [get_pins inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]] \
+								-phase 0 [get_pins inst33|inst35|altpll_component|auto_generated|pll1|clk[0]]
+create_generated_clock -name LMS_DIQ1_LAUNCH_CLK \
+								-source [get_pins inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]] \
+								-phase 90 [get_pins inst33|inst35|altpll_component|auto_generated|pll1|clk[1]]
+
+
+create_generated_clock -name LMS_FCLK2_CLK \
 								-source [get_pins inst32|inst35|altpll_component|auto_generated|pll1|inclk[0]] \
 								-phase 0 [get_pins inst32|inst35|altpll_component|auto_generated|pll1|clk[0]]
-create_generated_clock -name LMS_LATCH_CLK \
+create_generated_clock -name LMS_DIQ2_LATCH_CLK \
 								-source [get_pins inst32|inst35|altpll_component|auto_generated|pll1|inclk[0]] \
 								-phase 90 [get_pins inst32|inst35|altpll_component|auto_generated|pll1|clk[1]]
+								
+								
+create_generated_clock -name FX3_CLK \
+								-source [get_pins inst11|altpll_component|auto_generated|pll1|inclk[0]] \
+								-phase 0 [get_pins inst11|altpll_component|auto_generated|pll1|clk[0]] \
+								-multiply_by 37 -divide_by 10 
+								
+
+								
+#======================Clock outputs==========================================	
+create_generated_clock 	-name LMS_FCLK1 \
+								-source [get_pins {inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout}] \
+								[get_ports {LMS_FCLK1}]	
+								
+create_generated_clock 	-name LMS_FCLK2 \
+								-source [get_pins {inst32|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout}] \
+								[get_ports {LMS_FCLK2}]								
 								
 #====================Other clock constraints=====================================
 derive_pll_clocks
@@ -94,19 +119,35 @@ derive_clock_uncertainty
 
 #====================Set Input Delay=============================================
 #LMS7
-set_input_delay	-max $LMS7_diq2_max_dly \
-						-clock [get_clocks LMS_LAUNCH_CLK] [get_ports {LMS_DIQ2*}]
+set_input_delay	-max $LMS_DIQ2_max_dly \
+						-clock [get_clocks LMS_DIQ2_LAUNCH_CLK] [get_ports {LMS_DIQ2*}]
 						
-set_input_delay	-min $LMS7_diq2_min_dly \
-						-clock [get_clocks LMS_LAUNCH_CLK] [get_ports {LMS_DIQ2*}]						
+set_input_delay	-min $LMS_DIQ2_min_dly \
+						-clock [get_clocks LMS_DIQ2_LAUNCH_CLK] [get_ports {LMS_DIQ2*}]						
 						
-set_input_delay	-max $LMS7_diq2_max_dly \
-						-clock [get_clocks LMS_LAUNCH_CLK] \
+set_input_delay	-max $LMS_DIQ2_max_dly \
+						-clock [get_clocks LMS_DIQ2_LAUNCH_CLK] \
 						-clock_fall [get_ports {LMS_DIQ2*}] -add_delay
 											
-set_input_delay	-min $LMS7_diq2_min_dly \
-						-clock [get_clocks LMS_LAUNCH_CLK] \
+set_input_delay	-min $LMS_DIQ2_min_dly \
+						-clock [get_clocks LMS_DIQ2_LAUNCH_CLK] \
 						-clock_fall [get_ports {LMS_DIQ2*}] -add_delay
+						
+#====================Set Output Delay=============================================
+#LMS7						
+set_output_delay	-max $LMS7_Tsu \
+						-clock [get_clocks LMS_FCLK1] [get_ports {LMS_DIQ1*}]
+						
+set_output_delay	-min -$LMS7_Th \
+						-clock [get_clocks LMS_FCLK1] [get_ports {LMS_DIQ1*}]						
+						
+set_output_delay	-max $LMS7_Tsu \
+						-clock [get_clocks LMS_FCLK1] \
+						-clock_fall [get_ports {LMS_DIQ1*}] -add_delay
+											
+set_output_delay	-min -$LMS7_Th \
+						-clock [get_clocks LMS_FCLK1] \
+						-clock_fall [get_ports {LMS_DIQ1*}] -add_delay						
 						
 
 
@@ -147,15 +188,32 @@ set_clock_groups -asynchronous 	-group {SI_CLK0 inst27|DDR2_ctrl_top_inst|ddr2_i
 											-group {SI_CLK7} \
 											-group {LMK_CLK} \
 											-group {BRDG_SPI_SCLK} \
-											-group {FX3_PCLK} \
-											-group {LMS_MCLK1 inst33|inst35|altpll_component|auto_generated|pll1|clk[0] \
-														inst33|inst35|altpll_component|auto_generated|pll1|clk[1]} \
-											-group {LMS_MCLK2 LMS_FCLK2 LMS_LATCH_CLK LMS_LAUNCH_CLK}
+											-group {FX3_PCLK FX3_CLK FX3_PCLK_VIRT} \
+											-group {LMS_MCLK1 LMS_FCLK1_CLK LMS_DIQ1_LAUNCH_CLK LMS_FCLK1} \
+											-group {LMS_MCLK2 LMS_FCLK2_CLK LMS_FCLK2 LMS_DIQ2_LAUNCH_CLK LMS_DIQ2_LATCH_CLK}
 
 #============================false paths========================================
 
-#between edege aligned same edge transfers 
-#None
+#Between Center aligned same edge transfers in DIQ1 interface
+set_false_path -setup -rise_from [get_clocks LMS_DIQ1_LAUNCH_CLK] -rise_to \
+											[get_clocks LMS_FCLK1]
+set_false_path -setup -fall_from [get_clocks LMS_DIQ1_LAUNCH_CLK] -fall_to \
+											[get_clocks LMS_FCLK1]
+set_false_path -hold -rise_from [get_clocks LMS_DIQ1_LAUNCH_CLK] -fall_to \
+											[get_clocks LMS_FCLK1]
+set_false_path -hold -fall_from [get_clocks LMS_DIQ1_LAUNCH_CLK] -rise_to \
+											[get_clocks LMS_FCLK1]
+											
+											
+#Between Center aligned same edge transfers in DIQ1 interface
+set_false_path -setup -rise_from [get_clocks LMS_DIQ2_LAUNCH_CLK] -fall_to \
+											[get_clocks LMS_DIQ2_LATCH_CLK]
+set_false_path -setup -fall_from [get_clocks LMS_DIQ2_LAUNCH_CLK] -rise_to \
+											[get_clocks LMS_DIQ2_LATCH_CLK]
+set_false_path -hold -rise_from [get_clocks LMS_DIQ2_LAUNCH_CLK] -rise_to \
+											[get_clocks LMS_DIQ2_LATCH_CLK]
+set_false_path -hold -fall_from [get_clocks LMS_DIQ2_LAUNCH_CLK] -fall_to \
+											[get_clocks LMS_DIQ2_LATCH_CLK]											
 
 #====================Asyncronous clocks==========================================
 
