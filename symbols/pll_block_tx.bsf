@@ -21,9 +21,9 @@ agreement for further details.
 */
 (header "symbol" (version "1.2"))
 (symbol
-	(rect 16 16 280 304)
+	(rect 16 16 280 336)
 	(text "pll_block_tx" (rect 5 0 71 14)(font "Arial" (font_size 8)))
-	(text "inst" (rect 8 272 25 284)(font "Arial" ))
+	(text "inst" (rect 8 304 25 316)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -130,6 +130,13 @@ agreement for further details.
 		(line (pt 0 256)(pt 16 256)(line_width 3))
 	)
 	(port
+		(pt 0 272)
+		(input)
+		(text "FCLK_ENA" (rect 0 0 62 14)(font "Arial" (font_size 8)))
+		(text "FCLK_ENA" (rect 21 267 83 281)(font "Arial" (font_size 8)))
+		(line (pt 0 272)(pt 16 272))
+	)
+	(port
 		(pt 264 32)
 		(output)
 		(text "c0" (rect 0 0 14 14)(font "Arial" (font_size 8)))
@@ -165,6 +172,6 @@ agreement for further details.
 		(line (pt 264 96)(pt 248 96))
 	)
 	(drawing
-		(rectangle (rect 16 16 248 272))
+		(rectangle (rect 16 16 248 304))
 	)
 )

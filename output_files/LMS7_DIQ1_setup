@@ -1,0 +1,1078 @@
+----------------
+; Command Info ;
+----------------
+Report Timing: Found 10 setup paths (10 violated).  Worst case slack is -1.808 
+
+Tcl Command:
+    report_timing -append -setup -file H:/working_dir/altera/LimeSDR-USB/lms7_trx/output_files/LMS7_DIQ1_setup -panel_name {Report Timing} -from_clock [get_clocks { LMS_DIQ1_LAUNCH_CLK }] -to_clock [get_clocks { LMS_FCLK1 }] -npaths 10 -detail full_path
+
+Options:
+    -from_clock [get_clocks { LMS_DIQ1_LAUNCH_CLK }] 
+    -to_clock [get_clocks { LMS_FCLK1 }] 
+    -setup 
+    -npaths 10 
+    -detail full_path 
+    -panel_name {Report Timing} 
+    -file {H:/working_dir/altera/LimeSDR-USB/lms7_trx/output_files/LMS7_DIQ1_setup} 
+    -append 
+
+Delay Model:
+    Slow 1200mV 85C Model
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Summary of Paths                                                                                                                                                 ;
++--------+-----------------------------------------------------------+----------------+---------------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                                                 ; To Node        ; Launch Clock        ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+-----------------------------------------------------------+----------------+---------------------+-------------+--------------+------------+------------+
+; -1.808 ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ; LMS_DIQ1_D[6]  ; LMS_DIQ1_LAUNCH_CLK ; LMS_FCLK1   ; 1.563        ; 8.334      ; 10.595     ;
+; -1.806 ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ; LMS_DIQ1_D[7]  ; LMS_DIQ1_LAUNCH_CLK ; LMS_FCLK1   ; 1.563        ; 8.334      ; 10.593     ;
+; -1.804 ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ; LMS_DIQ1_D[0]  ; LMS_DIQ1_LAUNCH_CLK ; LMS_FCLK1   ; 1.563        ; 8.334      ; 10.591     ;
+; -1.802 ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ; LMS_DIQ1_IQSEL ; LMS_DIQ1_LAUNCH_CLK ; LMS_FCLK1   ; 1.563        ; 8.334      ; 10.589     ;
+; -1.801 ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ; LMS_DIQ1_D[11] ; LMS_DIQ1_LAUNCH_CLK ; LMS_FCLK1   ; 1.563        ; 8.334      ; 10.588     ;
+; -1.801 ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ; LMS_DIQ1_D[3]  ; LMS_DIQ1_LAUNCH_CLK ; LMS_FCLK1   ; 1.563        ; 8.334      ; 10.588     ;
+; -1.800 ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ; LMS_DIQ1_D[10] ; LMS_DIQ1_LAUNCH_CLK ; LMS_FCLK1   ; 1.563        ; 8.334      ; 10.587     ;
+; -1.798 ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ; LMS_DIQ1_D[9]  ; LMS_DIQ1_LAUNCH_CLK ; LMS_FCLK1   ; 1.563        ; 8.334      ; 10.585     ;
+; -1.798 ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ; LMS_DIQ1_D[2]  ; LMS_DIQ1_LAUNCH_CLK ; LMS_FCLK1   ; 1.563        ; 8.334      ; 10.585     ;
+; -1.794 ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ; LMS_DIQ1_D[8]  ; LMS_DIQ1_LAUNCH_CLK ; LMS_FCLK1   ; 1.563        ; 8.334      ; 10.581     ;
++--------+-----------------------------------------------------------+----------------+---------------------+-------------+--------------+------------+------------+
+
+Path #1: Setup slack is -1.808 (VIOLATED)
+===============================================================================
++--------------------------------------------------------------------------------+
+; Path Summary                                                                   ;
++--------------------+-----------------------------------------------------------+
+; Property           ; Value                                                     ;
++--------------------+-----------------------------------------------------------+
+; From Node          ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ;
+; To Node            ; LMS_DIQ1_D[6]                                             ;
+; Launch Clock       ; LMS_DIQ1_LAUNCH_CLK                                       ;
+; Latch Clock        ; LMS_FCLK1 (INVERTED)                                      ;
+; Data Arrival Time  ; 13.426                                                    ;
+; Data Required Time ; 11.618                                                    ;
+; Slack              ; -1.808 (VIOLATED)                                         ;
++--------------------+-----------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 1.563  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; 8.334  ;       ;             ;            ;        ;        ;
+; Data Delay             ; 10.595 ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 2     ; 2.363       ; 75         ; 0.000  ; 2.363  ;
+;    Cell                ;        ; 2     ; 0.769       ; 25         ; 0.000  ; 0.769  ;
+;    PLL Compensation    ;        ; 1     ; -1.863      ; 0          ; -1.863 ; -1.863 ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 6.466       ; 61         ; 0.000  ; 2.354  ;
+;    Cell                ;        ; 6     ; 4.129       ; 39         ; 0.000  ; 2.666  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 6.688       ; 59         ; 0.000  ; 2.268  ;
+;    Cell                ;        ; 7     ; 4.683       ; 41         ; 0.000  ; 2.568  ;
+;    PLL Compensation    ;        ; 1     ; -1.951      ; 0          ; -1.951 ; -1.951 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                   ;
++----------+----------+----+------+--------+------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location               ; Element                                                                         ;
++----------+----------+----+------+--------+------------------------+---------------------------------------------------------------------------------+
+; 1.562    ; 1.562    ;    ;      ;        ;                        ; launch edge time                                                                ;
+; 2.831    ; 1.269    ;    ;      ;        ;                        ; clock path                                                                      ;
+;   1.562  ;   0.000  ;    ;      ;        ;                        ; source latency                                                                  ;
+;   1.562  ;   0.000  ;    ;      ; 1      ; PIN_G21                ; LMS_MCLK1                                                                       ;
+;   1.562  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1      ; LMS_MCLK1~input|i                                                               ;
+;   2.331  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1      ; LMS_MCLK1~input|o                                                               ;
+;   4.694  ;   2.363  ; RR ; IC   ; 1      ; PLL_2                  ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   2.831  ;   -1.863 ; RR ; COMP ; 2      ; PLL_2                  ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   2.831  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                  ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1]                       ;
+; 13.426   ; 10.595   ;    ;      ;        ;                        ; data path                                                                       ;
+;   5.185  ;   2.354  ; RR ; IC   ; 2      ; CLKCTRL_G6             ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   5.185  ;   0.000  ; RR ; CELL ; 1      ; CLKCTRL_G6             ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   6.996  ;   1.811  ; RR ; IC   ; 1      ; LCCOMB_X37_Y1_N30      ; inst33|inst16|datad                                                             ;
+;   7.173  ;   0.177  ; RR ; CELL ; 1      ; LCCOMB_X37_Y1_N30      ; inst33|inst16|combout                                                           ;
+;   8.112  ;   0.939  ; RR ; IC   ; 1      ; CLKCTRL_G15            ; inst33|inst16~clkctrl|inclk[0]                                                  ;
+;   8.112  ;   0.000  ; RR ; CELL ; 1339   ; CLKCTRL_G15            ; inst33|inst16~clkctrl|outclk                                                    ;
+;   9.474  ;   1.362  ; RR ; IC   ; 1      ; DDIOOUTCELL_X54_Y43_N4 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[6]|muxsel                  ;
+;   10.760 ;   1.286  ; RR ; CELL ; 1      ; DDIOOUTCELL_X54_Y43_N4 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[6]|dataout                 ;
+;   10.760 ;   0.000  ; RR ; IC   ; 1      ; IOOBUF_X54_Y43_N2      ; LMS_DIQ1_D[6]~output|i                                                          ;
+;   13.426 ;   2.666  ; RR ; CELL ; 1      ; IOOBUF_X54_Y43_N2      ; LMS_DIQ1_D[6]~output|o                                                          ;
+;   13.426 ;   0.000  ; RR ; CELL ; 0      ; PIN_A18                ; LMS_DIQ1_D[6]                                                                   ;
++----------+----------+----+------+--------+------------------------+---------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 3.125    ; 3.125    ;    ;      ;        ;                         ; latch edge time                                                                 ;
+; 12.728   ; 9.603    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   3.125  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   3.125  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   3.125  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   3.894  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   6.162  ;   2.268  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   4.211  ;   -1.951 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   4.211  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[0]                       ;
+;   6.441  ;   2.230  ; FF ; IC   ; 2      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   6.441  ;   0.000  ; FF ; CELL ; 1      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   8.116  ;   1.675  ; FF ; IC   ; 1      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|datad                                                             ;
+;   8.249  ;   0.133  ; FF ; CELL ; 3      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|combout                                                           ;
+;   8.764  ;   0.515  ; FF ; IC   ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|muxsel          ;
+;   9.977  ;   1.213  ; FF ; CELL ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout         ;
+;   9.977  ;   0.000  ; FF ; IC   ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|i                                                              ;
+;   12.545 ;   2.568  ; FF ; CELL ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|o                                                              ;
+;   12.545 ;   0.000  ; FF ; CELL ; 0      ; PIN_B20                 ; LMS_FCLK1                                                                       ;
+;   12.728 ;   0.183  ;    ;      ;        ;                         ; clock pessimism removed                                                         ;
+; 12.618   ; -0.110   ;    ;      ;        ;                         ; clock uncertainty                                                               ;
+; 11.618   ; -1.000   ; R  ; oExt ; 0      ; PIN_A18                 ; LMS_DIQ1_D[6]                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+Path #2: Setup slack is -1.806 (VIOLATED)
+===============================================================================
++--------------------------------------------------------------------------------+
+; Path Summary                                                                   ;
++--------------------+-----------------------------------------------------------+
+; Property           ; Value                                                     ;
++--------------------+-----------------------------------------------------------+
+; From Node          ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ;
+; To Node            ; LMS_DIQ1_D[7]                                             ;
+; Launch Clock       ; LMS_DIQ1_LAUNCH_CLK                                       ;
+; Latch Clock        ; LMS_FCLK1 (INVERTED)                                      ;
+; Data Arrival Time  ; 13.424                                                    ;
+; Data Required Time ; 11.618                                                    ;
+; Slack              ; -1.806 (VIOLATED)                                         ;
++--------------------+-----------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 1.563  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; 8.334  ;       ;             ;            ;        ;        ;
+; Data Delay             ; 10.593 ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 2     ; 2.363       ; 75         ; 0.000  ; 2.363  ;
+;    Cell                ;        ; 2     ; 0.769       ; 25         ; 0.000  ; 0.769  ;
+;    PLL Compensation    ;        ; 1     ; -1.863      ; 0          ; -1.863 ; -1.863 ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 6.464       ; 61         ; 0.000  ; 2.354  ;
+;    Cell                ;        ; 6     ; 4.129       ; 39         ; 0.000  ; 2.666  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 6.688       ; 59         ; 0.000  ; 2.268  ;
+;    Cell                ;        ; 7     ; 4.683       ; 41         ; 0.000  ; 2.568  ;
+;    PLL Compensation    ;        ; 1     ; -1.951      ; 0          ; -1.951 ; -1.951 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                    ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 1.562    ; 1.562    ;    ;      ;        ;                         ; launch edge time                                                                ;
+; 2.831    ; 1.269    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   1.562  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   1.562  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   1.562  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   2.331  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   4.694  ;   2.363  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   2.831  ;   -1.863 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   2.831  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1]                       ;
+; 13.424   ; 10.593   ;    ;      ;        ;                         ; data path                                                                       ;
+;   5.185  ;   2.354  ; RR ; IC   ; 2      ; CLKCTRL_G6              ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   5.185  ;   0.000  ; RR ; CELL ; 1      ; CLKCTRL_G6              ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   6.996  ;   1.811  ; RR ; IC   ; 1      ; LCCOMB_X37_Y1_N30       ; inst33|inst16|datad                                                             ;
+;   7.173  ;   0.177  ; RR ; CELL ; 1      ; LCCOMB_X37_Y1_N30       ; inst33|inst16|combout                                                           ;
+;   8.112  ;   0.939  ; RR ; IC   ; 1      ; CLKCTRL_G15             ; inst33|inst16~clkctrl|inclk[0]                                                  ;
+;   8.112  ;   0.000  ; RR ; CELL ; 1339   ; CLKCTRL_G15             ; inst33|inst16~clkctrl|outclk                                                    ;
+;   9.472  ;   1.360  ; RR ; IC   ; 1      ; DDIOOUTCELL_X52_Y43_N32 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[7]|muxsel                  ;
+;   10.758 ;   1.286  ; RR ; CELL ; 1      ; DDIOOUTCELL_X52_Y43_N32 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[7]|dataout                 ;
+;   10.758 ;   0.000  ; RR ; IC   ; 1      ; IOOBUF_X52_Y43_N30      ; LMS_DIQ1_D[7]~output|i                                                          ;
+;   13.424 ;   2.666  ; RR ; CELL ; 1      ; IOOBUF_X52_Y43_N30      ; LMS_DIQ1_D[7]~output|o                                                          ;
+;   13.424 ;   0.000  ; RR ; CELL ; 0      ; PIN_A17                 ; LMS_DIQ1_D[7]                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 3.125    ; 3.125    ;    ;      ;        ;                         ; latch edge time                                                                 ;
+; 12.728   ; 9.603    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   3.125  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   3.125  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   3.125  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   3.894  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   6.162  ;   2.268  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   4.211  ;   -1.951 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   4.211  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[0]                       ;
+;   6.441  ;   2.230  ; FF ; IC   ; 2      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   6.441  ;   0.000  ; FF ; CELL ; 1      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   8.116  ;   1.675  ; FF ; IC   ; 1      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|datad                                                             ;
+;   8.249  ;   0.133  ; FF ; CELL ; 3      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|combout                                                           ;
+;   8.764  ;   0.515  ; FF ; IC   ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|muxsel          ;
+;   9.977  ;   1.213  ; FF ; CELL ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout         ;
+;   9.977  ;   0.000  ; FF ; IC   ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|i                                                              ;
+;   12.545 ;   2.568  ; FF ; CELL ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|o                                                              ;
+;   12.545 ;   0.000  ; FF ; CELL ; 0      ; PIN_B20                 ; LMS_FCLK1                                                                       ;
+;   12.728 ;   0.183  ;    ;      ;        ;                         ; clock pessimism removed                                                         ;
+; 12.618   ; -0.110   ;    ;      ;        ;                         ; clock uncertainty                                                               ;
+; 11.618   ; -1.000   ; R  ; oExt ; 0      ; PIN_A17                 ; LMS_DIQ1_D[7]                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+Path #3: Setup slack is -1.804 (VIOLATED)
+===============================================================================
++--------------------------------------------------------------------------------+
+; Path Summary                                                                   ;
++--------------------+-----------------------------------------------------------+
+; Property           ; Value                                                     ;
++--------------------+-----------------------------------------------------------+
+; From Node          ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ;
+; To Node            ; LMS_DIQ1_D[0]                                             ;
+; Launch Clock       ; LMS_DIQ1_LAUNCH_CLK                                       ;
+; Latch Clock        ; LMS_FCLK1 (INVERTED)                                      ;
+; Data Arrival Time  ; 13.422                                                    ;
+; Data Required Time ; 11.618                                                    ;
+; Slack              ; -1.804 (VIOLATED)                                         ;
++--------------------+-----------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 1.563  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; 8.334  ;       ;             ;            ;        ;        ;
+; Data Delay             ; 10.591 ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 2     ; 2.363       ; 75         ; 0.000  ; 2.363  ;
+;    Cell                ;        ; 2     ; 0.769       ; 25         ; 0.000  ; 0.769  ;
+;    PLL Compensation    ;        ; 1     ; -1.863      ; 0          ; -1.863 ; -1.863 ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 6.462       ; 61         ; 0.000  ; 2.354  ;
+;    Cell                ;        ; 6     ; 4.129       ; 39         ; 0.000  ; 2.666  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 6.688       ; 59         ; 0.000  ; 2.268  ;
+;    Cell                ;        ; 7     ; 4.683       ; 41         ; 0.000  ; 2.568  ;
+;    PLL Compensation    ;        ; 1     ; -1.951      ; 0          ; -1.951 ; -1.951 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                   ;
++----------+----------+----+------+--------+------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location               ; Element                                                                         ;
++----------+----------+----+------+--------+------------------------+---------------------------------------------------------------------------------+
+; 1.562    ; 1.562    ;    ;      ;        ;                        ; launch edge time                                                                ;
+; 2.831    ; 1.269    ;    ;      ;        ;                        ; clock path                                                                      ;
+;   1.562  ;   0.000  ;    ;      ;        ;                        ; source latency                                                                  ;
+;   1.562  ;   0.000  ;    ;      ; 1      ; PIN_G21                ; LMS_MCLK1                                                                       ;
+;   1.562  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1      ; LMS_MCLK1~input|i                                                               ;
+;   2.331  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1      ; LMS_MCLK1~input|o                                                               ;
+;   4.694  ;   2.363  ; RR ; IC   ; 1      ; PLL_2                  ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   2.831  ;   -1.863 ; RR ; COMP ; 2      ; PLL_2                  ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   2.831  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                  ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1]                       ;
+; 13.422   ; 10.591   ;    ;      ;        ;                        ; data path                                                                       ;
+;   5.185  ;   2.354  ; RR ; IC   ; 2      ; CLKCTRL_G6             ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   5.185  ;   0.000  ; RR ; CELL ; 1      ; CLKCTRL_G6             ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   6.996  ;   1.811  ; RR ; IC   ; 1      ; LCCOMB_X37_Y1_N30      ; inst33|inst16|datad                                                             ;
+;   7.173  ;   0.177  ; RR ; CELL ; 1      ; LCCOMB_X37_Y1_N30      ; inst33|inst16|combout                                                           ;
+;   8.112  ;   0.939  ; RR ; IC   ; 1      ; CLKCTRL_G15            ; inst33|inst16~clkctrl|inclk[0]                                                  ;
+;   8.112  ;   0.000  ; RR ; CELL ; 1339   ; CLKCTRL_G15            ; inst33|inst16~clkctrl|outclk                                                    ;
+;   9.470  ;   1.358  ; RR ; IC   ; 1      ; DDIOOUTCELL_X50_Y43_N4 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|muxsel                  ;
+;   10.756 ;   1.286  ; RR ; CELL ; 1      ; DDIOOUTCELL_X50_Y43_N4 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout                 ;
+;   10.756 ;   0.000  ; RR ; IC   ; 1      ; IOOBUF_X50_Y43_N2      ; LMS_DIQ1_D[0]~output|i                                                          ;
+;   13.422 ;   2.666  ; RR ; CELL ; 1      ; IOOBUF_X50_Y43_N2      ; LMS_DIQ1_D[0]~output|o                                                          ;
+;   13.422 ;   0.000  ; RR ; CELL ; 0      ; PIN_B17                ; LMS_DIQ1_D[0]                                                                   ;
++----------+----------+----+------+--------+------------------------+---------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 3.125    ; 3.125    ;    ;      ;        ;                         ; latch edge time                                                                 ;
+; 12.728   ; 9.603    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   3.125  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   3.125  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   3.125  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   3.894  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   6.162  ;   2.268  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   4.211  ;   -1.951 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   4.211  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[0]                       ;
+;   6.441  ;   2.230  ; FF ; IC   ; 2      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   6.441  ;   0.000  ; FF ; CELL ; 1      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   8.116  ;   1.675  ; FF ; IC   ; 1      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|datad                                                             ;
+;   8.249  ;   0.133  ; FF ; CELL ; 3      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|combout                                                           ;
+;   8.764  ;   0.515  ; FF ; IC   ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|muxsel          ;
+;   9.977  ;   1.213  ; FF ; CELL ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout         ;
+;   9.977  ;   0.000  ; FF ; IC   ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|i                                                              ;
+;   12.545 ;   2.568  ; FF ; CELL ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|o                                                              ;
+;   12.545 ;   0.000  ; FF ; CELL ; 0      ; PIN_B20                 ; LMS_FCLK1                                                                       ;
+;   12.728 ;   0.183  ;    ;      ;        ;                         ; clock pessimism removed                                                         ;
+; 12.618   ; -0.110   ;    ;      ;        ;                         ; clock uncertainty                                                               ;
+; 11.618   ; -1.000   ; R  ; oExt ; 0      ; PIN_B17                 ; LMS_DIQ1_D[0]                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+Path #4: Setup slack is -1.802 (VIOLATED)
+===============================================================================
++--------------------------------------------------------------------------------+
+; Path Summary                                                                   ;
++--------------------+-----------------------------------------------------------+
+; Property           ; Value                                                     ;
++--------------------+-----------------------------------------------------------+
+; From Node          ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ;
+; To Node            ; LMS_DIQ1_IQSEL                                            ;
+; Launch Clock       ; LMS_DIQ1_LAUNCH_CLK                                       ;
+; Latch Clock        ; LMS_FCLK1 (INVERTED)                                      ;
+; Data Arrival Time  ; 13.420                                                    ;
+; Data Required Time ; 11.618                                                    ;
+; Slack              ; -1.802 (VIOLATED)                                         ;
++--------------------+-----------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 1.563  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; 8.334  ;       ;             ;            ;        ;        ;
+; Data Delay             ; 10.589 ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 2     ; 2.363       ; 75         ; 0.000  ; 2.363  ;
+;    Cell                ;        ; 2     ; 0.769       ; 25         ; 0.000  ; 0.769  ;
+;    PLL Compensation    ;        ; 1     ; -1.863      ; 0          ; -1.863 ; -1.863 ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 6.470       ; 61         ; 0.000  ; 2.354  ;
+;    Cell                ;        ; 6     ; 4.119       ; 39         ; 0.000  ; 2.656  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 6.688       ; 59         ; 0.000  ; 2.268  ;
+;    Cell                ;        ; 7     ; 4.683       ; 41         ; 0.000  ; 2.568  ;
+;    PLL Compensation    ;        ; 1     ; -1.951      ; 0          ; -1.951 ; -1.951 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                  ;
++----------+----------+----+------+--------+-----------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location              ; Element                                                                         ;
++----------+----------+----+------+--------+-----------------------+---------------------------------------------------------------------------------+
+; 1.562    ; 1.562    ;    ;      ;        ;                       ; launch edge time                                                                ;
+; 2.831    ; 1.269    ;    ;      ;        ;                       ; clock path                                                                      ;
+;   1.562  ;   0.000  ;    ;      ;        ;                       ; source latency                                                                  ;
+;   1.562  ;   0.000  ;    ;      ; 1      ; PIN_G21               ; LMS_MCLK1                                                                       ;
+;   1.562  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1     ; LMS_MCLK1~input|i                                                               ;
+;   2.331  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1     ; LMS_MCLK1~input|o                                                               ;
+;   4.694  ;   2.363  ; RR ; IC   ; 1      ; PLL_2                 ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   2.831  ;   -1.863 ; RR ; COMP ; 2      ; PLL_2                 ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   2.831  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                 ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1]                       ;
+; 13.420   ; 10.589   ;    ;      ;        ;                       ; data path                                                                       ;
+;   5.185  ;   2.354  ; RR ; IC   ; 2      ; CLKCTRL_G6            ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   5.185  ;   0.000  ; RR ; CELL ; 1      ; CLKCTRL_G6            ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   6.996  ;   1.811  ; RR ; IC   ; 1      ; LCCOMB_X37_Y1_N30     ; inst33|inst16|datad                                                             ;
+;   7.173  ;   0.177  ; RR ; CELL ; 1      ; LCCOMB_X37_Y1_N30     ; inst33|inst16|combout                                                           ;
+;   8.112  ;   0.939  ; RR ; IC   ; 1      ; CLKCTRL_G15           ; inst33|inst16~clkctrl|inclk[0]                                                  ;
+;   8.112  ;   0.000  ; RR ; CELL ; 1339   ; CLKCTRL_G15           ; inst33|inst16~clkctrl|outclk                                                    ;
+;   9.478  ;   1.366  ; RR ; IC   ; 1      ; DDIOOUTCELL_X3_Y43_N4 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[12]|muxsel                 ;
+;   10.764 ;   1.286  ; RR ; CELL ; 1      ; DDIOOUTCELL_X3_Y43_N4 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[12]|dataout                ;
+;   10.764 ;   0.000  ; RR ; IC   ; 1      ; IOOBUF_X3_Y43_N2      ; LMS_DIQ1_IQSEL~output|i                                                         ;
+;   13.420 ;   2.656  ; RR ; CELL ; 1      ; IOOBUF_X3_Y43_N2      ; LMS_DIQ1_IQSEL~output|o                                                         ;
+;   13.420 ;   0.000  ; RR ; CELL ; 0      ; PIN_C4                ; LMS_DIQ1_IQSEL                                                                  ;
++----------+----------+----+------+--------+-----------------------+---------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 3.125    ; 3.125    ;    ;      ;        ;                         ; latch edge time                                                                 ;
+; 12.728   ; 9.603    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   3.125  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   3.125  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   3.125  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   3.894  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   6.162  ;   2.268  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   4.211  ;   -1.951 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   4.211  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[0]                       ;
+;   6.441  ;   2.230  ; FF ; IC   ; 2      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   6.441  ;   0.000  ; FF ; CELL ; 1      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   8.116  ;   1.675  ; FF ; IC   ; 1      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|datad                                                             ;
+;   8.249  ;   0.133  ; FF ; CELL ; 3      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|combout                                                           ;
+;   8.764  ;   0.515  ; FF ; IC   ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|muxsel          ;
+;   9.977  ;   1.213  ; FF ; CELL ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout         ;
+;   9.977  ;   0.000  ; FF ; IC   ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|i                                                              ;
+;   12.545 ;   2.568  ; FF ; CELL ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|o                                                              ;
+;   12.545 ;   0.000  ; FF ; CELL ; 0      ; PIN_B20                 ; LMS_FCLK1                                                                       ;
+;   12.728 ;   0.183  ;    ;      ;        ;                         ; clock pessimism removed                                                         ;
+; 12.618   ; -0.110   ;    ;      ;        ;                         ; clock uncertainty                                                               ;
+; 11.618   ; -1.000   ; R  ; oExt ; 0      ; PIN_C4                  ; LMS_DIQ1_IQSEL                                                                  ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+Path #5: Setup slack is -1.801 (VIOLATED)
+===============================================================================
++--------------------------------------------------------------------------------+
+; Path Summary                                                                   ;
++--------------------+-----------------------------------------------------------+
+; Property           ; Value                                                     ;
++--------------------+-----------------------------------------------------------+
+; From Node          ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ;
+; To Node            ; LMS_DIQ1_D[11]                                            ;
+; Launch Clock       ; LMS_DIQ1_LAUNCH_CLK                                       ;
+; Latch Clock        ; LMS_FCLK1 (INVERTED)                                      ;
+; Data Arrival Time  ; 13.419                                                    ;
+; Data Required Time ; 11.618                                                    ;
+; Slack              ; -1.801 (VIOLATED)                                         ;
++--------------------+-----------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 1.563  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; 8.334  ;       ;             ;            ;        ;        ;
+; Data Delay             ; 10.588 ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 2     ; 2.363       ; 75         ; 0.000  ; 2.363  ;
+;    Cell                ;        ; 2     ; 0.769       ; 25         ; 0.000  ; 0.769  ;
+;    PLL Compensation    ;        ; 1     ; -1.863      ; 0          ; -1.863 ; -1.863 ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 6.469       ; 61         ; 0.000  ; 2.354  ;
+;    Cell                ;        ; 6     ; 4.119       ; 39         ; 0.000  ; 2.656  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 6.688       ; 59         ; 0.000  ; 2.268  ;
+;    Cell                ;        ; 7     ; 4.683       ; 41         ; 0.000  ; 2.568  ;
+;    PLL Compensation    ;        ; 1     ; -1.951      ; 0          ; -1.951 ; -1.951 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                    ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 1.562    ; 1.562    ;    ;      ;        ;                         ; launch edge time                                                                ;
+; 2.831    ; 1.269    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   1.562  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   1.562  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   1.562  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   2.331  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   4.694  ;   2.363  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   2.831  ;   -1.863 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   2.831  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1]                       ;
+; 13.419   ; 10.588   ;    ;      ;        ;                         ; data path                                                                       ;
+;   5.185  ;   2.354  ; RR ; IC   ; 2      ; CLKCTRL_G6              ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   5.185  ;   0.000  ; RR ; CELL ; 1      ; CLKCTRL_G6              ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   6.996  ;   1.811  ; RR ; IC   ; 1      ; LCCOMB_X37_Y1_N30       ; inst33|inst16|datad                                                             ;
+;   7.173  ;   0.177  ; RR ; CELL ; 1      ; LCCOMB_X37_Y1_N30       ; inst33|inst16|combout                                                           ;
+;   8.112  ;   0.939  ; RR ; IC   ; 1      ; CLKCTRL_G15             ; inst33|inst16~clkctrl|inclk[0]                                                  ;
+;   8.112  ;   0.000  ; RR ; CELL ; 1339   ; CLKCTRL_G15             ; inst33|inst16~clkctrl|outclk                                                    ;
+;   9.477  ;   1.365  ; RR ; IC   ; 1      ; DDIOOUTCELL_X38_Y43_N25 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[11]|muxsel                 ;
+;   10.763 ;   1.286  ; RR ; CELL ; 1      ; DDIOOUTCELL_X38_Y43_N25 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[11]|dataout                ;
+;   10.763 ;   0.000  ; RR ; IC   ; 1      ; IOOBUF_X38_Y43_N23      ; LMS_DIQ1_D[11]~output|i                                                         ;
+;   13.419 ;   2.656  ; RR ; CELL ; 1      ; IOOBUF_X38_Y43_N23      ; LMS_DIQ1_D[11]~output|o                                                         ;
+;   13.419 ;   0.000  ; RR ; CELL ; 0      ; PIN_A13                 ; LMS_DIQ1_D[11]                                                                  ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 3.125    ; 3.125    ;    ;      ;        ;                         ; latch edge time                                                                 ;
+; 12.728   ; 9.603    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   3.125  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   3.125  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   3.125  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   3.894  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   6.162  ;   2.268  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   4.211  ;   -1.951 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   4.211  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[0]                       ;
+;   6.441  ;   2.230  ; FF ; IC   ; 2      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   6.441  ;   0.000  ; FF ; CELL ; 1      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   8.116  ;   1.675  ; FF ; IC   ; 1      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|datad                                                             ;
+;   8.249  ;   0.133  ; FF ; CELL ; 3      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|combout                                                           ;
+;   8.764  ;   0.515  ; FF ; IC   ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|muxsel          ;
+;   9.977  ;   1.213  ; FF ; CELL ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout         ;
+;   9.977  ;   0.000  ; FF ; IC   ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|i                                                              ;
+;   12.545 ;   2.568  ; FF ; CELL ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|o                                                              ;
+;   12.545 ;   0.000  ; FF ; CELL ; 0      ; PIN_B20                 ; LMS_FCLK1                                                                       ;
+;   12.728 ;   0.183  ;    ;      ;        ;                         ; clock pessimism removed                                                         ;
+; 12.618   ; -0.110   ;    ;      ;        ;                         ; clock uncertainty                                                               ;
+; 11.618   ; -1.000   ; R  ; oExt ; 0      ; PIN_A13                 ; LMS_DIQ1_D[11]                                                                  ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+Path #6: Setup slack is -1.801 (VIOLATED)
+===============================================================================
++--------------------------------------------------------------------------------+
+; Path Summary                                                                   ;
++--------------------+-----------------------------------------------------------+
+; Property           ; Value                                                     ;
++--------------------+-----------------------------------------------------------+
+; From Node          ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ;
+; To Node            ; LMS_DIQ1_D[3]                                             ;
+; Launch Clock       ; LMS_DIQ1_LAUNCH_CLK                                       ;
+; Latch Clock        ; LMS_FCLK1 (INVERTED)                                      ;
+; Data Arrival Time  ; 13.419                                                    ;
+; Data Required Time ; 11.618                                                    ;
+; Slack              ; -1.801 (VIOLATED)                                         ;
++--------------------+-----------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 1.563  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; 8.334  ;       ;             ;            ;        ;        ;
+; Data Delay             ; 10.588 ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 2     ; 2.363       ; 75         ; 0.000  ; 2.363  ;
+;    Cell                ;        ; 2     ; 0.769       ; 25         ; 0.000  ; 0.769  ;
+;    PLL Compensation    ;        ; 1     ; -1.863      ; 0          ; -1.863 ; -1.863 ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 6.469       ; 61         ; 0.000  ; 2.354  ;
+;    Cell                ;        ; 6     ; 4.119       ; 39         ; 0.000  ; 2.656  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 6.688       ; 59         ; 0.000  ; 2.268  ;
+;    Cell                ;        ; 7     ; 4.683       ; 41         ; 0.000  ; 2.568  ;
+;    PLL Compensation    ;        ; 1     ; -1.951      ; 0          ; -1.951 ; -1.951 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                   ;
++----------+----------+----+------+--------+------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location               ; Element                                                                         ;
++----------+----------+----+------+--------+------------------------+---------------------------------------------------------------------------------+
+; 1.562    ; 1.562    ;    ;      ;        ;                        ; launch edge time                                                                ;
+; 2.831    ; 1.269    ;    ;      ;        ;                        ; clock path                                                                      ;
+;   1.562  ;   0.000  ;    ;      ;        ;                        ; source latency                                                                  ;
+;   1.562  ;   0.000  ;    ;      ; 1      ; PIN_G21                ; LMS_MCLK1                                                                       ;
+;   1.562  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1      ; LMS_MCLK1~input|i                                                               ;
+;   2.331  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1      ; LMS_MCLK1~input|o                                                               ;
+;   4.694  ;   2.363  ; RR ; IC   ; 1      ; PLL_2                  ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   2.831  ;   -1.863 ; RR ; COMP ; 2      ; PLL_2                  ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   2.831  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                  ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1]                       ;
+; 13.419   ; 10.588   ;    ;      ;        ;                        ; data path                                                                       ;
+;   5.185  ;   2.354  ; RR ; IC   ; 2      ; CLKCTRL_G6             ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   5.185  ;   0.000  ; RR ; CELL ; 1      ; CLKCTRL_G6             ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   6.996  ;   1.811  ; RR ; IC   ; 1      ; LCCOMB_X37_Y1_N30      ; inst33|inst16|datad                                                             ;
+;   7.173  ;   0.177  ; RR ; CELL ; 1      ; LCCOMB_X37_Y1_N30      ; inst33|inst16|combout                                                           ;
+;   8.112  ;   0.939  ; RR ; IC   ; 1      ; CLKCTRL_G15            ; inst33|inst16~clkctrl|inclk[0]                                                  ;
+;   8.112  ;   0.000  ; RR ; CELL ; 1339   ; CLKCTRL_G15            ; inst33|inst16~clkctrl|outclk                                                    ;
+;   9.477  ;   1.365  ; RR ; IC   ; 1      ; DDIOOUTCELL_X38_Y43_N4 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[3]|muxsel                  ;
+;   10.763 ;   1.286  ; RR ; CELL ; 1      ; DDIOOUTCELL_X38_Y43_N4 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[3]|dataout                 ;
+;   10.763 ;   0.000  ; RR ; IC   ; 1      ; IOOBUF_X38_Y43_N2      ; LMS_DIQ1_D[3]~output|i                                                          ;
+;   13.419 ;   2.656  ; RR ; CELL ; 1      ; IOOBUF_X38_Y43_N2      ; LMS_DIQ1_D[3]~output|o                                                          ;
+;   13.419 ;   0.000  ; RR ; CELL ; 0      ; PIN_B14                ; LMS_DIQ1_D[3]                                                                   ;
++----------+----------+----+------+--------+------------------------+---------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 3.125    ; 3.125    ;    ;      ;        ;                         ; latch edge time                                                                 ;
+; 12.728   ; 9.603    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   3.125  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   3.125  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   3.125  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   3.894  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   6.162  ;   2.268  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   4.211  ;   -1.951 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   4.211  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[0]                       ;
+;   6.441  ;   2.230  ; FF ; IC   ; 2      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   6.441  ;   0.000  ; FF ; CELL ; 1      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   8.116  ;   1.675  ; FF ; IC   ; 1      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|datad                                                             ;
+;   8.249  ;   0.133  ; FF ; CELL ; 3      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|combout                                                           ;
+;   8.764  ;   0.515  ; FF ; IC   ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|muxsel          ;
+;   9.977  ;   1.213  ; FF ; CELL ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout         ;
+;   9.977  ;   0.000  ; FF ; IC   ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|i                                                              ;
+;   12.545 ;   2.568  ; FF ; CELL ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|o                                                              ;
+;   12.545 ;   0.000  ; FF ; CELL ; 0      ; PIN_B20                 ; LMS_FCLK1                                                                       ;
+;   12.728 ;   0.183  ;    ;      ;        ;                         ; clock pessimism removed                                                         ;
+; 12.618   ; -0.110   ;    ;      ;        ;                         ; clock uncertainty                                                               ;
+; 11.618   ; -1.000   ; R  ; oExt ; 0      ; PIN_B14                 ; LMS_DIQ1_D[3]                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+Path #7: Setup slack is -1.800 (VIOLATED)
+===============================================================================
++--------------------------------------------------------------------------------+
+; Path Summary                                                                   ;
++--------------------+-----------------------------------------------------------+
+; Property           ; Value                                                     ;
++--------------------+-----------------------------------------------------------+
+; From Node          ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ;
+; To Node            ; LMS_DIQ1_D[10]                                            ;
+; Launch Clock       ; LMS_DIQ1_LAUNCH_CLK                                       ;
+; Latch Clock        ; LMS_FCLK1 (INVERTED)                                      ;
+; Data Arrival Time  ; 13.418                                                    ;
+; Data Required Time ; 11.618                                                    ;
+; Slack              ; -1.800 (VIOLATED)                                         ;
++--------------------+-----------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 1.563  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; 8.334  ;       ;             ;            ;        ;        ;
+; Data Delay             ; 10.587 ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 2     ; 2.363       ; 75         ; 0.000  ; 2.363  ;
+;    Cell                ;        ; 2     ; 0.769       ; 25         ; 0.000  ; 0.769  ;
+;    PLL Compensation    ;        ; 1     ; -1.863      ; 0          ; -1.863 ; -1.863 ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 6.468       ; 61         ; 0.000  ; 2.354  ;
+;    Cell                ;        ; 6     ; 4.119       ; 39         ; 0.000  ; 2.656  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 6.688       ; 59         ; 0.000  ; 2.268  ;
+;    Cell                ;        ; 7     ; 4.683       ; 41         ; 0.000  ; 2.568  ;
+;    PLL Compensation    ;        ; 1     ; -1.951      ; 0          ; -1.951 ; -1.951 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                    ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 1.562    ; 1.562    ;    ;      ;        ;                         ; launch edge time                                                                ;
+; 2.831    ; 1.269    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   1.562  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   1.562  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   1.562  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   2.331  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   4.694  ;   2.363  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   2.831  ;   -1.863 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   2.831  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1]                       ;
+; 13.418   ; 10.587   ;    ;      ;        ;                         ; data path                                                                       ;
+;   5.185  ;   2.354  ; RR ; IC   ; 2      ; CLKCTRL_G6              ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   5.185  ;   0.000  ; RR ; CELL ; 1      ; CLKCTRL_G6              ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   6.996  ;   1.811  ; RR ; IC   ; 1      ; LCCOMB_X37_Y1_N30       ; inst33|inst16|datad                                                             ;
+;   7.173  ;   0.177  ; RR ; CELL ; 1      ; LCCOMB_X37_Y1_N30       ; inst33|inst16|combout                                                           ;
+;   8.112  ;   0.939  ; RR ; IC   ; 1      ; CLKCTRL_G15             ; inst33|inst16~clkctrl|inclk[0]                                                  ;
+;   8.112  ;   0.000  ; RR ; CELL ; 1339   ; CLKCTRL_G15             ; inst33|inst16~clkctrl|outclk                                                    ;
+;   9.476  ;   1.364  ; RR ; IC   ; 1      ; DDIOOUTCELL_X41_Y43_N18 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[10]|muxsel                 ;
+;   10.762 ;   1.286  ; RR ; CELL ; 1      ; DDIOOUTCELL_X41_Y43_N18 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[10]|dataout                ;
+;   10.762 ;   0.000  ; RR ; IC   ; 1      ; IOOBUF_X41_Y43_N16      ; LMS_DIQ1_D[10]~output|i                                                         ;
+;   13.418 ;   2.656  ; RR ; CELL ; 1      ; IOOBUF_X41_Y43_N16      ; LMS_DIQ1_D[10]~output|o                                                         ;
+;   13.418 ;   0.000  ; RR ; CELL ; 0      ; PIN_A14                 ; LMS_DIQ1_D[10]                                                                  ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 3.125    ; 3.125    ;    ;      ;        ;                         ; latch edge time                                                                 ;
+; 12.728   ; 9.603    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   3.125  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   3.125  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   3.125  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   3.894  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   6.162  ;   2.268  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   4.211  ;   -1.951 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   4.211  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[0]                       ;
+;   6.441  ;   2.230  ; FF ; IC   ; 2      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   6.441  ;   0.000  ; FF ; CELL ; 1      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   8.116  ;   1.675  ; FF ; IC   ; 1      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|datad                                                             ;
+;   8.249  ;   0.133  ; FF ; CELL ; 3      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|combout                                                           ;
+;   8.764  ;   0.515  ; FF ; IC   ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|muxsel          ;
+;   9.977  ;   1.213  ; FF ; CELL ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout         ;
+;   9.977  ;   0.000  ; FF ; IC   ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|i                                                              ;
+;   12.545 ;   2.568  ; FF ; CELL ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|o                                                              ;
+;   12.545 ;   0.000  ; FF ; CELL ; 0      ; PIN_B20                 ; LMS_FCLK1                                                                       ;
+;   12.728 ;   0.183  ;    ;      ;        ;                         ; clock pessimism removed                                                         ;
+; 12.618   ; -0.110   ;    ;      ;        ;                         ; clock uncertainty                                                               ;
+; 11.618   ; -1.000   ; R  ; oExt ; 0      ; PIN_A14                 ; LMS_DIQ1_D[10]                                                                  ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+Path #8: Setup slack is -1.798 (VIOLATED)
+===============================================================================
++--------------------------------------------------------------------------------+
+; Path Summary                                                                   ;
++--------------------+-----------------------------------------------------------+
+; Property           ; Value                                                     ;
++--------------------+-----------------------------------------------------------+
+; From Node          ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ;
+; To Node            ; LMS_DIQ1_D[9]                                             ;
+; Launch Clock       ; LMS_DIQ1_LAUNCH_CLK                                       ;
+; Latch Clock        ; LMS_FCLK1 (INVERTED)                                      ;
+; Data Arrival Time  ; 13.416                                                    ;
+; Data Required Time ; 11.618                                                    ;
+; Slack              ; -1.798 (VIOLATED)                                         ;
++--------------------+-----------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 1.563  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; 8.334  ;       ;             ;            ;        ;        ;
+; Data Delay             ; 10.585 ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 2     ; 2.363       ; 75         ; 0.000  ; 2.363  ;
+;    Cell                ;        ; 2     ; 0.769       ; 25         ; 0.000  ; 0.769  ;
+;    PLL Compensation    ;        ; 1     ; -1.863      ; 0          ; -1.863 ; -1.863 ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 6.466       ; 61         ; 0.000  ; 2.354  ;
+;    Cell                ;        ; 6     ; 4.119       ; 39         ; 0.000  ; 2.656  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 6.688       ; 59         ; 0.000  ; 2.268  ;
+;    Cell                ;        ; 7     ; 4.683       ; 41         ; 0.000  ; 2.568  ;
+;    PLL Compensation    ;        ; 1     ; -1.951      ; 0          ; -1.951 ; -1.951 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                    ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 1.562    ; 1.562    ;    ;      ;        ;                         ; launch edge time                                                                ;
+; 2.831    ; 1.269    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   1.562  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   1.562  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   1.562  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   2.331  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   4.694  ;   2.363  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   2.831  ;   -1.863 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   2.831  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1]                       ;
+; 13.416   ; 10.585   ;    ;      ;        ;                         ; data path                                                                       ;
+;   5.185  ;   2.354  ; RR ; IC   ; 2      ; CLKCTRL_G6              ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   5.185  ;   0.000  ; RR ; CELL ; 1      ; CLKCTRL_G6              ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   6.996  ;   1.811  ; RR ; IC   ; 1      ; LCCOMB_X37_Y1_N30       ; inst33|inst16|datad                                                             ;
+;   7.173  ;   0.177  ; RR ; CELL ; 1      ; LCCOMB_X37_Y1_N30       ; inst33|inst16|combout                                                           ;
+;   8.112  ;   0.939  ; RR ; IC   ; 1      ; CLKCTRL_G15             ; inst33|inst16~clkctrl|inclk[0]                                                  ;
+;   8.112  ;   0.000  ; RR ; CELL ; 1339   ; CLKCTRL_G15             ; inst33|inst16~clkctrl|outclk                                                    ;
+;   9.474  ;   1.362  ; RR ; IC   ; 1      ; DDIOOUTCELL_X45_Y43_N11 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[9]|muxsel                  ;
+;   10.760 ;   1.286  ; RR ; CELL ; 1      ; DDIOOUTCELL_X45_Y43_N11 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[9]|dataout                 ;
+;   10.760 ;   0.000  ; RR ; IC   ; 1      ; IOOBUF_X45_Y43_N9       ; LMS_DIQ1_D[9]~output|i                                                          ;
+;   13.416 ;   2.656  ; RR ; CELL ; 1      ; IOOBUF_X45_Y43_N9       ; LMS_DIQ1_D[9]~output|o                                                          ;
+;   13.416 ;   0.000  ; RR ; CELL ; 0      ; PIN_A15                 ; LMS_DIQ1_D[9]                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 3.125    ; 3.125    ;    ;      ;        ;                         ; latch edge time                                                                 ;
+; 12.728   ; 9.603    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   3.125  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   3.125  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   3.125  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   3.894  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   6.162  ;   2.268  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   4.211  ;   -1.951 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   4.211  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[0]                       ;
+;   6.441  ;   2.230  ; FF ; IC   ; 2      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   6.441  ;   0.000  ; FF ; CELL ; 1      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   8.116  ;   1.675  ; FF ; IC   ; 1      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|datad                                                             ;
+;   8.249  ;   0.133  ; FF ; CELL ; 3      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|combout                                                           ;
+;   8.764  ;   0.515  ; FF ; IC   ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|muxsel          ;
+;   9.977  ;   1.213  ; FF ; CELL ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout         ;
+;   9.977  ;   0.000  ; FF ; IC   ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|i                                                              ;
+;   12.545 ;   2.568  ; FF ; CELL ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|o                                                              ;
+;   12.545 ;   0.000  ; FF ; CELL ; 0      ; PIN_B20                 ; LMS_FCLK1                                                                       ;
+;   12.728 ;   0.183  ;    ;      ;        ;                         ; clock pessimism removed                                                         ;
+; 12.618   ; -0.110   ;    ;      ;        ;                         ; clock uncertainty                                                               ;
+; 11.618   ; -1.000   ; R  ; oExt ; 0      ; PIN_A15                 ; LMS_DIQ1_D[9]                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+Path #9: Setup slack is -1.798 (VIOLATED)
+===============================================================================
++--------------------------------------------------------------------------------+
+; Path Summary                                                                   ;
++--------------------+-----------------------------------------------------------+
+; Property           ; Value                                                     ;
++--------------------+-----------------------------------------------------------+
+; From Node          ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ;
+; To Node            ; LMS_DIQ1_D[2]                                             ;
+; Launch Clock       ; LMS_DIQ1_LAUNCH_CLK                                       ;
+; Latch Clock        ; LMS_FCLK1 (INVERTED)                                      ;
+; Data Arrival Time  ; 13.416                                                    ;
+; Data Required Time ; 11.618                                                    ;
+; Slack              ; -1.798 (VIOLATED)                                         ;
++--------------------+-----------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 1.563  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; 8.334  ;       ;             ;            ;        ;        ;
+; Data Delay             ; 10.585 ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 2     ; 2.363       ; 75         ; 0.000  ; 2.363  ;
+;    Cell                ;        ; 2     ; 0.769       ; 25         ; 0.000  ; 0.769  ;
+;    PLL Compensation    ;        ; 1     ; -1.863      ; 0          ; -1.863 ; -1.863 ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 6.466       ; 61         ; 0.000  ; 2.354  ;
+;    Cell                ;        ; 6     ; 4.119       ; 39         ; 0.000  ; 2.656  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 6.688       ; 59         ; 0.000  ; 2.268  ;
+;    Cell                ;        ; 7     ; 4.683       ; 41         ; 0.000  ; 2.568  ;
+;    PLL Compensation    ;        ; 1     ; -1.951      ; 0          ; -1.951 ; -1.951 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                    ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 1.562    ; 1.562    ;    ;      ;        ;                         ; launch edge time                                                                ;
+; 2.831    ; 1.269    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   1.562  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   1.562  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   1.562  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   2.331  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   4.694  ;   2.363  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   2.831  ;   -1.863 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   2.831  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1]                       ;
+; 13.416   ; 10.585   ;    ;      ;        ;                         ; data path                                                                       ;
+;   5.185  ;   2.354  ; RR ; IC   ; 2      ; CLKCTRL_G6              ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   5.185  ;   0.000  ; RR ; CELL ; 1      ; CLKCTRL_G6              ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   6.996  ;   1.811  ; RR ; IC   ; 1      ; LCCOMB_X37_Y1_N30       ; inst33|inst16|datad                                                             ;
+;   7.173  ;   0.177  ; RR ; CELL ; 1      ; LCCOMB_X37_Y1_N30       ; inst33|inst16|combout                                                           ;
+;   8.112  ;   0.939  ; RR ; IC   ; 1      ; CLKCTRL_G15             ; inst33|inst16~clkctrl|inclk[0]                                                  ;
+;   8.112  ;   0.000  ; RR ; CELL ; 1339   ; CLKCTRL_G15             ; inst33|inst16~clkctrl|outclk                                                    ;
+;   9.474  ;   1.362  ; RR ; IC   ; 1      ; DDIOOUTCELL_X45_Y43_N18 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[2]|muxsel                  ;
+;   10.760 ;   1.286  ; RR ; CELL ; 1      ; DDIOOUTCELL_X45_Y43_N18 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[2]|dataout                 ;
+;   10.760 ;   0.000  ; RR ; IC   ; 1      ; IOOBUF_X45_Y43_N16      ; LMS_DIQ1_D[2]~output|i                                                          ;
+;   13.416 ;   2.656  ; RR ; CELL ; 1      ; IOOBUF_X45_Y43_N16      ; LMS_DIQ1_D[2]~output|o                                                          ;
+;   13.416 ;   0.000  ; RR ; CELL ; 0      ; PIN_B15                 ; LMS_DIQ1_D[2]                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 3.125    ; 3.125    ;    ;      ;        ;                         ; latch edge time                                                                 ;
+; 12.728   ; 9.603    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   3.125  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   3.125  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   3.125  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   3.894  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   6.162  ;   2.268  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   4.211  ;   -1.951 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   4.211  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[0]                       ;
+;   6.441  ;   2.230  ; FF ; IC   ; 2      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   6.441  ;   0.000  ; FF ; CELL ; 1      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   8.116  ;   1.675  ; FF ; IC   ; 1      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|datad                                                             ;
+;   8.249  ;   0.133  ; FF ; CELL ; 3      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|combout                                                           ;
+;   8.764  ;   0.515  ; FF ; IC   ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|muxsel          ;
+;   9.977  ;   1.213  ; FF ; CELL ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout         ;
+;   9.977  ;   0.000  ; FF ; IC   ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|i                                                              ;
+;   12.545 ;   2.568  ; FF ; CELL ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|o                                                              ;
+;   12.545 ;   0.000  ; FF ; CELL ; 0      ; PIN_B20                 ; LMS_FCLK1                                                                       ;
+;   12.728 ;   0.183  ;    ;      ;        ;                         ; clock pessimism removed                                                         ;
+; 12.618   ; -0.110   ;    ;      ;        ;                         ; clock uncertainty                                                               ;
+; 11.618   ; -1.000   ; R  ; oExt ; 0      ; PIN_B15                 ; LMS_DIQ1_D[2]                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+Path #10: Setup slack is -1.794 (VIOLATED)
+===============================================================================
++--------------------------------------------------------------------------------+
+; Path Summary                                                                   ;
++--------------------+-----------------------------------------------------------+
+; Property           ; Value                                                     ;
++--------------------+-----------------------------------------------------------+
+; From Node          ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1] ;
+; To Node            ; LMS_DIQ1_D[8]                                             ;
+; Launch Clock       ; LMS_DIQ1_LAUNCH_CLK                                       ;
+; Latch Clock        ; LMS_FCLK1 (INVERTED)                                      ;
+; Data Arrival Time  ; 13.412                                                    ;
+; Data Required Time ; 11.618                                                    ;
+; Slack              ; -1.794 (VIOLATED)                                         ;
++--------------------+-----------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 1.563  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; 8.334  ;       ;             ;            ;        ;        ;
+; Data Delay             ; 10.581 ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 2     ; 2.363       ; 75         ; 0.000  ; 2.363  ;
+;    Cell                ;        ; 2     ; 0.769       ; 25         ; 0.000  ; 0.769  ;
+;    PLL Compensation    ;        ; 1     ; -1.863      ; 0          ; -1.863 ; -1.863 ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 6.462       ; 61         ; 0.000  ; 2.354  ;
+;    Cell                ;        ; 6     ; 4.119       ; 39         ; 0.000  ; 2.656  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 6.688       ; 59         ; 0.000  ; 2.268  ;
+;    Cell                ;        ; 7     ; 4.683       ; 41         ; 0.000  ; 2.568  ;
+;    PLL Compensation    ;        ; 1     ; -1.951      ; 0          ; -1.951 ; -1.951 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                    ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 1.562    ; 1.562    ;    ;      ;        ;                         ; launch edge time                                                                ;
+; 2.831    ; 1.269    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   1.562  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   1.562  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   1.562  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   2.331  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   4.694  ;   2.363  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   2.831  ;   -1.863 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   2.831  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[1]                       ;
+; 13.412   ; 10.581   ;    ;      ;        ;                         ; data path                                                                       ;
+;   5.185  ;   2.354  ; RR ; IC   ; 2      ; CLKCTRL_G6              ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   5.185  ;   0.000  ; RR ; CELL ; 1      ; CLKCTRL_G6              ; inst33|inst14|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   6.996  ;   1.811  ; RR ; IC   ; 1      ; LCCOMB_X37_Y1_N30       ; inst33|inst16|datad                                                             ;
+;   7.173  ;   0.177  ; RR ; CELL ; 1      ; LCCOMB_X37_Y1_N30       ; inst33|inst16|combout                                                           ;
+;   8.112  ;   0.939  ; RR ; IC   ; 1      ; CLKCTRL_G15             ; inst33|inst16~clkctrl|inclk[0]                                                  ;
+;   8.112  ;   0.000  ; RR ; CELL ; 1339   ; CLKCTRL_G15             ; inst33|inst16~clkctrl|outclk                                                    ;
+;   9.470  ;   1.358  ; RR ; IC   ; 1      ; DDIOOUTCELL_X50_Y43_N11 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[8]|muxsel                  ;
+;   10.756 ;   1.286  ; RR ; CELL ; 1      ; DDIOOUTCELL_X50_Y43_N11 ; inst7|ALTDDIO_OUT_component|auto_generated|ddio_outa[8]|dataout                 ;
+;   10.756 ;   0.000  ; RR ; IC   ; 1      ; IOOBUF_X50_Y43_N9       ; LMS_DIQ1_D[8]~output|i                                                          ;
+;   13.412 ;   2.656  ; RR ; CELL ; 1      ; IOOBUF_X50_Y43_N9       ; LMS_DIQ1_D[8]~output|o                                                          ;
+;   13.412 ;   0.000  ; RR ; CELL ; 0      ; PIN_A16                 ; LMS_DIQ1_D[8]                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                ; Element                                                                         ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+; 3.125    ; 3.125    ;    ;      ;        ;                         ; latch edge time                                                                 ;
+; 12.728   ; 9.603    ;    ;      ;        ;                         ; clock path                                                                      ;
+;   3.125  ;   0.000  ;    ;      ;        ;                         ; source latency                                                                  ;
+;   3.125  ;   0.000  ;    ;      ; 1      ; PIN_G21                 ; LMS_MCLK1                                                                       ;
+;   3.125  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|i                                                               ;
+;   3.894  ;   0.769  ; RR ; CELL ; 3      ; IOIBUF_X67_Y22_N1       ; LMS_MCLK1~input|o                                                               ;
+;   6.162  ;   2.268  ; RR ; IC   ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]                     ;
+;   4.211  ;   -1.951 ; RR ; COMP ; 2      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|observablevcoout             ;
+;   4.211  ;   0.000  ; RR ; CELL ; 1      ; PLL_2                   ; inst33|inst35|altpll_component|auto_generated|pll1|clk[0]                       ;
+;   6.441  ;   2.230  ; FF ; IC   ; 2      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|inclk[0] ;
+;   6.441  ;   0.000  ; FF ; CELL ; 1      ; CLKCTRL_G8              ; inst33|inst10|altclkctrl_0|clkctrl_altclkctrl_0_sub_component|clkctrl1|outclk   ;
+;   8.116  ;   1.675  ; FF ; IC   ; 1      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|datad                                                             ;
+;   8.249  ;   0.133  ; FF ; CELL ; 3      ; LCCOMB_X59_Y42_N0       ; inst33|inst12|combout                                                           ;
+;   8.764  ;   0.515  ; FF ; IC   ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|muxsel          ;
+;   9.977  ;   1.213  ; FF ; CELL ; 1      ; DDIOOUTCELL_X59_Y43_N18 ; inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout         ;
+;   9.977  ;   0.000  ; FF ; IC   ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|i                                                              ;
+;   12.545 ;   2.568  ; FF ; CELL ; 1      ; IOOBUF_X59_Y43_N16      ; LMS_FCLK1~output|o                                                              ;
+;   12.545 ;   0.000  ; FF ; CELL ; 0      ; PIN_B20                 ; LMS_FCLK1                                                                       ;
+;   12.728 ;   0.183  ;    ;      ;        ;                         ; clock pessimism removed                                                         ;
+; 12.618   ; -0.110   ;    ;      ;        ;                         ; clock uncertainty                                                               ;
+; 11.618   ; -1.000   ; R  ; oExt ; 0      ; PIN_A16                 ; LMS_DIQ1_D[8]                                                                   ;
++----------+----------+----+------+--------+-------------------------+---------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+

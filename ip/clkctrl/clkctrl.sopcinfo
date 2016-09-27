@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="clkctrl" kind="clkctrl" version="1.0" fabric="QSYS">
  <!-- Format version 15.0 145 (Future versions may contain additional information.) -->
- <!-- 2016.09.15.10:24:33 -->
+ <!-- 2016.09.22.17:43:36 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1473924273</value>
+  <value>1474555416</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -91,7 +91,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="NUMBER_OF_CLOCKS">
    <type>int</type>
-   <value>4</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -107,7 +107,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="GUI_USE_ENA">
    <type>boolean</type>
-   <value>false</value>
+   <value>true</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -180,34 +180,16 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>inclk3x</name>
+    <name>inclk</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>inclk3x</role>
+    <role>inclk</role>
    </port>
    <port>
-    <name>inclk2x</name>
+    <name>ena</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>inclk2x</role>
-   </port>
-   <port>
-    <name>inclk1x</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>inclk1x</role>
-   </port>
-   <port>
-    <name>inclk0x</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>inclk0x</role>
-   </port>
-   <port>
-    <name>clkselect</name>
-    <direction>Input</direction>
-    <width>2</width>
-    <role>clkselect</role>
+    <role>ena</role>
    </port>
   </interface>
   <interface name="altclkctrl_output" kind="conduit_end" version="15.0">

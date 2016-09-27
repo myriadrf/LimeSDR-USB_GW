@@ -5,11 +5,8 @@
  intended_family="Cyclone IV E"
  specifies="all_ports">
  <global>
-  <pin name="inclk3x" direction="input" scope="external" />
-  <pin name="inclk2x" direction="input" scope="external" />
-  <pin name="inclk1x" direction="input" scope="external" />
-  <pin name="inclk0x" direction="input" scope="external" />
-  <pin name="clkselect[1..0]" direction="input" scope="external" />
+  <pin name="inclk" direction="input" scope="external" />
+  <pin name="ena" direction="input" scope="external" />
   <pin name="outclk" direction="output" scope="external" />
  </global>
 </pinplan>

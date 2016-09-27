@@ -80,7 +80,8 @@ entity fpgacfg is
 		GPIO					: out std_logic_vector(6 downto 0);
 		FPGA_LED1_CTRL		: out std_logic_vector(2 downto 0);
 		FPGA_LED2_CTRL		: out std_logic_vector(2 downto 0);
-		FX3_LED_CTRL		: out std_logic_vector(2 downto 0)
+		FX3_LED_CTRL		: out std_logic_vector(2 downto 0);
+		FCLK_ENA				: out std_logic_vector(1 downto 0)
 		
 
 
@@ -222,7 +223,7 @@ begin
 			mem(16)	<= "0000000000011000"; -- 16 free, (Reserved)
 			mem(17)	<= "0000000000000010"; -- 16 free, (Reserved)
 			mem(18)  <= "1111111111111111"; --  0 free, SPI_SS[15:0]
-			mem(19)	<= "0110111101101111"; --  0 free, rsrvd,LMS2_RXEN,LMS2_TXEN,LMS2_TXNRX2,LMS2_TXNRX1,LMS2_CORE_LDO_EN,LMS2_RESET,LMS2_SS,rsrvd,LMS1_RXEN,LMS1_TXEN,LMS1_TXNRX2,LMS1_TXNRX1,LMS1_CORE_LDO_EN,LMS1_RESET,LMS1_SS
+			mem(19)	<= "0110111101101011"; --  0 free, rsrvd,LMS2_RXEN,LMS2_TXEN,LMS2_TXNRX2,LMS2_TXNRX1,LMS2_CORE_LDO_EN,LMS2_RESET,LMS2_SS,rsrvd,LMS1_RXEN,LMS1_TXEN,LMS1_TXNRX2,LMS1_TXNRX1,LMS1_CORE_LDO_EN,LMS1_RESET,LMS1_SS
 			mem(20)	<= "0000000000000011"; --  0 free, (Reserved LMS control)
 			mem(21)	<= "0000000000000000"; --  0 free, (Reserved LMS control)
 			mem(22)	<= "0000000000000000"; --  0 free, (Reserved LMS control)
@@ -231,7 +232,8 @@ begin
 			mem(26)	<= "0000000000000000"; --  0 free, Reserved[15:8],FPGA_LED2_G,FPGA_LED2_R,FPGA_LED2_OVRD,Reserved,FPGA_LED1_G,FPGA_LED1_R,FPGA_LED1_OVRD
 			mem(27)	<= "0000000000000000"; --  0 free, Reserved[15:0]
 			mem(28)	<= "0000000000000000"; --  0 free, Reserved[15:4],FX3_LED_G,FX3_LED_R,FX3_LED_OVRD
-
+			mem(29)	<= "0000000000000001"; --  0 free, FCLK_ENA[1:0]
+			
 		elsif sclk'event and sclk = '1' then
 				if mem_we = '1' then
 					mem(to_integer(unsigned(inst_reg(4 downto 0)))) <= din_reg(14 downto 0) & sdin;
@@ -294,7 +296,7 @@ begin
 		FPGA_LED1_CTRL		<= mem(26)(2 downto 0);
 		FPGA_LED2_CTRL		<= mem(26)(6 downto 4);
 		FX3_LED_CTRL		<= mem(28)(2 downto 0);
-
+		FCLK_ENA				<= mem(29)(1 downto 0);
 
 
 end fpgacfg_arch;

@@ -21,9 +21,9 @@ agreement for further details.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 296 576)
+	(rect 16 16 296 608)
 	(text "fpgacfg" (rect 5 0 35 12)(font "Arial" ))
-	(text "inst" (rect 8 544 20 556)(font "Arial" ))
+	(text "inst" (rect 8 576 20 588)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -311,7 +311,14 @@ agreement for further details.
 		(text "FX3_LED_CTRL[2..0]" (rect 164 523 259 535)(font "Arial" ))
 		(line (pt 280 528)(pt 264 528)(line_width 3))
 	)
+	(port
+		(pt 280 544)
+		(output)
+		(text "FCLK_ENA[1..0]" (rect 0 0 73 12)(font "Arial" ))
+		(text "FCLK_ENA[1..0]" (rect 186 539 259 551)(font "Arial" ))
+		(line (pt 280 544)(pt 264 544)(line_width 3))
+	)
 	(drawing
-		(rectangle (rect 16 16 264 544)(line_width 1))
+		(rectangle (rect 16 16 264 576)(line_width 1))
 	)
 )

@@ -1,4 +1,4 @@
-//altclkctrl CBX_SINGLE_OUTPUT_FILE="ON" CLOCK_TYPE="Global Clock" DEVICE_FAMILY="Cyclone IV E" ENA_REGISTER_MODE="falling edge" USE_GLITCH_FREE_SWITCH_OVER_IMPLEMENTATION="OFF" clkselect ena inclk outclk
+//altclkctrl CBX_SINGLE_OUTPUT_FILE="ON" CLOCK_TYPE="Global Clock" DEVICE_FAMILY="Cyclone IV E" ENA_REGISTER_MODE="falling edge" USE_GLITCH_FREE_SWITCH_OVER_IMPLEMENTATION="OFF" ena inclk outclk
 //VERSION_BEGIN 15.0 cbx_altclkbuf 2015:04:22:18:04:07:SJ cbx_cycloneii 2015:04:22:18:04:07:SJ cbx_lpm_add_sub 2015:04:22:18:04:07:SJ cbx_lpm_compare 2015:04:22:18:04:07:SJ cbx_lpm_decode 2015:04:22:18:04:08:SJ cbx_lpm_mux 2015:04:22:18:04:08:SJ cbx_mgl 2015:04:22:18:06:50:SJ cbx_stratix 2015:04:22:18:04:08:SJ cbx_stratixii 2015:04:22:18:04:08:SJ cbx_stratixiii 2015:04:22:18:04:08:SJ cbx_stratixv 2015:04:22:18:04:08:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
@@ -28,18 +28,15 @@
 //synopsys translate_on
 module  clkctrl_altclkctrl_0_sub
 	( 
-	clkselect,
 	ena,
 	inclk,
 	outclk) /* synthesis synthesis_clearbox=1 */;
-	input   [1:0]  clkselect;
 	input   ena;
 	input   [3:0]  inclk;
 	output   outclk;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
-	tri0   [1:0]  clkselect;
 	tri1   ena;
 	tri0   [3:0]  inclk;
 `ifndef ALTERA_RESERVED_QIS
@@ -47,6 +44,7 @@ module  clkctrl_altclkctrl_0_sub
 `endif
 
 	wire  wire_clkctrl1_outclk;
+	wire [1:0]  clkselect;
 	wire  [1:0]  clkselect_wire;
 	wire  [3:0]  inclk_wire;
 
@@ -67,6 +65,7 @@ module  clkctrl_altclkctrl_0_sub
 		clkctrl1.ena_register_mode = "falling edge",
 		clkctrl1.lpm_type = "cycloneive_clkctrl";
 	assign
+		clkselect = {2{1'b0}},
 		clkselect_wire = {clkselect},
 		inclk_wire = {inclk},
 		outclk = wire_clkctrl1_outclk;
@@ -89,23 +88,17 @@ endmodule //clkctrl_altclkctrl_0_sub
 `timescale 1 ps / 1 ps
 // synopsys translate_on
 module  clkctrl_altclkctrl_0  (
-    clkselect,
-    inclk0x,
-    inclk1x,
-    inclk2x,
-    inclk3x,
+    ena,
+    inclk,
     outclk);
 
-    input  [1:0]  clkselect;
-    input    inclk0x;
-    input    inclk1x;
-    input    inclk2x;
-    input    inclk3x;
+    input    ena;
+    input    inclk;
     output   outclk;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
-    tri0 [1:0]  clkselect;
+    tri1     ena;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_on
 `endif
@@ -113,24 +106,17 @@ module  clkctrl_altclkctrl_0  (
     wire  sub_wire0;
     wire  outclk;
     wire  sub_wire1;
-    wire  sub_wire2;
-    wire [3:0] sub_wire3;
-    wire  sub_wire4;
-    wire  sub_wire5;
-    wire  sub_wire6;
+    wire [3:0] sub_wire2;
+    wire [2:0] sub_wire3;
 
     assign  outclk = sub_wire0;
-    assign  sub_wire1 = 1'h1;
-    assign  sub_wire2 = inclk0x;
-    assign sub_wire3[3:0] = {sub_wire6, sub_wire5, sub_wire4, sub_wire2};
-    assign  sub_wire4 = inclk1x;
-    assign  sub_wire5 = inclk2x;
-    assign  sub_wire6 = inclk3x;
+    assign  sub_wire1 = inclk;
+    assign sub_wire2[3:0] = {sub_wire3, sub_wire1};
+    assign sub_wire3[2:0] = 3'h0;
 
     clkctrl_altclkctrl_0_sub  clkctrl_altclkctrl_0_sub_component (
-                .clkselect (clkselect),
-                .ena (sub_wire1),
-                .inclk (sub_wire3),
+                .ena (ena),
+                .inclk (sub_wire2),
                 .outclk (sub_wire0));
 
 endmodule

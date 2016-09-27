@@ -51,11 +51,8 @@
    internal="altclkctrl_0.altclkctrl_input"
    type="conduit"
    dir="end">
-  <port name="inclk3x" internal="inclk3x" />
-  <port name="inclk2x" internal="inclk2x" />
-  <port name="inclk1x" internal="inclk1x" />
-  <port name="inclk0x" internal="inclk0x" />
-  <port name="clkselect" internal="clkselect" />
+  <port name="inclk" internal="inclk" />
+  <port name="ena" internal="ena" />
  </interface>
  <interface
    name="altclkctrl_output"
@@ -73,8 +70,8 @@
   <parameter name="CLOCK_TYPE" value="1" />
   <parameter name="DEVICE_FAMILY" value="Cyclone IV E" />
   <parameter name="ENA_REGISTER_MODE" value="1" />
-  <parameter name="GUI_USE_ENA" value="false" />
-  <parameter name="NUMBER_OF_CLOCKS" value="4" />
+  <parameter name="GUI_USE_ENA" value="true" />
+  <parameter name="NUMBER_OF_CLOCKS" value="1" />
   <parameter name="USE_GLITCH_FREE_SWITCH_OVER_IMPLEMENTATION" value="false" />
  </module>
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
