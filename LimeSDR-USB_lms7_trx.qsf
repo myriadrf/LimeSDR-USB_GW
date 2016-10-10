@@ -42,7 +42,7 @@ set_global_assignment -name DEVICE EP4CE40F23C8
 set_global_assignment -name TOP_LEVEL_ENTITY lms7_trx_top
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 15.0.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "15:20:53  APRIL 08, 2016"
-set_global_assignment -name LAST_QUARTUS_VERSION 15.0.0
+set_global_assignment -name LAST_QUARTUS_VERSION 15.1.2
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -670,6 +670,8 @@ set_global_assignment -name SYNCHRONIZER_IDENTIFICATION AUTO
 set_location_assignment PIN_B18 -to LMS_CORE_LDO_EN
 set_location_assignment PIN_B9 -to LMS_TXNRX1
 set_location_assignment PIN_B8 -to LMS_TXNRX2
+set_global_assignment -name VHDL_FILE src/nios_cpu/nios_cpu.vhd
+set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
 set_global_assignment -name VHDL_FILE src/fx3/slaveFIFO5b/slaveFIFO5b.vhd
 set_global_assignment -name VHDL_FILE src/fx3/slaveFIFO5b/FX3_slaveFIFO5b_top.vhd
 set_global_assignment -name QIP_FILE ip/clkctrl/clkctrl/synthesis/clkctrl.qip

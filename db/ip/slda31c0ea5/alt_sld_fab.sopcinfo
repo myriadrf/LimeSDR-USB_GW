@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="alt_sld_fab" kind="alt_sld_fab" version="1.0" fabric="QSYS">
- <!-- Format version 15.0 145 (Future versions may contain additional information.) -->
- <!-- 2016.09.19.11:58:36 -->
+ <!-- Format version 15.1 193 (Future versions may contain additional information.) -->
+ <!-- 2016.10.10.15:01:59 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_DEVICE_FAMILY">
   <type>java.lang.String</type>
@@ -50,13 +50,13 @@
  <module
    name="alt_sld_fab"
    kind="alt_sld_fab"
-   version="15.0"
+   version="15.1"
    path="alt_sld_fab">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="DESIGN_HASH">
    <type>java.lang.String</type>
-   <value>ca0d6f3984332dbfac63</value>
+   <value>be7e8d58eca7ae376ead</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -64,7 +64,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="NODE_COUNT">
    <type>int</type>
-   <value>2</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -72,7 +72,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MAX_WIDTH">
    <type>int</type>
-   <value>33</value>
+   <value>25</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80,7 +80,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SETTINGS">
    <type>java.lang.String</type>
-   <value>{fabric sld dir agent mfr_code 110 type_code 0 version 6 instance 18 ir_width 10 psig f63706bb} {fabric sld dir agent mfr_code 110 type_code 0 version 6 instance 19 ir_width 10 psig f63706bb} </value>
+   <value>{fabric sld dir agent mfr_code 70 type_code 34 version 3 instance 0 ir_width 2 psig f63706bb} </value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -88,7 +88,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="CLOCKS">
    <type>java.lang.String</type>
-   <value>{id {} } {id {} } </value>
+   <value>{id {} } </value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -104,7 +104,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="EP_INFOS">
    <type>java.lang.String</type>
-   <value>{hpath {sld_signaltap:auto_signaltap_18} } {hpath {sld_signaltap:auto_signaltap_19} } </value>
+   <value>{hpath {nios_cpu:inst43|lms_ctr:u0|lms_ctr_nios2_cpu:nios2_cpu|lms_ctr_nios2_cpu_cpu:cpu|lms_ctr_nios2_cpu_cpu_nios2_oci:the_lms_ctr_nios2_cpu_cpu_nios2_oci|lms_ctr_nios2_cpu_cpu_debug_slave_wrapper:the_lms_ctr_nios2_cpu_cpu_debug_slave_wrapper|sld_virtual_jtag_basic:lms_ctr_nios2_cpu_cpu_debug_slave_phy|sld_virtual_jtag_impl:sld_virtual_jtag_impl_inst} } </value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -122,6 +122,14 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>1</value>
    <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="COMPOSED_SETTINGS">
+   <type>java.lang.String</type>
+   <value>{fabric sld dir agent mfr_code 70 type_code 34 version 3 instance 0 ir_width 2 prefer_host {} } </value>
+   <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
    <valid>true</valid>
@@ -169,7 +177,7 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="nodes" kind="conduit_end" version="15.0">
+  <interface name="nodes" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -210,17 +218,17 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>nodes_send</name>
     <direction>Input</direction>
-    <width>66</width>
+    <width>25</width>
     <role>send</role>
    </port>
    <port>
     <name>nodes_receive</name>
     <direction>Output</direction>
-    <width>66</width>
+    <width>25</width>
     <role>receive</role>
    </port>
   </interface>
-  <interface name="hub" kind="conduit_end" version="15.0">
+  <interface name="hub" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -295,7 +303,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="alt_sld_fab_presplit"
    kind="altera_super_splitter"
-   version="15.0"
+   version="15.1"
    path="alt_sld_fab.presplit">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -305,7 +313,7 @@ the requested settings for a module instance. -->
   </assignment>
   <parameter name="MAX_WIDTH">
    <type>int</type>
-   <value>33</value>
+   <value>25</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -313,7 +321,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SEND_WIDTHS">
    <type>java.lang.String</type>
-   <value>12 12</value>
+   <value>4</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -321,7 +329,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="RECEIVE_WIDTHS">
    <type>java.lang.String</type>
-   <value>33 33</value>
+   <value>25</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -343,7 +351,7 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="nodes" kind="conduit_end" version="15.0">
+  <interface name="nodes" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -384,17 +392,17 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>send</name>
     <direction>Input</direction>
-    <width>66</width>
+    <width>25</width>
     <role>send</role>
    </port>
    <port>
     <name>receive</name>
     <direction>Output</direction>
-    <width>66</width>
+    <width>25</width>
     <role>receive</role>
    </port>
   </interface>
-  <interface name="pass" kind="conduit_end" version="15.0">
+  <interface name="pass" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -435,33 +443,21 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>send_0</name>
     <direction>Output</direction>
-    <width>12</width>
+    <width>4</width>
     <role>send_0</role>
    </port>
    <port>
     <name>receive_0</name>
     <direction>Input</direction>
-    <width>33</width>
+    <width>25</width>
     <role>receive_0</role>
-   </port>
-   <port>
-    <name>send_1</name>
-    <direction>Output</direction>
-    <width>12</width>
-    <role>send_1</role>
-   </port>
-   <port>
-    <name>receive_1</name>
-    <direction>Input</direction>
-    <width>33</width>
-    <role>receive_1</role>
    </port>
   </interface>
  </module>
  <module
    name="alt_sld_fab_splitter"
    kind="altera_sld_splitter"
-   version="15.0"
+   version="15.1"
    path="alt_sld_fab.splitter">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -473,13 +469,9 @@ the requested settings for a module instance. -->
    <name>debug.virtualInterface.link_0</name>
    <value>debug.endpointLink {fabric sld index 1} </value>
   </assignment>
-  <assignment>
-   <name>debug.virtualInterface.link_1</name>
-   <value>debug.endpointLink {fabric sld index 2} </value>
-  </assignment>
   <parameter name="FRAGMENTS">
    <type>java.lang.String</type>
-   <value>{{name clock type clock dir end ports { {tck clk in 1 0} } } {name node type conduit dir end ports { {tms tms in 1 1} {tdi tdi in 1 2} {tdo tdo out 1 0} {ena ena in 1 3} {usr1 usr1 in 1 4} {clr clr in 1 5} {clrn clrn in 1 6} {jtag_state_tlr jtag_state_tlr in 1 7} {jtag_state_rti jtag_state_rti in 1 8} {jtag_state_sdrs jtag_state_sdrs in 1 9} {jtag_state_cdr jtag_state_cdr in 1 10} {jtag_state_sdr jtag_state_sdr in 1 11} {jtag_state_e1dr jtag_state_e1dr in 1 12} {jtag_state_pdr jtag_state_pdr in 1 13} {jtag_state_e2dr jtag_state_e2dr in 1 14} {jtag_state_udr jtag_state_udr in 1 15} {jtag_state_sirs jtag_state_sirs in 1 16} {jtag_state_cir jtag_state_cir in 1 17} {jtag_state_sir jtag_state_sir in 1 18} {jtag_state_e1ir jtag_state_e1ir in 1 19} {jtag_state_pir jtag_state_pir in 1 20} {jtag_state_e2ir jtag_state_e2ir in 1 21} {jtag_state_uir jtag_state_uir in 1 22} {ir_in ir_in in 10 23} {irq irq out 1 1} {ir_out ir_out out 10 2} } clock clock assign {debug.controlledBy {link_0} } moduleassign {debug.virtualInterface.link_0 {debug.endpointLink {fabric sld index 1} } } } } {{name clock type clock dir end ports { {tck clk in 1 0} } } {name node type conduit dir end ports { {tms tms in 1 1} {tdi tdi in 1 2} {tdo tdo out 1 0} {ena ena in 1 3} {usr1 usr1 in 1 4} {clr clr in 1 5} {clrn clrn in 1 6} {jtag_state_tlr jtag_state_tlr in 1 7} {jtag_state_rti jtag_state_rti in 1 8} {jtag_state_sdrs jtag_state_sdrs in 1 9} {jtag_state_cdr jtag_state_cdr in 1 10} {jtag_state_sdr jtag_state_sdr in 1 11} {jtag_state_e1dr jtag_state_e1dr in 1 12} {jtag_state_pdr jtag_state_pdr in 1 13} {jtag_state_e2dr jtag_state_e2dr in 1 14} {jtag_state_udr jtag_state_udr in 1 15} {jtag_state_sirs jtag_state_sirs in 1 16} {jtag_state_cir jtag_state_cir in 1 17} {jtag_state_sir jtag_state_sir in 1 18} {jtag_state_e1ir jtag_state_e1ir in 1 19} {jtag_state_pir jtag_state_pir in 1 20} {jtag_state_e2ir jtag_state_e2ir in 1 21} {jtag_state_uir jtag_state_uir in 1 22} {ir_in ir_in in 10 23} {irq irq out 1 1} {ir_out ir_out out 10 2} } clock clock assign {debug.controlledBy {link_1} } moduleassign {debug.virtualInterface.link_1 {debug.endpointLink {fabric sld index 2} } } } } </value>
+   <value>{{name clock type clock dir end ports { {tck clk in 1 0} } } {name node type conduit dir end ports { {tms tms in 1 1} {tdi tdi in 1 2} {tdo tdo out 1 0} {ena ena in 1 3} {usr1 usr1 in 1 4} {clr clr in 1 5} {clrn clrn in 1 6} {jtag_state_tlr jtag_state_tlr in 1 7} {jtag_state_rti jtag_state_rti in 1 8} {jtag_state_sdrs jtag_state_sdrs in 1 9} {jtag_state_cdr jtag_state_cdr in 1 10} {jtag_state_sdr jtag_state_sdr in 1 11} {jtag_state_e1dr jtag_state_e1dr in 1 12} {jtag_state_pdr jtag_state_pdr in 1 13} {jtag_state_e2dr jtag_state_e2dr in 1 14} {jtag_state_udr jtag_state_udr in 1 15} {jtag_state_sirs jtag_state_sirs in 1 16} {jtag_state_cir jtag_state_cir in 1 17} {jtag_state_sir jtag_state_sir in 1 18} {jtag_state_e1ir jtag_state_e1ir in 1 19} {jtag_state_pir jtag_state_pir in 1 20} {jtag_state_e2ir jtag_state_e2ir in 1 21} {jtag_state_uir jtag_state_uir in 1 22} {ir_in ir_in in 2 23} {irq irq out 1 1} {ir_out ir_out out 2 2} } clock clock assign {debug.controlledBy {link_0} } moduleassign {debug.virtualInterface.link_0 {debug.endpointLink {fabric sld index 1} } } } } </value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -517,7 +509,7 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="nodes" kind="conduit_end" version="15.0">
+  <interface name="nodes" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -558,29 +550,17 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>send_0</name>
     <direction>Input</direction>
-    <width>12</width>
+    <width>4</width>
     <role>send_0</role>
    </port>
    <port>
     <name>receive_0</name>
     <direction>Output</direction>
-    <width>33</width>
+    <width>25</width>
     <role>receive_0</role>
    </port>
-   <port>
-    <name>send_1</name>
-    <direction>Input</direction>
-    <width>12</width>
-    <role>send_1</role>
-   </port>
-   <port>
-    <name>receive_1</name>
-    <direction>Output</direction>
-    <width>33</width>
-    <role>receive_1</role>
-   </port>
   </interface>
-  <interface name="clock_0" kind="clock_sink" version="15.0">
+  <interface name="clock_0" kind="clock_sink" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -625,7 +605,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="node_0" kind="conduit_end" version="15.0">
+  <interface name="node_0" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -808,7 +788,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>ir_in_0</name>
     <direction>Input</direction>
-    <width>10</width>
+    <width>2</width>
     <role>ir_in</role>
    </port>
    <port>
@@ -820,251 +800,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>ir_out_0</name>
     <direction>Output</direction>
-    <width>10</width>
-    <role>ir_out</role>
-   </port>
-  </interface>
-  <interface name="clock_1" kind="clock_sink" version="15.0">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="externallyDriven">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="ptfSchematicName">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>clock</type>
-   <isStart>false</isStart>
-   <port>
-    <name>tck_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>clk</role>
-   </port>
-  </interface>
-  <interface name="node_1" kind="conduit_end" version="15.0">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <assignment>
-    <name>debug.controlledBy</name>
-    <value>link_1</value>
-   </assignment>
-   <parameter name="associatedClock">
-    <type>java.lang.String</type>
-    <value>clock_1</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="associatedReset">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>conduit</type>
-   <isStart>false</isStart>
-   <port>
-    <name>tms_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>tms</role>
-   </port>
-   <port>
-    <name>tdi_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>tdi</role>
-   </port>
-   <port>
-    <name>tdo_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>tdo</role>
-   </port>
-   <port>
-    <name>ena_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>ena</role>
-   </port>
-   <port>
-    <name>usr1_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>usr1</role>
-   </port>
-   <port>
-    <name>clr_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>clr</role>
-   </port>
-   <port>
-    <name>clrn_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>clrn</role>
-   </port>
-   <port>
-    <name>jtag_state_tlr_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_tlr</role>
-   </port>
-   <port>
-    <name>jtag_state_rti_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_rti</role>
-   </port>
-   <port>
-    <name>jtag_state_sdrs_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_sdrs</role>
-   </port>
-   <port>
-    <name>jtag_state_cdr_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_cdr</role>
-   </port>
-   <port>
-    <name>jtag_state_sdr_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_sdr</role>
-   </port>
-   <port>
-    <name>jtag_state_e1dr_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_e1dr</role>
-   </port>
-   <port>
-    <name>jtag_state_pdr_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_pdr</role>
-   </port>
-   <port>
-    <name>jtag_state_e2dr_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_e2dr</role>
-   </port>
-   <port>
-    <name>jtag_state_udr_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_udr</role>
-   </port>
-   <port>
-    <name>jtag_state_sirs_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_sirs</role>
-   </port>
-   <port>
-    <name>jtag_state_cir_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_cir</role>
-   </port>
-   <port>
-    <name>jtag_state_sir_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_sir</role>
-   </port>
-   <port>
-    <name>jtag_state_e1ir_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_e1ir</role>
-   </port>
-   <port>
-    <name>jtag_state_pir_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_pir</role>
-   </port>
-   <port>
-    <name>jtag_state_e2ir_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_e2ir</role>
-   </port>
-   <port>
-    <name>jtag_state_uir_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>jtag_state_uir</role>
-   </port>
-   <port>
-    <name>ir_in_1</name>
-    <direction>Input</direction>
-    <width>10</width>
-    <role>ir_in</role>
-   </port>
-   <port>
-    <name>irq_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>irq</role>
-   </port>
-   <port>
-    <name>ir_out_1</name>
-    <direction>Output</direction>
-    <width>10</width>
+    <width>2</width>
     <role>ir_out</role>
    </port>
   </interface>
@@ -1072,7 +808,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="alt_sld_fab_jtagpins"
    kind="altera_jtag_pins_bridge"
-   version="15.0"
+   version="15.1"
    path="alt_sld_fab.jtagpins">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -1092,7 +828,7 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="pins" kind="conduit_end" version="15.0">
+  <interface name="pins" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -1163,7 +899,7 @@ parameters are a RESULT of the module parameters. -->
     <role>tdo</role>
    </port>
   </interface>
-  <interface name="clock" kind="clock_source" version="15.0">
+  <interface name="clock" kind="clock_source" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -1238,7 +974,7 @@ parameters are a RESULT of the module parameters. -->
     <name>alt_sld_fab_sldfabric.clock</name>
    </clockDomainMember>
   </interface>
-  <interface name="node" kind="conduit_end" version="15.0">
+  <interface name="node" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -1303,7 +1039,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="alt_sld_fab_sldfabric"
    kind="altera_sld_jtag_hub"
-   version="15.0"
+   version="15.1"
    path="alt_sld_fab.sldfabric">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -1318,7 +1054,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SETTINGS">
    <type>java.lang.String</type>
-   <value>{mfr_code 110 type_code 0 version 6 instance 18 ir_width 10 prefer_host {} } {mfr_code 110 type_code 0 version 6 instance 19 ir_width 10 prefer_host {} } </value>
+   <value>{mfr_code 70 type_code 34 version 3 instance 0 ir_width 2 prefer_host {} } </value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -1326,7 +1062,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="COUNT">
    <type>int</type>
-   <value>2</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -1334,7 +1070,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="N_SEL_BITS">
    <type>int</type>
-   <value>2</value>
+   <value>1</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -1342,7 +1078,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="N_NODE_IR_BITS">
    <type>int</type>
-   <value>10</value>
+   <value>4</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -1350,7 +1086,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="NODE_INFO">
    <type>java.lang.String</type>
-   <value>0011000000000000011011100001001100110000000000000110111000010010</value>
+   <value>00011001000100000100011000000000</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -1366,7 +1102,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="BROADCAST_FEATURE">
    <type>int</type>
-   <value>1</value>
+   <value>0</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -1420,7 +1156,7 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="clock" kind="clock_sink" version="15.0">
+  <interface name="clock" kind="clock_sink" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -1465,7 +1201,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="node" kind="conduit_end" version="15.0">
+  <interface name="node" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -1526,7 +1262,7 @@ parameters are a RESULT of the module parameters. -->
     <role>tdo</role>
    </port>
   </interface>
-  <interface name="clock_0" kind="clock_source" version="15.0">
+  <interface name="clock_0" kind="clock_source" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -1601,7 +1337,7 @@ parameters are a RESULT of the module parameters. -->
     <name>alt_sld_fab_splitter.clock_0</name>
    </clockDomainMember>
   </interface>
-  <interface name="node_0" kind="conduit_end" version="15.0">
+  <interface name="node_0" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -1611,7 +1347,7 @@ parameters are a RESULT of the module parameters. -->
    </assignment>
    <assignment>
     <name>debug.encodedSldId</name>
-    <value>805334546</value>
+    <value>420496896</value>
    </assignment>
    <assignment>
     <name>debug.providesServices</name>
@@ -1654,13 +1390,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>node_ir_in_1d_0</name>
     <direction>Output</direction>
-    <width>10</width>
+    <width>2</width>
     <role>ir_in</role>
    </port>
    <port>
     <name>node_ir_out_1d_0</name>
     <direction>Input</direction>
-    <width>10</width>
+    <width>2</width>
     <role>ir_out</role>
    </port>
    <port>
@@ -1808,289 +1544,7 @@ parameters are a RESULT of the module parameters. -->
     <role>jtag_state_uir</role>
    </port>
   </interface>
-  <interface name="clock_1" kind="clock_source" version="15.0">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="associatedDirectClock">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="clockRate">
-    <type>long</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="clockRateKnown">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="externallyDriven">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="ptfSchematicName">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>clock</type>
-   <isStart>true</isStart>
-   <port>
-    <name>node_raw_tck_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>clk</role>
-   </port>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>alt_sld_fab_splitter</moduleName>
-    <slaveName>clock_1</slaveName>
-    <name>alt_sld_fab_splitter.clock_1</name>
-   </clockDomainMember>
-  </interface>
-  <interface name="node_1" kind="conduit_end" version="15.0">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <assignment>
-    <name>debug.controlledBy</name>
-    <value>node</value>
-   </assignment>
-   <assignment>
-    <name>debug.encodedSldId</name>
-    <value>805334547</value>
-   </assignment>
-   <assignment>
-    <name>debug.providesServices</name>
-    <value>sld</value>
-   </assignment>
-   <parameter name="associatedClock">
-    <type>java.lang.String</type>
-    <value>clock_1</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="associatedReset">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>conduit</type>
-   <isStart>false</isStart>
-   <port>
-    <name>node_ir_in_1d_1</name>
-    <direction>Output</direction>
-    <width>10</width>
-    <role>ir_in</role>
-   </port>
-   <port>
-    <name>node_ir_out_1d_1</name>
-    <direction>Input</direction>
-    <width>10</width>
-    <role>ir_out</role>
-   </port>
-   <port>
-    <name>node_tdo_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>tdo</role>
-   </port>
-   <port>
-    <name>node_irq_1</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>irq</role>
-   </port>
-   <port>
-    <name>node_raw_tms_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>tms</role>
-   </port>
-   <port>
-    <name>node_tdi_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>tdi</role>
-   </port>
-   <port>
-    <name>node_clr_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>clr</role>
-   </port>
-   <port>
-    <name>node_clrn_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>clrn</role>
-   </port>
-   <port>
-    <name>node_usr1_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>usr1</role>
-   </port>
-   <port>
-    <name>node_ena_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>ena</role>
-   </port>
-   <port>
-    <name>node_jtag_state_tlr_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_tlr</role>
-   </port>
-   <port>
-    <name>node_jtag_state_rti_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_rti</role>
-   </port>
-   <port>
-    <name>node_jtag_state_sdrs_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_sdrs</role>
-   </port>
-   <port>
-    <name>node_jtag_state_cdr_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_cdr</role>
-   </port>
-   <port>
-    <name>node_jtag_state_sdr_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_sdr</role>
-   </port>
-   <port>
-    <name>node_jtag_state_e1dr_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_e1dr</role>
-   </port>
-   <port>
-    <name>node_jtag_state_pdr_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_pdr</role>
-   </port>
-   <port>
-    <name>node_jtag_state_e2dr_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_e2dr</role>
-   </port>
-   <port>
-    <name>node_jtag_state_udr_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_udr</role>
-   </port>
-   <port>
-    <name>node_jtag_state_sirs_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_sirs</role>
-   </port>
-   <port>
-    <name>node_jtag_state_cir_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_cir</role>
-   </port>
-   <port>
-    <name>node_jtag_state_sir_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_sir</role>
-   </port>
-   <port>
-    <name>node_jtag_state_e1ir_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_e1ir</role>
-   </port>
-   <port>
-    <name>node_jtag_state_pir_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_pir</role>
-   </port>
-   <port>
-    <name>node_jtag_state_e2ir_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_e2ir</role>
-   </port>
-   <port>
-    <name>node_jtag_state_uir_1</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>jtag_state_uir</role>
-   </port>
-  </interface>
-  <interface name="ident" kind="conduit_end" version="15.0">
+  <interface name="ident" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -2151,13 +1605,13 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="alt_sld_fab_ident"
    kind="altera_connection_identification_hub"
-   version="15.0"
+   version="15.1"
    path="alt_sld_fab.ident">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="DESIGN_HASH">
    <type>java.lang.String</type>
-   <value>ca0d6f3984332dbfac63</value>
+   <value>be7e8d58eca7ae376ead</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2195,7 +1649,7 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="ident_0" kind="conduit_end" version="15.0">
+  <interface name="ident_0" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -2256,7 +1710,7 @@ parameters are a RESULT of the module parameters. -->
  <connection
    name="alt_sld_fab_presplit.pass/alt_sld_fab_splitter.nodes"
    kind="conduit"
-   version="15.0"
+   version="15.1"
    start="alt_sld_fab_presplit.pass"
    end="alt_sld_fab_splitter.nodes">
   <parameter name="endPort">
@@ -2323,7 +1777,7 @@ parameters are a RESULT of the module parameters. -->
  <connection
    name="alt_sld_fab_jtagpins.clock/alt_sld_fab_sldfabric.clock"
    kind="clock"
-   version="15.0"
+   version="15.1"
    start="alt_sld_fab_jtagpins.clock"
    end="alt_sld_fab_sldfabric.clock">
   <parameter name="deviceFamily">
@@ -2350,7 +1804,7 @@ parameters are a RESULT of the module parameters. -->
  <connection
    name="alt_sld_fab_jtagpins.node/alt_sld_fab_sldfabric.node"
    kind="conduit"
-   version="15.0"
+   version="15.1"
    start="alt_sld_fab_jtagpins.node"
    end="alt_sld_fab_sldfabric.node">
   <parameter name="endPort">
@@ -2417,7 +1871,7 @@ parameters are a RESULT of the module parameters. -->
  <connection
    name="alt_sld_fab_sldfabric.clock_0/alt_sld_fab_splitter.clock_0"
    kind="clock"
-   version="15.0"
+   version="15.1"
    start="alt_sld_fab_sldfabric.clock_0"
    end="alt_sld_fab_splitter.clock_0">
   <parameter name="deviceFamily">
@@ -2444,7 +1898,7 @@ parameters are a RESULT of the module parameters. -->
  <connection
    name="alt_sld_fab_sldfabric.node_0/alt_sld_fab_splitter.node_0"
    kind="conduit"
-   version="15.0"
+   version="15.1"
    start="alt_sld_fab_sldfabric.node_0"
    end="alt_sld_fab_splitter.node_0">
   <parameter name="endPort">
@@ -2509,103 +1963,9 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>node_0</endConnectionPoint>
  </connection>
  <connection
-   name="alt_sld_fab_sldfabric.clock_1/alt_sld_fab_splitter.clock_1"
-   kind="clock"
-   version="15.0"
-   start="alt_sld_fab_sldfabric.clock_1"
-   end="alt_sld_fab_splitter.clock_1">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>alt_sld_fab_sldfabric</startModule>
-  <startConnectionPoint>clock_1</startConnectionPoint>
-  <endModule>alt_sld_fab_splitter</endModule>
-  <endConnectionPoint>clock_1</endConnectionPoint>
- </connection>
- <connection
-   name="alt_sld_fab_sldfabric.node_1/alt_sld_fab_splitter.node_1"
-   kind="conduit"
-   version="15.0"
-   start="alt_sld_fab_sldfabric.node_1"
-   end="alt_sld_fab_splitter.node_1">
-  <parameter name="endPort">
-   <type>com.altera.entityinterfaces.IPort</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="endPortLSB">
-   <type>int</type>
-   <value>0</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="startPort">
-   <type>com.altera.entityinterfaces.IPort</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="startPortLSB">
-   <type>int</type>
-   <value>0</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="width">
-   <type>int</type>
-   <value>0</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>alt_sld_fab_sldfabric</startModule>
-  <startConnectionPoint>node_1</startConnectionPoint>
-  <endModule>alt_sld_fab_splitter</endModule>
-  <endConnectionPoint>node_1</endConnectionPoint>
- </connection>
- <connection
    name="alt_sld_fab_sldfabric.ident/alt_sld_fab_ident.ident_0"
    kind="conduit"
-   version="15.0"
+   version="15.1"
    start="alt_sld_fab_sldfabric.ident"
    end="alt_sld_fab_ident.ident_0">
   <parameter name="endPort">
@@ -2675,15 +2035,15 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>Top level generated instrumentation fabric</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
-  <instanceCount>14</instanceCount>
+  <instanceCount>12</instanceCount>
   <name>conduit_end</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Conduit</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -2691,7 +2051,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>Splitter for debug fabric</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -2699,15 +2059,15 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>Splitter for debug fabric</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
-  <instanceCount>3</instanceCount>
+  <instanceCount>2</instanceCount>
   <name>clock_sink</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Clock Input</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -2715,15 +2075,15 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>altera_jtag_pins_bridge</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
-  <instanceCount>3</instanceCount>
+  <instanceCount>2</instanceCount>
   <name>clock_source</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Clock Output</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -2731,7 +2091,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>Altera SLD JTAG Hub</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -2739,24 +2099,24 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>Connection identification hub</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
-  <instanceCount>5</instanceCount>
+  <instanceCount>4</instanceCount>
   <name>conduit</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
   <displayName>Conduit Connection</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
-  <instanceCount>3</instanceCount>
+  <instanceCount>2</instanceCount>
   <name>clock</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
   <displayName>Clock Connection</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
- <reportVersion>15.0 145</reportVersion>
+ <reportVersion>15.1 193</reportVersion>
  <uniqueIdentifier></uniqueIdentifier>
 </EnsembleReport>

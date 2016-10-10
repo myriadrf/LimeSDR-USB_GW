@@ -1,0 +1,247 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 16 16 464 416)
+	(text "lms_ctr" (rect 5 0 35 12)(font "Arial" ))
+	(text "inst" (rect 8 384 20 396)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk_clk" (rect 0 0 27 12)(font "Arial" ))
+		(text "clk_clk" (rect 21 27 48 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "exfifo_if_d_export[7..0]" (rect 0 0 94 12)(font "Arial" ))
+		(text "exfifo_if_d_export[7..0]" (rect 21 43 115 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 3))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "exfifo_if_rdempty_export" (rect 0 0 103 12)(font "Arial" ))
+		(text "exfifo_if_rdempty_export" (rect 21 59 124 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 1))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "exfifo_of_wrfull_export" (rect 0 0 93 12)(font "Arial" ))
+		(text "exfifo_of_wrfull_export" (rect 21 75 114 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 1))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "spi_1_adf4002_MISO" (rect 0 0 88 12)(font "Arial" ))
+		(text "spi_1_adf4002_MISO" (rect 21 91 109 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 1))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "spi_1_ext_MISO" (rect 0 0 67 12)(font "Arial" ))
+		(text "spi_1_ext_MISO" (rect 21 107 88 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112)(line_width 1))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "spi_fpga_as_MISO" (rect 0 0 79 12)(font "Arial" ))
+		(text "spi_fpga_as_MISO" (rect 21 123 100 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128)(line_width 1))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "spi_lms_external_MISO" (rect 0 0 96 12)(font "Arial" ))
+		(text "spi_lms_external_MISO" (rect 21 139 117 151)(font "Arial" ))
+		(line (pt 0 144)(pt 16 144)(line_width 1))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "switch_external_connection_export[7..0]" (rect 0 0 158 12)(font "Arial" ))
+		(text "switch_external_connection_export[7..0]" (rect 21 155 179 167)(font "Arial" ))
+		(line (pt 0 160)(pt 16 160)(line_width 3))
+	)
+	(port
+		(pt 0 176)
+		(input)
+		(text "uart_external_connection_rxd" (rect 0 0 118 12)(font "Arial" ))
+		(text "uart_external_connection_rxd" (rect 21 171 139 183)(font "Arial" ))
+		(line (pt 0 176)(pt 16 176)(line_width 1))
+	)
+	(port
+		(pt 448 32)
+		(output)
+		(text "exfifo_if_rd_export" (rect 0 0 77 12)(font "Arial" ))
+		(text "exfifo_if_rd_export" (rect 350 27 427 39)(font "Arial" ))
+		(line (pt 448 32)(pt 432 32)(line_width 1))
+	)
+	(port
+		(pt 448 48)
+		(output)
+		(text "exfifo_of_d_export[7..0]" (rect 0 0 97 12)(font "Arial" ))
+		(text "exfifo_of_d_export[7..0]" (rect 330 43 427 55)(font "Arial" ))
+		(line (pt 448 48)(pt 432 48)(line_width 3))
+	)
+	(port
+		(pt 448 64)
+		(output)
+		(text "exfifo_of_wr_export" (rect 0 0 82 12)(font "Arial" ))
+		(text "exfifo_of_wr_export" (rect 345 59 427 71)(font "Arial" ))
+		(line (pt 448 64)(pt 432 64)(line_width 1))
+	)
+	(port
+		(pt 448 80)
+		(output)
+		(text "exfifo_rst_export" (rect 0 0 69 12)(font "Arial" ))
+		(text "exfifo_rst_export" (rect 358 75 427 87)(font "Arial" ))
+		(line (pt 448 80)(pt 432 80)(line_width 1))
+	)
+	(port
+		(pt 448 128)
+		(output)
+		(text "leds_external_connection_export[7..0]" (rect 0 0 149 12)(font "Arial" ))
+		(text "leds_external_connection_export[7..0]" (rect 278 123 427 135)(font "Arial" ))
+		(line (pt 448 128)(pt 432 128)(line_width 3))
+	)
+	(port
+		(pt 448 144)
+		(output)
+		(text "lms_ctr_gpio_external_connection_export[3..0]" (rect 0 0 186 12)(font "Arial" ))
+		(text "lms_ctr_gpio_external_connection_export[3..0]" (rect 241 139 427 151)(font "Arial" ))
+		(line (pt 448 144)(pt 432 144)(line_width 3))
+	)
+	(port
+		(pt 448 160)
+		(output)
+		(text "spi_1_adf4002_MOSI" (rect 0 0 88 12)(font "Arial" ))
+		(text "spi_1_adf4002_MOSI" (rect 339 155 427 167)(font "Arial" ))
+		(line (pt 448 160)(pt 432 160)(line_width 1))
+	)
+	(port
+		(pt 448 176)
+		(output)
+		(text "spi_1_adf4002_SCLK" (rect 0 0 90 12)(font "Arial" ))
+		(text "spi_1_adf4002_SCLK" (rect 337 171 427 183)(font "Arial" ))
+		(line (pt 448 176)(pt 432 176)(line_width 1))
+	)
+	(port
+		(pt 448 192)
+		(output)
+		(text "spi_1_adf4002_SS_n" (rect 0 0 87 12)(font "Arial" ))
+		(text "spi_1_adf4002_SS_n" (rect 340 187 427 199)(font "Arial" ))
+		(line (pt 448 192)(pt 432 192)(line_width 1))
+	)
+	(port
+		(pt 448 208)
+		(output)
+		(text "spi_1_ext_MOSI" (rect 0 0 67 12)(font "Arial" ))
+		(text "spi_1_ext_MOSI" (rect 360 203 427 215)(font "Arial" ))
+		(line (pt 448 208)(pt 432 208)(line_width 1))
+	)
+	(port
+		(pt 448 224)
+		(output)
+		(text "spi_1_ext_SCLK" (rect 0 0 69 12)(font "Arial" ))
+		(text "spi_1_ext_SCLK" (rect 358 219 427 231)(font "Arial" ))
+		(line (pt 448 224)(pt 432 224)(line_width 1))
+	)
+	(port
+		(pt 448 240)
+		(output)
+		(text "spi_1_ext_SS_n[1..0]" (rect 0 0 84 12)(font "Arial" ))
+		(text "spi_1_ext_SS_n[1..0]" (rect 343 235 427 247)(font "Arial" ))
+		(line (pt 448 240)(pt 432 240)(line_width 3))
+	)
+	(port
+		(pt 448 256)
+		(output)
+		(text "spi_fpga_as_MOSI" (rect 0 0 79 12)(font "Arial" ))
+		(text "spi_fpga_as_MOSI" (rect 348 251 427 263)(font "Arial" ))
+		(line (pt 448 256)(pt 432 256)(line_width 1))
+	)
+	(port
+		(pt 448 272)
+		(output)
+		(text "spi_fpga_as_SCLK" (rect 0 0 81 12)(font "Arial" ))
+		(text "spi_fpga_as_SCLK" (rect 346 267 427 279)(font "Arial" ))
+		(line (pt 448 272)(pt 432 272)(line_width 1))
+	)
+	(port
+		(pt 448 288)
+		(output)
+		(text "spi_fpga_as_SS_n" (rect 0 0 77 12)(font "Arial" ))
+		(text "spi_fpga_as_SS_n" (rect 350 283 427 295)(font "Arial" ))
+		(line (pt 448 288)(pt 432 288)(line_width 1))
+	)
+	(port
+		(pt 448 304)
+		(output)
+		(text "spi_lms_external_MOSI" (rect 0 0 96 12)(font "Arial" ))
+		(text "spi_lms_external_MOSI" (rect 331 299 427 311)(font "Arial" ))
+		(line (pt 448 304)(pt 432 304)(line_width 1))
+	)
+	(port
+		(pt 448 320)
+		(output)
+		(text "spi_lms_external_SCLK" (rect 0 0 99 12)(font "Arial" ))
+		(text "spi_lms_external_SCLK" (rect 328 315 427 327)(font "Arial" ))
+		(line (pt 448 320)(pt 432 320)(line_width 1))
+	)
+	(port
+		(pt 448 336)
+		(output)
+		(text "spi_lms_external_SS_n[4..0]" (rect 0 0 116 12)(font "Arial" ))
+		(text "spi_lms_external_SS_n[4..0]" (rect 311 331 427 343)(font "Arial" ))
+		(line (pt 448 336)(pt 432 336)(line_width 3))
+	)
+	(port
+		(pt 448 352)
+		(output)
+		(text "uart_external_connection_txd" (rect 0 0 116 12)(font "Arial" ))
+		(text "uart_external_connection_txd" (rect 311 347 427 359)(font "Arial" ))
+		(line (pt 448 352)(pt 432 352)(line_width 1))
+	)
+	(port
+		(pt 448 96)
+		(bidir)
+		(text "i2c_scl_export" (rect 0 0 57 12)(font "Arial" ))
+		(text "i2c_scl_export" (rect 370 91 427 103)(font "Arial" ))
+		(line (pt 448 96)(pt 432 96)(line_width 1))
+	)
+	(port
+		(pt 448 112)
+		(bidir)
+		(text "i2c_sda_export" (rect 0 0 61 12)(font "Arial" ))
+		(text "i2c_sda_export" (rect 366 107 427 119)(font "Arial" ))
+		(line (pt 448 112)(pt 432 112)(line_width 1))
+	)
+	(drawing
+		(rectangle (rect 16 16 432 384)(line_width 1))
+	)
+)
