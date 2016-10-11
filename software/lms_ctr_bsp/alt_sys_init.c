@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'lms_ctr'
  * SOPC Builder design path: ../../lms_ctr.sopcinfo
  *
- * Generated: Tue Feb 16 11:02:27 EET 2016
+ * Generated: Tue Oct 11 09:44:01 EEST 2016
  */
 
 /*
@@ -61,21 +61,14 @@
 #include "altera_nios2_gen2_irq.h"
 #include "altera_avalon_spi.h"
 #include "altera_avalon_sysid_qsys.h"
-#include "altera_avalon_uart.h"
-#include "i2c_opencores.h"
 
 /*
  * Allocate the device storage
  */
 
 ALTERA_NIOS2_GEN2_IRQ_INSTANCE ( NIOS2_CPU, nios2_cpu);
-ALTERA_AVALON_SPI_INSTANCE ( SPI_1, spi_1);
-ALTERA_AVALON_SPI_INSTANCE ( SPI_1_ADF4002, spi_1_ADF4002);
-ALTERA_AVALON_SPI_INSTANCE ( SPI_FPGA_AS, spi_FPGA_AS);
 ALTERA_AVALON_SPI_INSTANCE ( SPI_LMS, spi_lms);
 ALTERA_AVALON_SYSID_QSYS_INSTANCE ( SYSID_QSYS_0, sysid_qsys_0);
-ALTERA_AVALON_UART_INSTANCE ( UART, uart);
-I2C_OPENCORES_INSTANCE ( I2C_OPENCORES_0, i2c_opencores_0);
 
 /*
  * Initialize the interrupt controller devices
@@ -98,11 +91,6 @@ void alt_irq_init ( const void* base )
 
 void alt_sys_init( void )
 {
-    ALTERA_AVALON_SPI_INIT ( SPI_1, spi_1);
-    ALTERA_AVALON_SPI_INIT ( SPI_1_ADF4002, spi_1_ADF4002);
-    ALTERA_AVALON_SPI_INIT ( SPI_FPGA_AS, spi_FPGA_AS);
     ALTERA_AVALON_SPI_INIT ( SPI_LMS, spi_lms);
     ALTERA_AVALON_SYSID_QSYS_INIT ( SYSID_QSYS_0, sysid_qsys_0);
-    ALTERA_AVALON_UART_INIT ( UART, uart);
-    I2C_OPENCORES_INIT ( I2C_OPENCORES_0, i2c_opencores_0);
 }

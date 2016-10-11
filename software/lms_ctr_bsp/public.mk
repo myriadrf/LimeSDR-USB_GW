@@ -82,7 +82,7 @@ ACDS_VERSION := 15.1
 
 # This following BUILD_NUMBER comment indicates the build number of the tool 
 # used to generate this makefile. 
-# BUILD_NUMBER: 185
+# BUILD_NUMBER: 193
 
 # Qsys--generated SOPCINFO file. Required for resolving node instance ID's with 
 # design component names. 
@@ -152,23 +152,14 @@ SOPC_SYSID_FLAG += --id=4920
 ELF_PATCH_FLAG  += --id 4920
 
 # The SOPC System ID Base Address 
-# setting SOPC_SYSID_BASE_ADDRESS is 0x110f0
-SOPC_SYSID_FLAG += --sidp=0x110f0
-ELF_PATCH_FLAG  += --sidp 0x110f0
+# setting SOPC_SYSID_BASE_ADDRESS is 0x11070
+SOPC_SYSID_FLAG += --sidp=0x11070
+ELF_PATCH_FLAG  += --sidp 0x11070
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1455611659
-SOPC_SYSID_FLAG += --timestamp=1455611659
-ELF_PATCH_FLAG  += --timestamp 1455611659
-
-# Enable driver ioctl() support. This feature is not compatible with the 
-# 'small' driver; ioctl() support will not be compiled if either the UART 
-# 'enable_small_driver' or HAL 'enable_reduced_device_drivers' settings are 
-# enabled. none 
-# setting altera_avalon_uart_driver.enable_ioctl is false
-
-# Small-footprint (polled mode) driver none 
-# setting altera_avalon_uart_driver.enable_small_driver is false
+# setting SOPC_TIMESTAMP is 1476166475
+SOPC_SYSID_FLAG += --timestamp=1476166475
+ELF_PATCH_FLAG  += --timestamp 1476166475
 
 # Build a custom version of newlib with the specified space-separated compiler 
 # flags. The custom newlib build will be placed in the <bsp root>/newlib 

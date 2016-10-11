@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Feb 16, 2016 11:02:24 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1455613344823</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>D:\LimeMicrosystems\SoDeRa-PCIe\qii\nios_qsys\try_01\software\lms_ctr_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>Oct 11, 2016 9:44:00 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1476168240227</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>D:\gitrepos\limesdr-usb_lms7_trx_gw.git\limesdr-usb_lms7_trx_gw\software\lms_ctr_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\lms_ctr.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
@@ -862,36 +862,6 @@
                 <Enabled>false</Enabled>
                 <Group>none</Group>
         </Setting>
-        <Setting>
-                <SettingName>altera_avalon_uart_driver.enable_small_driver</SettingName>
-                <Identifier>ALTERA_AVALON_UART_SMALL</Identifier>
-                <Type>BooleanDefineOnly</Type>
-                <Value>false</Value>
-                <DefaultValue>false</DefaultValue>
-                <DestinationFile>public_mk_define</DestinationFile>
-                <Description>Small-footprint (polled mode) driver</Description>
-                <Restrictions>none</Restrictions>
-                <Enabled>false</Enabled>
-                <Group xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
-        </Setting>
-        <Setting>
-                <SettingName>altera_avalon_uart_driver.enable_ioctl</SettingName>
-                <Identifier>ALTERA_AVALON_UART_USE_IOCTL</Identifier>
-                <Type>BooleanDefineOnly</Type>
-                <Value>false</Value>
-                <DefaultValue>false</DefaultValue>
-                <DestinationFile>public_mk_define</DestinationFile>
-                <Description>Enable driver ioctl() support. This feature is not compatible with the 'small' driver; ioctl() support will not be compiled if either the UART 'enable_small_driver' or HAL 'enable_reduced_device_drivers' settings are enabled.</Description>
-                <Restrictions>none</Restrictions>
-                <Enabled>false</Enabled>
-                <Group xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
-        </Setting>
-        <MemoryMap>
-                <slaveDescriptor>spi_1_ADF4002</slaveDescriptor>
-                <addressRange>0x00000000 - 0x0000001F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>oc_mem</slaveDescriptor>
                 <addressRange>0x00008000 - 0x0000FFFF</addressRange>
@@ -899,62 +869,38 @@
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>spi_FPGA_AS</slaveDescriptor>
+                <slaveDescriptor>spi_lms</slaveDescriptor>
                 <addressRange>0x00011000 - 0x0001101F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>spi_1</slaveDescriptor>
+                <slaveDescriptor>lms_ctr_gpio</slaveDescriptor>
                 <addressRange>0x00011020 - 0x0001103F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>spi_lms</slaveDescriptor>
-                <addressRange>0x00011040 - 0x0001105F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>lms_ctr_gpio</slaveDescriptor>
-                <addressRange>0x00011060 - 0x0001107F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>uart</slaveDescriptor>
-                <addressRange>0x00011080 - 0x0001109F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes>printable</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>i2c_opencores_0</slaveDescriptor>
-                <addressRange>0x000110A0 - 0x000110BF</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
                 <slaveDescriptor>leds</slaveDescriptor>
-                <addressRange>0x000110C0 - 0x000110CF</addressRange>
+                <addressRange>0x00011040 - 0x0001104F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>switch</slaveDescriptor>
-                <addressRange>0x000110D0 - 0x000110DF</addressRange>
+                <addressRange>0x00011050 - 0x0001105F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>Av_FIFO_Int_0</slaveDescriptor>
-                <addressRange>0x000110E0 - 0x000110EF</addressRange>
+                <addressRange>0x00011060 - 0x0001106F</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>sysid_qsys_0</slaveDescriptor>
-                <addressRange>0x000110F0 - 0x000110F7</addressRange>
+                <addressRange>0x00011070 - 0x00011077</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>

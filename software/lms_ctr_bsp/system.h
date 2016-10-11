@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'lms_ctr'
  * SOPC Builder design path: ../../lms_ctr.sopcinfo
  *
- * Generated: Tue Feb 16 11:02:27 EET 2016
+ * Generated: Tue Oct 11 09:44:01 EEST 2016
  */
 
 /*
@@ -61,7 +61,7 @@
  */
 
 #define ALT_MODULE_CLASS_Av_FIFO_Int_0 Av_FIFO_Int
-#define AV_FIFO_INT_0_BASE 0x110e0
+#define AV_FIFO_INT_0_BASE 0x11060
 #define AV_FIFO_INT_0_IRQ -1
 #define AV_FIFO_INT_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define AV_FIFO_INT_0_NAME "/dev/Av_FIFO_Int_0"
@@ -160,11 +160,9 @@
 #define __ALTERA_AVALON_PIO
 #define __ALTERA_AVALON_SPI
 #define __ALTERA_AVALON_SYSID_QSYS
-#define __ALTERA_AVALON_UART
 #define __ALTERA_NIOS2_GEN2
 #define __ALTERA_NIOS_CUSTOM_INSTR_BITSWAP
 #define __AV_FIFO_INT
-#define __I2C_OPENCORES
 
 
 /*
@@ -172,7 +170,7 @@
  *
  */
 
-#define ALT_DEVICE_FAMILY "Cyclone IV GX"
+#define ALT_DEVICE_FAMILY "Cyclone IV E"
 #define ALT_ENHANCED_INTERRUPT_API_PRESENT
 #define ALT_IRQ_BASE NULL
 #define ALT_LOG_PORT "/dev/null"
@@ -209,26 +207,12 @@
 
 
 /*
- * i2c_opencores_0 configuration
- *
- */
-
-#define ALT_MODULE_CLASS_i2c_opencores_0 i2c_opencores
-#define I2C_OPENCORES_0_BASE 0x110a0
-#define I2C_OPENCORES_0_IRQ 0
-#define I2C_OPENCORES_0_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define I2C_OPENCORES_0_NAME "/dev/i2c_opencores_0"
-#define I2C_OPENCORES_0_SPAN 32
-#define I2C_OPENCORES_0_TYPE "i2c_opencores"
-
-
-/*
  * leds configuration
  *
  */
 
 #define ALT_MODULE_CLASS_leds altera_avalon_pio
-#define LEDS_BASE 0x110c0
+#define LEDS_BASE 0x11040
 #define LEDS_BIT_CLEARING_EDGE_REGISTER 0
 #define LEDS_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LEDS_CAPTURE 0
@@ -255,7 +239,7 @@
  */
 
 #define ALT_MODULE_CLASS_lms_ctr_gpio altera_avalon_pio
-#define LMS_CTR_GPIO_BASE 0x11060
+#define LMS_CTR_GPIO_BASE 0x11020
 #define LMS_CTR_GPIO_BIT_CLEARING_EDGE_REGISTER 0
 #define LMS_CTR_GPIO_BIT_MODIFYING_OUTPUT_REGISTER 1
 #define LMS_CTR_GPIO_CAPTURE 0
@@ -306,105 +290,12 @@
 
 
 /*
- * spi_1 configuration
- *
- */
-
-#define ALT_MODULE_CLASS_spi_1 altera_avalon_spi
-#define SPI_1_BASE 0x11020
-#define SPI_1_CLOCKMULT 1
-#define SPI_1_CLOCKPHASE 1
-#define SPI_1_CLOCKPOLARITY 0
-#define SPI_1_CLOCKUNITS "Hz"
-#define SPI_1_DATABITS 8
-#define SPI_1_DATAWIDTH 16
-#define SPI_1_DELAYMULT "1.0E-9"
-#define SPI_1_DELAYUNITS "ns"
-#define SPI_1_EXTRADELAY 0
-#define SPI_1_INSERT_SYNC 0
-#define SPI_1_IRQ 3
-#define SPI_1_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define SPI_1_ISMASTER 1
-#define SPI_1_LSBFIRST 0
-#define SPI_1_NAME "/dev/spi_1"
-#define SPI_1_NUMSLAVES 2
-#define SPI_1_PREFIX "spi_"
-#define SPI_1_SPAN 32
-#define SPI_1_SYNC_REG_DEPTH 2
-#define SPI_1_TARGETCLOCK 20000000u
-#define SPI_1_TARGETSSDELAY "0.0"
-#define SPI_1_TYPE "altera_avalon_spi"
-
-
-/*
- * spi_1_ADF4002 configuration
- *
- */
-
-#define ALT_MODULE_CLASS_spi_1_ADF4002 altera_avalon_spi
-#define SPI_1_ADF4002_BASE 0x0
-#define SPI_1_ADF4002_CLOCKMULT 1
-#define SPI_1_ADF4002_CLOCKPHASE 0
-#define SPI_1_ADF4002_CLOCKPOLARITY 0
-#define SPI_1_ADF4002_CLOCKUNITS "Hz"
-#define SPI_1_ADF4002_DATABITS 8
-#define SPI_1_ADF4002_DATAWIDTH 16
-#define SPI_1_ADF4002_DELAYMULT "1.0E-9"
-#define SPI_1_ADF4002_DELAYUNITS "ns"
-#define SPI_1_ADF4002_EXTRADELAY 1
-#define SPI_1_ADF4002_INSERT_SYNC 0
-#define SPI_1_ADF4002_IRQ 5
-#define SPI_1_ADF4002_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define SPI_1_ADF4002_ISMASTER 1
-#define SPI_1_ADF4002_LSBFIRST 0
-#define SPI_1_ADF4002_NAME "/dev/spi_1_ADF4002"
-#define SPI_1_ADF4002_NUMSLAVES 1
-#define SPI_1_ADF4002_PREFIX "spi_"
-#define SPI_1_ADF4002_SPAN 32
-#define SPI_1_ADF4002_SYNC_REG_DEPTH 2
-#define SPI_1_ADF4002_TARGETCLOCK 10000000u
-#define SPI_1_ADF4002_TARGETSSDELAY "400.0"
-#define SPI_1_ADF4002_TYPE "altera_avalon_spi"
-
-
-/*
- * spi_FPGA_AS configuration
- *
- */
-
-#define ALT_MODULE_CLASS_spi_FPGA_AS altera_avalon_spi
-#define SPI_FPGA_AS_BASE 0x11000
-#define SPI_FPGA_AS_CLOCKMULT 1
-#define SPI_FPGA_AS_CLOCKPHASE 0
-#define SPI_FPGA_AS_CLOCKPOLARITY 0
-#define SPI_FPGA_AS_CLOCKUNITS "Hz"
-#define SPI_FPGA_AS_DATABITS 8
-#define SPI_FPGA_AS_DATAWIDTH 16
-#define SPI_FPGA_AS_DELAYMULT "1.0E-9"
-#define SPI_FPGA_AS_DELAYUNITS "ns"
-#define SPI_FPGA_AS_EXTRADELAY 1
-#define SPI_FPGA_AS_INSERT_SYNC 0
-#define SPI_FPGA_AS_IRQ 4
-#define SPI_FPGA_AS_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define SPI_FPGA_AS_ISMASTER 1
-#define SPI_FPGA_AS_LSBFIRST 1
-#define SPI_FPGA_AS_NAME "/dev/spi_FPGA_AS"
-#define SPI_FPGA_AS_NUMSLAVES 1
-#define SPI_FPGA_AS_PREFIX "spi_"
-#define SPI_FPGA_AS_SPAN 32
-#define SPI_FPGA_AS_SYNC_REG_DEPTH 2
-#define SPI_FPGA_AS_TARGETCLOCK 8000000u
-#define SPI_FPGA_AS_TARGETSSDELAY "200.0"
-#define SPI_FPGA_AS_TYPE "altera_avalon_spi"
-
-
-/*
  * spi_lms configuration
  *
  */
 
 #define ALT_MODULE_CLASS_spi_lms altera_avalon_spi
-#define SPI_LMS_BASE 0x11040
+#define SPI_LMS_BASE 0x11000
 #define SPI_LMS_CLOCKMULT 1
 #define SPI_LMS_CLOCKPHASE 0
 #define SPI_LMS_CLOCKPOLARITY 0
@@ -415,7 +306,7 @@
 #define SPI_LMS_DELAYUNITS "ns"
 #define SPI_LMS_EXTRADELAY 1
 #define SPI_LMS_INSERT_SYNC 0
-#define SPI_LMS_IRQ 2
+#define SPI_LMS_IRQ 0
 #define SPI_LMS_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define SPI_LMS_ISMASTER 1
 #define SPI_LMS_LSBFIRST 0
@@ -435,7 +326,7 @@
  */
 
 #define ALT_MODULE_CLASS_switch altera_avalon_pio
-#define SWITCH_BASE 0x110d0
+#define SWITCH_BASE 0x11050
 #define SWITCH_BIT_CLEARING_EDGE_REGISTER 0
 #define SWITCH_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define SWITCH_CAPTURE 0
@@ -462,38 +353,13 @@
  */
 
 #define ALT_MODULE_CLASS_sysid_qsys_0 altera_avalon_sysid_qsys
-#define SYSID_QSYS_0_BASE 0x110f0
+#define SYSID_QSYS_0_BASE 0x11070
 #define SYSID_QSYS_0_ID 4920
 #define SYSID_QSYS_0_IRQ -1
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1455611659
+#define SYSID_QSYS_0_TIMESTAMP 1476166475
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
-
-
-/*
- * uart configuration
- *
- */
-
-#define ALT_MODULE_CLASS_uart altera_avalon_uart
-#define UART_BASE 0x11080
-#define UART_BAUD 115200
-#define UART_DATA_BITS 8
-#define UART_FIXED_BAUD 1
-#define UART_FREQ 100000000
-#define UART_IRQ 1
-#define UART_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define UART_NAME "/dev/uart"
-#define UART_PARITY 'N'
-#define UART_SIM_CHAR_STREAM ""
-#define UART_SIM_TRUE_BAUD 0
-#define UART_SPAN 32
-#define UART_STOP_BITS 1
-#define UART_SYNC_REG_DEPTH 2
-#define UART_TYPE "altera_avalon_uart"
-#define UART_USE_CTS_RTS 0
-#define UART_USE_EOP_REGISTER 0
 
 #endif /* __SYSTEM_H_ */
