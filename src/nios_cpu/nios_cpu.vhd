@@ -28,7 +28,9 @@ entity nios_cpu is
 			spi_lms_MOSI				: out   std_logic;
 			spi_lms_SCLK				: out   std_logic;
 			spi_lms_SS_n				: out   std_logic_vector(4 downto 0);
-			switch							: in    std_logic_vector(7 downto 0)
+			switch							: in    std_logic_vector(7 downto 0);
+			i2c_scl							: inout std_logic;
+			i2c_sda							: inout std_logic
         );
 end nios_cpu;
 
@@ -41,22 +43,24 @@ architecture arch of nios_cpu is
 
 	component lms_ctr is
 		port (
-			clk_clk                                 : in  std_logic                    := 'X';             -- clk
-			exfifo_if_d_export                      : in  std_logic_vector(7 downto 0) := (others => 'X'); -- export
-			exfifo_if_rd_export                     : out std_logic;                                       -- export
-			exfifo_if_rdempty_export                : in  std_logic                    := 'X';             -- export
-			exfifo_of_d_export                      : out std_logic_vector(7 downto 0);                    -- export
-			exfifo_of_wr_export                     : out std_logic;                                       -- export
-			exfifo_of_wrfull_export                 : in  std_logic                    := 'X';             -- export
-			exfifo_rst_export                       : out std_logic;                                       -- export
-			leds_external_connection_export         : out std_logic_vector(7 downto 0);                    -- export
-			lms_ctr_gpio_external_connection_export : out std_logic_vector(3 downto 0);                    -- export
-			spi_lms_external_MISO                   : in  std_logic                    := 'X';             -- MISO
-			spi_lms_external_MOSI                   : out std_logic;                                       -- MOSI
-			spi_lms_external_SCLK                   : out std_logic;                                       -- SCLK
-			spi_lms_external_SS_n                   : out std_logic_vector(4 downto 0);                    -- SS_n
-			switch_external_connection_export       : in  std_logic_vector(7 downto 0) := (others => 'X')  -- export		
-	);
+			clk_clk                                 : in    std_logic                    := 'X';             -- clk
+			exfifo_if_d_export                      : in    std_logic_vector(7 downto 0) := (others => 'X'); -- export
+			exfifo_if_rd_export                     : out   std_logic;                                       -- export
+			exfifo_if_rdempty_export                : in    std_logic                    := 'X';             -- export
+			exfifo_of_d_export                      : out   std_logic_vector(7 downto 0);                    -- export
+			exfifo_of_wr_export                     : out   std_logic;                                       -- export
+			exfifo_of_wrfull_export                 : in    std_logic                    := 'X';             -- export
+			exfifo_rst_export                       : out   std_logic;                                       -- export
+			leds_external_connection_export         : out   std_logic_vector(7 downto 0);                    -- export
+			lms_ctr_gpio_external_connection_export : out   std_logic_vector(3 downto 0);                    -- export
+			spi_lms_external_MISO                   : in    std_logic                    := 'X';             -- MISO
+			spi_lms_external_MOSI                   : out   std_logic;                                       -- MOSI
+			spi_lms_external_SCLK                   : out   std_logic;                                       -- SCLK
+			spi_lms_external_SS_n                   : out   std_logic_vector(4 downto 0);                    -- SS_n
+			switch_external_connection_export       : in    std_logic_vector(7 downto 0) := (others => 'X'); -- export
+			scl_exp_export                          : inout std_logic                    := 'X';             -- export
+			sda_exp_export                          : inout std_logic                    := 'X'              -- export
+		);
 	end component lms_ctr;
   
 begin
@@ -77,7 +81,9 @@ begin
 			spi_lms_external_MOSI                   => spi_lms_MOSI,
 			spi_lms_external_SCLK                   => spi_lms_SCLK,
 			spi_lms_external_SS_n                   => spi_lms_SS_n,
-			switch_external_connection_export       => switch
+			switch_external_connection_export       => switch,
+			scl_exp_export													=> i2c_scl,
+			sda_exp_export													=> i2c_sda
 		);
 		
 

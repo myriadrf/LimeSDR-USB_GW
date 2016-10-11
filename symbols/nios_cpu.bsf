@@ -21,9 +21,9 @@ agreement for further details.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 272 224)
+	(rect 16 16 272 256)
 	(text "nios_cpu" (rect 5 0 40 12)(font "Arial" ))
-	(text "inst" (rect 8 192 20 204)(font "Arial" ))
+	(text "inst" (rect 8 224 20 236)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -129,7 +129,21 @@ agreement for further details.
 		(text "spi_lms_SS_n[4..0]" (rect 155 155 235 167)(font "Arial" ))
 		(line (pt 256 160)(pt 240 160)(line_width 3))
 	)
+	(port
+		(pt 256 176)
+		(bidir)
+		(text "i2c_scl" (rect 0 0 27 12)(font "Arial" ))
+		(text "i2c_scl" (rect 208 171 235 183)(font "Arial" ))
+		(line (pt 256 176)(pt 240 176)(line_width 1))
+	)
+	(port
+		(pt 256 192)
+		(bidir)
+		(text "i2c_sda" (rect 0 0 30 12)(font "Arial" ))
+		(text "i2c_sda" (rect 205 187 235 199)(font "Arial" ))
+		(line (pt 256 192)(pt 240 192)(line_width 1))
+	)
 	(drawing
-		(rectangle (rect 16 16 240 192)(line_width 1))
+		(rectangle (rect 16 16 240 224)(line_width 1))
 	)
 )
