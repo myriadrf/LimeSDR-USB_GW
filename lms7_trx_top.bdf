@@ -927,7 +927,7 @@ agreement for further details.
 )
 (pin
 	(output)
-	(rect -632 1816 -443 1832)
+	(rect -2040 3464 -1851 3480)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FPGA_SPI1_SCLK" (rect 90 0 205 14)(font "Arial" ))
 	(pt 0 8)
@@ -940,11 +940,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect -443 1832 -387 1848))
+	(annotation_block (location)(rect -1851 3480 -1795 3496))
 )
 (pin
 	(output)
-	(rect -632 1912 -444 1928)
+	(rect -2040 3384 -1852 3400)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FPGA_SPI1_MOSI" (rect 90 0 205 14)(font "Arial" ))
 	(pt 0 8)
@@ -957,7 +957,7 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect -444 1928 -388 1944))
+	(annotation_block (location)(rect -1852 3400 -1796 3416))
 )
 (pin
 	(output)
@@ -1624,7 +1624,7 @@ agreement for further details.
 )
 (pin
 	(output)
-	(rect -2096 3432 -1907 3448)
+	(rect -2040 3432 -1851 3448)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FPGA_SPI0_SCLK" (rect 90 0 205 14)(font "Arial" ))
 	(pt 0 8)
@@ -1637,11 +1637,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect -1768 3320 -1712 3336))
+	(annotation_block (location)(rect -1848 3464 -1792 3480))
 )
 (pin
 	(output)
-	(rect -2096 3416 -1908 3432)
+	(rect -2040 3416 -1852 3432)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FPGA_SPI0_MOSI" (rect 90 0 205 14)(font "Arial" ))
 	(pt 0 8)
@@ -1654,11 +1654,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect -1696 3304 -1640 3320))
+	(annotation_block (location)(rect -1840 3384 -1784 3400))
 )
 (pin
 	(output)
-	(rect -1808 3448 -1606 3464)
+	(rect -1704 3448 -1502 3464)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FPGA_SPI0_LMS_SS" (rect 90 0 222 14)(font "Arial" ))
 	(pt 0 8)
@@ -1671,7 +1671,7 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect -1552 3448 -1496 3464))
+	(annotation_block (location)(rect -1448 3448 -1392 3464))
 )
 (pin
 	(bidir)
@@ -5611,38 +5611,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(pt -632 1824)
-	(pt -648 1824)
-)
-(connector
-	(pt -648 1824)
-	(pt -648 1856)
-)
-(connector
-	(pt -672 1856)
-	(pt -648 1856)
-)
-(connector
-	(pt -648 1856)
-	(pt -632 1856)
-)
-(connector
-	(pt -632 1920)
-	(pt -648 1920)
-)
-(connector
-	(pt -648 1920)
-	(pt -648 1888)
-)
-(connector
-	(pt -672 1888)
-	(pt -648 1888)
-)
-(connector
-	(pt -648 1888)
-	(pt -632 1888)
-)
-(connector
 	(text "mclk1tx_locked" (rect -86 608 29 622)(font "Arial" ))
 	(pt -104 624)
 	(pt 16 624)
@@ -5768,21 +5736,9 @@ agreement for further details.
 	(pt 48 1888)
 )
 (connector
-	(text "SPI_SS[0]" (rect 190 2352 264 2366)(font "Arial" ))
-	(pt 344 2368)
-	(pt 144 2368)
-	(bus)
-)
-(connector
 	(text "ctr_LMS_SPI_CS" (rect 175 2312 290 2326)(font "Arial" ))
 	(pt 144 2328)
 	(pt 296 2328)
-)
-(connector
-	(text "SPI_SS[1]" (rect 190 2424 264 2438)(font "Arial" ))
-	(pt 296 2440)
-	(pt 144 2440)
-	(bus)
 )
 (connector
 	(text "wfm_player_rdy" (rect -451 3592 -336 3606)(font "Arial" ))
@@ -7346,25 +7302,10 @@ agreement for further details.
 	(pt -2240 3376)
 )
 (connector
-	(text "spi_lms_external_SCLK" (rect -2232 3424 -2059 3438)(font "Arial" ))
-	(pt -2240 3440)
-	(pt -2096 3440)
-)
-(connector
-	(text "spi_lms_external_MOSI" (rect -2225 3408 -2052 3422)(font "Arial" ))
-	(pt -2240 3424)
-	(pt -2096 3424)
-)
-(connector
 	(text "spi_enables[4..0]" (rect -2232 3440 -2092 3454)(font "Arial" ))
 	(pt -2152 3456)
 	(pt -2240 3456)
 	(bus)
-)
-(connector
-	(text "spi_enables[0]" (rect -1873 3440 -1758 3454)(font "Arial" ))
-	(pt -1888 3456)
-	(pt -1808 3456)
 )
 (connector
 	(text "L,L,L,L,L,L,L,L" (rect -2608 3392 -2485 3406)(font "Arial" ))
@@ -7592,10 +7533,69 @@ agreement for further details.
 	(pt -104 1856)
 	(pt 48 1856)
 )
-(junction (pt -648 1856))
-(junction (pt -648 1888))
+(connector
+	(pt -672 1888)
+	(pt -632 1888)
+)
+(connector
+	(pt -672 1856)
+	(pt -632 1856)
+)
+(connector
+	(text "spi_enables[0]" (rect -1769 3440 -1654 3454)(font "Arial" ))
+	(pt -1784 3456)
+	(pt -1704 3456)
+)
+(connector
+	(pt -2040 3392)
+	(pt -2064 3392)
+)
+(connector
+	(pt -2064 3392)
+	(pt -2064 3424)
+)
+(connector
+	(text "spi_lms_external_MOSI" (rect -2169 3408 -1996 3422)(font "Arial" ))
+	(pt -2240 3424)
+	(pt -2064 3424)
+)
+(connector
+	(pt -2064 3424)
+	(pt -2040 3424)
+)
+(connector
+	(pt -2040 3472)
+	(pt -2064 3472)
+)
+(connector
+	(pt -2064 3472)
+	(pt -2064 3440)
+)
+(connector
+	(text "spi_lms_external_SCLK" (rect -2176 3424 -2003 3438)(font "Arial" ))
+	(pt -2240 3440)
+	(pt -2064 3440)
+)
+(connector
+	(pt -2064 3440)
+	(pt -2040 3440)
+)
+(connector
+	(text "spi_enables[2]" (rect 190 2352 305 2366)(font "Arial" ))
+	(pt 344 2368)
+	(pt 144 2368)
+	(bus)
+)
+(connector
+	(text "spi_enables[3]" (rect 190 2424 305 2438)(font "Arial" ))
+	(pt 296 2440)
+	(pt 144 2440)
+	(bus)
+)
 (junction (pt -256 4616))
 (junction (pt 248 4624))
+(junction (pt -2064 3424))
+(junction (pt -2064 3440))
 (text "Lime Microsystems" (rect 2720 6456 3000 6477)(font "Arial" (font_size 12)))
 (text "PLL`s and pll control" (rect 688 512 1134 540)(font "Arial" (font_size 16)(bold)))
 (text "Board SPI" (rect -1048 1752 -857 1777)(font "Arial" (font_size 14)(bold)))
@@ -7628,6 +7628,8 @@ agreement for further details.
 (text "LimeSDR-USB" (rect 2720 6392 2901 6413)(font "Arial" (font_size 12)))
 (text "2016-09-27" (rect 2720 6424 2885 6445)(font "Arial" (font_size 12)))
 (text "internal_spi_miso" (rect 72 2096 232 2112)(font "Arial" (font_size 8)))
+(text "SPI_SS[0]" (rect 40 2344 124 2360)(font "Arial" (font_size 8)))
+(text "SPI_SS[1]" (rect 16 2424 100 2440)(font "Arial" (font_size 8)))
 (rectangle (rect 664 1736 3104 2928)(color 0 85 0)(line_width 2))
 (rectangle (rect -1072 1736 624 2928)(color 0 85 0)(line_width 2))
 (rectangle (rect -1072 504 624 1696)(color 0 85 0)(line_width 2))
