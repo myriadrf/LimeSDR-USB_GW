@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Oct 11, 2016 9:44:00 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1476168240227</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Oct 11, 2016 3:23:02 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1476188582007</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\gitrepos\limesdr-usb_lms7_trx_gw.git\limesdr-usb_lms7_trx_gw\software\lms_ctr_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\lms_ctr.sopcinfo</SopcDesignFile>
@@ -862,6 +862,12 @@
                 <Enabled>false</Enabled>
                 <Group>none</Group>
         </Setting>
+        <MemoryMap>
+                <slaveDescriptor>i2c_opencores_0</slaveDescriptor>
+                <addressRange>0x00000000 - 0x0000001F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>oc_mem</slaveDescriptor>
                 <addressRange>0x00008000 - 0x0000FFFF</addressRange>

@@ -33,6 +33,14 @@
          type = "int";
       }
    }
+   element i2c_opencores_0
+   {
+      datum _sortIndex
+      {
+         value = "10";
+         type = "int";
+      }
+   }
    element leds
    {
       datum _sortIndex
@@ -246,6 +254,16 @@
    type="conduit"
    dir="end" />
  <interface
+   name="scl_exp"
+   internal="i2c_opencores_0.export_scl"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="sda_exp"
+   internal="i2c_opencores_0.export_sda"
+   type="conduit"
+   dir="end" />
+ <interface
    name="spi_lms_external"
    internal="spi_lms.external"
    type="conduit"
@@ -264,6 +282,11 @@
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
+ <module
+   name="i2c_opencores_0"
+   kind="i2c_opencores"
+   version="13.0"
+   enabled="1" />
  <module name="leds" kind="altera_avalon_pio" version="15.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -316,7 +339,7 @@
   <parameter name="dataAddrWidth" value="17" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='oc_mem.s1' start='0x8000' end='0x10000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_cpu.debug_mem_slave' start='0x10800' end='0x11000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='spi_lms.spi_control_port' start='0x11000' end='0x11020' type='altera_avalon_spi.spi_control_port' /><slave name='lms_ctr_gpio.s1' start='0x11020' end='0x11040' type='altera_avalon_pio.s1' /><slave name='leds.s1' start='0x11040' end='0x11050' type='altera_avalon_pio.s1' /><slave name='switch.s1' start='0x11050' end='0x11060' type='altera_avalon_pio.s1' /><slave name='Av_FIFO_Int_0.avalon_slave_0' start='0x11060' end='0x11070' type='Av_FIFO_Int.avalon_slave_0' /><slave name='sysid_qsys_0.control_slave' start='0x11070' end='0x11078' type='altera_avalon_sysid_qsys.control_slave' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='i2c_opencores_0.avalon_slave_0' start='0x0' end='0x20' type='i2c_opencores.avalon_slave_0' /><slave name='oc_mem.s1' start='0x8000' end='0x10000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_cpu.debug_mem_slave' start='0x10800' end='0x11000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='spi_lms.spi_control_port' start='0x11000' end='0x11020' type='altera_avalon_spi.spi_control_port' /><slave name='lms_ctr_gpio.s1' start='0x11020' end='0x11040' type='altera_avalon_pio.s1' /><slave name='leds.s1' start='0x11040' end='0x11050' type='altera_avalon_pio.s1' /><slave name='switch.s1' start='0x11050' end='0x11060' type='altera_avalon_pio.s1' /><slave name='Av_FIFO_Int_0.avalon_slave_0' start='0x11060' end='0x11070' type='Av_FIFO_Int.avalon_slave_0' /><slave name='sysid_qsys_0.control_slave' start='0x11070' end='0x11078' type='altera_avalon_sysid_qsys.control_slave' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -362,7 +385,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="1" />
+  <parameter name="internalIrqMaskSystemInfo" value="3" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -559,6 +582,15 @@
    kind="avalon"
    version="15.1"
    start="nios2_cpu.data_master"
+   end="i2c_opencores_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="15.1"
+   start="nios2_cpu.data_master"
    end="sysid_qsys_0.control_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00011070" />
@@ -657,6 +689,18 @@
    start="clk_main.clk"
    end="Av_FIFO_Int_0.clock" />
  <connection
+   kind="clock"
+   version="15.1"
+   start="clk_main.clk"
+   end="i2c_opencores_0.clock" />
+ <connection
+   kind="interrupt"
+   version="15.1"
+   start="nios2_cpu.irq"
+   end="i2c_opencores_0.interrupt_sender">
+  <parameter name="irqNumber" value="1" />
+ </connection>
+ <connection
    kind="interrupt"
    version="15.1"
    start="nios2_cpu.irq"
@@ -672,6 +716,11 @@
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0" />
  </connection>
+ <connection
+   kind="reset"
+   version="15.1"
+   start="clk_main.clk_reset"
+   end="i2c_opencores_0.clock_reset" />
  <connection
    kind="reset"
    version="15.1"
@@ -717,6 +766,11 @@
    version="15.1"
    start="nios2_cpu.debug_reset_request"
    end="clk_main.clk_in_reset" />
+ <connection
+   kind="reset"
+   version="15.1"
+   start="nios2_cpu.debug_reset_request"
+   end="i2c_opencores_0.clock_reset" />
  <connection
    kind="reset"
    version="15.1"

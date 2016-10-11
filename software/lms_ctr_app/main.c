@@ -17,20 +17,20 @@
 #include "LMS64C_protocol.h"
 #include "sodera_pcie_brd_v1r0.h"
 //#include "spi_flash_lib.h"
-//#include "i2c_opencores.h"
+#include "i2c_opencores.h"
 
 #define sbi(p,n) ((p) |= (1UL << (n)))
 #define cbi(p,n) ((p) &= ~(1 << (n)))
 
 //get info
 //#define FW_VER				1 //Initial version
-#define FW_VER				2 //
+#define FW_VER				3 //
 
 
 #define SPI_NR_LMS7002M 0
 #define SPI_NR_BRD      1
-//#define SPI_NR_DAC      0
-//#define SPI_NR_ADF4002  0
+#define SPI_NR_DAC      2
+#define SPI_NR_ADF4002  3
 //#define SPI_NR_FLASH    0
 
 //CMD_PROG_MCU
@@ -105,7 +105,7 @@ void set_led(unsigned char led_pattern)
 /**
  * Configures LM75
  */
-/*
+
 void Configure_LM75(void)
 {
 	int spirez;
@@ -131,7 +131,7 @@ void Configure_LM75(void)
 	spirez = I2C_write(I2C_OPENCORES_0_BASE,  0, 1);				// Set TOS L
 
 }
-*/
+
 
 /*
 void testFlash(void)
@@ -215,10 +215,10 @@ int main()
 	*/
 
     // I2C initialiazation
-    //I2C_init(I2C_OPENCORES_0_BASE, ALT_CPU_FREQ, 400000);
+    I2C_init(I2C_OPENCORES_0_BASE, ALT_CPU_FREQ, 400000);
 
     // Configure LM75
-    //Configure_LM75();
+    Configure_LM75();
 /*
  	//Si5351C
     spirez = I2C_start(I2C_OPENCORES_0_BASE, SI5351_I2C_ADDR, 0);
@@ -410,6 +410,166 @@ int main()
 
  					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
  				break;
+
+
+ 				case CMD_ADF4002_WR:
+ 					if(Check_many_blocks (3)) break;
+
+ 					for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
+ 					{
+ 						switch(LMS_Ctrl_Packet_Rx->Header.Periph_ID)
+ 						{
+ 							case 0: //onboard
+ 								//CyU3PGpioSetValue (FX3_ADF_SNN, CyFalse); //Enable onboard ADF's SPI
+ 								break;
+ 							case 1: //fmc
+ 								//Modify_BRDSPI16_Reg_bits (0x14, BRD_SPI_ADF_SS, BRD_SPI_ADF_SS, 0); //Enable ADF's SPI
+ 								break;
+ 							default:
+ 								cmd_errors++;
+ 								break;
+ 						}
+
+ 						//CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[0 + (block*3)], 1);
+ 						//CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[1 + (block*3)], 1);
+ 						//CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[2 + (block*3)], 1);
+ 						spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_ADF4002, 3, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block*3)], 0, NULL, 0);
+
+ 						switch(LMS_Ctrl_Packet_Rx->Header.Periph_ID)
+ 						{
+ 							case 0: //onboard
+ 								//CyU3PGpioSetValue (FX3_ADF_SNN, CyTrue); //Disable ADF's SPI
+ 							break;
+ 							case 1: //fmc
+ 								//Modify_BRDSPI16_Reg_bits (0x14, BRD_SPI_ADF_SS, BRD_SPI_ADF_SS, 1); //Disable ADF's SPI
+ 							break;
+ 							default:
+ 								cmd_errors++;
+ 							break;
+ 						}
+ 					}
+
+ 					if(cmd_errors) LMS_Ctrl_Packet_Tx->Header.Status = STATUS_INVALID_PERIPH_ID_CMD;
+ 					else LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+ 				break;
+
+
+				case CMD_ANALOG_VAL_RD:
+
+					for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
+					{
+
+
+						//signed short int converted_val = 300;
+
+						switch (LMS_Ctrl_Packet_Rx->Data_field[0 + (block)])//ch
+						{
+							case 0://dac val
+
+								LMS_Ctrl_Packet_Tx->Data_field[0 + (block * 4)] = LMS_Ctrl_Packet_Rx->Data_field[block]; //ch
+								LMS_Ctrl_Packet_Tx->Data_field[1 + (block * 4)] = 0x00; //RAW //unit, power
+
+								LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)] = 0; //signed val, MSB byte
+								LMS_Ctrl_Packet_Tx->Data_field[3 + (block * 4)] = dac_val; //signed val, LSB byte
+								break;
+
+							case 1: //temperature
+/*
+								I2C_Addr = 0x90; //LM75 I2C_ADDR
+
+								//read byte
+								preamble.length = 3;
+
+								I2C_Addr &= ~(1 << 0);//write addr
+								preamble.buffer[0] = I2C_Addr;
+
+								preamble.buffer[1] = 0x00; //temperature
+
+								I2C_Addr |= 1 << 0;	//read addr
+
+								preamble.buffer[2] = I2C_Addr;
+								preamble.ctrlMask  = 0x0002;
+
+								if( CyU3PI2cReceiveBytes (&preamble, &sc_brdg_data[0], 2, 0)  != CY_U3P_SUCCESS)  cmd_errors++;
+
+								//converted_val = 0x1234; //35,678C
+*/
+
+								spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 0);
+								spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x00, 1);				// Pointer = temperature register
+								spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 1);
+
+								// Read temperature and recalculate
+								converted_val = (signed short int)I2C_read(I2C_OPENCORES_0_BASE, 0);
+								converted_val = converted_val << 8;
+								converted_val = 10 * (converted_val >> 8);
+								spirez = I2C_read(I2C_OPENCORES_0_BASE, 1);
+								if(spirez & 0x80) converted_val = converted_val + 5;
+
+
+
+/*
+								converted_val = (((signed short int)sc_brdg_data[0]) << 8) + 0;//sc_brdg_data[1];
+								converted_val = (converted_val/256)*10;
+
+								if(sc_brdg_data[1]&0x80) converted_val = converted_val + 5;
+*/
+								LMS_Ctrl_Packet_Tx->Data_field[0 + (block * 4)] = LMS_Ctrl_Packet_Rx->Data_field[block]; //ch
+								LMS_Ctrl_Packet_Tx->Data_field[1 + (block * 4)] = 0x50; //mC //unit, power
+
+								LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)] = (converted_val >> 8); //signed val, MSB byte
+								LMS_Ctrl_Packet_Tx->Data_field[3 + (block * 4)] = converted_val; //signed val, LSB byte
+
+							break;
+
+							default:
+								cmd_errors++;
+							break;
+						}
+					}
+
+					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+
+				break;
+
+
+				case CMD_ANALOG_VAL_WR:
+					if(Check_many_blocks (4)) break;
+
+					for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
+					{
+						switch (LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 4)]) //do something according to channel
+						{
+							case 0:
+								if (LMS_Ctrl_Packet_Rx->Data_field[1 + (block * 4)] == 0) //RAW units?
+								{
+									if(LMS_Ctrl_Packet_Rx->Data_field[2 + (block * 4)] == 0) //MSB byte empty?
+									{
+										dac_val = LMS_Ctrl_Packet_Rx->Data_field[3 + (block * 4)];
+
+										dac_data[0] = (dac_val >> 2) & 0x3F; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
+										dac_data[1] = (dac_val << 6) & 0xC0; //LSB data
+
+										//if( CyU3PI2cTransmitBytes (&preamble, &sc_brdg_data[0], 2, 0) != CY_U3P_SUCCESS)  cmd_errors++;
+										spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
+									}
+									else cmd_errors++;
+								}
+								else cmd_errors++;
+
+							break;
+
+							default:
+								cmd_errors++;
+							break;
+						}
+					}
+
+
+					if(cmd_errors) LMS_Ctrl_Packet_Tx->Header.Status = STATUS_ERROR_CMD;
+					else LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+
+				break;
 
 
 				case CMD_LMS_MCU_FW_WR:
