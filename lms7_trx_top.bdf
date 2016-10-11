@@ -498,7 +498,7 @@ agreement for further details.
 		(line (pt 133 12)(pt 137 8))
 	)
 	(text "VCC" (rect 152 7 176 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -2888 3384 -2832 3400))
+	(annotation_block (location)(rect -2912 3384 -2856 3400))
 )
 (pin
 	(output)
@@ -1671,7 +1671,7 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect -1472 3336 -1416 3352))
+	(annotation_block (location)(rect -1552 3448 -1496 3464))
 )
 (pin
 	(bidir)
@@ -7259,83 +7259,6 @@ agreement for further details.
 	(pt -480 3992)
 )
 (connector
-	(pt 272 3816)
-	(pt 120 3816)
-)
-(connector
-	(text "stream_rxen_fx3clk_pulse" (rect -397 3800 -199 3814)(font "Arial" ))
-	(pt -424 3816)
-	(pt -272 3816)
-)
-(connector
-	(text "fx3_clk" (rect -360 3816 -303 3830)(font "Arial" ))
-	(pt -424 3832)
-	(pt -272 3832)
-)
-(connector
-	(text "H" (rect -380 3832 -372 3846)(font "Arial" ))
-	(pt -424 3848)
-	(pt -272 3848)
-)
-(connector
-	(pt -432 3864)
-	(pt -272 3864)
-)
-(connector
-	(pt -432 3880)
-	(pt -272 3880)
-)
-(connector
-	(text "tx_outfifo_rdy" (rect -404 3944 -289 3958)(font "Arial" ))
-	(pt -424 3960)
-	(pt -272 3960)
-)
-(connector
-	(text "MCLK2RX_pll_d" (rect -399 3960 -292 3974)(font "Arial" ))
-	(pt -424 3976)
-	(pt -272 3976)
-)
-(connector
-	(pt -432 3992)
-	(pt -272 3992)
-)
-(connector
-	(text "rxpct_outfifowr" (rect -400 3992 -277 4006)(font "Arial" ))
-	(pt -424 4008)
-	(pt -272 4008)
-)
-(connector
-	(text "rx_pct_data[63..0]" (rect -397 4008 -249 4022)(font "Arial" ))
-	(pt -424 4024)
-	(pt -272 4024)
-	(bus)
-)
-(connector
-	(pt 120 3832)
-	(pt 272 3832)
-)
-(connector
-	(pt 120 3848)
-	(pt 272 3848)
-	(bus)
-)
-(connector
-	(pt 272 3928)
-	(pt 120 3928)
-)
-(connector
-	(pt 272 3912)
-	(pt 120 3912)
-)
-(connector
-	(pt 272 3896)
-	(pt 120 3896)
-)
-(connector
-	(pt 272 3880)
-	(pt 120 3880)
-)
-(connector
 	(text "fadr[4]" (rect 739 3952 796 3966)(font "Arial" ))
 	(pt 720 3968)
 	(pt 808 3968)
@@ -7371,62 +7294,9 @@ agreement for further details.
 	(pt 808 3944)
 )
 (connector
-	(text "tx_outfifo_data[31..0]" (rect 156 3976 337 3990)(font "Arial" ))
-	(pt 120 3992)
-	(pt 264 3992)
-	(bus)
-)
-(connector
-	(text "tx_outfifo_wrreq" (rect 137 3992 269 4006)(font "Arial" ))
-	(pt 120 4008)
-	(pt 264 4008)
-)
-(connector
-	(text "fadr[4..0]" (rect 139 3848 221 3862)(font "Arial" ))
-	(pt 120 3864)
-	(pt 288 3864)
-	(bus)
-)
-(connector
-	(text "exfifo_of_wrfull" (rect 148 4072 280 4086)(font "Arial" ))
-	(pt 120 4088)
-	(pt 240 4088)
-)
-(connector
-	(text "exfifo_if_rdempty" (rect 148 4056 288 4070)(font "Arial" ))
-	(pt 120 4072)
-	(pt 240 4072)
-)
-(connector
-	(text "exfifo_if_d[7..0]" (rect 153 4040 293 4054)(font "Arial" ))
-	(pt 120 4056)
-	(pt 240 4056)
-	(bus)
-)
-(connector
-	(text "exfifo_if_rd" (rect -360 4040 -261 4054)(font "Arial" ))
-	(pt -424 4056)
-	(pt -272 4056)
-)
-(connector
-	(text "exfifo_of_wr" (rect -384 4088 -285 4102)(font "Arial" ))
-	(pt -424 4104)
-	(pt -272 4104)
-)
-(connector
-	(text "exfifo_of_d[7..0]" (rect -359 4104 -219 4118)(font "Arial" ))
-	(pt -424 4120)
-	(pt -272 4120)
-	(bus)
-)
-(connector
 	(text "exfifo_rst" (rect -544 4072 -462 4086)(font "Arial" ))
 	(pt -592 4088)
 	(pt -440 4088)
-)
-(connector
-	(pt -392 4088)
-	(pt -272 4088)
 )
 (connector
 	(text "H" (rect -70 1840 -62 1854)(font "Arial" ))
@@ -7505,6 +7375,146 @@ agreement for further details.
 	(pt -2496 3408)
 	(pt -2616 3408)
 	(bus)
+)
+(connector
+	(pt 272 3816)
+	(pt 120 3816)
+)
+(connector
+	(text "stream_rxen_fx3clk_pulse" (rect -397 3800 -199 3814)(font "Arial" ))
+	(pt -424 3816)
+	(pt -272 3816)
+)
+(connector
+	(text "fx3_clk" (rect -360 3816 -303 3830)(font "Arial" ))
+	(pt -424 3832)
+	(pt -272 3832)
+)
+(connector
+	(text "H" (rect -380 3832 -372 3846)(font "Arial" ))
+	(pt -424 3848)
+	(pt -272 3848)
+)
+(connector
+	(pt 272 3832)
+	(pt 120 3832)
+)
+(connector
+	(pt 272 3848)
+	(pt 120 3848)
+	(bus)
+)
+(connector
+	(pt -432 3864)
+	(pt -272 3864)
+)
+(connector
+	(pt -432 3880)
+	(pt -272 3880)
+)
+(connector
+	(text "tx_outfifo_rdy" (rect -404 3944 -289 3958)(font "Arial" ))
+	(pt -424 3960)
+	(pt -272 3960)
+)
+(connector
+	(text "MCLK2RX_pll_d" (rect -399 3960 -292 3974)(font "Arial" ))
+	(pt -424 3976)
+	(pt -272 3976)
+)
+(connector
+	(pt 272 3880)
+	(pt 120 3880)
+)
+(connector
+	(pt 272 3896)
+	(pt 120 3896)
+)
+(connector
+	(pt 272 3912)
+	(pt 120 3912)
+)
+(connector
+	(pt 272 3928)
+	(pt 120 3928)
+)
+(connector
+	(pt -432 3992)
+	(pt -272 3992)
+)
+(connector
+	(text "rxpct_outfifowr" (rect -400 3992 -277 4006)(font "Arial" ))
+	(pt -424 4008)
+	(pt -272 4008)
+)
+(connector
+	(text "rx_pct_data[63..0]" (rect -397 4008 -249 4022)(font "Arial" ))
+	(pt -424 4024)
+	(pt -272 4024)
+	(bus)
+)
+(connector
+	(text "tx_outfifo_data[31..0]" (rect 156 3976 337 3990)(font "Arial" ))
+	(pt 120 3992)
+	(pt 264 3992)
+	(bus)
+)
+(connector
+	(text "tx_outfifo_wrreq" (rect 137 3992 269 4006)(font "Arial" ))
+	(pt 120 4008)
+	(pt 264 4008)
+)
+(connector
+	(text "fadr[4..0]" (rect 139 3848 221 3862)(font "Arial" ))
+	(pt 120 3864)
+	(pt 288 3864)
+	(bus)
+)
+(connector
+	(text "exfifo_of_wrfull" (rect 148 4072 280 4086)(font "Arial" ))
+	(pt 120 4088)
+	(pt 240 4088)
+)
+(connector
+	(text "exfifo_if_rdempty" (rect 148 4056 288 4070)(font "Arial" ))
+	(pt 120 4072)
+	(pt 240 4072)
+)
+(connector
+	(text "exfifo_if_d[7..0]" (rect 153 4040 293 4054)(font "Arial" ))
+	(pt 120 4056)
+	(pt 240 4056)
+	(bus)
+)
+(connector
+	(text "exfifo_if_rd" (rect -360 4040 -261 4054)(font "Arial" ))
+	(pt -424 4056)
+	(pt -272 4056)
+)
+(connector
+	(text "exfifo_of_wr" (rect -384 4088 -285 4102)(font "Arial" ))
+	(pt -424 4104)
+	(pt -272 4104)
+)
+(connector
+	(text "exfifo_of_d[7..0]" (rect -359 4104 -219 4118)(font "Arial" ))
+	(pt -424 4120)
+	(pt -272 4120)
+	(bus)
+)
+(connector
+	(pt -392 4088)
+	(pt -272 4088)
+)
+(connector
+	(text "fx3_clk" (rect -352 4024 -295 4038)(font "Arial" ))
+	(pt -424 4040)
+	(pt -272 4040)
+)
+(connector
+	(text "fx3_clk" (rect -360 4056 -303 4070)(font "Arial" ))
+	(pt -424 4072)
+	(pt -272 4072)
 )
 (junction (pt -648 1856))
 (junction (pt -648 1888))
