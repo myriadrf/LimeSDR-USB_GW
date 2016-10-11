@@ -24,13 +24,11 @@
 
 //get info
 //#define FW_VER				1 //Initial version
-//#define FW_VER				2 //FLASH programming added
-//#define FW_VER				3 //Temperature and Si5351C control added
-//#define FW_VER				4 //LM75 configured to control fan; I2C speed increased up to 400kHz; ADF/DAC control implementation.
-#define FW_VER				1 //LMS7 MCU programming feature added
+#define FW_VER				2 //
+
 
 #define SPI_NR_LMS7002M 0
-//#define SPI_NR_FPGA     1
+#define SPI_NR_BRD      1
 //#define SPI_NR_DAC      0
 //#define SPI_NR_ADF4002  0
 //#define SPI_NR_FLASH    0
@@ -300,6 +298,7 @@ int main()
  					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
  				break;
 
+
  				case CMD_LMS_RST:
 
  					switch (LMS_Ctrl_Packet_Rx->Data_field[0])
@@ -327,6 +326,7 @@ int main()
  					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
  				break;
 
+
  	 			case CMD_LMS7002_WR:
  	 				if(Check_many_blocks (4)) break;
 
@@ -351,6 +351,7 @@ int main()
 
  	 				LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
  	 			break;
+
 
  				case CMD_LMS7002_RD:
  					if(Check_many_blocks (4)) break;
@@ -377,6 +378,35 @@ int main()
  					}
 
  					//CyU3PGpioSetValue (FX3_SPI_CS, CyTrue); //Disable LMS's SPI
+
+ 					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+ 				break;
+
+
+ 	 			case CMD_BRDSPI16_WR:
+ 	 				if(Check_many_blocks (4)) break;
+
+ 	 				for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
+ 	 				{
+ 	 					//write reg addr
+ 	 					sbi(LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 4)], 7); //set write bit
+ 	 					spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_BRD, 4, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 4)], 0, NULL, 0);
+ 	 				}
+
+ 	 				LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+ 	 			break;
+
+
+ 				case CMD_BRDSPI16_RD:
+ 					if(Check_many_blocks (4)) break;
+
+ 					for(block = 0; block < LMS_Ctrl_Packet_Rx->Header.Data_blocks; block++)
+ 					{
+
+ 						//write reg addr
+ 						cbi(LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)], 7);  //clear write bit
+ 						spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_BRD, 2, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block * 2)], 2, &LMS_Ctrl_Packet_Tx->Data_field[2 + (block * 4)], 0);
+ 					}
 
  					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
  				break;
@@ -577,23 +607,8 @@ int main()
         };
 
         //IOWR(AV_FIFO_INT_0_BASE, 0, cnt);		// Write Data to FIFO
-
-
         //IOWR(AV_FIFO_INT_0_BASE, 3, 1);		// Toggle FIFO reset
         //IOWR(AV_FIFO_INT_0_BASE, 3, 0);		// Toggle FIFO reset
-
-
-
-/*
-        // UART
-        char *ptr = str;
-        while (*ptr != '\0')
-        {
-           while ((uart[2] & (1<<6)) == 0);
-           uart[1] = *ptr;
-           ptr++;
-        }
-*/
 
     }
 
