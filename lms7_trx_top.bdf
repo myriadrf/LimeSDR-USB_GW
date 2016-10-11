@@ -485,7 +485,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect -2824 3384 -2632 3400)
+	(rect -3008 3584 -2816 3600)
 	(text "INPUT" (rect 149 0 190 11)(font "Arial" (font_size 6)))
 	(text "FPGA_SPI0_MISO" (rect 5 0 120 14)(font "Arial" ))
 	(pt 192 8)
@@ -498,7 +498,7 @@ agreement for further details.
 		(line (pt 133 12)(pt 137 8))
 	)
 	(text "VCC" (rect 152 7 176 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -2912 3384 -2856 3400))
+	(annotation_block (location)(rect -3096 3584 -3040 3600))
 )
 (pin
 	(output)
@@ -5456,6 +5456,46 @@ agreement for further details.
 		(rectangle (rect 16 16 240 192))
 	)
 )
+(symbol
+	(rect -2744 3544 -2680 3592)
+	(text "OR3" (rect 1 0 25 11)(font "Arial" (font_size 6)))
+	(text "inst43" (rect 3 37 52 51)(font "Arial" ))
+	(port
+		(pt 0 24)
+		(input)
+		(text "IN2" (rect 2 15 19 29)(font "Courier New" (bold))(invisible))
+		(text "IN2" (rect 2 15 19 29)(font "Courier New" (bold))(invisible))
+		(line (pt 0 24)(pt 18 24))
+	)
+	(port
+		(pt 0 32)
+		(input)
+		(text "IN3" (rect 2 24 19 38)(font "Courier New" (bold))(invisible))
+		(text "IN3" (rect 2 24 19 38)(font "Courier New" (bold))(invisible))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 16)
+		(input)
+		(text "IN1" (rect 2 7 19 21)(font "Courier New" (bold))(invisible))
+		(text "IN1" (rect 2 7 19 21)(font "Courier New" (bold))(invisible))
+		(line (pt 0 16)(pt 16 16))
+	)
+	(port
+		(pt 64 24)
+		(output)
+		(text "OUT" (rect 47 15 64 29)(font "Courier New" (bold))(invisible))
+		(text "OUT" (rect 47 15 64 29)(font "Courier New" (bold))(invisible))
+		(line (pt 49 24)(pt 64 24))
+	)
+	(drawing
+		(line (pt 14 13)(pt 25 13))
+		(line (pt 14 36)(pt 25 36))
+		(arc (pt 7 29)(pt 7 19)(rect -14 8 19 41))
+		(arc (pt 49 24)(pt 25 13)(rect -6 13 57 76))
+		(arc (pt 25 35)(pt 49 24)(rect -6 -27 57 36))
+	)
+)
 (connector
 	(text "L" (rect -1008 1635 -994 1643)(font "Arial" )(vertical))
 	(pt -992 1608)
@@ -5837,21 +5877,6 @@ agreement for further details.
 	(pt -720 2056)
 )
 (connector
-	(text "BRDG_SPI_MOSI" (rect -827 2056 -720 2070)(font "Arial" ))
-	(pt -840 2072)
-	(pt -720 2072)
-)
-(connector
-	(text "BRDG_SPI_SCLK" (rect -831 2072 -724 2086)(font "Arial" ))
-	(pt -840 2088)
-	(pt -720 2088)
-)
-(connector
-	(text "BRDG_SPI_FPGA_SS" (rect -829 2088 -697 2102)(font "Arial" ))
-	(pt -840 2104)
-	(pt -720 2104)
-)
-(connector
 	(text "fpga_reset_n" (rect -823 2104 -724 2118)(font "Arial" ))
 	(pt -840 2120)
 	(pt -720 2120)
@@ -5870,21 +5895,6 @@ agreement for further details.
 	(text "pllcfg_oenA" (rect 2291 688 2381 702)(font "Arial" ))
 	(pt 2272 704)
 	(pt 2392 704)
-)
-(connector
-	(text "BRDG_SPI_MOSI" (rect 1837 672 1944 686)(font "Arial" ))
-	(pt 2000 688)
-	(pt 1824 688)
-)
-(connector
-	(text "BRDG_SPI_SCLK" (rect 1833 688 1940 702)(font "Arial" ))
-	(pt 2000 704)
-	(pt 1824 704)
-)
-(connector
-	(text "BRDG_SPI_FPGA_SS" (rect 1835 704 1967 718)(font "Arial" ))
-	(pt 2000 720)
-	(pt 1824 720)
 )
 (connector
 	(text "fpga_reset_n" (rect 1834 768 1933 782)(font "Arial" ))
@@ -5980,11 +5990,6 @@ agreement for further details.
 	(text "pllcfg_sdoutA" (rect 91 2128 198 2142)(font "Arial" ))
 	(pt 72 2144)
 	(pt 192 2144)
-)
-(connector
-	(text "internal_spi_miso" (rect 87 2112 227 2126)(font "Arial" ))
-	(pt 72 2128)
-	(pt 176 2128)
 )
 (connector
 	(text "tstcfg_sdout" (rect 94 2144 193 2158)(font "Arial" ))
@@ -7299,11 +7304,6 @@ agreement for further details.
 	(pt -440 4088)
 )
 (connector
-	(text "H" (rect -70 1840 -62 1854)(font "Arial" ))
-	(pt -104 1856)
-	(pt 48 1856)
-)
-(connector
 	(text "fx3_clk" (rect -2584 3312 -2527 3326)(font "Arial" ))
 	(pt -2616 3328)
 	(pt -2496 3328)
@@ -7323,10 +7323,6 @@ agreement for further details.
 	(text "exfifo_of_wrfull" (rect -2588 3360 -2456 3374)(font "Arial" ))
 	(pt -2616 3376)
 	(pt -2496 3376)
-)
-(connector
-	(pt -2632 3392)
-	(pt -2496 3392)
 )
 (connector
 	(text "exfifo_if_rd" (rect -2208 3312 -2109 3326)(font "Arial" ))
@@ -7516,6 +7512,86 @@ agreement for further details.
 	(pt -424 4072)
 	(pt -272 4072)
 )
+(connector
+	(text "spi_lms_external_MOSI" (rect -849 2056 -676 2070)(font "Arial" ))
+	(pt -864 2072)
+	(pt -720 2072)
+)
+(connector
+	(text "spi_lms_external_SCLK" (rect -856 2072 -683 2086)(font "Arial" ))
+	(pt -864 2088)
+	(pt -720 2088)
+)
+(connector
+	(text "spi_enables[1]" (rect -850 2088 -735 2102)(font "Arial" ))
+	(pt -720 2104)
+	(pt -864 2104)
+)
+(connector
+	(text "spi_lms_external_MOSI" (rect 1871 672 2044 686)(font "Arial" ))
+	(pt 1856 688)
+	(pt 2000 688)
+)
+(connector
+	(text "spi_lms_external_SCLK" (rect 1864 688 2037 702)(font "Arial" ))
+	(pt 1856 704)
+	(pt 2000 704)
+)
+(connector
+	(text "spi_enables[1]" (rect 1870 704 1985 718)(font "Arial" ))
+	(pt 2000 720)
+	(pt 1856 720)
+)
+(connector
+	(text "internal_spi_miso" (rect -2969 3552 -2829 3566)(font "Arial" ))
+	(pt -2984 3568)
+	(pt -2744 3568)
+)
+(connector
+	(pt -2744 3560)
+	(pt -2776 3560)
+)
+(connector
+	(pt -2776 3560)
+	(pt -2776 3552)
+)
+(connector
+	(text "pllcfg_sdoutA" (rect -2965 3536 -2858 3550)(font "Arial" ))
+	(pt -2984 3552)
+	(pt -2776 3552)
+)
+(connector
+	(pt -2744 3576)
+	(pt -2776 3576)
+)
+(connector
+	(pt -2776 3576)
+	(pt -2776 3592)
+)
+(connector
+	(pt -2816 3592)
+	(pt -2776 3592)
+)
+(connector
+	(text "spi_lms_miso" (rect -2624 3552 -2525 3566)(font "Arial" ))
+	(pt -2680 3568)
+	(pt -2544 3568)
+)
+(connector
+	(text "spi_lms_miso" (rect -2576 3376 -2477 3390)(font "Arial" ))
+	(pt -2616 3392)
+	(pt -2496 3392)
+)
+(connector
+	(text "L" (rect 87 2112 95 2126)(font "Arial" ))
+	(pt 72 2128)
+	(pt 176 2128)
+)
+(connector
+	(text "L" (rect -70 1840 -62 1854)(font "Arial" ))
+	(pt -104 1856)
+	(pt 48 1856)
+)
 (junction (pt -648 1856))
 (junction (pt -648 1888))
 (junction (pt -256 4616))
@@ -7551,6 +7627,7 @@ agreement for further details.
 (text "fx3_clk" (rect -784 840 -718 856)(font "Arial" (font_size 8)))
 (text "LimeSDR-USB" (rect 2720 6392 2901 6413)(font "Arial" (font_size 12)))
 (text "2016-09-27" (rect 2720 6424 2885 6445)(font "Arial" (font_size 12)))
+(text "internal_spi_miso" (rect 72 2096 232 2112)(font "Arial" (font_size 8)))
 (rectangle (rect 664 1736 3104 2928)(color 0 85 0)(line_width 2))
 (rectangle (rect -1072 1736 624 2928)(color 0 85 0)(line_width 2))
 (rectangle (rect -1072 504 624 1696)(color 0 85 0)(line_width 2))
