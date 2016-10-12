@@ -639,7 +639,7 @@ stream_fsm : process(current_state, flaga_d, flagb_d, flg_latency_cnt, assert_cn
 		next_state <= wait_flg_latency;
 		
 	when wait_flg_latency => 		--wait for valid flag
-		if flg_latency_cnt = 3 then 
+		if flg_latency_cnt = 4 then 
 			if num_of_sockets > 1 then 
 				next_state <= prep_socket_addr;
 			else 
