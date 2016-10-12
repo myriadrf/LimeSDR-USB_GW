@@ -20,6 +20,14 @@ entity lms_ctr is
 		lms_ctr_gpio_external_connection_export : out   std_logic_vector(3 downto 0);                    -- lms_ctr_gpio_external_connection.export
 		scl_exp_export                          : inout std_logic                    := '0';             --                          scl_exp.export
 		sda_exp_export                          : inout std_logic                    := '0';             --                          sda_exp.export
+		spi_1_adf_external_MISO                 : in    std_logic                    := '0';             --               spi_1_adf_external.MISO
+		spi_1_adf_external_MOSI                 : out   std_logic;                                       --                                 .MOSI
+		spi_1_adf_external_SCLK                 : out   std_logic;                                       --                                 .SCLK
+		spi_1_adf_external_SS_n                 : out   std_logic;                                       --                                 .SS_n
+		spi_1_dac_external_MISO                 : in    std_logic                    := '0';             --               spi_1_dac_external.MISO
+		spi_1_dac_external_MOSI                 : out   std_logic;                                       --                                 .MOSI
+		spi_1_dac_external_SCLK                 : out   std_logic;                                       --                                 .SCLK
+		spi_1_dac_external_SS_n                 : out   std_logic;                                       --                                 .SS_n
 		spi_lms_external_MISO                   : in    std_logic                    := '0';             --                 spi_lms_external.MISO
 		spi_lms_external_MOSI                   : out   std_logic;                                       --                                 .MOSI
 		spi_lms_external_SCLK                   : out   std_logic;                                       --                                 .SCLK
@@ -161,6 +169,42 @@ architecture rtl of lms_ctr is
 			reset_req  : in  std_logic                     := 'X'              -- reset_req
 		);
 	end component lms_ctr_oc_mem;
+
+	component lms_ctr_spi_1_ADF is
+		port (
+			clk           : in  std_logic                     := 'X';             -- clk
+			reset_n       : in  std_logic                     := 'X';             -- reset_n
+			data_from_cpu : in  std_logic_vector(15 downto 0) := (others => 'X'); -- writedata
+			data_to_cpu   : out std_logic_vector(15 downto 0);                    -- readdata
+			mem_addr      : in  std_logic_vector(2 downto 0)  := (others => 'X'); -- address
+			read_n        : in  std_logic                     := 'X';             -- read_n
+			spi_select    : in  std_logic                     := 'X';             -- chipselect
+			write_n       : in  std_logic                     := 'X';             -- write_n
+			irq           : out std_logic;                                        -- irq
+			MISO          : in  std_logic                     := 'X';             -- export
+			MOSI          : out std_logic;                                        -- export
+			SCLK          : out std_logic;                                        -- export
+			SS_n          : out std_logic                                         -- export
+		);
+	end component lms_ctr_spi_1_ADF;
+
+	component lms_ctr_spi_1_DAC is
+		port (
+			clk           : in  std_logic                     := 'X';             -- clk
+			reset_n       : in  std_logic                     := 'X';             -- reset_n
+			data_from_cpu : in  std_logic_vector(15 downto 0) := (others => 'X'); -- writedata
+			data_to_cpu   : out std_logic_vector(15 downto 0);                    -- readdata
+			mem_addr      : in  std_logic_vector(2 downto 0)  := (others => 'X'); -- address
+			read_n        : in  std_logic                     := 'X';             -- read_n
+			spi_select    : in  std_logic                     := 'X';             -- chipselect
+			write_n       : in  std_logic                     := 'X';             -- write_n
+			irq           : out std_logic;                                        -- irq
+			MISO          : in  std_logic                     := 'X';             -- export
+			MOSI          : out std_logic;                                        -- export
+			SCLK          : out std_logic;                                        -- export
+			SS_n          : out std_logic                                         -- export
+		);
+	end component lms_ctr_spi_1_DAC;
 
 	component lms_ctr_spi_lms is
 		port (
@@ -391,6 +435,18 @@ architecture rtl of lms_ctr is
 			oc_mem_s1_byteenable                        : out std_logic_vector(3 downto 0);                     -- byteenable
 			oc_mem_s1_chipselect                        : out std_logic;                                        -- chipselect
 			oc_mem_s1_clken                             : out std_logic;                                        -- clken
+			spi_1_ADF_spi_control_port_address          : out std_logic_vector(2 downto 0);                     -- address
+			spi_1_ADF_spi_control_port_write            : out std_logic;                                        -- write
+			spi_1_ADF_spi_control_port_read             : out std_logic;                                        -- read
+			spi_1_ADF_spi_control_port_readdata         : in  std_logic_vector(15 downto 0) := (others => 'X'); -- readdata
+			spi_1_ADF_spi_control_port_writedata        : out std_logic_vector(15 downto 0);                    -- writedata
+			spi_1_ADF_spi_control_port_chipselect       : out std_logic;                                        -- chipselect
+			spi_1_DAC_spi_control_port_address          : out std_logic_vector(2 downto 0);                     -- address
+			spi_1_DAC_spi_control_port_write            : out std_logic;                                        -- write
+			spi_1_DAC_spi_control_port_read             : out std_logic;                                        -- read
+			spi_1_DAC_spi_control_port_readdata         : in  std_logic_vector(15 downto 0) := (others => 'X'); -- readdata
+			spi_1_DAC_spi_control_port_writedata        : out std_logic_vector(15 downto 0);                    -- writedata
+			spi_1_DAC_spi_control_port_chipselect       : out std_logic;                                        -- chipselect
 			spi_lms_spi_control_port_address            : out std_logic_vector(2 downto 0);                     -- address
 			spi_lms_spi_control_port_write              : out std_logic;                                        -- write
 			spi_lms_spi_control_port_read               : out std_logic;                                        -- read
@@ -410,6 +466,8 @@ architecture rtl of lms_ctr is
 			reset         : in  std_logic                     := 'X'; -- reset
 			receiver0_irq : in  std_logic                     := 'X'; -- irq
 			receiver1_irq : in  std_logic                     := 'X'; -- irq
+			receiver2_irq : in  std_logic                     := 'X'; -- irq
+			receiver3_irq : in  std_logic                     := 'X'; -- irq
 			sender_irq    : out std_logic_vector(31 downto 0)         -- irq
 		);
 	end component lms_ctr_irq_mapper;
@@ -579,8 +637,22 @@ architecture rtl of lms_ctr is
 	signal mm_interconnect_0_spi_lms_spi_control_port_read                             : std_logic;                     -- mm_interconnect_0:spi_lms_spi_control_port_read -> mm_interconnect_0_spi_lms_spi_control_port_read:in
 	signal mm_interconnect_0_spi_lms_spi_control_port_write                            : std_logic;                     -- mm_interconnect_0:spi_lms_spi_control_port_write -> mm_interconnect_0_spi_lms_spi_control_port_write:in
 	signal mm_interconnect_0_spi_lms_spi_control_port_writedata                        : std_logic_vector(15 downto 0); -- mm_interconnect_0:spi_lms_spi_control_port_writedata -> spi_lms:data_from_cpu
+	signal mm_interconnect_0_spi_1_dac_spi_control_port_chipselect                     : std_logic;                     -- mm_interconnect_0:spi_1_DAC_spi_control_port_chipselect -> spi_1_DAC:spi_select
+	signal mm_interconnect_0_spi_1_dac_spi_control_port_readdata                       : std_logic_vector(15 downto 0); -- spi_1_DAC:data_to_cpu -> mm_interconnect_0:spi_1_DAC_spi_control_port_readdata
+	signal mm_interconnect_0_spi_1_dac_spi_control_port_address                        : std_logic_vector(2 downto 0);  -- mm_interconnect_0:spi_1_DAC_spi_control_port_address -> spi_1_DAC:mem_addr
+	signal mm_interconnect_0_spi_1_dac_spi_control_port_read                           : std_logic;                     -- mm_interconnect_0:spi_1_DAC_spi_control_port_read -> mm_interconnect_0_spi_1_dac_spi_control_port_read:in
+	signal mm_interconnect_0_spi_1_dac_spi_control_port_write                          : std_logic;                     -- mm_interconnect_0:spi_1_DAC_spi_control_port_write -> mm_interconnect_0_spi_1_dac_spi_control_port_write:in
+	signal mm_interconnect_0_spi_1_dac_spi_control_port_writedata                      : std_logic_vector(15 downto 0); -- mm_interconnect_0:spi_1_DAC_spi_control_port_writedata -> spi_1_DAC:data_from_cpu
+	signal mm_interconnect_0_spi_1_adf_spi_control_port_chipselect                     : std_logic;                     -- mm_interconnect_0:spi_1_ADF_spi_control_port_chipselect -> spi_1_ADF:spi_select
+	signal mm_interconnect_0_spi_1_adf_spi_control_port_readdata                       : std_logic_vector(15 downto 0); -- spi_1_ADF:data_to_cpu -> mm_interconnect_0:spi_1_ADF_spi_control_port_readdata
+	signal mm_interconnect_0_spi_1_adf_spi_control_port_address                        : std_logic_vector(2 downto 0);  -- mm_interconnect_0:spi_1_ADF_spi_control_port_address -> spi_1_ADF:mem_addr
+	signal mm_interconnect_0_spi_1_adf_spi_control_port_read                           : std_logic;                     -- mm_interconnect_0:spi_1_ADF_spi_control_port_read -> mm_interconnect_0_spi_1_adf_spi_control_port_read:in
+	signal mm_interconnect_0_spi_1_adf_spi_control_port_write                          : std_logic;                     -- mm_interconnect_0:spi_1_ADF_spi_control_port_write -> mm_interconnect_0_spi_1_adf_spi_control_port_write:in
+	signal mm_interconnect_0_spi_1_adf_spi_control_port_writedata                      : std_logic_vector(15 downto 0); -- mm_interconnect_0:spi_1_ADF_spi_control_port_writedata -> spi_1_ADF:data_from_cpu
 	signal irq_mapper_receiver0_irq                                                    : std_logic;                     -- i2c_opencores_0:wb_inta_o -> irq_mapper:receiver0_irq
 	signal irq_mapper_receiver1_irq                                                    : std_logic;                     -- spi_lms:irq -> irq_mapper:receiver1_irq
+	signal irq_mapper_receiver2_irq                                                    : std_logic;                     -- spi_1_DAC:irq -> irq_mapper:receiver2_irq
+	signal irq_mapper_receiver3_irq                                                    : std_logic;                     -- spi_1_ADF:irq -> irq_mapper:receiver3_irq
 	signal nios2_cpu_irq_irq                                                           : std_logic_vector(31 downto 0); -- irq_mapper:sender_irq -> nios2_cpu:irq
 	signal rst_controller_reset_out_reset                                              : std_logic;                     -- rst_controller:reset_out -> [i2c_opencores_0:wb_rst_i, irq_mapper:reset, mm_interconnect_0:nios2_cpu_reset_reset_bridge_in_reset_reset, oc_mem:reset, rst_controller_reset_out_reset:in, rst_translator:in_reset]
 	signal rst_controller_reset_out_reset_req                                          : std_logic;                     -- rst_controller:reset_req -> [nios2_cpu:reset_req, oc_mem:reset_req, rst_translator:reset_req_in]
@@ -589,7 +661,11 @@ architecture rtl of lms_ctr is
 	signal mm_interconnect_0_lms_ctr_gpio_s1_write_ports_inv                           : std_logic;                     -- mm_interconnect_0_lms_ctr_gpio_s1_write:inv -> lms_ctr_gpio:write_n
 	signal mm_interconnect_0_spi_lms_spi_control_port_read_ports_inv                   : std_logic;                     -- mm_interconnect_0_spi_lms_spi_control_port_read:inv -> spi_lms:read_n
 	signal mm_interconnect_0_spi_lms_spi_control_port_write_ports_inv                  : std_logic;                     -- mm_interconnect_0_spi_lms_spi_control_port_write:inv -> spi_lms:write_n
-	signal rst_controller_reset_out_reset_ports_inv                                    : std_logic;                     -- rst_controller_reset_out_reset:inv -> [Av_FIFO_Int_0:rsi_nrst, leds:reset_n, lms_ctr_gpio:reset_n, nios2_cpu:reset_n, spi_lms:reset_n, switch:reset_n, sysid_qsys_0:reset_n]
+	signal mm_interconnect_0_spi_1_dac_spi_control_port_read_ports_inv                 : std_logic;                     -- mm_interconnect_0_spi_1_dac_spi_control_port_read:inv -> spi_1_DAC:read_n
+	signal mm_interconnect_0_spi_1_dac_spi_control_port_write_ports_inv                : std_logic;                     -- mm_interconnect_0_spi_1_dac_spi_control_port_write:inv -> spi_1_DAC:write_n
+	signal mm_interconnect_0_spi_1_adf_spi_control_port_read_ports_inv                 : std_logic;                     -- mm_interconnect_0_spi_1_adf_spi_control_port_read:inv -> spi_1_ADF:read_n
+	signal mm_interconnect_0_spi_1_adf_spi_control_port_write_ports_inv                : std_logic;                     -- mm_interconnect_0_spi_1_adf_spi_control_port_write:inv -> spi_1_ADF:write_n
+	signal rst_controller_reset_out_reset_ports_inv                                    : std_logic;                     -- rst_controller_reset_out_reset:inv -> [Av_FIFO_Int_0:rsi_nrst, leds:reset_n, lms_ctr_gpio:reset_n, nios2_cpu:reset_n, spi_1_ADF:reset_n, spi_1_DAC:reset_n, spi_lms:reset_n, switch:reset_n, sysid_qsys_0:reset_n]
 
 begin
 
@@ -717,6 +793,40 @@ begin
 			byteenable => mm_interconnect_0_oc_mem_s1_byteenable, --       .byteenable
 			reset      => rst_controller_reset_out_reset,         -- reset1.reset
 			reset_req  => rst_controller_reset_out_reset_req      --       .reset_req
+		);
+
+	spi_1_adf : component lms_ctr_spi_1_ADF
+		port map (
+			clk           => clk_clk,                                                      --              clk.clk
+			reset_n       => rst_controller_reset_out_reset_ports_inv,                     --            reset.reset_n
+			data_from_cpu => mm_interconnect_0_spi_1_adf_spi_control_port_writedata,       -- spi_control_port.writedata
+			data_to_cpu   => mm_interconnect_0_spi_1_adf_spi_control_port_readdata,        --                 .readdata
+			mem_addr      => mm_interconnect_0_spi_1_adf_spi_control_port_address,         --                 .address
+			read_n        => mm_interconnect_0_spi_1_adf_spi_control_port_read_ports_inv,  --                 .read_n
+			spi_select    => mm_interconnect_0_spi_1_adf_spi_control_port_chipselect,      --                 .chipselect
+			write_n       => mm_interconnect_0_spi_1_adf_spi_control_port_write_ports_inv, --                 .write_n
+			irq           => irq_mapper_receiver3_irq,                                     --              irq.irq
+			MISO          => spi_1_adf_external_MISO,                                      --         external.export
+			MOSI          => spi_1_adf_external_MOSI,                                      --                 .export
+			SCLK          => spi_1_adf_external_SCLK,                                      --                 .export
+			SS_n          => spi_1_adf_external_SS_n                                       --                 .export
+		);
+
+	spi_1_dac : component lms_ctr_spi_1_DAC
+		port map (
+			clk           => clk_clk,                                                      --              clk.clk
+			reset_n       => rst_controller_reset_out_reset_ports_inv,                     --            reset.reset_n
+			data_from_cpu => mm_interconnect_0_spi_1_dac_spi_control_port_writedata,       -- spi_control_port.writedata
+			data_to_cpu   => mm_interconnect_0_spi_1_dac_spi_control_port_readdata,        --                 .readdata
+			mem_addr      => mm_interconnect_0_spi_1_dac_spi_control_port_address,         --                 .address
+			read_n        => mm_interconnect_0_spi_1_dac_spi_control_port_read_ports_inv,  --                 .read_n
+			spi_select    => mm_interconnect_0_spi_1_dac_spi_control_port_chipselect,      --                 .chipselect
+			write_n       => mm_interconnect_0_spi_1_dac_spi_control_port_write_ports_inv, --                 .write_n
+			irq           => irq_mapper_receiver2_irq,                                     --              irq.irq
+			MISO          => spi_1_dac_external_MISO,                                      --         external.export
+			MOSI          => spi_1_dac_external_MOSI,                                      --                 .export
+			SCLK          => spi_1_dac_external_SCLK,                                      --                 .export
+			SS_n          => spi_1_dac_external_SS_n                                       --                 .export
 		);
 
 	spi_lms : component lms_ctr_spi_lms
@@ -942,6 +1052,18 @@ begin
 			oc_mem_s1_byteenable                        => mm_interconnect_0_oc_mem_s1_byteenable,                      --                                      .byteenable
 			oc_mem_s1_chipselect                        => mm_interconnect_0_oc_mem_s1_chipselect,                      --                                      .chipselect
 			oc_mem_s1_clken                             => mm_interconnect_0_oc_mem_s1_clken,                           --                                      .clken
+			spi_1_ADF_spi_control_port_address          => mm_interconnect_0_spi_1_adf_spi_control_port_address,        --            spi_1_ADF_spi_control_port.address
+			spi_1_ADF_spi_control_port_write            => mm_interconnect_0_spi_1_adf_spi_control_port_write,          --                                      .write
+			spi_1_ADF_spi_control_port_read             => mm_interconnect_0_spi_1_adf_spi_control_port_read,           --                                      .read
+			spi_1_ADF_spi_control_port_readdata         => mm_interconnect_0_spi_1_adf_spi_control_port_readdata,       --                                      .readdata
+			spi_1_ADF_spi_control_port_writedata        => mm_interconnect_0_spi_1_adf_spi_control_port_writedata,      --                                      .writedata
+			spi_1_ADF_spi_control_port_chipselect       => mm_interconnect_0_spi_1_adf_spi_control_port_chipselect,     --                                      .chipselect
+			spi_1_DAC_spi_control_port_address          => mm_interconnect_0_spi_1_dac_spi_control_port_address,        --            spi_1_DAC_spi_control_port.address
+			spi_1_DAC_spi_control_port_write            => mm_interconnect_0_spi_1_dac_spi_control_port_write,          --                                      .write
+			spi_1_DAC_spi_control_port_read             => mm_interconnect_0_spi_1_dac_spi_control_port_read,           --                                      .read
+			spi_1_DAC_spi_control_port_readdata         => mm_interconnect_0_spi_1_dac_spi_control_port_readdata,       --                                      .readdata
+			spi_1_DAC_spi_control_port_writedata        => mm_interconnect_0_spi_1_dac_spi_control_port_writedata,      --                                      .writedata
+			spi_1_DAC_spi_control_port_chipselect       => mm_interconnect_0_spi_1_dac_spi_control_port_chipselect,     --                                      .chipselect
 			spi_lms_spi_control_port_address            => mm_interconnect_0_spi_lms_spi_control_port_address,          --              spi_lms_spi_control_port.address
 			spi_lms_spi_control_port_write              => mm_interconnect_0_spi_lms_spi_control_port_write,            --                                      .write
 			spi_lms_spi_control_port_read               => mm_interconnect_0_spi_lms_spi_control_port_read,             --                                      .read
@@ -960,6 +1082,8 @@ begin
 			reset         => rst_controller_reset_out_reset, -- clk_reset.reset
 			receiver0_irq => irq_mapper_receiver0_irq,       -- receiver0.irq
 			receiver1_irq => irq_mapper_receiver1_irq,       -- receiver1.irq
+			receiver2_irq => irq_mapper_receiver2_irq,       -- receiver2.irq
+			receiver3_irq => irq_mapper_receiver3_irq,       -- receiver3.irq
 			sender_irq    => nios2_cpu_irq_irq               --    sender.irq
 		);
 
@@ -1037,6 +1161,14 @@ begin
 	mm_interconnect_0_spi_lms_spi_control_port_read_ports_inv <= not mm_interconnect_0_spi_lms_spi_control_port_read;
 
 	mm_interconnect_0_spi_lms_spi_control_port_write_ports_inv <= not mm_interconnect_0_spi_lms_spi_control_port_write;
+
+	mm_interconnect_0_spi_1_dac_spi_control_port_read_ports_inv <= not mm_interconnect_0_spi_1_dac_spi_control_port_read;
+
+	mm_interconnect_0_spi_1_dac_spi_control_port_write_ports_inv <= not mm_interconnect_0_spi_1_dac_spi_control_port_write;
+
+	mm_interconnect_0_spi_1_adf_spi_control_port_read_ports_inv <= not mm_interconnect_0_spi_1_adf_spi_control_port_read;
+
+	mm_interconnect_0_spi_1_adf_spi_control_port_write_ports_inv <= not mm_interconnect_0_spi_1_adf_spi_control_port_write;
 
 	rst_controller_reset_out_reset_ports_inv <= not rst_controller_reset_out_reset;
 

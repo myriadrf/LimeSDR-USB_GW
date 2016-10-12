@@ -31,12 +31,12 @@
 //ISMASTER: 1
 //DATABITS: 8
 //TARGETCLOCK: 20000000
-//NUMSLAVES: 2
+//NUMSLAVES: 1
 //CPOL: 0
 //CPHA: 1
 //LSBFIRST: 0
-//EXTRADELAY: 0
-//TARGETSSDELAY: 0
+//EXTRADELAY: 1
+//TARGETSSDELAY: 2e-007
 
 module lms_ctr_spi_1 (
                        // inputs:
@@ -63,7 +63,7 @@ module lms_ctr_spi_1 (
 
   output           MOSI;
   output           SCLK;
-  output  [  1: 0] SS_n;
+  output           SS_n;
   output  [ 15: 0] data_to_cpu;
   output           dataavailable;
   output           endofpacket;
@@ -87,7 +87,7 @@ module lms_ctr_spi_1 (
   wire             SCLK;
   reg              SCLK_reg;
   reg              SSO_reg;
-  wire    [  1: 0] SS_n;
+  wire             SS_n;
   wire             TMT;
   reg              TOE;
   wire             TRDY;
@@ -96,6 +96,7 @@ module lms_ctr_spi_1 (
   reg     [ 15: 0] data_to_cpu;
   reg              data_wr_strobe;
   wire             dataavailable;
+  reg     [  2: 0] delayCounter;
   wire             ds_MISO;
   wire             enableSS;
   wire             endofpacket;
@@ -128,7 +129,6 @@ module lms_ctr_spi_1 (
   reg     [ 15: 0] spi_slave_select_reg;
   wire    [ 10: 0] spi_status;
   reg     [  4: 0] state;
-  reg              stateZero;
   wire             status_wr_strobe;
   reg              transaction_primed;
   reg              transmitting;
@@ -298,28 +298,37 @@ module lms_ctr_spi_1 (
     end
 
 
-  // 'state' counts from 0 to 17.
+  // Extra-delay counter.
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
+          delayCounter <= 6;
+      else 
         begin
-          state <= 0;
-          stateZero <= 1;
-        end
-      else if (transmitting & slowclock)
-        begin
-          stateZero <= state == 17;
-          if (state == 17)
-              state <= 0;
-          else 
-            state <= state + 1;
+          if (write_shift_reg)
+              delayCounter <= 6;
+          if (transmitting & slowclock & (delayCounter != 0))
+              delayCounter <= delayCounter - 1;
         end
     end
 
 
-  assign enableSS = transmitting & ~stateZero;
+  // 'state' counts from 0 to 17.
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          state <= 0;
+      else if (transmitting & slowclock & (delayCounter == 0))
+          if (state == 17)
+              state <= 0;
+          else 
+            state <= state + 1;
+    end
+
+
+  assign enableSS = transmitting & (delayCounter != 6);
   assign MOSI = shift_reg[7];
-  assign SS_n = (enableSS | SSO_reg) ? ~spi_slave_select_reg : {2 {1'b1} };
+  assign SS_n = (enableSS | SSO_reg) ? ~spi_slave_select_reg : {1 {1'b1} };
   assign SCLK = SCLK_reg;
   // As long as there's an empty spot somewhere,
   //it's safe to write data.
@@ -400,7 +409,7 @@ module lms_ctr_spi_1 (
               if (RRDY)
                   ROE <= 1;
             end
-          if (slowclock)
+          if (slowclock && (delayCounter == 0))
             begin
               if (state == 17)
                   transaction_primed <= 1;

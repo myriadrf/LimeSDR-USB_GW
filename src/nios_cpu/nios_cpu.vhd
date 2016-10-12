@@ -28,6 +28,9 @@ entity nios_cpu is
 			spi_lms_MOSI				: out   std_logic;
 			spi_lms_SCLK				: out   std_logic;
 			spi_lms_SS_n				: out   std_logic_vector(4 downto 0);
+			spi_1_MOSI					: out   std_logic;
+			spi_1_SCLK					: out   std_logic;
+			spi_1_SS_n					: out   std_logic_vector(1 downto 0);
 			switch							: in    std_logic_vector(7 downto 0);
 			i2c_scl							: inout std_logic;
 			i2c_sda							: inout std_logic
@@ -39,6 +42,9 @@ end nios_cpu;
 -- ----------------------------------------------------------------------------
 architecture arch of nios_cpu is
 --declare signals,  components here
+
+	
+	signal dac_MOSI, dac_SCLK, dac_SS, adf_MOSI, adf_SCLK, adf_SS: std_logic;
 	
 
 	component lms_ctr is
@@ -53,14 +59,22 @@ architecture arch of nios_cpu is
 			exfifo_rst_export                       : out   std_logic;                                       -- export
 			leds_external_connection_export         : out   std_logic_vector(7 downto 0);                    -- export
 			lms_ctr_gpio_external_connection_export : out   std_logic_vector(3 downto 0);                    -- export
+			scl_exp_export                          : inout std_logic                    := 'X';             -- export
+			sda_exp_export                          : inout std_logic                    := 'X';             -- export
 			spi_lms_external_MISO                   : in    std_logic                    := 'X';             -- MISO
 			spi_lms_external_MOSI                   : out   std_logic;                                       -- MOSI
 			spi_lms_external_SCLK                   : out   std_logic;                                       -- SCLK
 			spi_lms_external_SS_n                   : out   std_logic_vector(4 downto 0);                    -- SS_n
 			switch_external_connection_export       : in    std_logic_vector(7 downto 0) := (others => 'X'); -- export
-			scl_exp_export                          : inout std_logic                    := 'X';             -- export
-			sda_exp_export                          : inout std_logic                    := 'X'              -- export
-		);
+			spi_1_dac_external_MISO                 : in    std_logic                    := 'X';             -- MISO
+			spi_1_dac_external_MOSI                 : out   std_logic;                                       -- MOSI
+			spi_1_dac_external_SCLK                 : out   std_logic;                                       -- SCLK
+			spi_1_dac_external_SS_n                 : out   std_logic;                                       -- SS_n
+			spi_1_adf_external_MISO                 : in    std_logic                    := 'X';             -- MISO
+			spi_1_adf_external_MOSI                 : out   std_logic;                                       -- MOSI
+			spi_1_adf_external_SCLK                 : out   std_logic;                                       -- SCLK
+			spi_1_adf_external_SS_n                 : out   std_logic                                        -- SS_n
+		);	
 	end component lms_ctr;
   
 begin
@@ -83,10 +97,24 @@ begin
 			spi_lms_external_SS_n                   => spi_lms_SS_n,
 			switch_external_connection_export       => switch,
 			scl_exp_export													=> i2c_scl,
-			sda_exp_export													=> i2c_sda
+			sda_exp_export													=> i2c_sda,
+			spi_1_dac_external_MISO                 => '0',
+			spi_1_dac_external_MOSI                 => dac_MOSI,
+			spi_1_dac_external_SCLK                 => dac_SCLK,
+			spi_1_dac_external_SS_n                 => dac_SS,
+			spi_1_adf_external_MISO                 => '0',
+			spi_1_adf_external_MOSI                 => adf_MOSI,
+			spi_1_adf_external_SCLK                 => adf_SCLK,
+			spi_1_adf_external_SS_n                 => adf_SS
+
 		);
 		
-
+		-- SPI switch to select between ADF4002 and AD5601.
+		-- This is neccessary, while ADF4002 CLOCK_PHASE = 0 and AD5601 CLOCK_PHASE = 1
+		spi_1_MOSI <= adf_MOSI when adf_SS = '0' else dac_MOSI;
+		spi_1_SCLK <= adf_SCLK when adf_SS = '0' else dac_SCLK;
+		
+		spi_1_SS_n <= adf_SS & dac_SS;
 
 end arch;   
 

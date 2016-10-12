@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'lms_ctr'
  * SOPC Builder design path: ../../lms_ctr.sopcinfo
  *
- * Generated: Tue Oct 11 15:23:02 EEST 2016
+ * Generated: Wed Oct 12 10:20:04 EEST 2016
  */
 
 /*
@@ -61,7 +61,7 @@
  */
 
 #define ALT_MODULE_CLASS_Av_FIFO_Int_0 Av_FIFO_Int
-#define AV_FIFO_INT_0_BASE 0x11060
+#define AV_FIFO_INT_0_BASE 0x110c0
 #define AV_FIFO_INT_0_IRQ -1
 #define AV_FIFO_INT_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define AV_FIFO_INT_0_NAME "/dev/Av_FIFO_Int_0"
@@ -213,8 +213,8 @@
  */
 
 #define ALT_MODULE_CLASS_i2c_opencores_0 i2c_opencores
-#define I2C_OPENCORES_0_BASE 0x0
-#define I2C_OPENCORES_0_IRQ 1
+#define I2C_OPENCORES_0_BASE 0x11080
+#define I2C_OPENCORES_0_IRQ 0
 #define I2C_OPENCORES_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define I2C_OPENCORES_0_NAME "/dev/i2c_opencores_0"
 #define I2C_OPENCORES_0_SPAN 32
@@ -227,7 +227,7 @@
  */
 
 #define ALT_MODULE_CLASS_leds altera_avalon_pio
-#define LEDS_BASE 0x11040
+#define LEDS_BASE 0x110a0
 #define LEDS_BIT_CLEARING_EDGE_REGISTER 0
 #define LEDS_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define LEDS_CAPTURE 0
@@ -254,7 +254,7 @@
  */
 
 #define ALT_MODULE_CLASS_lms_ctr_gpio altera_avalon_pio
-#define LMS_CTR_GPIO_BASE 0x11020
+#define LMS_CTR_GPIO_BASE 0x11060
 #define LMS_CTR_GPIO_BIT_CLEARING_EDGE_REGISTER 0
 #define LMS_CTR_GPIO_BIT_MODIFYING_OUTPUT_REGISTER 1
 #define LMS_CTR_GPIO_CAPTURE 0
@@ -305,12 +305,74 @@
 
 
 /*
+ * spi_1_ADF configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_spi_1_ADF altera_avalon_spi
+#define SPI_1_ADF_BASE 0x11000
+#define SPI_1_ADF_CLOCKMULT 1
+#define SPI_1_ADF_CLOCKPHASE 0
+#define SPI_1_ADF_CLOCKPOLARITY 0
+#define SPI_1_ADF_CLOCKUNITS "Hz"
+#define SPI_1_ADF_DATABITS 8
+#define SPI_1_ADF_DATAWIDTH 16
+#define SPI_1_ADF_DELAYMULT "1.0E-9"
+#define SPI_1_ADF_DELAYUNITS "ns"
+#define SPI_1_ADF_EXTRADELAY 1
+#define SPI_1_ADF_INSERT_SYNC 0
+#define SPI_1_ADF_IRQ 3
+#define SPI_1_ADF_IRQ_INTERRUPT_CONTROLLER_ID 0
+#define SPI_1_ADF_ISMASTER 1
+#define SPI_1_ADF_LSBFIRST 0
+#define SPI_1_ADF_NAME "/dev/spi_1_ADF"
+#define SPI_1_ADF_NUMSLAVES 1
+#define SPI_1_ADF_PREFIX "spi_"
+#define SPI_1_ADF_SPAN 32
+#define SPI_1_ADF_SYNC_REG_DEPTH 2
+#define SPI_1_ADF_TARGETCLOCK 20000000u
+#define SPI_1_ADF_TARGETSSDELAY "200.0"
+#define SPI_1_ADF_TYPE "altera_avalon_spi"
+
+
+/*
+ * spi_1_DAC configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_spi_1_DAC altera_avalon_spi
+#define SPI_1_DAC_BASE 0x11020
+#define SPI_1_DAC_CLOCKMULT 1
+#define SPI_1_DAC_CLOCKPHASE 1
+#define SPI_1_DAC_CLOCKPOLARITY 0
+#define SPI_1_DAC_CLOCKUNITS "Hz"
+#define SPI_1_DAC_DATABITS 8
+#define SPI_1_DAC_DATAWIDTH 16
+#define SPI_1_DAC_DELAYMULT "1.0E-9"
+#define SPI_1_DAC_DELAYUNITS "ns"
+#define SPI_1_DAC_EXTRADELAY 1
+#define SPI_1_DAC_INSERT_SYNC 0
+#define SPI_1_DAC_IRQ 2
+#define SPI_1_DAC_IRQ_INTERRUPT_CONTROLLER_ID 0
+#define SPI_1_DAC_ISMASTER 1
+#define SPI_1_DAC_LSBFIRST 0
+#define SPI_1_DAC_NAME "/dev/spi_1_DAC"
+#define SPI_1_DAC_NUMSLAVES 1
+#define SPI_1_DAC_PREFIX "spi_"
+#define SPI_1_DAC_SPAN 32
+#define SPI_1_DAC_SYNC_REG_DEPTH 2
+#define SPI_1_DAC_TARGETCLOCK 20000000u
+#define SPI_1_DAC_TARGETSSDELAY "200.0"
+#define SPI_1_DAC_TYPE "altera_avalon_spi"
+
+
+/*
  * spi_lms configuration
  *
  */
 
 #define ALT_MODULE_CLASS_spi_lms altera_avalon_spi
-#define SPI_LMS_BASE 0x11000
+#define SPI_LMS_BASE 0x11040
 #define SPI_LMS_CLOCKMULT 1
 #define SPI_LMS_CLOCKPHASE 0
 #define SPI_LMS_CLOCKPOLARITY 0
@@ -321,7 +383,7 @@
 #define SPI_LMS_DELAYUNITS "ns"
 #define SPI_LMS_EXTRADELAY 1
 #define SPI_LMS_INSERT_SYNC 0
-#define SPI_LMS_IRQ 0
+#define SPI_LMS_IRQ 1
 #define SPI_LMS_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define SPI_LMS_ISMASTER 1
 #define SPI_LMS_LSBFIRST 0
@@ -341,7 +403,7 @@
  */
 
 #define ALT_MODULE_CLASS_switch altera_avalon_pio
-#define SWITCH_BASE 0x11050
+#define SWITCH_BASE 0x110b0
 #define SWITCH_BIT_CLEARING_EDGE_REGISTER 0
 #define SWITCH_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define SWITCH_CAPTURE 0
@@ -368,13 +430,13 @@
  */
 
 #define ALT_MODULE_CLASS_sysid_qsys_0 altera_avalon_sysid_qsys
-#define SYSID_QSYS_0_BASE 0x11070
+#define SYSID_QSYS_0_BASE 0x110d0
 #define SYSID_QSYS_0_ID 4920
 #define SYSID_QSYS_0_IRQ -1
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1476188536
+#define SYSID_QSYS_0_TIMESTAMP 1476255070
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 #endif /* __SYSTEM_H_ */

@@ -29,8 +29,8 @@
 
 #define SPI_NR_LMS7002M 0
 #define SPI_NR_BRD      1
-#define SPI_NR_DAC      2
-#define SPI_NR_ADF4002  3
+#define SPI_NR_DAC      0
+#define SPI_NR_ADF4002  0
 //#define SPI_NR_FLASH    0
 
 //CMD_PROG_MCU
@@ -185,11 +185,11 @@ int main()
     //uint8_t spi_rdbuf[2] = {0x01, 0x00};
 
     // Write initial data to the DAC
-    /*
+
 	dac_data[0] = (dac_val) >>2; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
 	dac_data[1] = (dac_val) <<6; //LSB data
-	spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
-	*/
+	spirez = alt_avalon_spi_command(SPI_1_DAC_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
+
 
     //FLASH MEMORY
     /*
@@ -433,7 +433,7 @@ int main()
  						//CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[0 + (block*3)], 1);
  						//CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[1 + (block*3)], 1);
  						//CyU3PSpiTransmitWords (&LMS_Ctrl_Packet_Rx->Data_field[2 + (block*3)], 1);
- 						spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_ADF4002, 3, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block*3)], 0, NULL, 0);
+ 						spirez = alt_avalon_spi_command(SPI_1_ADF_BASE, SPI_NR_ADF4002, 3, &LMS_Ctrl_Packet_Rx->Data_field[0 + (block*3)], 0, NULL, 0);
 
  						switch(LMS_Ctrl_Packet_Rx->Header.Periph_ID)
  						{
@@ -551,7 +551,7 @@ int main()
 										dac_data[1] = (dac_val << 6) & 0xC0; //LSB data
 
 										//if( CyU3PI2cTransmitBytes (&preamble, &sc_brdg_data[0], 2, 0) != CY_U3P_SUCCESS)  cmd_errors++;
-										spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
+										spirez = alt_avalon_spi_command(SPI_1_DAC_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
 									}
 									else cmd_errors++;
 								}

@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_cpu' in SOPC Builder design 'lms_ctr'
  * SOPC Builder design path: ../../lms_ctr.sopcinfo
  *
- * Generated: Tue Oct 11 15:23:02 EEST 2016
+ * Generated: Wed Oct 12 10:20:04 EEST 2016
  */
 
 /*
@@ -68,6 +68,8 @@
  */
 
 ALTERA_NIOS2_GEN2_IRQ_INSTANCE ( NIOS2_CPU, nios2_cpu);
+ALTERA_AVALON_SPI_INSTANCE ( SPI_1_ADF, spi_1_ADF);
+ALTERA_AVALON_SPI_INSTANCE ( SPI_1_DAC, spi_1_DAC);
 ALTERA_AVALON_SPI_INSTANCE ( SPI_LMS, spi_lms);
 ALTERA_AVALON_SYSID_QSYS_INSTANCE ( SYSID_QSYS_0, sysid_qsys_0);
 I2C_OPENCORES_INSTANCE ( I2C_OPENCORES_0, i2c_opencores_0);
@@ -93,6 +95,8 @@ void alt_irq_init ( const void* base )
 
 void alt_sys_init( void )
 {
+    ALTERA_AVALON_SPI_INIT ( SPI_1_ADF, spi_1_ADF);
+    ALTERA_AVALON_SPI_INIT ( SPI_1_DAC, spi_1_DAC);
     ALTERA_AVALON_SPI_INIT ( SPI_LMS, spi_lms);
     ALTERA_AVALON_SYSID_QSYS_INIT ( SYSID_QSYS_0, sysid_qsys_0);
     I2C_OPENCORES_INIT ( I2C_OPENCORES_0, i2c_opencores_0);
