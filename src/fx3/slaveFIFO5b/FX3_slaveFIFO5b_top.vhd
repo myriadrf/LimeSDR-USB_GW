@@ -82,14 +82,14 @@ architecture arch of FX3_slaveFIFO5b_top is
 constant socket0_wrusedw_size : integer := 11;
 constant socket0_rdusedw_size : integer := 10; 
 
-constant socket1_wrusedw_size : integer := 11;
-constant socket1_rdusedw_size : integer := 10; 
+constant socket1_wrusedw_size : integer := 9;
+constant socket1_rdusedw_size : integer := 8; 
 
 constant socket2_wrusedw_size : integer := 10;
 constant socket2_rdusedw_size : integer := 11;
 
-constant socket3_wrusedw_size : integer := 13;
-constant socket3_rdusedw_size : integer := 11;
+constant socket3_wrusedw_size : integer := 11;
+constant socket3_rdusedw_size : integer := 9;
 
 
 	--socket 0 (configured to read data from it PC->FPGA)
