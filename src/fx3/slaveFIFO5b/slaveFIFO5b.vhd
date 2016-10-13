@@ -173,6 +173,10 @@ signal oe_delay_cnt        : unsigned(1 downto 0);
 signal slrd_cnt				: unsigned(15 downto 0);
 signal slwr_cnt				: unsigned(15 downto 0);
 
+attribute noprune: boolean;
+attribute noprune of slrd_cnt: signal is true;
+attribute noprune of slwr_cnt: signal is true;
+
 signal max_control_pct_cnt		: unsigned(15 downto 0);
 signal max_data_pct_cnt			: unsigned(15 downto 0);
 
@@ -437,8 +441,8 @@ process(clk, reset_n)begin
 		oe_delay_cnt <= "00";
 	elsif(clk'event and clk = '1')then	
 	 	if(current_state = stream_out_read_rd_and_oe_delay) then
-			--oe_delay_cnt <= "10";
-			oe_delay_cnt <= "01";
+			oe_delay_cnt <= "10";
+			--oe_delay_cnt <= "01";
       elsif((current_state = stream_out_read_oe_delay) and (oe_delay_cnt > 0))then
 			oe_delay_cnt <= oe_delay_cnt - 1;
 		else
@@ -665,6 +669,7 @@ stream_fsm : process(current_state, flaga_d, flagb_d, flg_latency_cnt, assert_cn
 	when wait_flagA => 				--wait when DMA buffer is ready
 		if flaga_d = '1' then
 			next_state<=wait_flagB;
+			--next_state <= idle;
 		else 
 			next_state <= idle;
 		end if;
@@ -686,13 +691,15 @@ stream_fsm : process(current_state, flaga_d, flagb_d, flg_latency_cnt, assert_cn
 			end if;
 		else
 			next_state <= wait_flagB;
+			--next_state <= idle;
 		end if;
 		
 	when stream_in_write => 		--execute write to FX3 (FPGA ->PC) operation, and terminate depending on socket type
 		if (flagb_d = '0') then 			
 			next_state <= stream_in_write_wr_delay;
-		elsif (slwr_cnt = max_data_pct_cnt-2 and socket_type(to_integer(unsigned(faddr_reg)))='0') then 
-			next_state <= stream_in_write_wr_delay;
+-- Used when watermark flag is not available
+--		elsif (slwr_cnt = max_data_pct_cnt-2 and socket_type(to_integer(unsigned(faddr_reg)))='0') then 
+--			next_state <= stream_in_write_wr_delay;
 		elsif (slwr_cnt = max_control_pct_cnt-2 and socket_type(to_integer(unsigned(faddr_reg)))='1') then
 			next_state <= stream_in_pktend;
 		else
@@ -702,21 +709,22 @@ stream_fsm : process(current_state, flaga_d, flagb_d, flg_latency_cnt, assert_cn
 	when stream_in_pktend => 		--short packet write is used when socket is configured as control socket
 		next_state <= idle;	
 	
-	when stream_in_write_wr_delay =>
+	when stream_in_write_wr_delay =>	-- write watermark words=2
 		next_state <= idle;	
 	
 	when stream_out_read =>			--execute read operation from FX3 (PC->FPGA)
 		if(flagb_d = '0')then
 			next_state <= stream_out_read_rd_and_oe_delay;
-		elsif ( slrd_cnt= max_data_pct_cnt-3 and socket_type(to_integer(unsigned(faddr_reg)))='0') then
-			next_state <= stream_out_read_rd_and_oe_delay;
-		elsif (slrd_cnt = max_control_pct_cnt-3 and socket_type(to_integer(unsigned(faddr_reg)))='1') then
-			next_state <= stream_out_read_rd_and_oe_delay;
+--		Used when watermark flag is not available
+--		elsif ( slrd_cnt= max_data_pct_cnt-3 and socket_type(to_integer(unsigned(faddr_reg)))='0') then
+--			next_state <= stream_out_read_rd_and_oe_delay;
+--		elsif (slrd_cnt = max_control_pct_cnt-3 and socket_type(to_integer(unsigned(faddr_reg)))='1') then
+--			next_state <= stream_out_read_rd_and_oe_delay;
 		else
 			next_state <= stream_out_read;
 		end if;
 	
-	when stream_out_read_rd_and_oe_delay =>
+	when stream_out_read_rd_and_oe_delay => --read watermark words=3
 		if(rd_oe_delay_cnt = "00")then
 			next_state <= stream_out_read_oe_delay;
 		else
