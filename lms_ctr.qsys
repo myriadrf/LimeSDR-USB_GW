@@ -626,8 +626,8 @@
   <parameter name="masterSPI" value="true" />
   <parameter name="numberOfSlaves" value="5" />
   <parameter name="syncRegDepth" value="2" />
-  <parameter name="targetClockRate" value="2000000" />
-  <parameter name="targetSlaveSelectToSClkDelay" value="200.0" />
+  <parameter name="targetClockRate" value="30000000" />
+  <parameter name="targetSlaveSelectToSClkDelay" value="100.0" />
  </module>
  <module name="switch" kind="altera_avalon_pio" version="15.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />

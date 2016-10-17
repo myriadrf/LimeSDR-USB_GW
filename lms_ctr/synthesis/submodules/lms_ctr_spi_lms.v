@@ -30,13 +30,13 @@
 //INPUT_CLOCK: 100000000
 //ISMASTER: 1
 //DATABITS: 8
-//TARGETCLOCK: 2000000
+//TARGETCLOCK: 30000000
 //NUMSLAVES: 5
 //CPOL: 0
 //CPHA: 0
 //LSBFIRST: 0
 //EXTRADELAY: 1
-//TARGETSSDELAY: 2e-007
+//TARGETSSDELAY: 1e-007
 
 module lms_ctr_spi_lms (
                          // inputs:
@@ -96,6 +96,7 @@ module lms_ctr_spi_lms (
   reg     [ 15: 0] data_to_cpu;
   reg              data_wr_strobe;
   wire             dataavailable;
+  reg     [  2: 0] delayCounter;
   wire             ds_MISO;
   wire             enableSS;
   wire             endofpacket;
@@ -114,7 +115,7 @@ module lms_ctr_spi_lms (
   wire    [ 15: 0] p1_data_to_cpu;
   wire             p1_data_wr_strobe;
   wire             p1_rd_strobe;
-  wire    [  4: 0] p1_slowcount;
+  wire    [  1: 0] p1_slowcount;
   wire             p1_wr_strobe;
   reg              rd_strobe;
   wire             readyfordata;
@@ -122,13 +123,12 @@ module lms_ctr_spi_lms (
   reg     [  7: 0] shift_reg;
   wire             slaveselect_wr_strobe;
   wire             slowclock;
-  reg     [  4: 0] slowcount;
+  reg     [  1: 0] slowcount;
   wire    [ 10: 0] spi_control;
   reg     [ 15: 0] spi_slave_select_holding_reg;
   reg     [ 15: 0] spi_slave_select_reg;
   wire    [ 10: 0] spi_status;
   reg     [  4: 0] state;
-  reg              stateZero;
   wire             status_wr_strobe;
   reg              transmitting;
   reg              tx_holding_primed;
@@ -254,11 +254,11 @@ module lms_ctr_spi_lms (
     end
 
 
-  // slowclock is active once every 25 system clock pulses.
-  assign slowclock = slowcount == 5'h18;
+  // slowclock is active once every 2 system clock pulses.
+  assign slowclock = slowcount == 2'h1;
 
-  assign p1_slowcount = ({5 {(transmitting && !slowclock)}} & (slowcount + 1)) |
-    ({5 {(~((transmitting && !slowclock)))}} & 0);
+  assign p1_slowcount = ({2 {(transmitting && !slowclock)}} & (slowcount + 1)) |
+    ({2 {(~((transmitting && !slowclock)))}} & 0);
 
   // Divide counter for SPI clock.
   always @(posedge clk or negedge reset_n)
@@ -297,26 +297,35 @@ module lms_ctr_spi_lms (
     end
 
 
-  // 'state' counts from 0 to 17.
+  // Extra-delay counter.
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
+          delayCounter <= 4;
+      else 
         begin
-          state <= 0;
-          stateZero <= 1;
-        end
-      else if (transmitting & slowclock)
-        begin
-          stateZero <= state == 17;
-          if (state == 17)
-              state <= 0;
-          else 
-            state <= state + 1;
+          if (write_shift_reg)
+              delayCounter <= 4;
+          if (transmitting & slowclock & (delayCounter != 0))
+              delayCounter <= delayCounter - 1;
         end
     end
 
 
-  assign enableSS = transmitting & ~stateZero;
+  // 'state' counts from 0 to 17.
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          state <= 0;
+      else if (transmitting & slowclock & (delayCounter == 0))
+          if (state == 17)
+              state <= 0;
+          else 
+            state <= state + 1;
+    end
+
+
+  assign enableSS = transmitting & (delayCounter != 4);
   assign MOSI = shift_reg[7];
   assign SS_n = (enableSS | SSO_reg) ? ~spi_slave_select_reg : {5 {1'b1} };
   assign SCLK = SCLK_reg;
@@ -382,7 +391,7 @@ module lms_ctr_spi_lms (
               ROE <= 0;
               TOE <= 0;
             end
-          if (slowclock)
+          if (slowclock && (delayCounter == 0))
             begin
               if (state == 17)
                 begin
