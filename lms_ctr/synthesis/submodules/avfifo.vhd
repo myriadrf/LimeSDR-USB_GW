@@ -67,7 +67,7 @@ begin
 	zeroes24 <= (others => '0');
 
 	-- Output FIFO
-	coe_of_d <= writedata;--writedata(7 downto 0);
+	coe_of_d <= writedata;
 	coe_of_wr <= '1' when chipselect = '1' and write = '1' and address = "00" and coe_of_wrfull = '0' else '0';
 	
 	-- Input FIFO
@@ -111,7 +111,7 @@ begin
 	rd_proc: process(address, status_reg, coe_if_d) 
 	begin
 		case address is
-			when "01" => readdata <= coe_if_d;--zeroes24 & coe_if_d;
+			when "01" => readdata <= coe_if_d;
 			when "10" => readdata <= status_reg;		-- Status register to the Avalon bus
 			when others => readdata <= (others => '0');			
 		end case;

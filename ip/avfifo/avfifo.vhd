@@ -44,11 +44,11 @@ entity avfifo is
 		read		: in	std_logic;
 		readdata	: out	std_logic_vector(width-1 downto 0);
 		
-		coe_of_d: out	std_logic_vector(7 downto 0);
+		coe_of_d: out	std_logic_vector(31 downto 0);
 		coe_of_wr: out std_logic;
 		coe_of_wrfull: in  std_logic;
 		
-		coe_if_d: in	std_logic_vector(7 downto 0);
+		coe_if_d: in	std_logic_vector(31 downto 0);
 		coe_if_rd: out std_logic;
 		coe_if_rdempty: in  std_logic;
 		
@@ -67,7 +67,7 @@ begin
 	zeroes24 <= (others => '0');
 
 	-- Output FIFO
-	coe_of_d <= writedata(7 downto 0);
+	coe_of_d <= writedata;
 	coe_of_wr <= '1' when chipselect = '1' and write = '1' and address = "00" and coe_of_wrfull = '0' else '0';
 	
 	-- Input FIFO
@@ -111,7 +111,7 @@ begin
 	rd_proc: process(address, status_reg, coe_if_d) 
 	begin
 		case address is
-			when "01" => readdata <= zeroes24 & coe_if_d;
+			when "01" => readdata <= coe_if_d;
 			when "10" => readdata <= status_reg;		-- Status register to the Avalon bus
 			when others => readdata <= (others => '0');			
 		end case;

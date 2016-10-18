@@ -73,7 +73,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  27 .sopc_system_name 00000007  00000000  00000000  0000fcf1  2**0
                   CONTENTS, READONLY
- 28 .sopcinfo     00060f4d  00000000  00000000  0000fcf8  2**0
+ 28 .sopcinfo     00060f5b  00000000  00000000  0000fcf8  2**0
                   CONTENTS, READONLY
 SYMBOL TABLE:
 00008000 l    d  .entry	00000000 .entry
@@ -2834,7 +2834,7 @@ Disassembly of section .text:
     a738:	d9400015 	stw	r5,0(sp)
     a73c:	d9800115 	stw	r6,4(sp)
     a740:	d9c00215 	stw	r7,8(sp)
-    a744:	00000000 	call	0 <__reset-0x8000>
+    a744:	00000000 	call	0 <__alt_mem_oc_mem-0x8000>
     a748:	d9400017 	ldw	r5,0(sp)
     a74c:	d9800117 	ldw	r6,4(sp)
     a750:	d9c00217 	ldw	r7,8(sp)
@@ -2920,7 +2920,7 @@ Disassembly of section .text:
     a888:	10003426 	beq	r2,zero,a95c <__call_exitprocs+0x18c>
     a88c:	9809883a 	mov	r4,r19
     a890:	a8800015 	stw	r2,0(r21)
-    a894:	00000000 	call	0 <__reset-0x8000>
+    a894:	00000000 	call	0 <__alt_mem_oc_mem-0x8000>
     a898:	acc00017 	ldw	r19,0(r21)
     a89c:	983fe41e 	bne	r19,zero,a830 <_gp+0xffff78bc>
     a8a0:	dfc00b17 	ldw	ra,44(sp)

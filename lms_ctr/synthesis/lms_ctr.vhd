@@ -8,31 +8,31 @@ use IEEE.numeric_std.all;
 
 entity lms_ctr is
 	port (
-		clk_clk                                 : in    std_logic                    := '0';             --                              clk.clk
+		clk_clk                                 : in    std_logic                     := '0';             --                              clk.clk
 		exfifo_if_d_export                      : in    std_logic_vector(31 downto 0) := (others => '0'); --                      exfifo_if_d.export
-		exfifo_if_rd_export                     : out   std_logic;                                       --                     exfifo_if_rd.export
-		exfifo_if_rdempty_export                : in    std_logic                    := '0';             --                exfifo_if_rdempty.export
+		exfifo_if_rd_export                     : out   std_logic;                                        --                     exfifo_if_rd.export
+		exfifo_if_rdempty_export                : in    std_logic                     := '0';             --                exfifo_if_rdempty.export
 		exfifo_of_d_export                      : out   std_logic_vector(31 downto 0);                    --                      exfifo_of_d.export
-		exfifo_of_wr_export                     : out   std_logic;                                       --                     exfifo_of_wr.export
-		exfifo_of_wrfull_export                 : in    std_logic                    := '0';             --                 exfifo_of_wrfull.export
-		exfifo_rst_export                       : out   std_logic;                                       --                       exfifo_rst.export
-		leds_external_connection_export         : out   std_logic_vector(7 downto 0);                    --         leds_external_connection.export
-		lms_ctr_gpio_external_connection_export : out   std_logic_vector(3 downto 0);                    -- lms_ctr_gpio_external_connection.export
-		scl_exp_export                          : inout std_logic                    := '0';             --                          scl_exp.export
-		sda_exp_export                          : inout std_logic                    := '0';             --                          sda_exp.export
-		spi_1_adf_external_MISO                 : in    std_logic                    := '0';             --               spi_1_adf_external.MISO
-		spi_1_adf_external_MOSI                 : out   std_logic;                                       --                                 .MOSI
-		spi_1_adf_external_SCLK                 : out   std_logic;                                       --                                 .SCLK
-		spi_1_adf_external_SS_n                 : out   std_logic;                                       --                                 .SS_n
-		spi_1_dac_external_MISO                 : in    std_logic                    := '0';             --               spi_1_dac_external.MISO
-		spi_1_dac_external_MOSI                 : out   std_logic;                                       --                                 .MOSI
-		spi_1_dac_external_SCLK                 : out   std_logic;                                       --                                 .SCLK
-		spi_1_dac_external_SS_n                 : out   std_logic;                                       --                                 .SS_n
-		spi_lms_external_MISO                   : in    std_logic                    := '0';             --                 spi_lms_external.MISO
-		spi_lms_external_MOSI                   : out   std_logic;                                       --                                 .MOSI
-		spi_lms_external_SCLK                   : out   std_logic;                                       --                                 .SCLK
-		spi_lms_external_SS_n                   : out   std_logic_vector(4 downto 0);                    --                                 .SS_n
-		switch_external_connection_export       : in    std_logic_vector(7 downto 0) := (others => '0')  --       switch_external_connection.export
+		exfifo_of_wr_export                     : out   std_logic;                                        --                     exfifo_of_wr.export
+		exfifo_of_wrfull_export                 : in    std_logic                     := '0';             --                 exfifo_of_wrfull.export
+		exfifo_rst_export                       : out   std_logic;                                        --                       exfifo_rst.export
+		leds_external_connection_export         : out   std_logic_vector(7 downto 0);                     --         leds_external_connection.export
+		lms_ctr_gpio_external_connection_export : out   std_logic_vector(3 downto 0);                     -- lms_ctr_gpio_external_connection.export
+		scl_exp_export                          : inout std_logic                     := '0';             --                          scl_exp.export
+		sda_exp_export                          : inout std_logic                     := '0';             --                          sda_exp.export
+		spi_1_adf_external_MISO                 : in    std_logic                     := '0';             --               spi_1_adf_external.MISO
+		spi_1_adf_external_MOSI                 : out   std_logic;                                        --                                 .MOSI
+		spi_1_adf_external_SCLK                 : out   std_logic;                                        --                                 .SCLK
+		spi_1_adf_external_SS_n                 : out   std_logic;                                        --                                 .SS_n
+		spi_1_dac_external_MISO                 : in    std_logic                     := '0';             --               spi_1_dac_external.MISO
+		spi_1_dac_external_MOSI                 : out   std_logic;                                        --                                 .MOSI
+		spi_1_dac_external_SCLK                 : out   std_logic;                                        --                                 .SCLK
+		spi_1_dac_external_SS_n                 : out   std_logic;                                        --                                 .SS_n
+		spi_lms_external_MISO                   : in    std_logic                     := '0';             --                 spi_lms_external.MISO
+		spi_lms_external_MOSI                   : out   std_logic;                                        --                                 .MOSI
+		spi_lms_external_SCLK                   : out   std_logic;                                        --                                 .SCLK
+		spi_lms_external_SS_n                   : out   std_logic_vector(4 downto 0);                     --                                 .SS_n
+		switch_external_connection_export       : in    std_logic_vector(7 downto 0)  := (others => '0')  --       switch_external_connection.export
 	);
 end entity lms_ctr;
 
@@ -50,11 +50,11 @@ architecture rtl of lms_ctr is
 			read           : in  std_logic                     := 'X';             -- read
 			readdata       : out std_logic_vector(31 downto 0);                    -- readdata
 			rsi_nrst       : in  std_logic                     := 'X';             -- reset_n
-			coe_if_d       : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- export
+			coe_if_d       : in  std_logic_vector(31 downto 0) := (others => 'X'); -- export
 			coe_if_rd      : out std_logic;                                        -- export
 			coe_of_wrfull  : in  std_logic                     := 'X';             -- export
 			coe_of_wr      : out std_logic;                                        -- export
-			coe_of_d       : out std_logic_vector(31 downto 0);                     -- export
+			coe_of_d       : out std_logic_vector(31 downto 0);                    -- export
 			coe_if_rdempty : in  std_logic                     := 'X';             -- export
 			coe_fifo_rst   : out std_logic                                         -- export
 		);
