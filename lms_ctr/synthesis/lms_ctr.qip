@@ -2,7 +2,7 @@ set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_TOOL_NAME "Q
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_TOOL_VERSION "15.1"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "lms_ctr" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../lms_ctr.sopcinfo"]
-set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name SLD_INFO "QSYS_NAME lms_ctr HAS_SOPCINFO 1 GENERATION_ID 1476709368"
+set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name SLD_INFO "QSYS_NAME lms_ctr HAS_SOPCINFO 1 GENERATION_ID 1476780960"
 set_global_assignment -library "lms_ctr" -name MISC_FILE [file join $::quartus(qip_path) "../lms_ctr.cmp"]
 set_global_assignment -library "lms_ctr" -name SLD_FILE [file join $::quartus(qip_path) "lms_ctr.regmap"]
 set_global_assignment -library "lms_ctr" -name SLD_FILE [file join $::quartus(qip_path) "lms_ctr.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_DI
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTQ3NjcwOTM2OA==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTQ3Njc4MDk2MA==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBJViBF::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::RVA0Q0U0MEYyM0M4::QXV0byBERVZJQ0U="
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::OA==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -712,12 +712,12 @@ set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMP
 set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "bHNiT3JkZXJlZEZpcnN0::ZmFsc2U=::U2hpZnQgZGlyZWN0aW9u"
 set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "bWFzdGVyU1BJ::dHJ1ZQ==::VHlwZQ=="
 set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "bnVtYmVyT2ZTbGF2ZXM=::NQ==::TnVtYmVyIG9mIHNlbGVjdCAoU1Nfbikgc2lnbmFscyAob25lIGZvciBlYWNoIHNsYXZlKQ=="
-set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "dGFyZ2V0Q2xvY2tSYXRl::MzAwMDAwMDA=::U1BJIGNsb2NrIChTQ0xLKSByYXRl"
-set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "dGFyZ2V0U2xhdmVTZWxlY3RUb1NDbGtEZWxheQ==::MTAwLjA=::VGFyZ2V0IGRlbGF5"
+set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "dGFyZ2V0Q2xvY2tSYXRl::MjAwMDAwMDA=::U1BJIGNsb2NrIChTQ0xLKSByYXRl"
+set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "dGFyZ2V0U2xhdmVTZWxlY3RUb1NDbGtEZWxheQ==::MjAwLjA=::VGFyZ2V0IGRlbGF5"
 set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "YXZhbG9uU3BlYw==::Mi4w::YXZhbG9uU3BlYw=="
 set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "aW5wdXRDbG9ja1JhdGU=::MTAwMDAwMDAw::aW5wdXRDbG9ja1JhdGU="
-set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "YWN0dWFsQ2xvY2tSYXRl::Mi41RTc=::QWN0dWFsIGNsb2NrIHJhdGU="
-set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "YWN0dWFsU2xhdmVTZWxlY3RUb1NDbGtEZWxheQ==::MTAwLjA=::QWN0dWFsIGRlbGF5"
+set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "YWN0dWFsQ2xvY2tSYXRl::MS42NjY2NjY2RTc=::QWN0dWFsIGNsb2NrIHJhdGU="
+set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "YWN0dWFsU2xhdmVTZWxlY3RUb1NDbGtEZWxheQ==::MjEwLjAwMDAwODQ=::QWN0dWFsIGRlbGF5"
 set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "bGVnYWN5U2lnbmFsc0FsbG93::ZmFsc2U=::bGVnYWN5U2lnbmFsc0FsbG93"
 set_global_assignment -entity "lms_ctr_spi_lms" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "c2xhdmVEYXRhQnVzV2lkdGg=::MTY=::c2xhdmVEYXRhQnVzV2lkdGg="
 set_global_assignment -entity "lms_ctr_spi_1_DAC" -library "lms_ctr" -name IP_COMPONENT_NAME "bG1zX2N0cl9zcGlfMV9EQUM="

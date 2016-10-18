@@ -30,13 +30,13 @@
 //INPUT_CLOCK: 100000000
 //ISMASTER: 1
 //DATABITS: 8
-//TARGETCLOCK: 30000000
+//TARGETCLOCK: 20000000
 //NUMSLAVES: 5
 //CPOL: 0
 //CPHA: 0
 //LSBFIRST: 0
 //EXTRADELAY: 1
-//TARGETSSDELAY: 1e-007
+//TARGETSSDELAY: 2e-007
 
 module lms_ctr_spi_lms (
                          // inputs:
@@ -254,8 +254,8 @@ module lms_ctr_spi_lms (
     end
 
 
-  // slowclock is active once every 2 system clock pulses.
-  assign slowclock = slowcount == 2'h1;
+  // slowclock is active once every 3 system clock pulses.
+  assign slowclock = slowcount == 2'h2;
 
   assign p1_slowcount = ({2 {(transmitting && !slowclock)}} & (slowcount + 1)) |
     ({2 {(~((transmitting && !slowclock)))}} & 0);
@@ -301,11 +301,11 @@ module lms_ctr_spi_lms (
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
-          delayCounter <= 4;
+          delayCounter <= 6;
       else 
         begin
           if (write_shift_reg)
-              delayCounter <= 4;
+              delayCounter <= 6;
           if (transmitting & slowclock & (delayCounter != 0))
               delayCounter <= delayCounter - 1;
         end
@@ -325,7 +325,7 @@ module lms_ctr_spi_lms (
     end
 
 
-  assign enableSS = transmitting & (delayCounter != 4);
+  assign enableSS = transmitting & (delayCounter != 6);
   assign MOSI = shift_reg[7];
   assign SS_n = (enableSS | SSO_reg) ? ~spi_slave_select_reg : {5 {1'b1} };
   assign SCLK = SCLK_reg;

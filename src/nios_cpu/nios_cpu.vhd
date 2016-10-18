@@ -15,10 +15,10 @@ use ieee.numeric_std.all;
 entity nios_cpu is
   port (
 			clk100							: in    std_logic;
-			exfifo_if_d					: in    std_logic_vector(7 downto 0);
+			exfifo_if_d					: in    std_logic_vector(31 downto 0);
 			exfifo_if_rd				: out   std_logic;
 			exfifo_if_rdempty		: in    std_logic;
-			exfifo_of_d					: out   std_logic_vector(7 downto 0);
+			exfifo_of_d					: out   std_logic_vector(31 downto 0);
 			exfifo_of_wr				: out   std_logic;
 			exfifo_of_wrfull		: in    std_logic;
 			exfifo_rst					: out   std_logic;
@@ -50,10 +50,10 @@ architecture arch of nios_cpu is
 	component lms_ctr is
 		port (
 			clk_clk                                 : in    std_logic                    := 'X';             -- clk
-			exfifo_if_d_export                      : in    std_logic_vector(7 downto 0) := (others => 'X'); -- export
+			exfifo_if_d_export                      : in    std_logic_vector(31 downto 0) := (others => 'X'); -- export
 			exfifo_if_rd_export                     : out   std_logic;                                       -- export
 			exfifo_if_rdempty_export                : in    std_logic                    := 'X';             -- export
-			exfifo_of_d_export                      : out   std_logic_vector(7 downto 0);                    -- export
+			exfifo_of_d_export                      : out   std_logic_vector(31 downto 0);                    -- export
 			exfifo_of_wr_export                     : out   std_logic;                                       -- export
 			exfifo_of_wrfull_export                 : in    std_logic                    := 'X';             -- export
 			exfifo_rst_export                       : out   std_logic;                                       -- export

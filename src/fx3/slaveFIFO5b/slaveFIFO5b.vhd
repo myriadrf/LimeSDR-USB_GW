@@ -77,7 +77,8 @@ entity slaveFIFO5b is
 		socket3_fifo_wrusedw		: in std_logic_vector(socket3_wrusedw_size-1 downto 0);
 		socket3_fifo_rdusedw		: in std_logic_vector(socket3_rdusedw_size-1 downto 0);
 		socket3_fifo_wr			: out std_logic;
-		socket3_fifo_rd			: out std_logic
+		socket3_fifo_rd			: out std_logic;
+		GPIF_busy					: out std_logic
 
 	    );
 
@@ -276,6 +277,8 @@ slwr   <= slwr_streamIN_n_d;
 sloe   <= sloe_stream_n;
 pktend <= pktend_streamIN_n;
 slcs   <= '0';
+
+GPIF_busy<=(not slrd_streamOUT_n) OR (not slwr_streamIN_n_d);
 
 --To determine size for DMA transfers depending on USB speed (USB3.0 or USB2.0)
 process(clk, reset_n)begin

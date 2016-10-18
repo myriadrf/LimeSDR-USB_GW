@@ -71,7 +71,8 @@ entity FX3_slaveFIFO5b_top is
 				EP8F_aclrn		: in std_logic;
 				EP8F_wr			: in std_logic;
 				EP8F_wdata		: in std_logic_vector(EP8F_wwidth-1 downto 0);
-				EP8F_wfull		: out std_logic
+				EP8F_wfull		: out std_logic;
+				GPIF_busy		: out std_logic
 			
 	    );
 
@@ -83,12 +84,12 @@ constant socket0_wrusedw_size : integer := 11;
 constant socket0_rdusedw_size : integer := 10; 
 
 constant socket1_wrusedw_size : integer := 9;
-constant socket1_rdusedw_size : integer := 8; 
+constant socket1_rdusedw_size : integer := 9; 
 
 constant socket2_wrusedw_size : integer := 10;
 constant socket2_rdusedw_size : integer := 11;
 
-constant socket3_wrusedw_size : integer := 11;
+constant socket3_wrusedw_size : integer := 9;
 constant socket3_rdusedw_size : integer := 9;
 
 
@@ -183,10 +184,10 @@ component slaveFIFO5b is
 		socket3_fifo_wrusedw		: in std_logic_vector(socket3_wrusedw_size-1 downto 0);
 		socket3_fifo_rdusedw		: in std_logic_vector(socket3_rdusedw_size-1 downto 0);
 		socket3_fifo_wr			: out std_logic;
-		socket3_fifo_rd			: out std_logic
+		socket3_fifo_rd			: out std_logic;
+		GPIF_busy					: out std_logic
 
 	    );
-
 end component;
 
 component fifo_inst is
@@ -304,8 +305,9 @@ inst1 : slaveFIFO5b
 		socket3_fifo_wrusedw		=> (others => '0'), 
 		socket3_fifo_rdusedw		=> inst5_fifo_rdusedw,
 		socket3_fifo_wr			=> open, 
-		socket3_fifo_rd			=> inst5_fifo_rd
-
+		socket3_fifo_rd			=> inst5_fifo_rd,
+		GPIF_busy					=> GPIF_busy
+		
 	    );	
 		 
 --inst2 : fifo_inst --(for 01 endpoint, socket 0)

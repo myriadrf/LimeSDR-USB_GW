@@ -85,10 +85,10 @@ unsigned char Check_many_blocks (unsigned char block_size)
 void getFifoData(uint8_t *buf, uint8_t k)
 {
 	uint8_t cnt = 0;
-
-	for(cnt=0; cnt<k; cnt++)
+	uint32_t* dest = (uint32_t*)buf;
+	for(cnt=0; cnt<k/sizeof(uint32_t); ++cnt)
 	{
-		buf[cnt] = IORD(AV_FIFO_INT_0_BASE, 1);	// Read Data from FIFO
+		dest[cnt] = IORD(AV_FIFO_INT_0_BASE, 1);	// Read Data from FIFO
 	};
 }
 
@@ -166,6 +166,7 @@ void testFlash(void)
  **/
 int main()
 {
+	uint32_t* dest = (uint32_t*)glEp0Buffer_Tx;
     unsigned char led_pattern = 0x00;
     //volatile uint32_t *uart = (volatile uint32_t*) UART_BASE;
     //char *str = "Hello from NIOS II\r\n";
@@ -248,8 +249,8 @@ int main()
 
     while (1)	// infinite loop
     {
-        led_pattern = IORD(SWITCH_BASE, 0);     // gets LEDs
-        set_led(led_pattern<<3);                     // sets LEDs
+        //led_pattern = IORD(SWITCH_BASE, 0);     // gets LEDs
+        //set_led(led_pattern<<3);                     // sets LEDs
 
 
         // SPI
@@ -758,9 +759,9 @@ int main()
      		}
 
      		//Send response to the command
-        	for(cnt=0; cnt<64; cnt++)
+        	for(cnt=0; cnt<64/sizeof(uint32_t); ++cnt)
         	{
-        		IOWR(AV_FIFO_INT_0_BASE, 0, glEp0Buffer_Tx[cnt]);
+        		IOWR(AV_FIFO_INT_0_BASE, 0, dest[cnt]);
         	};
 
 

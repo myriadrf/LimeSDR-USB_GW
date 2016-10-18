@@ -9,10 +9,10 @@ use IEEE.numeric_std.all;
 entity lms_ctr is
 	port (
 		clk_clk                                 : in    std_logic                    := '0';             --                              clk.clk
-		exfifo_if_d_export                      : in    std_logic_vector(7 downto 0) := (others => '0'); --                      exfifo_if_d.export
+		exfifo_if_d_export                      : in    std_logic_vector(31 downto 0) := (others => '0'); --                      exfifo_if_d.export
 		exfifo_if_rd_export                     : out   std_logic;                                       --                     exfifo_if_rd.export
 		exfifo_if_rdempty_export                : in    std_logic                    := '0';             --                exfifo_if_rdempty.export
-		exfifo_of_d_export                      : out   std_logic_vector(7 downto 0);                    --                      exfifo_of_d.export
+		exfifo_of_d_export                      : out   std_logic_vector(31 downto 0);                    --                      exfifo_of_d.export
 		exfifo_of_wr_export                     : out   std_logic;                                       --                     exfifo_of_wr.export
 		exfifo_of_wrfull_export                 : in    std_logic                    := '0';             --                 exfifo_of_wrfull.export
 		exfifo_rst_export                       : out   std_logic;                                       --                       exfifo_rst.export
@@ -50,11 +50,11 @@ architecture rtl of lms_ctr is
 			read           : in  std_logic                     := 'X';             -- read
 			readdata       : out std_logic_vector(31 downto 0);                    -- readdata
 			rsi_nrst       : in  std_logic                     := 'X';             -- reset_n
-			coe_if_d       : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- export
+			coe_if_d       : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- export
 			coe_if_rd      : out std_logic;                                        -- export
 			coe_of_wrfull  : in  std_logic                     := 'X';             -- export
 			coe_of_wr      : out std_logic;                                        -- export
-			coe_of_d       : out std_logic_vector(7 downto 0);                     -- export
+			coe_of_d       : out std_logic_vector(31 downto 0);                     -- export
 			coe_if_rdempty : in  std_logic                     := 'X';             -- export
 			coe_fifo_rst   : out std_logic                                         -- export
 		);
