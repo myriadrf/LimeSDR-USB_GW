@@ -532,6 +532,7 @@ agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 152 18)(font "Arial" (font_size 6)))
+	(annotation_block (location)(rect -1016 3864 -936 3896))
 )
 (pin
 	(output)
@@ -1941,54 +1942,6 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect -720 1840 -672 1872)
-	(text "WIRE" (rect 1 0 34 11)(font "Arial" (font_size 6)))
-	(text "inst23" (rect 3 21 52 35)(font "Arial" ))
-	(port
-		(pt 0 16)
-		(input)
-		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
-		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
-		(line (pt 0 16)(pt 14 16))
-	)
-	(port
-		(pt 48 16)
-		(output)
-		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
-		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
-		(line (pt 32 16)(pt 48 16))
-	)
-	(drawing
-		(line (pt 14 7)(pt 32 16))
-		(line (pt 14 25)(pt 14 7))
-		(line (pt 14 25)(pt 32 16))
-	)
-)
-(symbol
-	(rect -720 1872 -672 1904)
-	(text "WIRE" (rect 1 0 34 11)(font "Arial" (font_size 6)))
-	(text "inst10" (rect 3 21 52 35)(font "Arial" ))
-	(port
-		(pt 0 16)
-		(input)
-		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
-		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
-		(line (pt 0 16)(pt 14 16))
-	)
-	(port
-		(pt 48 16)
-		(output)
-		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
-		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
-		(line (pt 32 16)(pt 48 16))
-	)
-	(drawing
-		(line (pt 14 7)(pt 32 16))
-		(line (pt 14 25)(pt 14 7))
-		(line (pt 14 25)(pt 32 16))
-	)
-)
-(symbol
 	(rect -2536 3832 -2352 3944)
 	(text "synchronizer" (rect 5 0 104 14)(font "Arial" ))
 	(text "inst54" (rect 8 96 57 110)(font "Arial" ))
@@ -2083,30 +2036,6 @@ agreement for further details.
 		(line (pt 13 7)(pt 31 16))
 		(line (pt 13 25)(pt 31 16))
 		(circle (rect 31 12 39 20))
-	)
-)
-(symbol
-	(rect 296 2312 344 2344)
-	(text "WIRE" (rect 1 0 34 11)(font "Arial" (font_size 6)))
-	(text "inst28" (rect 3 21 52 35)(font "Arial" ))
-	(port
-		(pt 0 16)
-		(input)
-		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
-		(text "IN" (rect 2 7 13 21)(font "Courier New" (bold))(invisible))
-		(line (pt 0 16)(pt 14 16))
-	)
-	(port
-		(pt 48 16)
-		(output)
-		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
-		(text "OUT" (rect 32 7 49 21)(font "Courier New" (bold))(invisible))
-		(line (pt 32 16)(pt 48 16))
-	)
-	(drawing
-		(line (pt 14 7)(pt 32 16))
-		(line (pt 14 25)(pt 14 7))
-		(line (pt 14 25)(pt 32 16))
 	)
 )
 (symbol
@@ -4577,7 +4506,7 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 1352 5520 1384 5552)
+	(rect 1336 5520 1368 5552)
 	(text "GND" (rect 8 16 32 27)(font "Arial" (font_size 6)))
 	(text "inst13" (rect 3 21 52 35)(font "Arial" )(invisible))
 	(port
@@ -4594,7 +4523,7 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 1376 5536 1408 5568)
+	(rect 1368 5536 1400 5568)
 	(text "GND" (rect 8 16 32 27)(font "Arial" (font_size 6)))
 	(text "inst36" (rect 3 21 52 35)(font "Arial" )(invisible))
 	(port
@@ -5436,14 +5365,6 @@ agreement for further details.
 	(pt 336 1840)
 )
 (connector
-	(pt -816 1856)
-	(pt -720 1856)
-)
-(connector
-	(pt -816 1888)
-	(pt -720 1888)
-)
-(connector
 	(text "H" (rect -1048 1657 -1034 1665)(font "Arial" )(vertical))
 	(pt -1032 1624)
 	(pt -1032 1680)
@@ -5626,11 +5547,6 @@ agreement for further details.
 	(text "ctr_LMS_SPI_CS" (rect -43 1872 72 1886)(font "Arial" ))
 	(pt -48 1888)
 	(pt 48 1888)
-)
-(connector
-	(text "ctr_LMS_SPI_CS" (rect 175 2312 290 2326)(font "Arial" ))
-	(pt 144 2328)
-	(pt 296 2328)
 )
 (connector
 	(text "wfm_play" (rect 1884 4456 1950 4470)(font "Arial" ))
@@ -6874,17 +6790,6 @@ agreement for further details.
 	(pt 1608 5552)
 )
 (connector
-	(text "ddr2_2_test_pass" (rect 1468 5520 1600 5534)(font "Arial" ))
-	(pt 1392 5536)
-	(pt 1608 5536)
-)
-(connector
-	(text "ddr2_2_pnf_per_bit_persisit[31..0]" (rect 1452 5504 1732 5518)(font "Arial" ))
-	(pt 1368 5520)
-	(pt 1608 5520)
-	(bus)
-)
-(connector
 	(text "spi_lms_external_MOSI" (rect 1871 672 2044 686)(font "Arial" ))
 	(pt 1856 688)
 	(pt 2000 688)
@@ -6898,14 +6803,6 @@ agreement for further details.
 	(text "spi_enables[1]" (rect 1870 704 1985 718)(font "Arial" ))
 	(pt 2000 720)
 	(pt 1856 720)
-)
-(connector
-	(pt -672 1888)
-	(pt -632 1888)
-)
-(connector
-	(pt -672 1856)
-	(pt -632 1856)
 )
 (connector
 	(text "spi_1_enables[1]" (rect 190 2352 322 2366)(font "Arial" ))
@@ -7597,6 +7494,17 @@ agreement for further details.
 	(text "fadr[1]" (rect 275 3360 332 3374)(font "Arial" ))
 	(pt 344 3376)
 	(pt 256 3376)
+)
+(connector
+	(text "ddr2_2_pnf_per_bit_persisit[31..0]" (rect 1436 5504 1716 5518)(font "Arial" ))
+	(pt 1352 5520)
+	(pt 1592 5520)
+	(bus)
+)
+(connector
+	(text "ddr2_2_test_pass" (rect 1460 5520 1592 5534)(font "Arial" ))
+	(pt 1384 5536)
+	(pt 1600 5536)
 )
 (junction (pt -256 4616))
 (junction (pt 248 4624))

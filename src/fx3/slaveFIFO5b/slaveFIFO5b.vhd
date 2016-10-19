@@ -321,7 +321,7 @@ process(clk, reset_n)begin
 end process;
 
 process(current_state)begin
-	if((current_state = stream_in_write) OR (next_state = stream_in_pktend))then
+	if((current_state = stream_in_write) OR (current_state = stream_in_pktend))then
 		slwr_streamIN_n <= '0';
 	else
 		slwr_streamIN_n <= '1';
@@ -634,7 +634,7 @@ end process;
 --Stream state machine combo
 stream_fsm : process(current_state, flaga_d, flagb_d, flg_latency_cnt, assert_cnt, rd_wr, faddr_reg,
 							rd_oe_delay_cnt, oe_delay_cnt, slrd_cnt, slwr_cnt, socket_type, max_data_pct_cnt, 
-							max_control_pct_cnt)begin
+							max_control_pct_cnt,socket_fifo_rdy)begin
 							
 	next_state <= current_state;
 	
