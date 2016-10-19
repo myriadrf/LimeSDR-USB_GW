@@ -674,465 +674,6 @@ set_location_assignment PIN_J7 -to FPGA_I2C_SDA
 set_location_assignment PIN_H7 -to FPGA_I2C_SCL
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_I2C_SDA
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_I2C_SCL
-set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to "stream_switch:inst|clk" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "stream_switch:inst|data_in[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "stream_switch:inst|data_in[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "stream_switch:inst|data_in[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "stream_switch:inst|data_in[12]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "stream_switch:inst|data_in[13]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "stream_switch:inst|data_in[14]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "stream_switch:inst|data_in[15]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "stream_switch:inst|data_in[16]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "stream_switch:inst|data_in[17]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "stream_switch:inst|data_in[18]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "stream_switch:inst|data_in[19]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "stream_switch:inst|data_in[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[12] -to "stream_switch:inst|data_in[20]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[13] -to "stream_switch:inst|data_in[21]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[14] -to "stream_switch:inst|data_in[22]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[15] -to "stream_switch:inst|data_in[23]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[16] -to "stream_switch:inst|data_in[24]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[17] -to "stream_switch:inst|data_in[25]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[18] -to "stream_switch:inst|data_in[26]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[19] -to "stream_switch:inst|data_in[27]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[20] -to "stream_switch:inst|data_in[28]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[21] -to "stream_switch:inst|data_in[29]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[22] -to "stream_switch:inst|data_in[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[23] -to "stream_switch:inst|data_in[30]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[24] -to "stream_switch:inst|data_in[31]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[25] -to "stream_switch:inst|data_in[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[26] -to "stream_switch:inst|data_in[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[27] -to "stream_switch:inst|data_in[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[28] -to "stream_switch:inst|data_in[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[29] -to "stream_switch:inst|data_in[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[30] -to "stream_switch:inst|data_in[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[31] -to "stream_switch:inst|data_in[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[32] -to "stream_switch:inst|data_in_rdy" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[33] -to "stream_switch:inst|data_in_valid" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[34] -to "stream_switch:inst|dest_sel" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "stream_switch:inst|data_in[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "stream_switch:inst|data_in[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "stream_switch:inst|data_in[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "stream_switch:inst|data_in[12]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "stream_switch:inst|data_in[13]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "stream_switch:inst|data_in[14]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "stream_switch:inst|data_in[15]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "stream_switch:inst|data_in[16]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "stream_switch:inst|data_in[17]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "stream_switch:inst|data_in[18]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "stream_switch:inst|data_in[19]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "stream_switch:inst|data_in[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[12] -to "stream_switch:inst|data_in[20]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[13] -to "stream_switch:inst|data_in[21]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[14] -to "stream_switch:inst|data_in[22]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[15] -to "stream_switch:inst|data_in[23]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[16] -to "stream_switch:inst|data_in[24]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[17] -to "stream_switch:inst|data_in[25]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[18] -to "stream_switch:inst|data_in[26]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[19] -to "stream_switch:inst|data_in[27]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[20] -to "stream_switch:inst|data_in[28]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[21] -to "stream_switch:inst|data_in[29]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[22] -to "stream_switch:inst|data_in[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[23] -to "stream_switch:inst|data_in[30]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[24] -to "stream_switch:inst|data_in[31]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[25] -to "stream_switch:inst|data_in[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[26] -to "stream_switch:inst|data_in[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[27] -to "stream_switch:inst|data_in[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[28] -to "stream_switch:inst|data_in[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[29] -to "stream_switch:inst|data_in[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[30] -to "stream_switch:inst|data_in[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[31] -to "stream_switch:inst|data_in[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[32] -to "stream_switch:inst|data_in_rdy" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[33] -to "stream_switch:inst|data_in_valid" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[34] -to "stream_switch:inst|dest_sel" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_BLOCK_TYPE=AUTO" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_INFO=805334549" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_POWER_UP_TRIGGER=0" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ATTRIBUTE_MEM_MODE=OFF" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_FLOW_USE_GENERATED=0" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_BITS=11" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_BUFFER_FULL_STOP=1" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_CURRENT_RESOURCE_WIDTH=1" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INCREMENTAL_ROUTING=1" -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[0] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[3] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[6] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[7] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[8] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[17] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[23] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[26] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[29] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[30] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL=1" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_IN_ENABLED=0" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=64" -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=64" -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[16] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[35] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[36] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[37] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[38] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[12]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[39] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[13]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[40] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[14]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[41] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[15]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[42] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[16]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[43] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[17]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[44] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[18]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[45] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[19]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[46] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[47] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[20]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[48] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[21]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[49] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[22]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[50] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[23]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[51] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[24]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[52] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[25]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[53] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[26]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[54] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[27]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[55] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[28]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[56] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[29]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[57] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[58] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[30]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[59] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[31]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[60] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[61] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[62] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[63] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[64] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[65] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[66] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[67] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[68] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[69] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[70] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[12]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[71] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[13]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[72] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[14]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[73] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[15]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[74] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[16]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[75] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[17]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[76] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[18]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[77] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[19]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[78] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[79] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[20]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[80] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[21]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[81] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[22]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[82] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[23]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[83] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[24]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[84] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[25]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[85] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[26]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[86] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[27]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[87] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[28]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[88] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[29]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[89] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[90] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[30]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[91] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[31]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[92] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[93] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[94] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[95] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[96] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[97] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[98] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[99] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_dest[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[100] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_dest[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[101] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_valid" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[102] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_wr" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[103] -to "stream_switch:inst|pct_payload_extrct:inst0|reset_n" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[104] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[105] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[106] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[107] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[12]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[108] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[13]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[109] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[14]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[110] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[15]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[111] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[112] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[113] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[114] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[115] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[116] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[117] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[118] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[119] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[120] -to "stream_switch:inst|reset_n" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[121] -to "stream_switch:inst|tx_fifo_data[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[122] -to "stream_switch:inst|tx_fifo_data[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[123] -to "stream_switch:inst|tx_fifo_data[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[124] -to "stream_switch:inst|tx_fifo_data[12]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[125] -to "stream_switch:inst|tx_fifo_data[13]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[126] -to "stream_switch:inst|tx_fifo_data[14]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[127] -to "stream_switch:inst|tx_fifo_data[15]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[128] -to "stream_switch:inst|tx_fifo_data[16]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[129] -to "stream_switch:inst|tx_fifo_data[17]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[130] -to "stream_switch:inst|tx_fifo_data[18]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[131] -to "stream_switch:inst|tx_fifo_data[19]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[132] -to "stream_switch:inst|tx_fifo_data[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[133] -to "stream_switch:inst|tx_fifo_data[20]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[134] -to "stream_switch:inst|tx_fifo_data[21]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[135] -to "stream_switch:inst|tx_fifo_data[22]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[136] -to "stream_switch:inst|tx_fifo_data[23]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[137] -to "stream_switch:inst|tx_fifo_data[24]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[138] -to "stream_switch:inst|tx_fifo_data[25]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[139] -to "stream_switch:inst|tx_fifo_data[26]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[140] -to "stream_switch:inst|tx_fifo_data[27]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[141] -to "stream_switch:inst|tx_fifo_data[28]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[142] -to "stream_switch:inst|tx_fifo_data[29]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[143] -to "stream_switch:inst|tx_fifo_data[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[144] -to "stream_switch:inst|tx_fifo_data[30]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[145] -to "stream_switch:inst|tx_fifo_data[31]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[146] -to "stream_switch:inst|tx_fifo_data[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[147] -to "stream_switch:inst|tx_fifo_data[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[148] -to "stream_switch:inst|tx_fifo_data[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[149] -to "stream_switch:inst|tx_fifo_data[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[150] -to "stream_switch:inst|tx_fifo_data[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[151] -to "stream_switch:inst|tx_fifo_data[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[152] -to "stream_switch:inst|tx_fifo_data[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[153] -to "stream_switch:inst|tx_fifo_rdy" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[154] -to "stream_switch:inst|tx_fifo_wr" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[155] -to "stream_switch:inst|wfm_data[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[156] -to "stream_switch:inst|wfm_data[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[157] -to "stream_switch:inst|wfm_data[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[158] -to "stream_switch:inst|wfm_data[12]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[159] -to "stream_switch:inst|wfm_data[13]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[160] -to "stream_switch:inst|wfm_data[14]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[161] -to "stream_switch:inst|wfm_data[15]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[162] -to "stream_switch:inst|wfm_data[16]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[163] -to "stream_switch:inst|wfm_data[17]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[164] -to "stream_switch:inst|wfm_data[18]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[165] -to "stream_switch:inst|wfm_data[19]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[166] -to "stream_switch:inst|wfm_data[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[167] -to "stream_switch:inst|wfm_data[20]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[168] -to "stream_switch:inst|wfm_data[21]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[169] -to "stream_switch:inst|wfm_data[22]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[170] -to "stream_switch:inst|wfm_data[23]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[171] -to "stream_switch:inst|wfm_data[24]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[172] -to "stream_switch:inst|wfm_data[25]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[173] -to "stream_switch:inst|wfm_data[26]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[174] -to "stream_switch:inst|wfm_data[27]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[175] -to "stream_switch:inst|wfm_data[28]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[176] -to "stream_switch:inst|wfm_data[29]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[177] -to "stream_switch:inst|wfm_data[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[178] -to "stream_switch:inst|wfm_data[30]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[179] -to "stream_switch:inst|wfm_data[31]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[180] -to "stream_switch:inst|wfm_data[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[181] -to "stream_switch:inst|wfm_data[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[182] -to "stream_switch:inst|wfm_data[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[183] -to "stream_switch:inst|wfm_data[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[184] -to "stream_switch:inst|wfm_data[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[185] -to "stream_switch:inst|wfm_data[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[186] -to "stream_switch:inst|wfm_data[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[187] -to "stream_switch:inst|wfm_fifo_wr" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[188] -to "stream_switch:inst|wfm_fifo_wrusedw[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[189] -to "stream_switch:inst|wfm_fifo_wrusedw[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[190] -to "stream_switch:inst|wfm_fifo_wrusedw[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[191] -to "stream_switch:inst|wfm_fifo_wrusedw[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[192] -to "stream_switch:inst|wfm_fifo_wrusedw[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[193] -to "stream_switch:inst|wfm_fifo_wrusedw[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[194] -to "stream_switch:inst|wfm_fifo_wrusedw[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[195] -to "stream_switch:inst|wfm_fifo_wrusedw[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[196] -to "stream_switch:inst|wfm_fifo_wrusedw[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[197] -to "stream_switch:inst|wfm_fifo_wrusedw[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[198] -to "stream_switch:inst|wfm_fifo_wrusedw[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[199] -to "stream_switch:inst|wfm_fifo_wrusedw[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[200] -to "stream_switch:inst|wfm_rdy" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[35] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[36] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[37] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[38] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[12]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[39] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[13]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[40] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[14]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[41] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[15]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[42] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[16]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[43] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[17]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[44] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[18]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[45] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[19]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[46] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[47] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[20]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[48] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[21]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[49] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[22]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[50] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[23]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[51] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[24]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[52] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[25]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[53] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[26]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[54] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[27]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[55] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[28]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[56] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[29]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[57] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[58] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[30]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[59] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[31]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[60] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[61] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[62] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[63] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[64] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[65] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[66] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_data[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[67] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[68] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[69] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[70] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[12]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[71] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[13]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[72] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[14]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[73] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[15]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[74] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[16]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[75] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[17]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[76] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[18]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[77] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[19]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[78] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[79] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[20]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[80] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[21]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[81] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[22]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[82] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[23]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[83] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[24]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[84] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[25]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[85] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[26]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[86] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[27]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[87] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[28]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[88] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[29]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[89] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[90] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[30]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[91] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[31]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[92] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[93] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[94] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[95] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[96] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[97] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[98] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_data[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[99] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_dest[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[100] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_dest[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[101] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_payload_valid" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[102] -to "stream_switch:inst|pct_payload_extrct:inst0|pct_wr" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[103] -to "stream_switch:inst|pct_payload_extrct:inst0|reset_n" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[104] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[105] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[106] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[107] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[12]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[108] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[13]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[109] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[14]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[110] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[15]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[111] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[112] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[113] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[114] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[115] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[116] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[117] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[118] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[119] -to "stream_switch:inst|pct_payload_extrct:inst0|wr_cnt[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[120] -to "stream_switch:inst|reset_n" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[121] -to "stream_switch:inst|tx_fifo_data[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[122] -to "stream_switch:inst|tx_fifo_data[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[123] -to "stream_switch:inst|tx_fifo_data[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[124] -to "stream_switch:inst|tx_fifo_data[12]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[125] -to "stream_switch:inst|tx_fifo_data[13]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[126] -to "stream_switch:inst|tx_fifo_data[14]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[127] -to "stream_switch:inst|tx_fifo_data[15]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[128] -to "stream_switch:inst|tx_fifo_data[16]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[129] -to "stream_switch:inst|tx_fifo_data[17]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[130] -to "stream_switch:inst|tx_fifo_data[18]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[131] -to "stream_switch:inst|tx_fifo_data[19]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[132] -to "stream_switch:inst|tx_fifo_data[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[133] -to "stream_switch:inst|tx_fifo_data[20]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[134] -to "stream_switch:inst|tx_fifo_data[21]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[135] -to "stream_switch:inst|tx_fifo_data[22]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[136] -to "stream_switch:inst|tx_fifo_data[23]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[137] -to "stream_switch:inst|tx_fifo_data[24]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[138] -to "stream_switch:inst|tx_fifo_data[25]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[139] -to "stream_switch:inst|tx_fifo_data[26]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[140] -to "stream_switch:inst|tx_fifo_data[27]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[141] -to "stream_switch:inst|tx_fifo_data[28]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[142] -to "stream_switch:inst|tx_fifo_data[29]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[143] -to "stream_switch:inst|tx_fifo_data[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[144] -to "stream_switch:inst|tx_fifo_data[30]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[145] -to "stream_switch:inst|tx_fifo_data[31]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[146] -to "stream_switch:inst|tx_fifo_data[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[147] -to "stream_switch:inst|tx_fifo_data[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[148] -to "stream_switch:inst|tx_fifo_data[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[149] -to "stream_switch:inst|tx_fifo_data[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[150] -to "stream_switch:inst|tx_fifo_data[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[151] -to "stream_switch:inst|tx_fifo_data[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[152] -to "stream_switch:inst|tx_fifo_data[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[153] -to "stream_switch:inst|tx_fifo_rdy" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[154] -to "stream_switch:inst|tx_fifo_wr" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[155] -to "stream_switch:inst|wfm_data[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[156] -to "stream_switch:inst|wfm_data[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[157] -to "stream_switch:inst|wfm_data[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[158] -to "stream_switch:inst|wfm_data[12]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[159] -to "stream_switch:inst|wfm_data[13]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[160] -to "stream_switch:inst|wfm_data[14]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[161] -to "stream_switch:inst|wfm_data[15]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[162] -to "stream_switch:inst|wfm_data[16]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[163] -to "stream_switch:inst|wfm_data[17]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[164] -to "stream_switch:inst|wfm_data[18]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[165] -to "stream_switch:inst|wfm_data[19]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[166] -to "stream_switch:inst|wfm_data[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[167] -to "stream_switch:inst|wfm_data[20]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[168] -to "stream_switch:inst|wfm_data[21]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[169] -to "stream_switch:inst|wfm_data[22]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[170] -to "stream_switch:inst|wfm_data[23]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[171] -to "stream_switch:inst|wfm_data[24]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[172] -to "stream_switch:inst|wfm_data[25]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[173] -to "stream_switch:inst|wfm_data[26]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[174] -to "stream_switch:inst|wfm_data[27]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[175] -to "stream_switch:inst|wfm_data[28]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[176] -to "stream_switch:inst|wfm_data[29]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[177] -to "stream_switch:inst|wfm_data[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[178] -to "stream_switch:inst|wfm_data[30]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[179] -to "stream_switch:inst|wfm_data[31]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[180] -to "stream_switch:inst|wfm_data[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[181] -to "stream_switch:inst|wfm_data[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[182] -to "stream_switch:inst|wfm_data[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[183] -to "stream_switch:inst|wfm_data[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[184] -to "stream_switch:inst|wfm_data[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[185] -to "stream_switch:inst|wfm_data[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[186] -to "stream_switch:inst|wfm_data[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[187] -to "stream_switch:inst|wfm_fifo_wr" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[188] -to "stream_switch:inst|wfm_fifo_wrusedw[0]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[189] -to "stream_switch:inst|wfm_fifo_wrusedw[10]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[190] -to "stream_switch:inst|wfm_fifo_wrusedw[11]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[191] -to "stream_switch:inst|wfm_fifo_wrusedw[1]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[192] -to "stream_switch:inst|wfm_fifo_wrusedw[2]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[193] -to "stream_switch:inst|wfm_fifo_wrusedw[3]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[194] -to "stream_switch:inst|wfm_fifo_wrusedw[4]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[195] -to "stream_switch:inst|wfm_fifo_wrusedw[5]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[196] -to "stream_switch:inst|wfm_fifo_wrusedw[6]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[197] -to "stream_switch:inst|wfm_fifo_wrusedw[7]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[198] -to "stream_switch:inst|wfm_fifo_wrusedw[8]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[199] -to "stream_switch:inst|wfm_fifo_wrusedw[9]" -section_id auto_signaltap_21
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[200] -to "stream_switch:inst|wfm_rdy" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=201" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=201" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=201" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id auto_signaltap_21
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=623" -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[13] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -to auto_signaltap_21|vcc -section_id auto_signaltap_21
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to auto_signaltap_21|gnd -section_id auto_signaltap_21
 set_global_assignment -name VHDL_FILE src/general/busy_delay.vhd
 set_global_assignment -name QIP_FILE software/lms_ctr_app/mem_init/meminit.qip
 set_global_assignment -name VHDL_FILE src/nios_cpu/nios_cpu.vhd
@@ -1219,146 +760,86 @@ set_global_assignment -name VHDL_FILE src/self_test/singl_clk_with_ref_test.vhd
 set_global_assignment -name VHDL_FILE src/self_test/transition_count.vhd
 set_global_assignment -name QIP_FILE ip/txpll/txpll.qip
 set_global_assignment -name VHDL_FILE src/stream/stream_switch.vhd
-set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id busy_delay
-set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to "busy_delay:inst11|clk" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "busy_delay:inst11|busy_in_reg[0]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "busy_delay:inst11|busy_in_reg[1]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "busy_delay:inst11|busy_in_reg[2]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "busy_delay:inst11|busy_out" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "busy_delay:inst11|cnt[0]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "busy_delay:inst11|busy_in_reg[0]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "busy_delay:inst11|busy_in_reg[1]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "busy_delay:inst11|busy_in_reg[2]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "busy_delay:inst11|busy_out" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "busy_delay:inst11|cnt[0]" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_BLOCK_TYPE=AUTO" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_INFO=805334550" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_POWER_UP_TRIGGER=0" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=64" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ATTRIBUTE_MEM_MODE=OFF" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_FLOW_USE_GENERATED=0" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_BITS=11" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_BUFFER_FULL_STOP=1" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_CURRENT_RESOURCE_WIDTH=1" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INCREMENTAL_ROUTING=1" -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[3] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[7] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[8] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[16] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[17] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[26] -to busy_delay|gnd -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL=1" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=64" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_IN_ENABLED=0" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "busy_delay:inst11|cnt[10]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "busy_delay:inst11|cnt[11]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "busy_delay:inst11|cnt[12]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "busy_delay:inst11|cnt[13]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "busy_delay:inst11|cnt[14]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "busy_delay:inst11|cnt[15]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "busy_delay:inst11|cnt[16]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[12] -to "busy_delay:inst11|cnt[17]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[13] -to "busy_delay:inst11|cnt[18]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[14] -to "busy_delay:inst11|cnt[19]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[15] -to "busy_delay:inst11|cnt[1]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[16] -to "busy_delay:inst11|cnt[20]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[17] -to "busy_delay:inst11|cnt[21]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[18] -to "busy_delay:inst11|cnt[22]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[19] -to "busy_delay:inst11|cnt[23]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[20] -to "busy_delay:inst11|cnt[24]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[21] -to "busy_delay:inst11|cnt[25]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[22] -to "busy_delay:inst11|cnt[26]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[23] -to "busy_delay:inst11|cnt[27]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[24] -to "busy_delay:inst11|cnt[28]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[25] -to "busy_delay:inst11|cnt[29]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[26] -to "busy_delay:inst11|cnt[2]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[27] -to "busy_delay:inst11|cnt[30]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[28] -to "busy_delay:inst11|cnt[31]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[29] -to "busy_delay:inst11|cnt[3]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[30] -to "busy_delay:inst11|cnt[4]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[31] -to "busy_delay:inst11|cnt[5]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[32] -to "busy_delay:inst11|cnt[6]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[33] -to "busy_delay:inst11|cnt[7]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[34] -to "busy_delay:inst11|cnt[8]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[35] -to "busy_delay:inst11|cnt[9]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[36] -to "busy_delay:inst11|cnt_en" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[37] -to "busy_delay:inst11|cnt_reset" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[38] -to "busy_delay:inst11|current_state.delay_busy" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[39] -to "busy_delay:inst11|current_state.idle" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[40] -to "busy_delay:inst11|current_state.reset_counter" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[41] -to "busy_delay:inst11|reset_n" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "busy_delay:inst11|cnt[10]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "busy_delay:inst11|cnt[11]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "busy_delay:inst11|cnt[12]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "busy_delay:inst11|cnt[13]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "busy_delay:inst11|cnt[14]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "busy_delay:inst11|cnt[15]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "busy_delay:inst11|cnt[16]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[12] -to "busy_delay:inst11|cnt[17]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[13] -to "busy_delay:inst11|cnt[18]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[14] -to "busy_delay:inst11|cnt[19]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[15] -to "busy_delay:inst11|cnt[1]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[16] -to "busy_delay:inst11|cnt[20]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[17] -to "busy_delay:inst11|cnt[21]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[18] -to "busy_delay:inst11|cnt[22]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[19] -to "busy_delay:inst11|cnt[23]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[20] -to "busy_delay:inst11|cnt[24]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[21] -to "busy_delay:inst11|cnt[25]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[22] -to "busy_delay:inst11|cnt[26]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[23] -to "busy_delay:inst11|cnt[27]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[24] -to "busy_delay:inst11|cnt[28]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[25] -to "busy_delay:inst11|cnt[29]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[26] -to "busy_delay:inst11|cnt[2]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[27] -to "busy_delay:inst11|cnt[30]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[28] -to "busy_delay:inst11|cnt[31]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[29] -to "busy_delay:inst11|cnt[3]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[30] -to "busy_delay:inst11|cnt[4]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[31] -to "busy_delay:inst11|cnt[5]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[32] -to "busy_delay:inst11|cnt[6]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[33] -to "busy_delay:inst11|cnt[7]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[34] -to "busy_delay:inst11|cnt[8]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[35] -to "busy_delay:inst11|cnt[9]" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[36] -to "busy_delay:inst11|cnt_en" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[37] -to "busy_delay:inst11|cnt_reset" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[38] -to "busy_delay:inst11|current_state.delay_busy" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[39] -to "busy_delay:inst11|current_state.idle" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[40] -to "busy_delay:inst11|current_state.reset_counter" -section_id busy_delay
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[41] -to "busy_delay:inst11|reset_n" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=42" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=42" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=42" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id busy_delay
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=146" -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[0] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[6] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[13] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[23] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to busy_delay|vcc -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[29] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[30] -to busy_delay|gnd -section_id busy_delay
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to busy_delay|vcc -section_id busy_delay
-set_global_assignment -name SLD_FILE db/debug_auto_stripped.stp
+set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id i2c
+set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|i2c_master_byte_ctrl:byte_controller|c_state.ST_ACK" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|i2c_master_byte_ctrl:byte_controller|c_state.ST_IDLE" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|i2c_master_byte_ctrl:byte_controller|c_state.ST_READ" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|i2c_master_byte_ctrl:byte_controller|c_state.ST_START" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|i2c_master_byte_ctrl:byte_controller|c_state.ST_STOP" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|i2c_master_byte_ctrl:byte_controller|c_state.ST_WRITE" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|scl_pad_o" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|scl_padoen_o" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|sda_pad_o" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|sda_padoen_o" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|i2c_master_byte_ctrl:byte_controller|c_state.ST_ACK" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|i2c_master_byte_ctrl:byte_controller|c_state.ST_IDLE" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|i2c_master_byte_ctrl:byte_controller|c_state.ST_READ" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|i2c_master_byte_ctrl:byte_controller|c_state.ST_START" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|i2c_master_byte_ctrl:byte_controller|c_state.ST_STOP" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|i2c_master_byte_ctrl:byte_controller|c_state.ST_WRITE" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|scl_pad_o" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|scl_padoen_o" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|sda_pad_o" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|i2c_master_top:i2c_master_top_inst|sda_padoen_o" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_BLOCK_TYPE=AUTO" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_INFO=805334551" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_POWER_UP_TRIGGER=0" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=128" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ATTRIBUTE_MEM_MODE=OFF" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_FLOW_USE_GENERATED=0" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_BITS=11" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_BUFFER_FULL_STOP=1" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_CURRENT_RESOURCE_WIDTH=1" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INCREMENTAL_ROUTING=1" -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[3] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[7] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[13] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[16] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[26] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[30] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to i2c|vcc -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL=1" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=128" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_IN_ENABLED=0" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|scl_pad_io" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|sda_pad_io" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|scl_pad_io" -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "nios_cpu:inst42|lms_ctr:u0|i2c_opencores:i2c_opencores_0|sda_pad_io" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=12" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=12" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=12" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=000000000000000000000000000000000000000000000000000000000" -section_id i2c
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=57" -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[6] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[17] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[23] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[29] -to i2c|vcc -section_id i2c
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to LMK_CLK -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[0] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[8] -to i2c|vcc -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to i2c|gnd -section_id i2c
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to i2c|gnd -section_id i2c
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SLD_FILE db/debug_auto_stripped.stp

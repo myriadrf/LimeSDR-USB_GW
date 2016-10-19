@@ -155,14 +155,16 @@ module i2c_master_bit_ctrl(
 	reg dout;
 
 	// I2C lines
-	input  scl_i;         // i2c clock line input
-	output scl_o;         // i2c clock line output
-	output scl_oen;       // i2c clock line output enable (active low)
+	input  scl_i;         	// i2c clock line input
+	output scl_o;         	// i2c clock line output
+	output scl_oen;       	// i2c clock line output enable (active low)	
 	reg scl_oen;
-	input  sda_i;         // i2c data line input
-	output sda_o;         // i2c data line output
-	output sda_oen;       // i2c data line output enable (active low)
+	initial scl_oen = 1'b1; // to tristate scl at powerup 
+	input  sda_i;         	// i2c data line input
+	output sda_o;         	// i2c data line output
+	output sda_oen;       	// i2c data line output enable (active low)
 	reg sda_oen;
+	initial sda_oen = 1'b1;	//to tristate sda at powerup
 
 
 	//
