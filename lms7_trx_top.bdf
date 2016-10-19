@@ -5421,6 +5421,46 @@ agreement for further details.
 	)
 	(annotation_block (parameter)(rect 8 1064 330 1127))
 )
+(symbol
+	(rect -208 1184 -144 1232)
+	(text "OR3" (rect 1 0 25 11)(font "Arial" (font_size 6)))
+	(text "inst47" (rect 3 37 52 51)(font "Arial" ))
+	(port
+		(pt 0 24)
+		(input)
+		(text "IN2" (rect 2 15 19 29)(font "Courier New" (bold))(invisible))
+		(text "IN2" (rect 2 15 19 29)(font "Courier New" (bold))(invisible))
+		(line (pt 0 24)(pt 18 24))
+	)
+	(port
+		(pt 0 32)
+		(input)
+		(text "IN3" (rect 2 24 19 38)(font "Courier New" (bold))(invisible))
+		(text "IN3" (rect 2 24 19 38)(font "Courier New" (bold))(invisible))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 16)
+		(input)
+		(text "IN1" (rect 2 7 19 21)(font "Courier New" (bold))(invisible))
+		(text "IN1" (rect 2 7 19 21)(font "Courier New" (bold))(invisible))
+		(line (pt 0 16)(pt 16 16))
+	)
+	(port
+		(pt 64 24)
+		(output)
+		(text "OUT" (rect 47 15 64 29)(font "Courier New" (bold))(invisible))
+		(text "OUT" (rect 47 15 64 29)(font "Courier New" (bold))(invisible))
+		(line (pt 49 24)(pt 64 24))
+	)
+	(drawing
+		(line (pt 14 13)(pt 25 13))
+		(line (pt 14 36)(pt 25 36))
+		(arc (pt 7 29)(pt 7 19)(rect -14 8 19 41))
+		(arc (pt 49 24)(pt 25 13)(rect -6 13 57 76))
+		(arc (pt 25 35)(pt 49 24)(rect -6 -27 57 36))
+	)
+)
 (connector
 	(text "L" (rect -1008 1635 -994 1643)(font "Arial" )(vertical))
 	(pt -992 1608)
@@ -7251,11 +7291,6 @@ agreement for further details.
 	(pt 8 1192)
 )
 (connector
-	(text "FX3_slave_busy" (rect -75 1192 40 1206)(font "Arial" ))
-	(pt 8 1208)
-	(pt -96 1208)
-)
-(connector
 	(text "fpgapll_locked" (rect 1102 1384 1217 1398)(font "Arial" ))
 	(pt 1072 1400)
 	(pt 1192 1400)
@@ -7565,6 +7600,47 @@ agreement for further details.
 	(text "clk_fpga2" (rect -78 1328 -4 1342)(font "Arial" ))
 	(pt -96 1344)
 	(pt 8 1344)
+)
+(connector
+	(text "nios_leds[7..0]" (rect -2091 3376 -1968 3390)(font "Arial" ))
+	(pt -2128 3392)
+	(pt -2008 3392)
+	(bus)
+)
+(connector
+	(pt -216 1200)
+	(pt -216 1184)
+)
+(connector
+	(pt -208 1200)
+	(pt -216 1200)
+)
+(connector
+	(text "FX3_slave_busy" (rect -315 1168 -200 1182)(font "Arial" ))
+	(pt -216 1184)
+	(pt -336 1184)
+)
+(connector
+	(pt -208 1216)
+	(pt -216 1216)
+)
+(connector
+	(text "nios_leds[0]" (rect -316 1192 -217 1206)(font "Arial" ))
+	(pt -208 1208)
+	(pt -336 1208)
+)
+(connector
+	(pt -216 1216)
+	(pt -216 1232)
+)
+(connector
+	(pt -144 1208)
+	(pt 8 1208)
+)
+(connector
+	(text "L" (rect -315 1216 -307 1230)(font "Arial" ))
+	(pt -216 1232)
+	(pt -336 1232)
 )
 (junction (pt -256 4616))
 (junction (pt 248 4624))

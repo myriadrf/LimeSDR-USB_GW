@@ -275,6 +275,8 @@ int main()
         {
             IOWR(AV_FIFO_INT_0_BASE, 3, 1);		// Toggle FIFO reset
             IOWR(AV_FIFO_INT_0_BASE, 3, 0);		// Toggle FIFO reset
+            led_pattern = IORD(LEDS_BASE, 0);   // gets LEDs
+        	set_led(led_pattern|0x01);         // sets LEDs (set first LED to HIGH)
         	//Read packet from the FIFO
         	getFifoData(glEp0Buffer_Rx, 64);
 
@@ -764,6 +766,9 @@ int main()
         	{
         		IOWR(AV_FIFO_INT_0_BASE, 0, dest[cnt]);
         	};
+
+            led_pattern = IORD(LEDS_BASE, 0);   // gets LEDs
+        	set_led(led_pattern&0xFE);          // sets LEDs (set first LED to LOW)
 
 
         };
