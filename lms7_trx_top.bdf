@@ -213,7 +213,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect -1000 3480 -832 3496)
+	(rect -880 3480 -712 3496)
 	(text "INPUT" (rect 125 0 166 11)(font "Arial" (font_size 6)))
 	(text "FX3_CTL4" (rect 5 0 71 14)(font "Arial" ))
 	(pt 168 8)
@@ -226,11 +226,11 @@ agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 152 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -1064 3480 -1008 3496))
+	(annotation_block (location)(rect -944 3480 -888 3496))
 )
 (pin
 	(input)
-	(rect -1000 3496 -832 3512)
+	(rect -880 3496 -712 3512)
 	(text "INPUT" (rect 125 0 166 11)(font "Arial" (font_size 6)))
 	(text "FX3_CTL5" (rect 5 0 71 14)(font "Arial" ))
 	(pt 168 8)
@@ -243,7 +243,7 @@ agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 152 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -1064 3496 -1008 3512))
+	(annotation_block (location)(rect -944 3496 -888 3512))
 )
 (pin
 	(input)
@@ -485,7 +485,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect -2768 3712 -2576 3728)
+	(rect -2720 3144 -2528 3160)
 	(text "INPUT" (rect 149 0 190 11)(font "Arial" (font_size 6)))
 	(text "FPGA_SPI0_MISO" (rect 5 0 120 14)(font "Arial" ))
 	(pt 192 8)
@@ -498,11 +498,11 @@ agreement for further details.
 		(line (pt 133 12)(pt 137 8))
 	)
 	(text "VCC" (rect 152 7 176 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -2856 3712 -2800 3728))
+	(annotation_block (location)(rect -2776 3160 -2720 3176))
 )
 (pin
 	(input)
-	(rect -1000 3448 -832 3464)
+	(rect -880 3448 -712 3464)
 	(text "INPUT" (rect 125 0 166 11)(font "Arial" (font_size 6)))
 	(text "FX3_PCLK" (rect 5 0 71 14)(font "Arial" ))
 	(pt 168 8)
@@ -515,7 +515,7 @@ agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 152 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -1088 3464 -1000 3496))
+	(annotation_block (location)(rect -968 3464 -880 3496))
 )
 (pin
 	(output)
@@ -859,7 +859,7 @@ agreement for further details.
 )
 (pin
 	(output)
-	(rect -128 3448 48 3464)
+	(rect -8 3448 168 3464)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FX3_CTL0" (rect 90 0 156 14)(font "Arial" ))
 	(pt 0 8)
@@ -872,11 +872,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 48 3448 104 3464))
+	(annotation_block (location)(rect 168 3448 224 3464))
 )
 (pin
 	(output)
-	(rect -128 3544 48 3560)
+	(rect -8 3544 168 3560)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FX3_CTL7" (rect 90 0 156 14)(font "Arial" ))
 	(pt 0 8)
@@ -889,11 +889,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 48 3552 104 3568))
+	(annotation_block (location)(rect 168 3552 224 3568))
 )
 (pin
 	(output)
-	(rect -128 3528 48 3544)
+	(rect -8 3528 168 3544)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FX3_CTL1" (rect 90 0 156 14)(font "Arial" ))
 	(pt 0 8)
@@ -906,11 +906,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 48 3528 104 3544))
+	(annotation_block (location)(rect 168 3528 224 3544))
 )
 (pin
 	(output)
-	(rect -128 3512 48 3528)
+	(rect -8 3512 168 3528)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FX3_CTL2" (rect 90 0 156 14)(font "Arial" ))
 	(pt 0 8)
@@ -923,11 +923,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 48 3512 104 3528))
+	(annotation_block (location)(rect 168 3512 224 3528))
 )
 (pin
 	(output)
-	(rect -128 3496 48 3512)
+	(rect -8 3496 168 3512)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FX3_CTL3" (rect 90 0 156 14)(font "Arial" ))
 	(pt 0 8)
@@ -940,11 +940,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect 48 3496 104 3512))
+	(annotation_block (location)(rect 168 3496 224 3512))
 )
 (pin
 	(output)
-	(rect -1752 3480 -1563 3496)
+	(rect -1424 3280 -1235 3296)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FPGA_SPI1_SCLK" (rect 90 0 205 14)(font "Arial" ))
 	(pt 0 8)
@@ -957,11 +957,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect -1552 3480 -1496 3496))
+	(annotation_block (location)(rect -1224 3280 -1168 3296))
 )
 (pin
 	(output)
-	(rect -1752 3464 -1564 3480)
+	(rect -1424 3264 -1236 3280)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FPGA_SPI1_MOSI" (rect 90 0 205 14)(font "Arial" ))
 	(pt 0 8)
@@ -974,7 +974,7 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect -1552 3464 -1496 3480))
+	(annotation_block (location)(rect -1224 3264 -1168 3280))
 )
 (pin
 	(output)
@@ -1624,7 +1624,7 @@ agreement for further details.
 )
 (pin
 	(output)
-	(rect -1752 3432 -1563 3448)
+	(rect -1424 3232 -1235 3248)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FPGA_SPI0_SCLK" (rect 90 0 205 14)(font "Arial" ))
 	(pt 0 8)
@@ -1637,11 +1637,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect -1552 3432 -1496 3448))
+	(annotation_block (location)(rect -1224 3232 -1168 3248))
 )
 (pin
 	(output)
-	(rect -1752 3416 -1564 3432)
+	(rect -1424 3216 -1236 3232)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FPGA_SPI0_MOSI" (rect 90 0 205 14)(font "Arial" ))
 	(pt 0 8)
@@ -1654,11 +1654,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect -1552 3416 -1496 3432))
+	(annotation_block (location)(rect -1224 3216 -1168 3232))
 )
 (pin
 	(output)
-	(rect -1752 3448 -1550 3464)
+	(rect -1424 3248 -1222 3264)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "FPGA_SPI0_LMS_SS" (rect 90 0 222 14)(font "Arial" ))
 	(pt 0 8)
@@ -1671,11 +1671,11 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect -1544 3448 -1488 3464))
+	(annotation_block (location)(rect -1216 3248 -1160 3264))
 )
 (pin
 	(bidir)
-	(rect -128 3464 48 3480)
+	(rect -8 3464 168 3480)
 	(text "BIDIR" (rect 1 0 42 11)(font "Arial" (font_size 6)))
 	(text "FX3_DQ[31..0]" (rect 90 0 197 14)(font "Arial" ))
 	(pt 0 8)
@@ -1689,7 +1689,7 @@ agreement for further details.
 		(line (pt 52 8)(pt 56 12))
 	)
 	(text "VCC" (rect 4 7 28 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 48 3464 104 3480))
+	(annotation_block (location)(rect 168 3464 224 3480))
 )
 (pin
 	(bidir)
@@ -1837,7 +1837,7 @@ agreement for further details.
 )
 (pin
 	(bidir)
-	(rect -2008 3512 -1813 3528)
+	(rect -1424 3312 -1229 3328)
 	(text "BIDIR" (rect 1 0 42 11)(font "Arial" (font_size 6)))
 	(text "FPGA_I2C_SCL" (rect 90 0 189 14)(font "Arial" ))
 	(pt 0 8)
@@ -1851,11 +1851,11 @@ agreement for further details.
 		(line (pt 52 8)(pt 56 12))
 	)
 	(text "VCC" (rect 4 7 28 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -1800 3512 -1744 3528))
+	(annotation_block (location)(rect -1216 3312 -1160 3328))
 )
 (pin
 	(bidir)
-	(rect -2008 3528 -1813 3544)
+	(rect -1424 3328 -1229 3344)
 	(text "BIDIR" (rect 1 0 42 11)(font "Arial" (font_size 6)))
 	(text "FPGA_I2C_SDA" (rect 90 0 189 14)(font "Arial" ))
 	(pt 0 8)
@@ -1869,7 +1869,7 @@ agreement for further details.
 		(line (pt 52 8)(pt 56 12))
 	)
 	(text "VCC" (rect 4 7 28 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -1800 3528 -1744 3544))
+	(annotation_block (location)(rect -1216 3328 -1160 3344))
 )
 (symbol
 	(rect 8 1296 136 1376)
@@ -4680,7 +4680,7 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect -872 3696 -824 3728)
+	(rect -752 3696 -704 3728)
 	(text "NOT" (rect 1 0 25 11)(font "Arial" (font_size 6)))
 	(text "inst44" (rect 3 21 52 35)(font "Arial" ))
 	(port
@@ -4705,7 +4705,7 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect -2432 3680 -2368 3728)
+	(rect -2384 3112 -2320 3160)
 	(text "OR3" (rect 1 0 25 11)(font "Arial" (font_size 6)))
 	(text "inst43" (rect 3 37 52 51)(font "Arial" ))
 	(port
@@ -4882,10 +4882,10 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 392 160))
 	)
-	(annotation_block (parameter)(rect -32 3872 460 3956))
+	(annotation_block (parameter)(rect -88 3840 404 3924))
 )
 (symbol
-	(rect -2384 3296 -2128 3568)
+	(rect -1928 3096 -1672 3368)
 	(text "nios_cpu" (rect 5 0 71 14)(font "Arial" ))
 	(text "inst42" (rect 8 256 57 270)(font "Arial" ))
 	(port
@@ -5058,7 +5058,7 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect -672 3408 -280 3776)
+	(rect -552 3408 -160 3776)
 	(text "FX3_slaveFIFO5b_top" (rect 5 0 161 14)(font "Arial" ))
 	(text "inst41" (rect 8 352 57 366)(font "Arial" ))
 	(port
@@ -5372,7 +5372,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 376 352))
 	)
-	(annotation_block (parameter)(rect -688 3208 -236 3376))
+	(annotation_block (parameter)(rect -568 3208 -116 3376))
 )
 (symbol
 	(rect 8 1144 176 1256)
@@ -6171,11 +6171,6 @@ agreement for further details.
 	(pt -440 2536)
 	(pt -272 2536)
 	(bus)
-)
-(connector
-	(text "BRDG_SPI_SCLK" (rect -38 760 69 774)(font "Arial" ))
-	(pt 16 776)
-	(pt -112 776)
 )
 (connector
 	(text "fpga_reset_n" (rect -67 776 32 790)(font "Arial" ))
@@ -7012,42 +7007,6 @@ agreement for further details.
 	(pt -1824 3832)
 )
 (connector
-	(pt -2464 3696)
-	(pt -2464 3688)
-)
-(connector
-	(text "spi_lms_miso" (rect -2312 3688 -2213 3702)(font "Arial" ))
-	(pt -2368 3704)
-	(pt -2232 3704)
-)
-(connector
-	(text "exfifo_if_rd" (rect -2096 3312 -1997 3326)(font "Arial" ))
-	(pt -2128 3328)
-	(pt -2008 3328)
-)
-(connector
-	(text "exfifo_of_wr" (rect -2096 3344 -1997 3358)(font "Arial" ))
-	(pt -2128 3360)
-	(pt -2008 3360)
-)
-(connector
-	(text "exfifo_rst" (rect -2096 3360 -2014 3374)(font "Arial" ))
-	(pt -2128 3376)
-	(pt -2008 3376)
-)
-(connector
-	(text "spi_enables[4..0]" (rect -2104 3440 -1964 3454)(font "Arial" ))
-	(pt -2128 3456)
-	(pt -2008 3456)
-	(bus)
-)
-(connector
-	(text "spi_1_enables[1..0]" (rect -2104 3488 -1948 3502)(font "Arial" ))
-	(pt -2008 3504)
-	(pt -2128 3504)
-	(bus)
-)
-(connector
 	(text "fx3_clk" (rect -2624 3848 -2567 3862)(font "Arial" ))
 	(pt -2688 3864)
 	(pt -2536 3864)
@@ -7091,83 +7050,6 @@ agreement for further details.
 	(text "stream_rxen_fx3clk" (rect -2319 3848 -2171 3862)(font "Arial" ))
 	(pt -2352 3864)
 	(pt -2192 3864)
-)
-(connector
-	(pt -2464 3712)
-	(pt -2432 3712)
-)
-(connector
-	(pt -2464 3696)
-	(pt -2432 3696)
-)
-(connector
-	(text "fx3_clk" (rect -2472 3312 -2415 3326)(font "Arial" ))
-	(pt -2504 3328)
-	(pt -2384 3328)
-)
-(connector
-	(text "exfifo_if_rdempty" (rect -2476 3344 -2336 3358)(font "Arial" ))
-	(pt -2504 3360)
-	(pt -2384 3360)
-)
-(connector
-	(text "exfifo_of_wrfull" (rect -2476 3360 -2344 3374)(font "Arial" ))
-	(pt -2504 3376)
-	(pt -2384 3376)
-)
-(connector
-	(text "spi_lms_miso" (rect -2480 3376 -2381 3390)(font "Arial" ))
-	(pt -2504 3392)
-	(pt -2384 3392)
-)
-(connector
-	(text "L,L,L,L,L,L,L,L" (rect -2480 3392 -2357 3406)(font "Arial" ))
-	(pt -2504 3408)
-	(pt -2384 3408)
-	(bus)
-)
-(connector
-	(pt -2128 3488)
-	(pt -1752 3488)
-)
-(connector
-	(pt -2128 3472)
-	(pt -1752 3472)
-)
-(connector
-	(text "spi_lms_external_SCLK" (rect -2104 3424 -1931 3438)(font "Arial" ))
-	(pt -2128 3440)
-	(pt -1752 3440)
-)
-(connector
-	(text "spi_lms_external_MOSI" (rect -2105 3408 -1932 3422)(font "Arial" ))
-	(pt -2128 3424)
-	(pt -1752 3424)
-)
-(connector
-	(text "spi_enables[0]" (rect -1817 3440 -1702 3454)(font "Arial" ))
-	(pt -1832 3456)
-	(pt -1752 3456)
-)
-(connector
-	(pt -2128 3520)
-	(pt -2008 3520)
-)
-(connector
-	(pt -2128 3536)
-	(pt -2008 3536)
-)
-(connector
-	(text "exfifo_of_d[31..0]" (rect -2095 3328 -1947 3342)(font "Arial" ))
-	(pt -2128 3344)
-	(pt -2008 3344)
-	(bus)
-)
-(connector
-	(text "exfifo_if_d[31..0]" (rect -2471 3328 -2323 3342)(font "Arial" ))
-	(pt -2504 3344)
-	(pt -2384 3344)
-	(bus)
 )
 (connector
 	(pt -200 968)
@@ -7352,24 +7234,6 @@ agreement for further details.
 	(pt 272 2216)
 )
 (connector
-	(text "pllcfg_sdoutA" (rect -2565 3672 -2458 3686)(font "Arial" ))
-	(pt -2576 3688)
-	(pt -2464 3688)
-)
-(connector
-	(text "internal_spi_miso" (rect -2569 3688 -2429 3702)(font "Arial" ))
-	(pt -2576 3704)
-	(pt -2432 3704)
-)
-(connector
-	(pt -2464 3712)
-	(pt -2464 3720)
-)
-(connector
-	(pt -2464 3720)
-	(pt -2576 3720)
-)
-(connector
 	(text "wfm_load" (rect -132 4048 -66 4062)(font "Arial" ))
 	(pt -24 4064)
 	(pt -176 4064)
@@ -7439,173 +7303,9 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "H" (rect -780 3456 -772 3470)(font "Arial" ))
-	(pt -824 3472)
-	(pt -672 3472)
-)
-(connector
-	(pt -128 3456)
-	(pt -280 3456)
-)
-(connector
-	(pt -832 3504)
-	(pt -672 3504)
-)
-(connector
-	(text "MCLK2RX_pll_d" (rect -799 3584 -692 3598)(font "Arial" ))
-	(pt -824 3600)
-	(pt -672 3600)
-)
-(connector
-	(text "rxpct_outfifowr" (rect -800 3616 -677 3630)(font "Arial" ))
-	(pt -824 3632)
-	(pt -672 3632)
-)
-(connector
-	(text "exfifo_if_rd" (rect -800 3664 -701 3678)(font "Arial" ))
-	(pt -824 3680)
-	(pt -672 3680)
-)
-(connector
-	(text "exfifo_of_wr" (rect -800 3712 -701 3726)(font "Arial" ))
-	(pt -824 3728)
-	(pt -672 3728)
-)
-(connector
-	(text "fx3_clk" (rect -800 3648 -743 3662)(font "Arial" ))
-	(pt -824 3664)
-	(pt -672 3664)
-)
-(connector
-	(text "fx3_clk" (rect -800 3680 -743 3694)(font "Arial" ))
-	(pt -824 3696)
-	(pt -672 3696)
-)
-(connector
-	(text "fx3_clk" (rect -792 3440 -735 3454)(font "Arial" ))
-	(pt -832 3456)
-	(pt -672 3456)
-)
-(connector
-	(text "rx_pct_data[63..0]" (rect -797 3632 -649 3646)(font "Arial" ))
-	(pt -672 3648)
-	(pt -824 3648)
-	(bus)
-)
-(connector
-	(text "stream_rxen_mclk2rxpll" (rect -800 3600 -619 3614)(font "Arial" ))
-	(pt -672 3616)
-	(pt -824 3616)
-)
-(connector
-	(text "stream_sw_rdy" (rect -793 3568 -686 3582)(font "Arial" ))
-	(pt -824 3584)
-	(pt -672 3584)
-)
-(connector
-	(text "fpga_reset_n" (rect -790 3424 -691 3438)(font "Arial" ))
-	(pt -824 3440)
-	(pt -672 3440)
-)
-(connector
-	(pt -672 3712)
-	(pt -824 3712)
-)
-(connector
-	(text "exfifo_rst" (rect -976 3696 -894 3710)(font "Arial" ))
-	(pt -1024 3712)
-	(pt -872 3712)
-)
-(connector
-	(text "exfifo_of_d[31..0]" (rect -799 3728 -651 3742)(font "Arial" ))
-	(pt -824 3744)
-	(pt -672 3744)
-	(bus)
-)
-(connector
-	(pt -280 3472)
-	(pt -128 3472)
-	(bus)
-)
-(connector
-	(text "fadr[4..0]" (rect -229 3472 -147 3486)(font "Arial" ))
-	(pt -280 3488)
-	(pt -128 3488)
-	(bus)
-)
-(connector
-	(pt -280 3520)
-	(pt -128 3520)
-)
-(connector
-	(pt -280 3536)
-	(pt -128 3536)
-)
-(connector
-	(pt -280 3552)
-	(pt -128 3552)
-)
-(connector
-	(text "EP01_data[fx3_bus_width-1..0]" (rect -257 3600 -18 3614)(font "Arial" ))
-	(pt -280 3616)
-	(pt -136 3616)
-	(bus)
-)
-(connector
-	(text "EP01_data_valid" (rect -261 3616 -138 3630)(font "Arial" ))
-	(pt -280 3632)
-	(pt -136 3632)
-)
-(connector
-	(text "fx3_outfifo_wfull" (rect -263 3632 -123 3646)(font "Arial" ))
-	(pt -280 3648)
-	(pt -136 3648)
-)
-(connector
-	(text "fx3_outfifo_wrusedw[fx3_outfifo_wrsize-1..0]" (rect -260 3648 103 3662)(font "Arial" ))
-	(pt -280 3664)
-	(pt -136 3664)
-	(bus)
-)
-(connector
-	(text "exfifo_if_d[31..0]" (rect -263 3664 -115 3678)(font "Arial" ))
-	(pt -280 3680)
-	(pt -136 3680)
-	(bus)
-)
-(connector
-	(text "exfifo_if_rdempty" (rect -260 3680 -120 3694)(font "Arial" ))
-	(pt -280 3696)
-	(pt -136 3696)
-)
-(connector
-	(text "exfifo_of_wrfull" (rect -260 3696 -128 3710)(font "Arial" ))
-	(pt -280 3712)
-	(pt -136 3712)
-)
-(connector
-	(text "FX3_slave_busy" (rect -219 3712 -104 3726)(font "Arial" ))
-	(pt -280 3728)
-	(pt -136 3728)
-)
-(connector
-	(pt -280 3504)
-	(pt -128 3504)
-)
-(connector
-	(pt -832 3488)
-	(pt -672 3488)
-)
-(connector
 	(text "clk_fpga2" (rect -78 1328 -4 1342)(font "Arial" ))
 	(pt -96 1344)
 	(pt 8 1344)
-)
-(connector
-	(text "nios_leds[7..0]" (rect -2091 3376 -1968 3390)(font "Arial" ))
-	(pt -2128 3392)
-	(pt -2008 3392)
-	(bus)
 )
 (connector
 	(pt -216 1200)
@@ -7641,6 +7341,307 @@ agreement for further details.
 	(text "L" (rect -315 1216 -307 1230)(font "Arial" ))
 	(pt -216 1232)
 	(pt -336 1232)
+)
+(connector
+	(text "exfifo_if_rd" (rect -1648 3112 -1549 3126)(font "Arial" ))
+	(pt -1672 3128)
+	(pt -1552 3128)
+)
+(connector
+	(text "exfifo_of_wr" (rect -1656 3144 -1557 3158)(font "Arial" ))
+	(pt -1672 3160)
+	(pt -1552 3160)
+)
+(connector
+	(text "exfifo_rst" (rect -1656 3160 -1574 3174)(font "Arial" ))
+	(pt -1672 3176)
+	(pt -1552 3176)
+)
+(connector
+	(text "spi_enables[4..0]" (rect -1656 3240 -1516 3254)(font "Arial" ))
+	(pt -1672 3256)
+	(pt -1552 3256)
+	(bus)
+)
+(connector
+	(text "spi_1_enables[1..0]" (rect -1656 3288 -1500 3302)(font "Arial" ))
+	(pt -1552 3304)
+	(pt -1672 3304)
+	(bus)
+)
+(connector
+	(text "fx3_clk" (rect -2016 3112 -1959 3126)(font "Arial" ))
+	(pt -2048 3128)
+	(pt -1928 3128)
+)
+(connector
+	(text "exfifo_if_rdempty" (rect -2020 3144 -1880 3158)(font "Arial" ))
+	(pt -2048 3160)
+	(pt -1928 3160)
+)
+(connector
+	(text "exfifo_of_wrfull" (rect -2020 3160 -1888 3174)(font "Arial" ))
+	(pt -2048 3176)
+	(pt -1928 3176)
+)
+(connector
+	(text "spi_lms_miso" (rect -2024 3176 -1925 3190)(font "Arial" ))
+	(pt -2048 3192)
+	(pt -1928 3192)
+)
+(connector
+	(text "L,L,L,L,L,L,L,L" (rect -2024 3192 -1901 3206)(font "Arial" ))
+	(pt -2048 3208)
+	(pt -1928 3208)
+	(bus)
+)
+(connector
+	(text "exfifo_if_d[31..0]" (rect -2015 3128 -1867 3142)(font "Arial" ))
+	(pt -2048 3144)
+	(pt -1928 3144)
+	(bus)
+)
+(connector
+	(text "nios_leds[7..0]" (rect -1659 3176 -1536 3190)(font "Arial" ))
+	(pt -1672 3192)
+	(pt -1552 3192)
+	(bus)
+)
+(connector
+	(text "spi_enables[0]" (rect -1489 3240 -1374 3254)(font "Arial" ))
+	(pt -1504 3256)
+	(pt -1424 3256)
+)
+(connector
+	(pt -1672 3272)
+	(pt -1424 3272)
+)
+(connector
+	(pt -1672 3320)
+	(pt -1424 3320)
+)
+(connector
+	(pt -1672 3336)
+	(pt -1424 3336)
+)
+(connector
+	(text "spi_lms_external_SCLK" (rect -1656 3224 -1483 3238)(font "Arial" ))
+	(pt -1672 3240)
+	(pt -1424 3240)
+)
+(connector
+	(text "spi_lms_external_MOSI" (rect -1657 3208 -1484 3222)(font "Arial" ))
+	(pt -1672 3224)
+	(pt -1424 3224)
+)
+(connector
+	(text "exfifo_of_d[31..0]" (rect -1655 3128 -1507 3142)(font "Arial" ))
+	(pt -1672 3144)
+	(pt -1552 3144)
+	(bus)
+)
+(connector
+	(pt -2416 3128)
+	(pt -2416 3120)
+)
+(connector
+	(text "spi_lms_miso" (rect -2264 3120 -2165 3134)(font "Arial" ))
+	(pt -2320 3136)
+	(pt -2184 3136)
+)
+(connector
+	(pt -2416 3144)
+	(pt -2384 3144)
+)
+(connector
+	(pt -2416 3128)
+	(pt -2384 3128)
+)
+(connector
+	(text "pllcfg_sdoutA" (rect -2517 3104 -2410 3118)(font "Arial" ))
+	(pt -2528 3120)
+	(pt -2416 3120)
+)
+(connector
+	(text "internal_spi_miso" (rect -2521 3120 -2381 3134)(font "Arial" ))
+	(pt -2528 3136)
+	(pt -2384 3136)
+)
+(connector
+	(pt -2416 3144)
+	(pt -2416 3152)
+)
+(connector
+	(pt -2416 3152)
+	(pt -2528 3152)
+)
+(connector
+	(text "fadr[4..0]" (rect -109 3472 -27 3486)(font "Arial" ))
+	(pt -160 3488)
+	(pt -8 3488)
+	(bus)
+)
+(connector
+	(text "EP01_data[fx3_bus_width-1..0]" (rect -137 3600 102 3614)(font "Arial" ))
+	(pt -160 3616)
+	(pt -16 3616)
+	(bus)
+)
+(connector
+	(text "EP01_data_valid" (rect -141 3616 -18 3630)(font "Arial" ))
+	(pt -160 3632)
+	(pt -16 3632)
+)
+(connector
+	(text "fx3_outfifo_wfull" (rect -143 3632 -3 3646)(font "Arial" ))
+	(pt -160 3648)
+	(pt -16 3648)
+)
+(connector
+	(text "fx3_outfifo_wrusedw[fx3_outfifo_wrsize-1..0]" (rect -140 3648 223 3662)(font "Arial" ))
+	(pt -160 3664)
+	(pt -16 3664)
+	(bus)
+)
+(connector
+	(text "exfifo_if_d[31..0]" (rect -143 3664 5 3678)(font "Arial" ))
+	(pt -160 3680)
+	(pt -16 3680)
+	(bus)
+)
+(connector
+	(text "exfifo_if_rdempty" (rect -140 3680 0 3694)(font "Arial" ))
+	(pt -160 3696)
+	(pt -16 3696)
+)
+(connector
+	(text "exfifo_of_wrfull" (rect -140 3696 -8 3710)(font "Arial" ))
+	(pt -160 3712)
+	(pt -16 3712)
+)
+(connector
+	(text "FX3_slave_busy" (rect -99 3712 16 3726)(font "Arial" ))
+	(pt -160 3728)
+	(pt -16 3728)
+)
+(connector
+	(text "exfifo_rst" (rect -856 3696 -774 3710)(font "Arial" ))
+	(pt -904 3712)
+	(pt -752 3712)
+)
+(connector
+	(text "fpga_reset_n" (rect -670 3424 -571 3438)(font "Arial" ))
+	(pt -704 3440)
+	(pt -552 3440)
+)
+(connector
+	(text "fx3_clk" (rect -672 3440 -615 3454)(font "Arial" ))
+	(pt -712 3456)
+	(pt -552 3456)
+)
+(connector
+	(text "H" (rect -660 3456 -652 3470)(font "Arial" ))
+	(pt -704 3472)
+	(pt -552 3472)
+)
+(connector
+	(pt -712 3488)
+	(pt -552 3488)
+)
+(connector
+	(pt -712 3504)
+	(pt -552 3504)
+)
+(connector
+	(text "stream_sw_rdy" (rect -673 3568 -566 3582)(font "Arial" ))
+	(pt -704 3584)
+	(pt -552 3584)
+)
+(connector
+	(text "MCLK2RX_pll_d" (rect -679 3584 -572 3598)(font "Arial" ))
+	(pt -704 3600)
+	(pt -552 3600)
+)
+(connector
+	(text "stream_rxen_mclk2rxpll" (rect -680 3600 -499 3614)(font "Arial" ))
+	(pt -704 3616)
+	(pt -552 3616)
+)
+(connector
+	(text "rxpct_outfifowr" (rect -680 3616 -557 3630)(font "Arial" ))
+	(pt -704 3632)
+	(pt -552 3632)
+)
+(connector
+	(text "rx_pct_data[63..0]" (rect -677 3632 -529 3646)(font "Arial" ))
+	(pt -704 3648)
+	(pt -552 3648)
+	(bus)
+)
+(connector
+	(text "fx3_clk" (rect -680 3648 -623 3662)(font "Arial" ))
+	(pt -704 3664)
+	(pt -552 3664)
+)
+(connector
+	(text "exfifo_if_rd" (rect -680 3664 -581 3678)(font "Arial" ))
+	(pt -704 3680)
+	(pt -552 3680)
+)
+(connector
+	(text "fx3_clk" (rect -680 3680 -623 3694)(font "Arial" ))
+	(pt -704 3696)
+	(pt -552 3696)
+)
+(connector
+	(pt -704 3712)
+	(pt -552 3712)
+)
+(connector
+	(text "exfifo_of_wr" (rect -680 3712 -581 3726)(font "Arial" ))
+	(pt -704 3728)
+	(pt -552 3728)
+)
+(connector
+	(text "exfifo_of_d[31..0]" (rect -679 3728 -531 3742)(font "Arial" ))
+	(pt -704 3744)
+	(pt -552 3744)
+	(bus)
+)
+(connector
+	(pt -160 3456)
+	(pt -8 3456)
+)
+(connector
+	(pt -160 3552)
+	(pt -8 3552)
+)
+(connector
+	(pt -160 3536)
+	(pt -8 3536)
+)
+(connector
+	(pt -160 3520)
+	(pt -8 3520)
+)
+(connector
+	(pt -160 3504)
+	(pt -8 3504)
+)
+(connector
+	(pt -160 3472)
+	(pt -8 3472)
+	(bus)
+)
+(connector
+	(text "FPGA_SPI1_SCLK" (rect -1603 3272 -1488 3286)(font "Arial" ))
+	(pt -1672 3288)
+	(pt -1424 3288)
+)
+(connector
+	(text "FPGA_SPI1_SCLK" (rect -94 760 21 774)(font "Arial" ))
+	(pt 16 776)
+	(pt -112 776)
 )
 (junction (pt -256 4616))
 (junction (pt 248 4624))
