@@ -273,6 +273,8 @@ int main()
         spirez = IORD(AV_FIFO_INT_0_BASE, 2);	// Read FIFO Status
         if(!(spirez & 0x01))
         {
+            IOWR(AV_FIFO_INT_0_BASE, 3, 1);		// Toggle FIFO reset
+            IOWR(AV_FIFO_INT_0_BASE, 3, 0);		// Toggle FIFO reset
         	//Read packet from the FIFO
         	getFifoData(glEp0Buffer_Rx, 64);
 
