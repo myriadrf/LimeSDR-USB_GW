@@ -525,6 +525,7 @@ output [T_PARAM_MEM_CLK_ENTRY_CYCLES_WIDTH                - 1 : 0] t_param_mem_c
             t_param_wr_to_pch           <= 0;
             t_param_wr_ap_to_valid      <= 0;
             t_param_pch_all_to_valid    <= 0;
+            t_param_srf_to_zq_cal_temp1 <= 0;
             t_param_srf_to_zq_cal       <= 0;
             
             temp_wr_to_rd_diff_chip     <= 0;

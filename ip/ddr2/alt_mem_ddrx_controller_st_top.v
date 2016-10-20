@@ -713,10 +713,11 @@ generate
         wire                                                                   csr_cfg_clr_intr;
         wire                                                                   csr_cfg_cal_req;
 
-        wire    [4                                                 - 1 : 0]    csr_cfg_clock_off;
+        wire    [CFG_MEM_IF_CLK_PAIR_COUNT                         - 1 : 0]    csr_cfg_clock_off;
         wire                                                                   csr_cfg_self_rfsh;
         wire                                                                   csr_cfg_ganged_arf;
         wire    [CFG_PORT_WIDTH_STARVE_LIMIT                       - 1 : 0]    csr_cfg_starve_limit;
+	wire	[8						   - 1 : 0]    int_csr_cfg_starve_limit;
         wire    [CFG_PORT_WIDTH_INTERFACE_WIDTH                    - 1 : 0]    csr_cfg_interface_width;
         wire    [CFG_PORT_WIDTH_DEVICE_WIDTH                       - 1 : 0]    csr_cfg_device_width;
         wire                                                                   csr_cfg_mask_corr_dropped_intr;
@@ -725,6 +726,7 @@ generate
 
         assign cfg_burst_length                         = csr_cfg_burst_length;
         assign cfg_reorder_data                         = csr_cfg_reorder_data;
+	assign csr_cfg_starve_limit			= int_csr_cfg_starve_limit;
         assign cfg_starve_limit                         = csr_cfg_starve_limit;
         assign cfg_addr_order                           = csr_cfg_addr_order;
         assign cfg_col_addr_width                       = csr_cfg_col_addr_width;
@@ -833,7 +835,7 @@ generate
             .cfg_mask_dbe_intr                                  ( csr_cfg_mask_dbe_intr                              ),
             .cfg_clr_intr                                       ( csr_cfg_clr_intr                                   ),
             .cfg_clock_off                                      ( csr_cfg_clock_off                                  ),
-            .cfg_starve_limit                                   ( csr_cfg_starve_limit                               ),
+            .cfg_starve_limit                                   ( int_csr_cfg_starve_limit                           ),
             .cfg_mask_corr_dropped_intr                         ( csr_cfg_mask_corr_dropped_intr                     ),
             .cfg_cal_req                                        ( csr_cfg_cal_req                                    ),
             
@@ -846,10 +848,10 @@ generate
             .sts_dbe_error                                      ( sts_dbe_error                                      ),
             .sts_sbe_count                                      ( sts_sbe_count                                      ),
             .sts_dbe_count                                      ( sts_dbe_count                                      ),
-            .sts_err_addr                                       ( sts_err_addr                                       ),
+            .sts_err_addr                                       ( {{(32-CFG_LOCAL_ADDR_WIDTH){1'b0}}  ,sts_err_addr} ),
             .sts_corr_dropped                                   ( sts_corr_dropped                                   ),
             .sts_corr_dropped_count                             ( sts_corr_dropped_count                             ),
-            .sts_corr_dropped_addr                              ( sts_corr_dropped_addr                              ),
+            .sts_corr_dropped_addr                              ( {{(32-CFG_LOCAL_ADDR_WIDTH){1'b0}} ,sts_corr_dropped_addr}),
 
             .ctl_clk                                            ( clk                                                ),
             .ctl_rst_n                                          ( reset_n                                            )

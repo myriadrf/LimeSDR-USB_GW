@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<EnsembleReport name="ddr2_traffic_gen" kind="system" version="15.0" fabric="QSYS">
- <!-- Format version 15.0 145 (Future versions may contain additional information.) -->
- <!-- 2016.08.19.09:37:21 -->
+<EnsembleReport name="ddr2_traffic_gen" kind="system" version="15.1" fabric="QSYS">
+ <!-- Format version 15.1 193 (Future versions may contain additional information.) -->
+ <!-- 2016.10.20.16:12:30 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1471588640</value>
+  <value>1476969150</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -150,7 +150,7 @@
  <module
    name="mm_traffic_generator_0"
    kind="altera_avalon_mm_traffic_generator"
-   version="15.0"
+   version="15.1"
    path="mm_traffic_generator_0">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -365,7 +365,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DRIVER_SIGNATURE">
    <type>int</type>
-   <value>1431634070</value>
+   <value>1431634071</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -709,7 +709,7 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="avl_clock" kind="clock_sink" version="15.0">
+  <interface name="avl_clock" kind="clock_sink" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -754,7 +754,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="avl_reset" kind="reset_sink" version="15.0">
+  <interface name="avl_reset" kind="reset_sink" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -799,7 +799,7 @@ parameters are a RESULT of the module parameters. -->
     <role>reset_n</role>
    </port>
   </interface>
-  <interface name="status" kind="conduit_end" version="15.0">
+  <interface name="status" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -856,7 +856,7 @@ parameters are a RESULT of the module parameters. -->
     <role>test_complete</role>
    </port>
   </interface>
-  <interface name="pnf" kind="conduit_end" version="15.0">
+  <interface name="pnf" kind="conduit_end" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -907,7 +907,7 @@ parameters are a RESULT of the module parameters. -->
     <role>pnf_per_bit_persist</role>
    </port>
   </interface>
-  <interface name="avl" kind="avalon_master" version="15.0">
+  <interface name="avl" kind="avalon_master" version="15.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -1237,7 +1237,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>Avalon-MM Traffic Generator and BIST Engine</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -1245,7 +1245,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Clock Input</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -1253,7 +1253,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Reset Input</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
   <instanceCount>2</instanceCount>
@@ -1261,7 +1261,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Conduit</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -1269,8 +1269,8 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Avalon Memory Mapped Master</displayName>
-  <version>15.0</version>
+  <version>15.1</version>
  </plugin>
- <reportVersion>15.0 145</reportVersion>
- <uniqueIdentifier>448A5B8829BA00000156A184A7A0</uniqueIdentifier>
+ <reportVersion>15.1 193</reportVersion>
+ <uniqueIdentifier>00155D12CD0100000157E238B83B</uniqueIdentifier>
 </EnsembleReport>

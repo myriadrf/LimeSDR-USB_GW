@@ -303,7 +303,7 @@ output                          err_sbe;
         if (CFG_ECC_DATA_WIDTH == 8 && CFG_DATA_WIDTH > 8) // Make sure this is an ECC case else it will cause compilation error
         begin
             wire [39 : 0] internal_decoder_input;
-            wire [32 : 0] internal_decoder_output;
+            wire [31 : 0] internal_decoder_output;
             
             // Assign decoder output
             assign internal_decoder_input = {decoder_input [CFG_DATA_WIDTH - 1 : CFG_ECC_DATA_WIDTH], 24'd0, decoder_input [CFG_ECC_DATA_WIDTH - 1 : 0]};
@@ -331,7 +331,7 @@ output                          err_sbe;
         else if (CFG_ECC_DATA_WIDTH == 16)
         begin
             wire [39 : 0] internal_decoder_input;
-            wire [32 : 0] internal_decoder_output;
+            wire [31 : 0] internal_decoder_output;
             
             // Assign decoder output
             assign internal_decoder_input = {decoder_input [CFG_DATA_WIDTH - 1 : CFG_ECC_DATA_WIDTH], 16'd0, decoder_input [CFG_ECC_DATA_WIDTH - 1 : 0]};

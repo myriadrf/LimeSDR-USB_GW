@@ -521,7 +521,7 @@ agreement for further details.
 	(input)
 	(rect -936 3848 -768 3864)
 	(text "INPUT" (rect 125 0 166 11)(font "Arial" (font_size 6)))
-	(text "FX3_CTL8" (rect 5 0 72 14)(font "Arial" ))
+	(text "FX3_CTL8" (rect 5 0 71 14)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -4776,7 +4776,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 392 160))
 	)
-	(annotation_block (parameter)(rect -24 3848 468 3932))
+	(annotation_block (parameter)(rect -64 3848 428 3932))
 )
 (symbol
 	(rect -1928 3096 -1672 3368)
@@ -6208,27 +6208,12 @@ agreement for further details.
 	(pt 128 5344)
 )
 (connector
-	(text "BRDG_SPI_MOSI" (rect 21 5344 128 5358)(font "Arial" ))
-	(pt 8 5360)
-	(pt 128 5360)
-)
-(connector
-	(text "BRDG_SPI_SCLK" (rect 17 5360 124 5374)(font "Arial" ))
-	(pt 8 5376)
-	(pt 128 5376)
-)
-(connector
-	(text "BRDG_SPI_FPGA_SS" (rect 19 5376 151 5390)(font "Arial" ))
-	(pt 8 5392)
-	(pt 128 5392)
-)
-(connector
-	(text "fpga_reset_n" (rect 25 5392 124 5406)(font "Arial" ))
+	(text "fpga_reset_n" (rect 17 5392 116 5406)(font "Arial" ))
 	(pt 8 5408)
 	(pt 128 5408)
 )
 (connector
-	(text "fpga_reset_n" (rect 27 5408 126 5422)(font "Arial" ))
+	(text "fpga_reset_n" (rect 19 5408 118 5422)(font "Arial" ))
 	(pt 8 5424)
 	(pt 128 5424)
 )
@@ -7505,6 +7490,21 @@ agreement for further details.
 	(text "FX3_MCU_BUSY" (rect -315 1216 -216 1230)(font "Arial" ))
 	(pt -216 1232)
 	(pt -336 1232)
+)
+(connector
+	(text "spi_lms_external_MOSI" (rect 15 5344 188 5358)(font "Arial" ))
+	(pt 8 5360)
+	(pt 128 5360)
+)
+(connector
+	(text "spi_lms_external_SCLK" (rect 16 5360 189 5374)(font "Arial" ))
+	(pt 8 5376)
+	(pt 128 5376)
+)
+(connector
+	(text "spi_enables[1]" (rect 14 5376 129 5390)(font "Arial" ))
+	(pt 8 5392)
+	(pt 128 5392)
 )
 (junction (pt -256 4616))
 (junction (pt 248 4624))

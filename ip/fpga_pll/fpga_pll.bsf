@@ -4,14 +4,14 @@ editor if you plan to continue editing the block that represents it in
 the Block Editor! File corruption is VERY likely to occur.
 */
 /*
-Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
+Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
 Your use of Altera Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
 to the terms and conditions of the Altera Program License 
-Subscription Agreement, the Altera Quartus II License Agreement,
+Subscription Agreement, the Altera Quartus Prime License Agreement,
 the Altera MegaCore Function License Agreement, or other 
 applicable license agreement, including, without limitation, 
 that your use is for the sole purpose of programming logic 
@@ -22,32 +22,32 @@ agreement for further details.
 (header "symbol" (version "1.2"))
 (symbol
 	(rect 0 0 264 152)
-	(text "fpga_pll" (rect 110 0 161 16)(font "Arial" (font_size 10)))
-	(text "inst" (rect 8 136 25 148)(font "Arial" ))
+	(text "fpga_pll" (rect 110 0 213 18)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 134 41 148)(font "Arial" ))
 	(port
 		(pt 0 64)
 		(input)
-		(text "inclk0" (rect 0 0 31 14)(font "Arial" (font_size 8)))
+		(text "inclk0" (rect 0 0 56 16)(font "Arial" (font_size 8)))
 		(text "inclk0" (rect 4 50 29 63)(font "Arial" (font_size 8)))
 		(line (pt 0 64)(pt 48 64))
 	)
 	(port
 		(pt 0 80)
 		(input)
-		(text "areset" (rect 0 0 36 14)(font "Arial" (font_size 8)))
+		(text "areset" (rect 0 0 56 16)(font "Arial" (font_size 8)))
 		(text "areset" (rect 4 66 33 79)(font "Arial" (font_size 8)))
 		(line (pt 0 80)(pt 48 80))
 	)
 	(port
 		(pt 264 64)
 		(output)
-		(text "c0" (rect 0 0 14 14)(font "Arial" (font_size 8)))
+		(text "c0" (rect 0 0 18 16)(font "Arial" (font_size 8)))
 		(text "c0" (rect 248 50 258 63)(font "Arial" (font_size 8)))
 	)
 	(port
 		(pt 264 80)
 		(output)
-		(text "locked" (rect 0 0 36 14)(font "Arial" (font_size 8)))
+		(text "locked" (rect 0 0 56 16)(font "Arial" (font_size 8)))
 		(text "locked" (rect 229 66 258 79)(font "Arial" (font_size 8)))
 	)
 	(drawing

@@ -491,6 +491,20 @@ generate
         assign ctl_cal_byte_lane_sel_n = 0;
         
         assign cfg_regdimm_enable          = 1'b1; // udimm or rdimm determined by parameter CFG_REGDIMM_ENABLE
+	always @ (*)
+	begin
+		// set all to zeros.
+		read_csr_register_100 = 0;
+		read_csr_register_110 = 0;
+		read_csr_register_120 = 0;
+		read_csr_register_121 = 0;
+		read_csr_register_122 = 0;
+		read_csr_register_123 = 0;
+		read_csr_register_124 = 0;
+		read_csr_register_125 = 0;
+		read_csr_register_126 = 0;
+		read_csr_register_134 = 0;
+	end
     end
     else
     begin
