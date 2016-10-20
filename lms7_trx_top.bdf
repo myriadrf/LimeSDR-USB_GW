@@ -521,7 +521,7 @@ agreement for further details.
 	(input)
 	(rect -936 3848 -768 3864)
 	(text "INPUT" (rect 125 0 166 11)(font "Arial" (font_size 6)))
-	(text "FX3_CTL6" (rect 5 0 71 14)(font "Arial" ))
+	(text "FX3_CTL8" (rect 5 0 72 14)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -4776,7 +4776,7 @@ agreement for further details.
 	(drawing
 		(rectangle (rect 16 16 392 160))
 	)
-	(annotation_block (parameter)(rect -88 3840 404 3924))
+	(annotation_block (parameter)(rect -24 3848 468 3932))
 )
 (symbol
 	(rect -1928 3096 -1672 3368)
@@ -7476,16 +7476,6 @@ agreement for further details.
 	(pt -112 776)
 )
 (connector
-	(text "FX3_CPU_BUSY" (rect -752 3840 -653 3854)(font "Arial" ))
-	(pt -768 3856)
-	(pt -680 3856)
-)
-(connector
-	(text "FX3_CPU_BUSY" (rect -315 1216 -216 1230)(font "Arial" ))
-	(pt -216 1232)
-	(pt -336 1232)
-)
-(connector
 	(text "fadr[0]" (rect 272 3344 329 3358)(font "Arial" ))
 	(pt 256 3360)
 	(pt 344 3360)
@@ -7505,6 +7495,16 @@ agreement for further details.
 	(text "ddr2_2_test_pass" (rect 1460 5520 1592 5534)(font "Arial" ))
 	(pt 1384 5536)
 	(pt 1600 5536)
+)
+(connector
+	(text "FX3_MCU_BUSY" (rect -752 3840 -653 3854)(font "Arial" ))
+	(pt -768 3856)
+	(pt -680 3856)
+)
+(connector
+	(text "FX3_MCU_BUSY" (rect -315 1216 -216 1230)(font "Arial" ))
+	(pt -216 1232)
+	(pt -336 1232)
 )
 (junction (pt -256 4616))
 (junction (pt 248 4624))
