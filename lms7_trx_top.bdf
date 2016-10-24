@@ -451,7 +451,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect -992 840 -824 856)
+	(rect -880 3448 -712 3464)
 	(text "INPUT" (rect 125 0 166 11)(font "Arial" (font_size 6)))
 	(text "SI_CLK2" (rect 5 0 62 14)(font "Arial" ))
 	(pt 168 8)
@@ -464,7 +464,7 @@ agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 152 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -1048 856 -992 872))
+	(annotation_block (location)(rect -936 3464 -880 3480))
 )
 (pin
 	(input)
@@ -502,7 +502,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect -880 3448 -712 3464)
+	(rect -944 3280 -776 3296)
 	(text "INPUT" (rect 125 0 166 11)(font "Arial" (font_size 6)))
 	(text "FX3_PCLK" (rect 5 0 71 14)(font "Arial" ))
 	(pt 168 8)
@@ -515,7 +515,7 @@ agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 152 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -968 3464 -880 3496))
+	(annotation_block (location)(rect -1032 3296 -944 3328))
 )
 (pin
 	(input)
@@ -7439,11 +7439,6 @@ agreement for further details.
 	(pt -552 3440)
 )
 (connector
-	(text "fx3_clk" (rect -672 3440 -615 3454)(font "Arial" ))
-	(pt -712 3456)
-	(pt -552 3456)
-)
-(connector
 	(text "H" (rect -660 3456 -652 3470)(font "Arial" ))
 	(pt -704 3472)
 	(pt -552 3472)
@@ -7740,6 +7735,11 @@ agreement for further details.
 	(text "lms1_reset" (rect -164 2280 -82 2294)(font "Arial" ))
 	(pt -200 2296)
 	(pt -72 2296)
+)
+(connector
+	(text "fx3_clk" (rect -672 3440 -615 3454)(font "Arial" ))
+	(pt -552 3456)
+	(pt -712 3456)
 )
 (junction (pt -256 4616))
 (junction (pt 248 4624))
