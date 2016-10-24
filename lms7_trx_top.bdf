@@ -570,7 +570,7 @@ agreement for further details.
 )
 (pin
 	(output)
-	(rect -272 2384 -96 2400)
+	(rect 0 2296 176 2312)
 	(text "OUTPUT" (rect 1 0 50 11)(font "Arial" (font_size 6)))
 	(text "LMS_RESET" (rect 90 0 164 14)(font "Arial" ))
 	(pt 0 8)
@@ -583,7 +583,7 @@ agreement for further details.
 		(line (pt 82 8)(pt 78 12))
 		(line (pt 78 12)(pt 82 8))
 	)
-	(annotation_block (location)(rect -96 2384 -40 2400))
+	(annotation_block (location)(rect 176 2296 232 2312))
 )
 (pin
 	(output)
@@ -5465,6 +5465,38 @@ agreement for further details.
 		(arc (pt 25 51)(pt 49 40)(rect -6 -11 57 52))
 	)
 )
+(symbol
+	(rect -72 2280 -8 2328)
+	(text "AND2" (rect 1 0 34 11)(font "Arial" (font_size 6)))
+	(text "inst13" (rect 3 37 52 51)(font "Arial" ))
+	(port
+		(pt 0 16)
+		(input)
+		(text "IN1" (rect 2 7 19 21)(font "Courier New" (bold))(invisible))
+		(text "IN1" (rect 2 7 19 21)(font "Courier New" (bold))(invisible))
+		(line (pt 0 16)(pt 14 16))
+	)
+	(port
+		(pt 0 32)
+		(input)
+		(text "IN2" (rect 2 23 19 37)(font "Courier New" (bold))(invisible))
+		(text "IN2" (rect 2 23 19 37)(font "Courier New" (bold))(invisible))
+		(line (pt 0 32)(pt 14 32))
+	)
+	(port
+		(pt 64 24)
+		(output)
+		(text "OUT" (rect 48 15 65 29)(font "Courier New" (bold))(invisible))
+		(text "OUT" (rect 48 15 65 29)(font "Courier New" (bold))(invisible))
+		(line (pt 42 24)(pt 64 24))
+	)
+	(drawing
+		(line (pt 14 12)(pt 30 12))
+		(line (pt 14 37)(pt 31 37))
+		(line (pt 14 12)(pt 14 37))
+		(arc (pt 31 37)(pt 30 12)(rect 18 12 43 37))
+	)
+)
 (connector
 	(text "L" (rect -1008 1635 -994 1643)(font "Arial" )(vertical))
 	(pt -992 1608)
@@ -6845,16 +6877,6 @@ agreement for further details.
 	(pt 1408 1024)
 )
 (connector
-	(text "lms_reset" (rect -404 2376 -330 2390)(font "Arial" ))
-	(pt -344 2392)
-	(pt -440 2392)
-)
-(connector
-	(text "lms_reset" (rect -316 2376 -242 2390)(font "Arial" ))
-	(pt -328 2392)
-	(pt -272 2392)
-)
-(connector
 	(pt -440 2408)
 	(pt -272 2408)
 )
@@ -7693,6 +7715,31 @@ agreement for further details.
 (connector
 	(pt -2384 3240)
 	(pt -2536 3240)
+)
+(connector
+	(text "lms_ctr_gpio[3..0]" (rect -1608 3192 -1460 3206)(font "Arial" ))
+	(pt -1672 3208)
+	(pt -1552 3208)
+	(bus)
+)
+(connector
+	(text "lms_ctr_gpio[0]" (rect -160 2296 -37 2310)(font "Arial" ))
+	(pt -72 2312)
+	(pt -200 2312)
+)
+(connector
+	(pt -8 2304)
+	(pt 0 2304)
+)
+(connector
+	(text "lms1_reset" (rect -404 2376 -322 2390)(font "Arial" ))
+	(pt -344 2392)
+	(pt -440 2392)
+)
+(connector
+	(text "lms1_reset" (rect -164 2280 -82 2294)(font "Arial" ))
+	(pt -200 2296)
+	(pt -72 2296)
 )
 (junction (pt -256 4616))
 (junction (pt 248 4624))
