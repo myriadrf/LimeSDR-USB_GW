@@ -485,7 +485,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect -2720 3144 -2528 3160)
+	(rect -2728 3232 -2536 3248)
 	(text "INPUT" (rect 149 0 190 11)(font "Arial" (font_size 6)))
 	(text "FPGA_SPI0_MISO" (rect 5 0 120 14)(font "Arial" ))
 	(pt 192 8)
@@ -498,7 +498,7 @@ agreement for further details.
 		(line (pt 133 12)(pt 137 8))
 	)
 	(text "VCC" (rect 152 7 176 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -2776 3160 -2720 3176))
+	(annotation_block (location)(rect -2784 3248 -2728 3264))
 )
 (pin
 	(input)
@@ -4531,46 +4531,6 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect -2384 3112 -2320 3160)
-	(text "OR3" (rect 1 0 25 11)(font "Arial" (font_size 6)))
-	(text "inst43" (rect 3 37 52 51)(font "Arial" ))
-	(port
-		(pt 0 24)
-		(input)
-		(text "IN2" (rect 2 15 19 29)(font "Courier New" (bold))(invisible))
-		(text "IN2" (rect 2 15 19 29)(font "Courier New" (bold))(invisible))
-		(line (pt 0 24)(pt 18 24))
-	)
-	(port
-		(pt 0 32)
-		(input)
-		(text "IN3" (rect 2 24 19 38)(font "Courier New" (bold))(invisible))
-		(text "IN3" (rect 2 24 19 38)(font "Courier New" (bold))(invisible))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 16)
-		(input)
-		(text "IN1" (rect 2 7 19 21)(font "Courier New" (bold))(invisible))
-		(text "IN1" (rect 2 7 19 21)(font "Courier New" (bold))(invisible))
-		(line (pt 0 16)(pt 16 16))
-	)
-	(port
-		(pt 64 24)
-		(output)
-		(text "OUT" (rect 47 15 64 29)(font "Courier New" (bold))(invisible))
-		(text "OUT" (rect 47 15 64 29)(font "Courier New" (bold))(invisible))
-		(line (pt 49 24)(pt 64 24))
-	)
-	(drawing
-		(line (pt 14 13)(pt 25 13))
-		(line (pt 14 36)(pt 25 36))
-		(arc (pt 7 29)(pt 7 19)(rect -14 8 19 41))
-		(arc (pt 49 24)(pt 25 13)(rect -6 13 57 76))
-		(arc (pt 25 35)(pt 49 24)(rect -6 -27 57 36))
-	)
-)
-(symbol
 	(rect 1024 1384 1072 1416)
 	(text "NOT" (rect 1 0 25 11)(font "Arial" (font_size 6)))
 	(text "inst45" (rect 3 21 52 35)(font "Arial" ))
@@ -5454,6 +5414,55 @@ agreement for further details.
 	)
 	(drawing
 		(rectangle (rect 16 16 248 320))
+	)
+)
+(symbol
+	(rect -2384 3176 -2320 3256)
+	(text "OR4" (rect 1 0 25 11)(font "Arial" (font_size 6)))
+	(text "inst10" (rect 3 69 52 83)(font "Arial" ))
+	(port
+		(pt 0 16)
+		(input)
+		(text "IN1" (rect 2 7 19 21)(font "Courier New" (bold))(invisible))
+		(text "IN1" (rect 2 7 19 21)(font "Courier New" (bold))(invisible))
+		(line (pt 0 16)(pt 13 16))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "IN3" (rect 2 39 19 53)(font "Courier New" (bold))(invisible))
+		(text "IN3" (rect 2 39 19 53)(font "Courier New" (bold))(invisible))
+		(line (pt 0 48)(pt 15 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "IN4" (rect 2 55 19 69)(font "Courier New" (bold))(invisible))
+		(text "IN4" (rect 2 55 19 69)(font "Courier New" (bold))(invisible))
+		(line (pt 0 64)(pt 13 64))
+	)
+	(port
+		(pt 0 32)
+		(input)
+		(text "IN2" (rect 2 23 19 37)(font "Courier New" (bold))(invisible))
+		(text "IN2" (rect 2 23 19 37)(font "Courier New" (bold))(invisible))
+		(line (pt 0 32)(pt 15 32))
+	)
+	(port
+		(pt 64 40)
+		(output)
+		(text "OUT" (rect 48 31 65 45)(font "Courier New" (bold))(invisible))
+		(text "OUT" (rect 48 31 65 45)(font "Courier New" (bold))(invisible))
+		(line (pt 48 40)(pt 64 40))
+	)
+	(drawing
+		(line (pt 13 67)(pt 13 51))
+		(line (pt 25 52)(pt 13 52))
+		(line (pt 13 12)(pt 13 29))
+		(line (pt 13 29)(pt 25 29))
+		(arc (pt 7 45)(pt 7 35)(rect -14 24 19 57))
+		(arc (pt 49 40)(pt 25 29)(rect -6 29 57 92))
+		(arc (pt 25 51)(pt 49 40)(rect -6 -11 57 52))
 	)
 )
 (connector
@@ -7349,41 +7358,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(pt -2416 3128)
-	(pt -2416 3120)
-)
-(connector
-	(text "spi_lms_miso" (rect -2264 3120 -2165 3134)(font "Arial" ))
-	(pt -2320 3136)
-	(pt -2184 3136)
-)
-(connector
-	(pt -2416 3144)
-	(pt -2384 3144)
-)
-(connector
-	(pt -2416 3128)
-	(pt -2384 3128)
-)
-(connector
-	(text "pllcfg_sdoutA" (rect -2517 3104 -2410 3118)(font "Arial" ))
-	(pt -2528 3120)
-	(pt -2416 3120)
-)
-(connector
-	(text "internal_spi_miso" (rect -2521 3120 -2381 3134)(font "Arial" ))
-	(pt -2528 3136)
-	(pt -2384 3136)
-)
-(connector
-	(pt -2416 3144)
-	(pt -2416 3152)
-)
-(connector
-	(pt -2416 3152)
-	(pt -2528 3152)
-)
-(connector
 	(text "fadr[4..0]" (rect -109 3472 -27 3486)(font "Arial" ))
 	(pt -160 3488)
 	(pt -8 3488)
@@ -7695,6 +7669,30 @@ agreement for further details.
 	(pt 1272 5472)
 	(pt 1456 5472)
 	(bus)
+)
+(connector
+	(text "spi_lms_miso" (rect -2264 3200 -2165 3214)(font "Arial" ))
+	(pt -2320 3216)
+	(pt -2184 3216)
+)
+(connector
+	(text "tstcfg_sdout" (rect -2514 3176 -2415 3190)(font "Arial" ))
+	(pt -2536 3192)
+	(pt -2384 3192)
+)
+(connector
+	(text "pllcfg_sdoutA" (rect -2517 3192 -2410 3206)(font "Arial" ))
+	(pt -2384 3208)
+	(pt -2536 3208)
+)
+(connector
+	(text "internal_spi_miso" (rect -2521 3208 -2381 3222)(font "Arial" ))
+	(pt -2536 3224)
+	(pt -2384 3224)
+)
+(connector
+	(pt -2384 3240)
+	(pt -2536 3240)
 )
 (junction (pt -256 4616))
 (junction (pt 248 4624))
