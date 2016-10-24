@@ -451,7 +451,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect -880 3448 -712 3464)
+	(rect -992 840 -824 856)
 	(text "INPUT" (rect 125 0 166 11)(font "Arial" (font_size 6)))
 	(text "SI_CLK2" (rect 5 0 62 14)(font "Arial" ))
 	(pt 168 8)
@@ -464,7 +464,7 @@ agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 152 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -936 3464 -880 3480))
+	(annotation_block (location)(rect -1048 856 -992 872))
 )
 (pin
 	(input)
@@ -502,7 +502,7 @@ agreement for further details.
 )
 (pin
 	(input)
-	(rect -944 3280 -776 3296)
+	(rect -880 3448 -712 3464)
 	(text "INPUT" (rect 125 0 166 11)(font "Arial" (font_size 6)))
 	(text "FX3_PCLK" (rect 5 0 71 14)(font "Arial" ))
 	(pt 168 8)
@@ -515,7 +515,7 @@ agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 152 18)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect -1032 3296 -944 3328))
+	(annotation_block (location)(rect -968 3464 -880 3496))
 )
 (pin
 	(input)

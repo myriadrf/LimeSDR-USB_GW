@@ -66,7 +66,7 @@ set_location_assignment PIN_Y21 -to FX3_DQ[3]
 set_location_assignment PIN_Y22 -to FX3_DQ[2]
 set_location_assignment PIN_AA21 -to FX3_DQ[1]
 set_location_assignment PIN_M19 -to FX3_DQ[0]
-set_location_assignment PIN_T18 -to FX3_PCLK
+set_location_assignment PIN_T21 -to FX3_PCLK
 set_instance_assignment -name IO_STANDARD "1.8 V" -to FX3_DQ[15]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to FX3_DQ[14]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to FX3_DQ[13]
@@ -649,7 +649,7 @@ set_location_assignment PIN_AA20 -to DDR2_2_addr[9]
 set_location_assignment PIN_AB17 -to DDR2_2_addr[10]
 set_location_assignment PIN_U16 -to DDR2_2_addr[11]
 set_location_assignment PIN_U14 -to DDR2_2_addr[12]
-set_location_assignment PIN_T21 -to SI_CLK2
+set_location_assignment PIN_AB12 -to SI_CLK2
 set_instance_assignment -name IO_STANDARD "1.8 V" -to SI_CLK2
 set_location_assignment PIN_U1 -to BOM_VER[2]
 set_location_assignment PIN_U2 -to BOM_VER[1]
