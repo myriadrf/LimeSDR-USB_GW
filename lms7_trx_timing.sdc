@@ -191,8 +191,8 @@ set_input_delay	-min $LMS_DIQ2_min_dly \
 						-clock_fall [get_ports {LMS_DIQ2*}] -add_delay
 						
 #FX3
-set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -max $FX3_ctl_in_max_dly [get_ports {FX3_CTL4 FX3_CTL5 FX3_CTL6 FX3_CTL8}]
-set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -min $FX3_ctl_in_min_dly [get_ports {FX3_CTL4 FX3_CTL5 FX3_CTL6 FX3_CTL8}]
+set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -max $FX3_ctl_in_max_dly [get_ports {FX3_CTL4 FX3_CTL5 FX3_CTL8}]
+set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -min $FX3_ctl_in_min_dly [get_ports {FX3_CTL4 FX3_CTL5 FX3_CTL8}]
 
 set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -max $FX3_d_in_max_dly [get_ports {FX3_DQ*}]
 set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -min $FX3_d_in_min_dly [get_ports {FX3_DQ*}]						

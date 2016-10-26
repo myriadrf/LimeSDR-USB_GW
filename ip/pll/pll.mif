@@ -19,7 +19,7 @@
 --    Device Speed Grade: -
 --    PLL Scan Chain: Fast PLL (144 bits)
 --    File Name: H:/working_dir/altera/LimeSDR-USB/lms7_trx/ip/pll//pll.mif
---    Generated: Thu Oct 20 16:12:41 2016
+--    Generated: Wed Oct 26 14:18:17 2016
 
 WIDTH=1;
 DEPTH=144;

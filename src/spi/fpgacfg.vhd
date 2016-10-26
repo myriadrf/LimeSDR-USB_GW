@@ -33,6 +33,7 @@ entity fpgacfg is
 		mreset	: in std_logic; 	-- Memory reset signal, resets configuration memory only (use only one reset)
 		HW_VER	: in std_logic_vector(3 downto 0);
 		BOM_VER	: in std_logic_vector(2 downto 0);
+		PWR_SRC	: in std_logic;
 		
 		oen: out std_logic; --nc
 		stateo: out std_logic_vector(5 downto 0);
@@ -179,7 +180,7 @@ begin
 				case inst_reg(4 downto 0) is	-- mux read-only outputs
 					when "00001" => dout_reg <= x"0002";
 					when "00010" => dout_reg <= (15 downto 8 => '0') & std_logic_vector(to_unsigned(COMPILE_REV, 8));
-					when "00011" => dout_reg <= (15 downto 7 => '0') & BOM_VER & HW_VER;
+					when "00011" => dout_reg <= (15 downto 8 => '0') & PWR_SRC & BOM_VER & HW_VER;
 					when others  => dout_reg <= mem(to_integer(unsigned(inst_reg(4 downto 0))));
 				end case;
 			end if;			      
