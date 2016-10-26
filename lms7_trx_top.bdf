@@ -6660,11 +6660,6 @@ agreement for further details.
 	(bus)
 )
 (connector
-	(text "clk_fpga2" (rect 922 680 996 694)(font "Arial" ))
-	(pt 912 696)
-	(pt 1024 696)
-)
-(connector
 	(text "fx3_clk" (rect 920 808 977 822)(font "Arial" ))
 	(pt 912 824)
 	(pt 1024 824)
@@ -6782,11 +6777,6 @@ agreement for further details.
 	(text "MCLK1TX" (rect 919 1008 976 1022)(font "Arial" ))
 	(pt 912 1024)
 	(pt 1024 1024)
-)
-(connector
-	(text "clk_fpga2" (rect 922 1040 996 1054)(font "Arial" ))
-	(pt 912 1056)
-	(pt 1024 1056)
 )
 (connector
 	(text "phcfg_updn" (rect 921 1104 1003 1118)(font "Arial" ))
@@ -7740,6 +7730,16 @@ agreement for further details.
 	(text "fx3_clk" (rect -672 3440 -615 3454)(font "Arial" ))
 	(pt -552 3456)
 	(pt -712 3456)
+)
+(connector
+	(text "LMK_CLK" (rect 922 680 979 694)(font "Arial" ))
+	(pt 912 696)
+	(pt 1024 696)
+)
+(connector
+	(text "LMK_CLK" (rect 922 1040 979 1054)(font "Arial" ))
+	(pt 912 1056)
+	(pt 1024 1056)
 )
 (junction (pt -256 4616))
 (junction (pt 248 4624))
