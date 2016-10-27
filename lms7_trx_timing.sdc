@@ -141,6 +141,18 @@ create_generated_clock 	-name LMS_DIQ2_LATCHCLK_PLL \
 								
 create_generated_clock -name LMS_DIQ2_LATCHCLK_DRCT -source [get_ports {LMS_MCLK2}] [get_pins {inst32|inst16|combout}] -add
 
+#NIOS spi
+create_generated_clock -name FPGA_SPI0_SCLK \
+								-source [get_ports FX3_PCLK] \
+								-divide_by 6 \
+								[get_registers nios_cpu:inst42|lms_ctr:u0|lms_ctr_spi_lms:spi_lms|SCLK_reg]
+								
+create_generated_clock -name FPGA_SPI1_SCLK \
+								-source [get_ports FX3_PCLK] \
+								-divide_by 6 \
+								[get_registers nios_cpu:inst42|lms_ctr:u0|lms_ctr_spi_1_ADF:spi_1_adf|SCLK_reg]								
+
+
 ################################################################################
 #Clock outputs
 ################################################################################
@@ -259,7 +271,9 @@ set_clock_groups -asynchronous 	-group {SI_CLK0} \
 											-group {BRDG_SPI_SCLK} \
 											-group {FX3_PCLK FX3_PCLK_VIRT} \
 											-group {LMS_MCLK1 TX_PLLCLK_C0 TX_PLLCLK_C1 LMS_DIQ1_LAUNCHCLK_PLL LMS_FCLK1_PLL} \
-											-group {LMS_MCLK2 LMS_FCLK2_CLK LMS_DIQ2_LAUNCH_CLK LMS_DIQ2_LATCH_CLK LMS_DIQ2_LATCHCLK_PLL}
+											-group {LMS_MCLK2 LMS_FCLK2_CLK LMS_DIQ2_LAUNCH_CLK LMS_DIQ2_LATCH_CLK LMS_DIQ2_LATCHCLK_PLL} \
+											-group {FPGA_SPI0_SCLK} \
+											-group {FPGA_SPI1_SCLK}
 											
 set_clock_groups	-exclusive 		-group {LMS_DIQ1_LAUNCHCLK_PLL LMS_FCLK1_PLL} \
 											-group {LMS_DIQ1_LAUNCHCLK_DRCT LMS_FCLK1_DRCT}	

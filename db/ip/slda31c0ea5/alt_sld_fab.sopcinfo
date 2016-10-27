@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="alt_sld_fab" kind="alt_sld_fab" version="1.0" fabric="QSYS">
  <!-- Format version 15.1 193 (Future versions may contain additional information.) -->
- <!-- 2016.10.26.14:42:11 -->
+ <!-- 2016.10.27.17:38:56 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_DEVICE_FAMILY">
   <type>java.lang.String</type>
