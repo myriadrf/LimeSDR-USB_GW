@@ -282,7 +282,19 @@ set_clock_groups	-exclusive 		-group {LMS_DIQ1_LAUNCHCLK_PLL LMS_FCLK1_PLL} \
 set_clock_groups	-exclusive 		-group {LMS_FCLK2_PLL LMS_DIQ2_LATCHCLK_PLL} \
 											-group {LMS_FCLK2_DRCT LMS_DIQ2_LATCHCLK_DRCT}
 											
-							
+################################################################################
+#NIOS constraints
+################################################################################
+# JTAG Signal Constraints constrain the TCK port											
+create_clock -period 10MHz {altera_reserved_tck}
+# Cut all paths to and from tck
+set_clock_groups -asynchronous -group {altera_reserved_tck}											
+# Constrain the TDI port
+set_input_delay -clock altera_reserved_tck -clock_fall .1 [get_ports altera_reserved_tdi]
+# Constrain the TMS port
+set_input_delay -clock altera_reserved_tck -clock_fall .1 [get_ports altera_reserved_tms]
+# Constrain the TDO port
+set_output_delay -clock altera_reserved_tck -clock_fall .1 [get_ports altera_reserved_tdo]							
 											
 
 ################################################################################
@@ -326,13 +338,23 @@ set_false_path -from * -to [get_ports FX3_LED*]
 set_false_path -from * -to [get_ports FPGA_GPIO*]
 set_false_path -from * -to [get_ports TX2_2_LB*]
 set_false_path -from * -to [get_ports TX1_2_LB*]
+set_false_path -from * -to [get_ports LMS_CORE_LDO_EN]
+set_false_path -from * -to [get_ports LMS_RXEN]
+set_false_path -from * -to [get_ports LMS_TXEN]
+set_false_path -from * -to [get_ports LMS_TXNRX1]
+set_false_path -from * -to [get_ports LMS_TXNRX2]
+set_false_path -from * -to [get_ports FPGA_I2C_SCL]
+set_false_path -from * -to [get_ports FPGA_I2C_SDA]
 
-set_false_path -from [get_ports EXT_GND*] 	-to *
-set_false_path -from [get_ports HW_VER*] 		-to *
-set_false_path -from [get_ports BOM_VER*] 	-to *
-set_false_path -from [get_ports ADF_MUXOUT*] -to *
-set_false_path -from [get_ports BRDG_SPI*] 	-to *
-set_false_path -from [get_ports FPGA_SPI0*] 	-to *
+set_false_path -from [get_ports EXT_GND*] 		-to *
+set_false_path -from [get_ports HW_VER*] 			-to *
+set_false_path -from [get_ports BOM_VER*] 		-to *
+set_false_path -from [get_ports ADF_MUXOUT*] 	-to *
+set_false_path -from [get_ports BRDG_SPI*] 		-to *
+set_false_path -from [get_ports FPGA_SPI0*] 		-to *
+set_false_path -from [get_ports PWR_SRC] 			-to *
+set_false_path -from [get_ports FPGA_I2C_SCL] 	-to *
+set_false_path -from [get_ports FPGA_I2C_SDA] 	-to *
 
 set_false_path -to [get_ports LMS_RESET*]
 set_false_path -to [get_ports FPGA_SPI0*]
@@ -343,5 +365,7 @@ set_false_path -to [get_ports FPGA_SPI1*]
 #allows it to be used as a clock for output delay analysis
 set_false_path -to [get_ports LMS_FCLK1]
 set_false_path -to [get_ports LMS_FCLK2]
+set_false_path -to [get_ports FPGA_SPI0_SCLK]
 set_false_path -to [get_ports FPGA_SPI1_SCLK]
+
 
