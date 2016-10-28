@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="$${FILENAME}">
+ <component
+   name="$${FILENAME}"
+   displayName="$${FILENAME}"
+   version="1.0"
+   description=""
+   tags="INTERNAL_COMPONENT=true"
+   categories="" />
+ <parameter name="bonusData"><![CDATA[bonusData 
+{
+   element $${FILENAME}
+   {
+   }
+   element mm_traffic_generator_0
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+}
+]]></parameter>
+ <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
+ <parameter name="device" value="EP4CE40F23C8" />
+ <parameter name="deviceFamily" value="Cyclone IV E" />
+ <parameter name="deviceSpeedGrade" value="8" />
+ <parameter name="fabricMode" value="QSYS" />
+ <parameter name="generateLegacySim" value="false" />
+ <parameter name="generationId" value="0" />
+ <parameter name="globalResetBus" value="false" />
+ <parameter name="hdlLanguage" value="VERILOG" />
+ <parameter name="hideFromIPCatalog" value="true" />
+ <parameter name="lockedInterfaceDefinition" value="" />
+ <parameter name="maxAdditionalLatency" value="1" />
+ <parameter name="projectName" value="" />
+ <parameter name="sopcBorderPoints" value="false" />
+ <parameter name="systemHash" value="0" />
+ <parameter name="testBenchDutName" value="" />
+ <parameter name="timeStamp" value="0" />
+ <parameter name="useTestBenchNamingPattern" value="false" />
+ <instanceScript></instanceScript>
+ <interface
+   name="avl"
+   internal="mm_traffic_generator_0.avl"
+   type="avalon"
+   dir="start">
+  <port name="avl_ready" internal="avl_ready" />
+  <port name="avl_addr" internal="avl_addr" />
+  <port name="avl_size" internal="avl_size" />
+  <port name="avl_wdata" internal="avl_wdata" />
+  <port name="avl_rdata" internal="avl_rdata" />
+  <port name="avl_write_req" internal="avl_write_req" />
+  <port name="avl_read_req" internal="avl_read_req" />
+  <port name="avl_rdata_valid" internal="avl_rdata_valid" />
+  <port name="avl_be" internal="avl_be" />
+  <port name="avl_burstbegin" internal="avl_burstbegin" />
+ </interface>
+ <interface
+   name="avl_clock"
+   internal="mm_traffic_generator_0.avl_clock"
+   type="clock"
+   dir="end">
+  <port name="clk" internal="clk" />
+ </interface>
+ <interface
+   name="avl_reset"
+   internal="mm_traffic_generator_0.avl_reset"
+   type="reset"
+   dir="end">
+  <port name="reset_n" internal="reset_n" />
+ </interface>
+ <interface
+   name="pnf"
+   internal="mm_traffic_generator_0.pnf"
+   type="conduit"
+   dir="end">
+  <port name="pnf_per_bit" internal="pnf_per_bit" />
+  <port name="pnf_per_bit_persist" internal="pnf_per_bit_persist" />
+ </interface>
+ <interface
+   name="status"
+   internal="mm_traffic_generator_0.status"
+   type="conduit"
+   dir="end">
+  <port name="pass" internal="pass" />
+  <port name="fail" internal="fail" />
+  <port name="test_complete" internal="test_complete" />
+ </interface>
+ <module
+   name="mm_traffic_generator_0"
+   kind="altera_avalon_mm_traffic_generator"
+   version="15.0"
+   enabled="1"
+   autoexport="1">
+  <parameter name="AUTO_DEVICE" value="EP4CE40F23C8" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="8" />
+  <parameter name="CUT_NEW_FAMILY_TIMING" value="true" />
+  <parameter name="DEVICE_FAMILY_PARAM" value="" />
+  <parameter name="DISABLE_CHILD_MESSAGING" value="false" />
+  <parameter name="ENABLE_CTRL_AVALON_INTERFACE" value="true" />
+  <parameter name="ENABLE_EMIT_BFM_MASTER" value="false" />
+  <parameter name="HARD_EMIF" value="false" />
+  <parameter name="HHP_HPS" value="false" />
+  <parameter name="HHP_HPS_SIMULATION" value="false" />
+  <parameter name="HHP_HPS_VERIFICATION" value="false" />
+  <parameter name="HPS_PROTOCOL" value="DEFAULT" />
+  <parameter name="IS_ES_DEVICE" value="false" />
+  <parameter name="PARSE_FRIENDLY_DEVICE_FAMILY_PARAM" value="" />
+  <parameter name="PARSE_FRIENDLY_DEVICE_FAMILY_PARAM_VALID" value="false" />
+  <parameter name="SPEED_GRADE" value="2" />
+  <parameter name="SYS_INFO_DEVICE_FAMILY" value="Cyclone IV E" />
+  <parameter name="TG_AVL_ADDR_WIDTH_IN" value="23" />
+  <parameter name="TG_AVL_DATA_WIDTH_IN" value="32" />
+  <parameter name="TG_AVL_MAX_SIZE" value="2" />
+  <parameter name="TG_AVL_SYMBOL_WIDTH" value="8" />
+  <parameter name="TG_BLOCK_RW_BLOCK_SIZE" value="8" />
+  <parameter name="TG_BLOCK_RW_RAND_ADDR_COUNT" value="8" />
+  <parameter name="TG_BLOCK_RW_RAND_SEQ_ADDR_COUNT" value="8" />
+  <parameter name="TG_BLOCK_RW_SEQ_ADDR_COUNT" value="8" />
+  <parameter name="TG_BURST_BEGIN" value="true" />
+  <parameter name="TG_BURST_ON_BURST_BOUNDARY" value="false" />
+  <parameter name="TG_BYTE_ENABLE" value="true" />
+  <parameter name="TG_DO_NOT_CROSS_4KB_BOUNDARY" value="false" />
+  <parameter name="TG_ENABLE_DRIVER_CSR_MASTER" value="false" />
+  <parameter name="TG_ENABLE_READ_COMPARE" value="true" />
+  <parameter name="TG_ENABLE_UNIX_ID" value="false" />
+  <parameter name="TG_GEN_BYTE_ADDR" value="true" />
+  <parameter name="TG_MAX_READ_LATENCY" value="20" />
+  <parameter name="TG_NUM_DRIVER_LOOP" value="1000" />
+  <parameter name="TG_PNF_ENABLE" value="true" />
+  <parameter name="TG_POWER_OF_TWO_BURSTS_ONLY" value="false" />
+  <parameter name="TG_POWER_OF_TWO_BUS" value="false" />
+  <parameter name="TG_RANDOM_BYTE_ENABLE" value="false" />
+  <parameter name="TG_RAND_ADDR_GEN_MIN_BURSTCOUNT" value="1" />
+  <parameter name="TG_RAND_SEQ_ADDR_GEN_MIN_BURSTCOUNT" value="1" />
+  <parameter name="TG_RAND_SEQ_ADDR_GEN_RAND_ADDR_PERCENT" value="50" />
+  <parameter name="TG_SEQ_ADDR_GEN_MIN_BURSTCOUNT" value="1" />
+  <parameter name="TG_SINGLE_RW_RAND_ADDR_COUNT" value="32" />
+  <parameter name="TG_SINGLE_RW_RAND_SEQ_ADDR_COUNT" value="32" />
+  <parameter name="TG_SINGLE_RW_SEQ_ADDR_COUNT" value="32" />
+  <parameter name="TG_SOPC_COMPAT_RESET" value="false" />
+  <parameter name="TG_TEMPLATE_STAGE_COUNT" value="4" />
+  <parameter name="TG_TIMEOUT_COUNTER_WIDTH" value="32" />
+  <parameter name="TG_TWO_AVL_INTERFACES" value="false" />
+  <parameter name="TG_USE_LITE_DRIVER" value="false" />
+  <parameter name="TG_USE_UNIX_ID" value="0" />
+ </module>
+ <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
+ <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
+ <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
+ <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
+</system>

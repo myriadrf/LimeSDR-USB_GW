@@ -34,8 +34,8 @@ agreement for further details.
 	(port
 		(pt 0 48)
 		(input)
-		(text "exfifo_if_d[7..0]" (rect 0 0 63 12)(font "Arial" ))
-		(text "exfifo_if_d[7..0]" (rect 21 43 84 55)(font "Arial" ))
+		(text "exfifo_if_d[31..0]" (rect 0 0 67 12)(font "Arial" ))
+		(text "exfifo_if_d[31..0]" (rect 21 43 88 55)(font "Arial" ))
 		(line (pt 0 48)(pt 16 48)(line_width 3))
 	)
 	(port
@@ -76,8 +76,8 @@ agreement for further details.
 	(port
 		(pt 256 48)
 		(output)
-		(text "exfifo_of_d[7..0]" (rect 0 0 67 12)(font "Arial" ))
-		(text "exfifo_of_d[7..0]" (rect 168 43 235 55)(font "Arial" ))
+		(text "exfifo_of_d[31..0]" (rect 0 0 70 12)(font "Arial" ))
+		(text "exfifo_of_d[31..0]" (rect 165 43 235 55)(font "Arial" ))
 		(line (pt 256 48)(pt 240 48)(line_width 3))
 	)
 	(port

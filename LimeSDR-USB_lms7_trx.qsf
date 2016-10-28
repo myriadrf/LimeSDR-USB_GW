@@ -705,13 +705,11 @@ set_global_assignment -name VHDL_FILE src/spi/pllcfg.vhd
 set_global_assignment -name VHDL_FILE src/rx_modules/fifo_inst.vhd
 set_global_assignment -name VHDL_FILE src/testing/pkt_tester.vhd
 set_global_assignment -name BDF_FILE symbols/LTE_tx_path.bdf
-set_global_assignment -name BDF_FILE symbols/FX3_slave.bdf
 set_global_assignment -name VHDL_FILE src/general/my_busmux.vhd
 set_global_assignment -name VHDL_FILE src/testing/test_data_dd.vhd
 set_global_assignment -name VHDL_FILE src/rx_packets/rx_pct_data_v2.vhd
 set_global_assignment -name VHDL_FILE src/rx_packets/compress_v2.vhd
 set_global_assignment -name BDF_FILE symbols/LTE_rx_path.bdf
-set_global_assignment -name VHDL_FILE src/fx3/FX3_slaveFIFO2a_16bus.vhd
 set_global_assignment -name VHDL_FILE src/reg_phase_shift/simple_reg.vhd
 set_global_assignment -name VHDL_FILE src/reg_phase_shift/phase_shift.vhd
 set_global_assignment -name QIP_FILE ip/pll_reconfig_module/pll_reconfig_module.qip
