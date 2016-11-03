@@ -20,7 +20,9 @@ entity diq2_samples is
 				);
   port (
       --input ports 
-      clk				: in std_logic;
+      clk_iopll		: in std_logic;
+		clk_iodirect	: in std_logic;
+		clk				: in std_logic;
       reset_n			: in std_logic;
 		en					: in std_logic;
 		--data in ports
@@ -47,7 +49,8 @@ end diq2_samples;
 architecture arch of diq2_samples is
 --declare signals,  components here
 --signals from lms7002_ddin module
-signal ddin_data_out_h, ddin_data_out_l : std_logic_vector (diq_width downto 0);
+signal inst1_data_out_h, inst1_data_out_l : std_logic_vector (diq_width downto 0);
+signal inst2_data_out_h, inst2_data_out_l : std_logic_vector (diq_width downto 0);
 
 --signals from test_data_dd module
 signal test_data_h, test_data_l : std_logic_vector (diq_width downto 0);
@@ -60,18 +63,24 @@ signal en_reg, en_synch	: std_logic;
 
 signal rstn_with_synch_en	: std_logic;
 	
-COMPONENT lms7002_ddin
-GENERIC (dev_family 	: STRING;
-			iq_width 	: INTEGER
-			);
-	PORT(clk 		: IN STD_LOGIC;
-		 reset_n 	: IN STD_LOGIC;
-		 rxiqsel	 	: IN STD_LOGIC;
-		 rxiq 		: IN STD_LOGIC_VECTOR(iq_width-1 DOWNTO 0);
-		 data_out_h : OUT STD_LOGIC_VECTOR(iq_width DOWNTO 0);
-		 data_out_l : OUT STD_LOGIC_VECTOR(iq_width DOWNTO 0)
-	);
-END COMPONENT;
+COMPONENT diq2_sampling is
+	GENERIC (dev_family		: string		:= "Cyclone IV E";
+				diq_width 		: integer 	:= 12;
+				fifo_size		: integer 	:= 12;
+				invert_ddio_clk: string 	:= "ON"
+				);
+	port (
+		clk_io       	: in std_logic;
+		clk_int			: in std_logic;
+		reset_n   		: in std_logic;
+		--data in ports
+		rxiq				: in std_logic_vector(diq_width-1 downto 0);
+		rxiqsel			: in std_logic;
+		data_out_h 		: OUT STD_LOGIC_VECTOR(diq_width DOWNTO 0);
+		data_out_l 		: OUT STD_LOGIC_VECTOR(diq_width DOWNTO 0)
+
+        );
+end COMPONENT;
 
 COMPONENT test_data_dd is
   PORT (
@@ -105,29 +114,46 @@ begin
 
 
 -- ----------------------------------------------------------------------------
--- Component instances
+-- DDRIO to sample data from PLL clk
 -- ----------------------------------------------------------------------------
-lms7002_ddin_inst : lms7002_ddin
-GENERIC MAP(dev_family 	=> dev_family,
-				iq_width 	=> diq_width
+lms7002_ddin_inst1 : diq2_sampling
+GENERIC MAP(dev_family 			=> dev_family,
+				diq_width 			=> diq_width,
+				fifo_size			=> 9,
+				invert_ddio_clk	=> "ON"
 			)
-PORT MAP(clk 		=> clk,
-		 reset_n 	=> rstn_with_synch_en,
-		 rxiqsel 	=> rxiqsel,
-		 rxiq 		=> rxiq,
-		 data_out_h => ddin_data_out_h,
-		 data_out_l => ddin_data_out_l);
+PORT MAP(
+		clk_io 		=> clk_iopll,
+		clk_int		=> clk,
+		reset_n 		=> reset_n,
+		rxiqsel 		=> rxiqsel,
+		rxiq 			=> rxiq,
+		data_out_h 	=> inst1_data_out_h,
+		data_out_l	=> inst1_data_out_l
+		);
+		
+-- ----------------------------------------------------------------------------
+-- DDRIO to sample data from direct clk
+-- ----------------------------------------------------------------------------
+lms7002_ddin_inst2 : diq2_sampling
+GENERIC MAP(dev_family 			=> dev_family,
+				diq_width 			=> diq_width,
+				fifo_size			=> 9,
+				invert_ddio_clk	=> "OFF"
+			)
+PORT MAP(
+		clk_io 		=> clk_iodirect,
+		clk_int		=> clk,
+		reset_n 		=> reset_n,
+		rxiqsel 		=> rxiqsel,
+		rxiq 			=> rxiq,
+		data_out_h 	=> inst2_data_out_h,
+		data_out_l	=> inst2_data_out_l
+		);		
 
-test_data_dd_inst : test_data_dd
-PORT MAP(clk 		=> clk,
-		 reset_n 	=> rstn_with_synch_en,
-		 fr_start 	=> fr_start,
-		 mimo_en		=> mimo_en,
-		 data_h 		=> test_data_h,
-		 data_l 		=> test_data_l);
 
-mux_data_h <= ddin_data_out_h when data_src='0' else test_data_h;
-mux_data_l <= ddin_data_out_l when data_src='0' else test_data_l;
+mux_data_h <= inst1_data_out_h when data_src='0' else inst2_data_out_h;
+mux_data_l <= inst1_data_out_l when data_src='0' else inst2_data_out_l;
 
 
 wr_rx_fifo_v3_inst : wr_rx_fifo_v3

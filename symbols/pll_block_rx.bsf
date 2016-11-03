@@ -143,6 +143,13 @@ agreement for further details.
 		(text "cfg_busy" (rect 296 91 371 107)(font "Arial" (font_size 8)))
 		(line (pt 392 96)(pt 376 96))
 	)
+	(port
+		(pt 392 112)
+		(output)
+		(text "pll_inclk0_dly" (rect 0 0 132 16)(font "Arial" (font_size 8)))
+		(text "pll_inclk0_dly" (rect 239 107 371 123)(font "Arial" (font_size 8)))
+		(line (pt 392 112)(pt 376 112))
+	)
 	(drawing
 		(rectangle (rect 16 16 376 240))
 	)
