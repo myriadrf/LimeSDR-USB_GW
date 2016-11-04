@@ -3,6 +3,8 @@
 #include "i2c_opencores_regs.h"
 #include "i2c_opencores.h"
 
+#define MAX_RETRIES 1000
+
 // #define I2C_DEBUG
 //int I2C_init(alt_u32 base,alt_u32 clk, alt_u32 speed)
 //int I2C_start(alt_u32 base, alt_u32 add, alt_u32 write);
@@ -58,6 +60,7 @@ return value
 *****************************************************************/
 int I2C_start(alt_u32 base, alt_u32 add, alt_u32 read)
 {
+	int retries = 0;
 #ifdef  I2C_DEBUG
         printf(" Start  I2C at 0x%x, \n\twith address 0x%x \n\tand read 0x%x \n\tand prescale 0x%x\n",base,add,read);
 #endif
@@ -69,10 +72,10 @@ int I2C_start(alt_u32 base, alt_u32 add, alt_u32 read)
   IOWR_I2C_OPENCORES_CR(base, I2C_OPENCORES_CR_STA_MSK | I2C_OPENCORES_CR_WR_MSK );
 
           /* wait for the trnasaction to be over.*/
-  while( IORD_I2C_OPENCORES_SR(base) & I2C_OPENCORES_SR_TIP_MSK);
+  while( (IORD_I2C_OPENCORES_SR(base) & I2C_OPENCORES_SR_TIP_MSK) && (retries++ < MAX_RETRIES));
 
          /* now check to see if the address was acknowledged */
-   if(IORD_I2C_OPENCORES_SR(base) & I2C_OPENCORES_SR_RXNACK_MSK)
+   if((IORD_I2C_OPENCORES_SR(base) & I2C_OPENCORES_SR_RXNACK_MSK) || retries >= MAX_RETRIES)
    {
 #ifdef  I2C_DEBUG
         printf("\tNOACK\n");
@@ -104,6 +107,7 @@ return value
 *****************************************************************/
 alt_u32 I2C_read(alt_u32 base,alt_u32 last)
 {
+	int retries = 0;
 #ifdef  I2C_DEBUG
         printf(" Read I2C at 0x%x, \n\twith last0x%x\n",base,last);
 #endif
@@ -119,7 +123,7 @@ alt_u32 I2C_read(alt_u32 base,alt_u32 last)
           IOWR_I2C_OPENCORES_CR(base, I2C_OPENCORES_CR_RD_MSK );
   }
           /* wait for the trnasaction to be over.*/
-  while( IORD_I2C_OPENCORES_SR(base) & I2C_OPENCORES_SR_TIP_MSK);
+  while( (IORD_I2C_OPENCORES_SR(base) & I2C_OPENCORES_SR_TIP_MSK) && (retries++ < MAX_RETRIES));
 
          /* now read the data */
         return (IORD_I2C_OPENCORES_RXR(base));
@@ -144,6 +148,7 @@ return value
 *****************************************************************/
 alt_u32 I2C_write(alt_u32 base,alt_u8 data, alt_u32 last)
 {
+	int retries = 0;
   #ifdef  I2C_DEBUG
         printf(" Read I2C at 0x%x, \n\twith data 0x%x,\n\twith last0x%x\n",base,data,last);
 #endif
@@ -162,7 +167,7 @@ alt_u32 I2C_write(alt_u32 base,alt_u8 data, alt_u32 last)
           IOWR_I2C_OPENCORES_CR(base, I2C_OPENCORES_CR_WR_MSK );
   }
            /* wait for the trnasaction to be over.*/
-  while( IORD_I2C_OPENCORES_SR(base) & I2C_OPENCORES_SR_TIP_MSK);
+  while( (IORD_I2C_OPENCORES_SR(base) & I2C_OPENCORES_SR_TIP_MSK) && (retries++ < MAX_RETRIES));
 
          /* now check to see if the address was acknowledged */
    if(IORD_I2C_OPENCORES_SR(base) & I2C_OPENCORES_SR_RXNACK_MSK)
