@@ -4,14 +4,14 @@ editor if you plan to continue editing the block that represents it in
 the Block Editor! File corruption is VERY likely to occur.
 */
 /*
-Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
+Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
 Your use of Altera Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
 to the terms and conditions of the Altera Program License 
-Subscription Agreement, the Altera Quartus II License Agreement,
+Subscription Agreement, the Altera Quartus Prime License Agreement,
 the Altera MegaCore Function License Agreement, or other 
 applicable license agreement, including, without limitation, 
 that your use is for the sole purpose of programming logic 
@@ -22,112 +22,112 @@ agreement for further details.
 (header "symbol" (version "1.2"))
 (symbol
 	(rect 0 0 384 248)
-	(text "txpll" (rect 180 0 208 16)(font "Arial" (font_size 10)))
-	(text "inst" (rect 8 232 25 244)(font "Arial" ))
+	(text "txpll" (rect 180 0 244 18)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 230 41 244)(font "Arial" ))
 	(port
 		(pt 0 64)
 		(input)
-		(text "inclk0" (rect 0 0 31 14)(font "Arial" (font_size 8)))
+		(text "inclk0" (rect 0 0 56 16)(font "Arial" (font_size 8)))
 		(text "inclk0" (rect 4 50 29 63)(font "Arial" (font_size 8)))
 		(line (pt 0 64)(pt 120 64))
 	)
 	(port
 		(pt 0 80)
 		(input)
-		(text "areset" (rect 0 0 36 14)(font "Arial" (font_size 8)))
+		(text "areset" (rect 0 0 56 16)(font "Arial" (font_size 8)))
 		(text "areset" (rect 4 66 33 79)(font "Arial" (font_size 8)))
 		(line (pt 0 80)(pt 120 80))
 	)
 	(port
 		(pt 0 96)
 		(input)
-		(text "pfdena" (rect 0 0 40 14)(font "Arial" (font_size 8)))
+		(text "pfdena" (rect 0 0 56 16)(font "Arial" (font_size 8)))
 		(text "pfdena" (rect 4 82 36 95)(font "Arial" (font_size 8)))
 		(line (pt 0 96)(pt 120 96))
 	)
 	(port
 		(pt 0 112)
 		(input)
-		(text "scanclk" (rect 0 0 43 14)(font "Arial" (font_size 8)))
+		(text "scanclk" (rect 0 0 66 16)(font "Arial" (font_size 8)))
 		(text "scanclk" (rect 4 98 39 111)(font "Arial" (font_size 8)))
 		(line (pt 0 112)(pt 120 112))
 	)
 	(port
 		(pt 0 128)
 		(input)
-		(text "scandata" (rect 0 0 53 14)(font "Arial" (font_size 8)))
+		(text "scandata" (rect 0 0 75 16)(font "Arial" (font_size 8)))
 		(text "scandata" (rect 4 114 47 127)(font "Arial" (font_size 8)))
 		(line (pt 0 128)(pt 120 128))
 	)
 	(port
 		(pt 0 144)
 		(input)
-		(text "scanclkena" (rect 0 0 64 14)(font "Arial" (font_size 8)))
+		(text "scanclkena" (rect 0 0 94 16)(font "Arial" (font_size 8)))
 		(text "scanclkena" (rect 4 130 57 143)(font "Arial" (font_size 8)))
 		(line (pt 0 144)(pt 120 144))
 	)
 	(port
 		(pt 0 160)
 		(input)
-		(text "configupdate" (rect 0 0 74 14)(font "Arial" (font_size 8)))
+		(text "configupdate" (rect 0 0 113 16)(font "Arial" (font_size 8)))
 		(text "configupdate" (rect 4 146 65 159)(font "Arial" (font_size 8)))
 		(line (pt 0 160)(pt 120 160))
 	)
 	(port
 		(pt 0 176)
 		(input)
-		(text "phasecounterselect[2..0]" (rect 0 0 141 14)(font "Arial" (font_size 8)))
+		(text "phasecounterselect[2..0]" (rect 0 0 226 16)(font "Arial" (font_size 8)))
 		(text "phasecounterselect[2..0]" (rect 4 162 122 175)(font "Arial" (font_size 8)))
 		(line (pt 0 176)(pt 120 176)(line_width 3))
 	)
 	(port
 		(pt 0 192)
 		(input)
-		(text "phaseupdown" (rect 0 0 82 14)(font "Arial" (font_size 8)))
+		(text "phaseupdown" (rect 0 0 103 16)(font "Arial" (font_size 8)))
 		(text "phaseupdown" (rect 4 178 72 191)(font "Arial" (font_size 8)))
 		(line (pt 0 192)(pt 120 192))
 	)
 	(port
 		(pt 0 208)
 		(input)
-		(text "phasestep" (rect 0 0 60 14)(font "Arial" (font_size 8)))
+		(text "phasestep" (rect 0 0 84 16)(font "Arial" (font_size 8)))
 		(text "phasestep" (rect 4 194 53 207)(font "Arial" (font_size 8)))
 		(line (pt 0 208)(pt 120 208))
 	)
 	(port
 		(pt 384 64)
 		(output)
-		(text "c0" (rect 0 0 14 14)(font "Arial" (font_size 8)))
+		(text "c0" (rect 0 0 18 16)(font "Arial" (font_size 8)))
 		(text "c0" (rect 368 50 378 63)(font "Arial" (font_size 8)))
 	)
 	(port
 		(pt 384 80)
 		(output)
-		(text "c1" (rect 0 0 14 14)(font "Arial" (font_size 8)))
+		(text "c1" (rect 0 0 18 16)(font "Arial" (font_size 8)))
 		(text "c1" (rect 368 66 376 79)(font "Arial" (font_size 8)))
 	)
 	(port
 		(pt 384 96)
 		(output)
-		(text "scandataout" (rect 0 0 70 14)(font "Arial" (font_size 8)))
+		(text "scandataout" (rect 0 0 103 16)(font "Arial" (font_size 8)))
 		(text "scandataout" (rect 320 82 378 95)(font "Arial" (font_size 8)))
 	)
 	(port
 		(pt 384 112)
 		(output)
-		(text "scandone" (rect 0 0 56 14)(font "Arial" (font_size 8)))
+		(text "scandone" (rect 0 0 75 16)(font "Arial" (font_size 8)))
 		(text "scandone" (rect 332 98 378 111)(font "Arial" (font_size 8)))
 	)
 	(port
 		(pt 384 128)
 		(output)
-		(text "phasedone" (rect 0 0 63 14)(font "Arial" (font_size 8)))
+		(text "phasedone" (rect 0 0 84 16)(font "Arial" (font_size 8)))
 		(text "phasedone" (rect 326 114 378 127)(font "Arial" (font_size 8)))
 	)
 	(port
 		(pt 384 144)
 		(output)
-		(text "locked" (rect 0 0 36 14)(font "Arial" (font_size 8)))
+		(text "locked" (rect 0 0 56 16)(font "Arial" (font_size 8)))
 		(text "locked" (rect 349 130 378 143)(font "Arial" (font_size 8)))
 	)
 	(drawing

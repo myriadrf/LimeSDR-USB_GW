@@ -16,8 +16,9 @@ USE altera_mf.altera_mf_components.all;
 -- Entity declaration
 -- ----------------------------------------------------------------------------
 entity lms7002_ddin is
-	generic( dev_family	: string := "Cyclone IV E";
-				iq_width		: integer :=12
+	generic( dev_family				: string := "Cyclone IV E";
+				iq_width					: integer :=12;
+				invert_input_clocks	: string := "ON"
 	);
 	port (
       --input ports 
@@ -49,7 +50,7 @@ aclr<=not reset_n;
 	ALTDDIO_IN_component : ALTDDIO_IN
 	GENERIC MAP (
 		intended_device_family 	=> dev_family,
-		invert_input_clocks 		=> "ON",
+		invert_input_clocks 		=> invert_input_clocks,
 		lpm_hint 					=> "UNUSED",
 		lpm_type 					=> "altddio_in",
 		power_up_high 				=> "OFF",

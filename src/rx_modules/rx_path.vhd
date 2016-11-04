@@ -20,7 +20,9 @@ generic(
 		outfifo_size 	: INTEGER := 13
 		);
   port (
-      --input ports 
+      --input ports
+		clk_iopll			: in std_logic;
+		clk_iodirect		: in std_logic;
 		clk       			: in std_logic;
       reset_n   			: in std_logic;
 		en						: in std_logic;
@@ -80,7 +82,9 @@ component diq2_samples is
 				fifo_wrsize		: integer 	:= 12
 				);
   port (
-      --input ports 
+      --input ports
+		clk_iopll		: in std_logic;
+		clk_iodirect	: in std_logic;	
       clk				: in std_logic;
       reset_n			: in std_logic;
 		en					: in std_logic;
@@ -189,6 +193,8 @@ GENERIC MAP(
 			fifo_wrsize => infifo_wrsize
 			)
 PORT MAP(
+		clk_iopll		=> clk_iopll,
+		clk_iodirect	=> clk_iodirect,
 		clk				=> clk,
 		reset_n			=> rstn_with_synch_en,
 		en					=> rstn_with_synch_en,

@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------------
 #
-# ALTMEMPHY v15.0 DDR2 SDRAM pin constraints script for ddr2
+# ALTMEMPHY v15.1 DDR2 SDRAM pin constraints script for ddr2
 #
 # Please run this script before compiling your design
 #
@@ -21,7 +21,7 @@ set instance_name ""
 
 # This is the prefix for all pin names. Change it if you wish to choose
 # a prefix other than mem_
-if {![info exists pin_prefix]} {set pin_prefix "DDR2_2_"}
+if {![info exists pin_prefix]} {set pin_prefix "mem_"}
 
 
 # In SOPC builder, the pin names will be expanded as follow:

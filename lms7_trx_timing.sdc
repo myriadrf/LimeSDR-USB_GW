@@ -14,8 +14,8 @@ set tPD_stripline 		.1803
 set MCLK2_period		6.25
 set MCLK1_period  	6.25
 	#Setup and hold times from datasheet
-set LMS7_Tsu	1
-set LMS7_Th		.2
+set LMS7_Tsu	1 
+set LMS7_Th		.3
 	#Board parameters			
 #Trace lenght in inches
 set max_diq2_length 		1.509 
@@ -28,17 +28,14 @@ set min_diq2_data_delay [expr $min_diq2_length * $tPD_stripline]
 set max_mclk2_delay		[expr $mclk2_length * $tPD_stripline]
 set min_mclk2_delay		[expr $mclk2_length * $tPD_stripline]
 	#Calculated expresions
-set LMS_DIQ2_max_dly [expr $max_diq2_data_delay + $MCLK2_period/2 - $LMS7_Tsu - $min_mclk2_delay]
-set LMS_DIQ2_min_dly [expr $min_diq2_data_delay + $LMS7_Th - $min_mclk2_delay]
+set LMS_DIQ2_max_dly [expr $max_diq2_data_delay + $LMS7_Tsu - $min_mclk2_delay]
+set LMS_DIQ2_min_dly [expr $min_diq2_data_delay + $LMS7_Th  - $min_mclk2_delay]
 
 
 set LMS7_UI 			[expr $MCLK1_period/2]
 set LMS7_CLK_OFFSET	[expr $LMS7_UI/2]
 set LMS7_DIQ1_SKEW	0.1
 
-
-#set LMS7_DIQ1_max_dly	[expr $LMS7_CLK_OFFSET - $LMS7_DIQ1_SKEW]
-#set LMS7_DIQ1_min_dly	[expr -$LMS7_UI + $LMS7_CLK_OFFSET + $LMS7_DIQ1_SKEW]
 set LMS7_DIQ1_max_dly	[expr $LMS7_Tsu*2]
 set LMS7_DIQ1_min_dly	[expr -$LMS7_Th*2]
 
@@ -121,25 +118,26 @@ create_generated_clock 	-name LMS_DIQ1_LAUNCHCLK_PLL \
 							
 create_generated_clock -name LMS_DIQ1_LAUNCHCLK_DRCT \
 								-source [get_ports {LMS_MCLK1}] [get_pins {inst33|inst16|combout}] -add
-								
-								
-								
-								
-								
+															
 #RX PLL
-create_generated_clock -name LMS_FCLK2_CLK \
+create_generated_clock -name RX_PLLCLK_C0 \
 								-source [get_pins inst32|inst35|altpll_component|auto_generated|pll1|inclk[0]] \
 								-phase 0 [get_pins inst32|inst35|altpll_component|auto_generated|pll1|clk[0]]
-create_generated_clock -name LMS_DIQ2_LATCH_CLK \
+create_generated_clock -name RX_PLLCLK_C1 \
 								-source [get_pins inst32|inst35|altpll_component|auto_generated|pll1|inclk[0]] \
 								-phase 90 [get_pins inst32|inst35|altpll_component|auto_generated|pll1|clk[1]]
+
+#NIOS spi
+create_generated_clock -name FPGA_SPI0_SCLK \
+								-source [get_ports FX3_PCLK] \
+								-divide_by 6 \
+								[get_registers nios_cpu:inst42|lms_ctr:u0|lms_ctr_spi_lms:spi_lms|SCLK_reg]
 								
-#LMS7 DIQ2 interface latch clock mux								
-create_generated_clock 	-name LMS_DIQ2_LATCHCLK_PLL \
-								-source [get_pins {inst32|inst35|altpll_component|auto_generated|pll1|clk[1]}] \
-								[get_pins {inst32|inst16|combout}]
-								
-create_generated_clock -name LMS_DIQ2_LATCHCLK_DRCT -source [get_ports {LMS_MCLK2}] [get_pins {inst32|inst16|combout}] -add
+create_generated_clock -name FPGA_SPI1_SCLK \
+								-source [get_ports FX3_PCLK] \
+								-divide_by 6 \
+								[get_registers nios_cpu:inst42|lms_ctr:u0|lms_ctr_spi_1_ADF:spi_1_adf|SCLK_reg]								
+
 
 ################################################################################
 #Clock outputs
@@ -154,17 +152,13 @@ create_generated_clock 	-name LMS_FCLK1_DRCT \
 								-master [get_clocks {LMS_MCLK1}] \
 								-source [get_pins {inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout}] \
 								[get_ports {LMS_FCLK1}]	-add								
-
-#LMS_FCLK2 clock mux								
-create_generated_clock 	-name LMS_FCLK2_PLL \
+								
+#LMS_FCLK2 clock 							
+create_generated_clock 	-name LMS_FCLK2 \
 								-source [get_pins {inst32|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout}] \
-								-master [get_clocks {LMS_FCLK2_CLK}] \
 								[get_ports {LMS_FCLK2}]
 
-create_generated_clock 	-name LMS_FCLK2_DRCT \
-								-source [get_pins {inst32|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout}] \
-								-master [get_clocks {LMS_MCLK2}] \
-								[get_ports {LMS_FCLK2}] -add					
+								
 
 ################################################################################
 #Other clock constraints
@@ -191,8 +185,8 @@ set_input_delay	-min $LMS_DIQ2_min_dly \
 						-clock_fall [get_ports {LMS_DIQ2*}] -add_delay
 						
 #FX3
-set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -max $FX3_ctl_in_max_dly [get_ports {FX3_CTL4 FX3_CTL5 FX3_CTL6 FX3_CTL8}]
-set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -min $FX3_ctl_in_min_dly [get_ports {FX3_CTL4 FX3_CTL5 FX3_CTL6 FX3_CTL8}]
+set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -max $FX3_ctl_in_max_dly [get_ports {FX3_CTL4 FX3_CTL5 FX3_CTL8}]
+set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -min $FX3_ctl_in_min_dly [get_ports {FX3_CTL4 FX3_CTL5 FX3_CTL8}]
 
 set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -max $FX3_d_in_max_dly [get_ports {FX3_DQ*}]
 set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -min $FX3_d_in_min_dly [get_ports {FX3_DQ*}]						
@@ -259,16 +253,27 @@ set_clock_groups -asynchronous 	-group {SI_CLK0} \
 											-group {BRDG_SPI_SCLK} \
 											-group {FX3_PCLK FX3_PCLK_VIRT} \
 											-group {LMS_MCLK1 TX_PLLCLK_C0 TX_PLLCLK_C1 LMS_DIQ1_LAUNCHCLK_PLL LMS_FCLK1_PLL} \
-											-group {LMS_MCLK2 LMS_FCLK2_CLK LMS_DIQ2_LAUNCH_CLK LMS_DIQ2_LATCH_CLK LMS_DIQ2_LATCHCLK_PLL}
+											-group {LMS_MCLK2 LMS_FCLK2 RX_PLLCLK_C0 RX_PLLCLK_C1} \
+											-group {FPGA_SPI0_SCLK} \
+											-group {FPGA_SPI1_SCLK}
 											
 set_clock_groups	-exclusive 		-group {LMS_DIQ1_LAUNCHCLK_PLL LMS_FCLK1_PLL} \
 											-group {LMS_DIQ1_LAUNCHCLK_DRCT LMS_FCLK1_DRCT}	
 
 											
-set_clock_groups	-exclusive 		-group {LMS_FCLK2_PLL LMS_DIQ2_LATCHCLK_PLL} \
-											-group {LMS_FCLK2_DRCT LMS_DIQ2_LATCHCLK_DRCT}
-											
-							
+################################################################################
+#NIOS constraints
+################################################################################
+# JTAG Signal Constraints constrain the TCK port											
+create_clock -period 10MHz {altera_reserved_tck}
+# Cut all paths to and from tck
+set_clock_groups -asynchronous -group {altera_reserved_tck}											
+# Constrain the TDI port
+set_input_delay -clock altera_reserved_tck -clock_fall .1 [get_ports altera_reserved_tdi]
+# Constrain the TMS port
+set_input_delay -clock altera_reserved_tck -clock_fall .1 [get_ports altera_reserved_tms]
+# Constrain the TDO port
+set_output_delay -clock altera_reserved_tck -clock_fall .1 [get_ports altera_reserved_tdo]							
 											
 
 ################################################################################
@@ -298,13 +303,13 @@ set_false_path -hold 	-fall_from 	[get_clocks LMS_DIQ1_LAUNCHCLK_DRCT] -rise_to 
 
 #Between Center aligned different edge transfers in DIQ2 interface
 set_false_path -setup 	-rise_from 	[get_clocks LMS_DIQ2_LAUNCH_CLK] -fall_to \
-												[get_clocks LMS_DIQ2_LATCH_CLK]
+												[get_clocks RX_PLLCLK_C1]
 set_false_path -setup 	-fall_from 	[get_clocks LMS_DIQ2_LAUNCH_CLK] -rise_to \
-												[get_clocks LMS_DIQ2_LATCH_CLK]
+												[get_clocks RX_PLLCLK_C1]
 set_false_path -hold 	-rise_from 	[get_clocks LMS_DIQ2_LAUNCH_CLK] -rise_to \
-												[get_clocks LMS_DIQ2_LATCH_CLK]
+												[get_clocks RX_PLLCLK_C1]
 set_false_path -hold 	-fall_from 	[get_clocks LMS_DIQ2_LAUNCH_CLK] -fall_to \
-												[get_clocks LMS_DIQ2_LATCH_CLK]											
+												[get_clocks RX_PLLCLK_C1]											
 	
 #set false paths between low speed signals
 set_false_path -from * -to [get_ports FPGA_LED*]
@@ -312,13 +317,23 @@ set_false_path -from * -to [get_ports FX3_LED*]
 set_false_path -from * -to [get_ports FPGA_GPIO*]
 set_false_path -from * -to [get_ports TX2_2_LB*]
 set_false_path -from * -to [get_ports TX1_2_LB*]
+set_false_path -from * -to [get_ports LMS_CORE_LDO_EN]
+set_false_path -from * -to [get_ports LMS_RXEN]
+set_false_path -from * -to [get_ports LMS_TXEN]
+set_false_path -from * -to [get_ports LMS_TXNRX1]
+set_false_path -from * -to [get_ports LMS_TXNRX2]
+set_false_path -from * -to [get_ports FPGA_I2C_SCL]
+set_false_path -from * -to [get_ports FPGA_I2C_SDA]
 
-set_false_path -from [get_ports EXT_GND*] 	-to *
-set_false_path -from [get_ports HW_VER*] 		-to *
-set_false_path -from [get_ports BOM_VER*] 	-to *
-set_false_path -from [get_ports ADF_MUXOUT*] -to *
-set_false_path -from [get_ports BRDG_SPI*] 	-to *
-set_false_path -from [get_ports FPGA_SPI0*] 	-to *
+set_false_path -from [get_ports EXT_GND*] 		-to *
+set_false_path -from [get_ports HW_VER*] 			-to *
+set_false_path -from [get_ports BOM_VER*] 		-to *
+set_false_path -from [get_ports ADF_MUXOUT*] 	-to *
+set_false_path -from [get_ports BRDG_SPI*] 		-to *
+set_false_path -from [get_ports FPGA_SPI0*] 		-to *
+set_false_path -from [get_ports PWR_SRC] 			-to *
+set_false_path -from [get_ports FPGA_I2C_SCL] 	-to *
+set_false_path -from [get_ports FPGA_I2C_SDA] 	-to *
 
 set_false_path -to [get_ports LMS_RESET*]
 set_false_path -to [get_ports FPGA_SPI0*]
@@ -329,5 +344,7 @@ set_false_path -to [get_ports FPGA_SPI1*]
 #allows it to be used as a clock for output delay analysis
 set_false_path -to [get_ports LMS_FCLK1]
 set_false_path -to [get_ports LMS_FCLK2]
+set_false_path -to [get_ports FPGA_SPI0_SCLK]
 set_false_path -to [get_ports FPGA_SPI1_SCLK]
+
 

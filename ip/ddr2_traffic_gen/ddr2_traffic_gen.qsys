@@ -6,12 +6,9 @@
    version="1.0"
    description=""
    tags="INTERNAL_COMPONENT=true"
-   categories="" />
+   categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element $${FILENAME}
-   {
-   }
    element mm_traffic_generator_0
    {
       datum _sortIndex
@@ -91,7 +88,7 @@
  <module
    name="mm_traffic_generator_0"
    kind="altera_avalon_mm_traffic_generator"
-   version="15.0"
+   version="15.1"
    enabled="1"
    autoexport="1">
   <parameter name="AUTO_DEVICE" value="EP4CE40F23C8" />

@@ -4,14 +4,14 @@ editor if you plan to continue editing the block that represents it in
 the Block Editor! File corruption is VERY likely to occur.
 */
 /*
-Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
+Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
 Your use of Altera Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
 to the terms and conditions of the Altera Program License 
-Subscription Agreement, the Altera Quartus II License Agreement,
+Subscription Agreement, the Altera Quartus Prime License Agreement,
 the Altera MegaCore Function License Agreement, or other 
 applicable license agreement, including, without limitation, 
 that your use is for the sole purpose of programming logic 
@@ -86,6 +86,13 @@ agreement for further details.
 		(text "BOM_VER[2..0]" (rect 0 0 70 12)(font "Arial" ))
 		(text "BOM_VER[2..0]" (rect 21 155 91 167)(font "Arial" ))
 		(line (pt 0 160)(pt 16 160)(line_width 3))
+	)
+	(port
+		(pt 0 176)
+		(input)
+		(text "PWR_SRC" (rect 0 0 51 12)(font "Arial" ))
+		(text "PWR_SRC" (rect 21 171 72 183)(font "Arial" ))
+		(line (pt 0 176)(pt 16 176)(line_width 1))
 	)
 	(port
 		(pt 280 32)
@@ -209,114 +216,121 @@ agreement for further details.
 	(port
 		(pt 280 304)
 		(output)
-		(text "wfm_play" (rect 0 0 40 12)(font "Arial" ))
-		(text "wfm_play" (rect 219 299 259 311)(font "Arial" ))
+		(text "wfm_reset_n" (rect 0 0 54 12)(font "Arial" ))
+		(text "wfm_reset_n" (rect 205 299 259 311)(font "Arial" ))
 		(line (pt 280 304)(pt 264 304)(line_width 1))
 	)
 	(port
 		(pt 280 320)
 		(output)
-		(text "wfm_load" (rect 0 0 38 12)(font "Arial" ))
-		(text "wfm_load" (rect 221 315 259 327)(font "Arial" ))
+		(text "wfm_play" (rect 0 0 40 12)(font "Arial" ))
+		(text "wfm_play" (rect 219 315 259 327)(font "Arial" ))
 		(line (pt 280 320)(pt 264 320)(line_width 1))
 	)
 	(port
 		(pt 280 336)
 		(output)
-		(text "wfm_smpl_width[1..0]" (rect 0 0 86 12)(font "Arial" ))
-		(text "wfm_smpl_width[1..0]" (rect 173 331 259 343)(font "Arial" ))
-		(line (pt 280 336)(pt 264 336)(line_width 3))
+		(text "wfm_load" (rect 0 0 38 12)(font "Arial" ))
+		(text "wfm_load" (rect 221 331 259 343)(font "Arial" ))
+		(line (pt 280 336)(pt 264 336)(line_width 1))
 	)
 	(port
 		(pt 280 352)
 		(output)
-		(text "SPI_SS[15..0]" (rect 0 0 55 12)(font "Arial" ))
-		(text "SPI_SS[15..0]" (rect 204 347 259 359)(font "Arial" ))
+		(text "wfm_smpl_width[1..0]" (rect 0 0 86 12)(font "Arial" ))
+		(text "wfm_smpl_width[1..0]" (rect 173 347 259 359)(font "Arial" ))
 		(line (pt 280 352)(pt 264 352)(line_width 3))
 	)
 	(port
 		(pt 280 368)
 		(output)
-		(text "LMS1_SS" (rect 0 0 41 12)(font "Arial" ))
-		(text "LMS1_SS" (rect 218 363 259 375)(font "Arial" ))
-		(line (pt 280 368)(pt 264 368)(line_width 1))
+		(text "SPI_SS[15..0]" (rect 0 0 55 12)(font "Arial" ))
+		(text "SPI_SS[15..0]" (rect 204 363 259 375)(font "Arial" ))
+		(line (pt 280 368)(pt 264 368)(line_width 3))
 	)
 	(port
 		(pt 280 384)
 		(output)
-		(text "LMS1_RESET" (rect 0 0 63 12)(font "Arial" ))
-		(text "LMS1_RESET" (rect 196 379 259 391)(font "Arial" ))
+		(text "LMS1_SS" (rect 0 0 41 12)(font "Arial" ))
+		(text "LMS1_SS" (rect 218 379 259 391)(font "Arial" ))
 		(line (pt 280 384)(pt 264 384)(line_width 1))
 	)
 	(port
 		(pt 280 400)
 		(output)
-		(text "LMS1_CORE_LDO_EN" (rect 0 0 105 12)(font "Arial" ))
-		(text "LMS1_CORE_LDO_EN" (rect 154 395 259 407)(font "Arial" ))
+		(text "LMS1_RESET" (rect 0 0 63 12)(font "Arial" ))
+		(text "LMS1_RESET" (rect 196 395 259 407)(font "Arial" ))
 		(line (pt 280 400)(pt 264 400)(line_width 1))
 	)
 	(port
 		(pt 280 416)
 		(output)
-		(text "LMS1_TXNRX1" (rect 0 0 66 12)(font "Arial" ))
-		(text "LMS1_TXNRX1" (rect 193 411 259 423)(font "Arial" ))
+		(text "LMS1_CORE_LDO_EN" (rect 0 0 105 12)(font "Arial" ))
+		(text "LMS1_CORE_LDO_EN" (rect 154 411 259 423)(font "Arial" ))
 		(line (pt 280 416)(pt 264 416)(line_width 1))
 	)
 	(port
 		(pt 280 432)
 		(output)
-		(text "LMS1_TXNRX2" (rect 0 0 67 12)(font "Arial" ))
-		(text "LMS1_TXNRX2" (rect 192 427 259 439)(font "Arial" ))
+		(text "LMS1_TXNRX1" (rect 0 0 66 12)(font "Arial" ))
+		(text "LMS1_TXNRX1" (rect 193 427 259 439)(font "Arial" ))
 		(line (pt 280 432)(pt 264 432)(line_width 1))
 	)
 	(port
 		(pt 280 448)
 		(output)
-		(text "LMS1_TXEN" (rect 0 0 55 12)(font "Arial" ))
-		(text "LMS1_TXEN" (rect 204 443 259 455)(font "Arial" ))
+		(text "LMS1_TXNRX2" (rect 0 0 67 12)(font "Arial" ))
+		(text "LMS1_TXNRX2" (rect 192 443 259 455)(font "Arial" ))
 		(line (pt 280 448)(pt 264 448)(line_width 1))
 	)
 	(port
 		(pt 280 464)
 		(output)
-		(text "LMS1_RXEN" (rect 0 0 57 12)(font "Arial" ))
-		(text "LMS1_RXEN" (rect 202 459 259 471)(font "Arial" ))
+		(text "LMS1_TXEN" (rect 0 0 55 12)(font "Arial" ))
+		(text "LMS1_TXEN" (rect 204 459 259 471)(font "Arial" ))
 		(line (pt 280 464)(pt 264 464)(line_width 1))
 	)
 	(port
 		(pt 280 480)
 		(output)
-		(text "GPIO[6..0]" (rect 0 0 42 12)(font "Arial" ))
-		(text "GPIO[6..0]" (rect 217 475 259 487)(font "Arial" ))
-		(line (pt 280 480)(pt 264 480)(line_width 3))
+		(text "LMS1_RXEN" (rect 0 0 57 12)(font "Arial" ))
+		(text "LMS1_RXEN" (rect 202 475 259 487)(font "Arial" ))
+		(line (pt 280 480)(pt 264 480)(line_width 1))
 	)
 	(port
 		(pt 280 496)
 		(output)
-		(text "FPGA_LED1_CTRL[2..0]" (rect 0 0 109 12)(font "Arial" ))
-		(text "FPGA_LED1_CTRL[2..0]" (rect 150 491 259 503)(font "Arial" ))
+		(text "GPIO[6..0]" (rect 0 0 42 12)(font "Arial" ))
+		(text "GPIO[6..0]" (rect 217 491 259 503)(font "Arial" ))
 		(line (pt 280 496)(pt 264 496)(line_width 3))
 	)
 	(port
 		(pt 280 512)
 		(output)
-		(text "FPGA_LED2_CTRL[2..0]" (rect 0 0 110 12)(font "Arial" ))
-		(text "FPGA_LED2_CTRL[2..0]" (rect 149 507 259 519)(font "Arial" ))
+		(text "FPGA_LED1_CTRL[2..0]" (rect 0 0 109 12)(font "Arial" ))
+		(text "FPGA_LED1_CTRL[2..0]" (rect 150 507 259 519)(font "Arial" ))
 		(line (pt 280 512)(pt 264 512)(line_width 3))
 	)
 	(port
 		(pt 280 528)
 		(output)
-		(text "FX3_LED_CTRL[2..0]" (rect 0 0 95 12)(font "Arial" ))
-		(text "FX3_LED_CTRL[2..0]" (rect 164 523 259 535)(font "Arial" ))
+		(text "FPGA_LED2_CTRL[2..0]" (rect 0 0 110 12)(font "Arial" ))
+		(text "FPGA_LED2_CTRL[2..0]" (rect 149 523 259 535)(font "Arial" ))
 		(line (pt 280 528)(pt 264 528)(line_width 3))
 	)
 	(port
 		(pt 280 544)
 		(output)
-		(text "FCLK_ENA[1..0]" (rect 0 0 73 12)(font "Arial" ))
-		(text "FCLK_ENA[1..0]" (rect 186 539 259 551)(font "Arial" ))
+		(text "FX3_LED_CTRL[2..0]" (rect 0 0 95 12)(font "Arial" ))
+		(text "FX3_LED_CTRL[2..0]" (rect 164 539 259 551)(font "Arial" ))
 		(line (pt 280 544)(pt 264 544)(line_width 3))
+	)
+	(port
+		(pt 280 560)
+		(output)
+		(text "FCLK_ENA[1..0]" (rect 0 0 73 12)(font "Arial" ))
+		(text "FCLK_ENA[1..0]" (rect 186 555 259 567)(font "Arial" ))
+		(line (pt 280 560)(pt 264 560)(line_width 3))
 	)
 	(drawing
 		(rectangle (rect 16 16 264 576)(line_width 1))

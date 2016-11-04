@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="simulation/submodules/mentor/driver_definitions.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/driver_definitions.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/addr_gen.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/addr_gen.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/burst_boundary_addr_gen.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/burst_boundary_addr_gen.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/lfsr.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/lfsr.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/lfsr_wrapper.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/lfsr_wrapper.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/rand_addr_gen.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/rand_addr_gen.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/rand_burstcount_gen.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/rand_burstcount_gen.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/rand_num_gen.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/rand_num_gen.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/rand_seq_addr_gen.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/rand_seq_addr_gen.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/reset_sync.v"
+   type="VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/reset_sync.v"
+   type="VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/scfifo_wrapper.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/scfifo_wrapper.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/seq_addr_gen.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/seq_addr_gen.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/template_addr_gen.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/template_addr_gen.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/template_stage.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/template_stage.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/driver_csr.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/driver_csr.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/avalon_traffic_gen_avl_use_be_avl_use_burstbegin.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/avalon_traffic_gen_avl_use_be_avl_use_burstbegin.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/block_rw_stage_avl_use_be_avl_use_burstbegin.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/block_rw_stage_avl_use_be_avl_use_burstbegin.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/driver_avl_use_be_avl_use_burstbegin.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/driver_avl_use_be_avl_use_burstbegin.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/driver_fsm_avl_use_be_avl_use_burstbegin.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/driver_fsm_avl_use_be_avl_use_burstbegin.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/read_compare_avl_use_be_avl_use_burstbegin.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/read_compare_avl_use_be_avl_use_burstbegin.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/mentor/single_rw_stage_avl_use_be_avl_use_burstbegin.sv"
+   type="SYSTEM_VERILOG_ENCRYPT"
+   library="traffic_generator_0"
+   simulator="modelsim" />
+ <file
+   path="simulation/submodules/single_rw_stage_avl_use_be_avl_use_burstbegin.sv"
+   type="SYSTEM_VERILOG"
+   library="traffic_generator_0"
+   simulator="ncsim, vcs, riviera" />
+ <file
+   path="simulation/submodules/ddr2_traffic_gen_mm_traffic_generator_0.vhd"
+   type="VHDL"
+   library="mm_traffic_generator_0" />
+ <file path="simulation/ddr2_traffic_gen.vhd" type="VHDL" />
+ <topLevel name="ddr2_traffic_gen" />
+ <deviceFamily name="cycloneive" />
+</simPackage>

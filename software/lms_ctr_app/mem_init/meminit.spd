@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+<file path="hdl_sim/lms_ctr_oc_mem.dat" type="DAT" initParamName="INIT_FILE" memoryPath="oc_mem" />
+<file path="lms_ctr_oc_mem.hex" type="HEX" initParamName="INIT_FILE" memoryPath="oc_mem" />
+</simPackage>

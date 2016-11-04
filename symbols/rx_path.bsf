@@ -1,0 +1,191 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2016 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Altera and sold by Altera or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 16 16 320 352)
+	(text "rx_path" (rect 5 0 35 12)(font "Arial" ))
+	(text "inst" (rect 8 320 20 332)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk_iopll" (rect 0 0 29 12)(font "Arial" ))
+		(text "clk_iopll" (rect 21 27 50 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "clk_iodirect" (rect 0 0 43 12)(font "Arial" ))
+		(text "clk_iodirect" (rect 21 43 64 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 1))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "clk" (rect 0 0 10 12)(font "Arial" ))
+		(text "clk" (rect 21 59 31 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 1))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "reset_n" (rect 0 0 30 12)(font "Arial" ))
+		(text "reset_n" (rect 21 75 51 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 1))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "en" (rect 0 0 9 12)(font "Arial" ))
+		(text "en" (rect 21 91 30 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 1))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "DIQ2[diq_width-1..0]" (rect 0 0 77 12)(font "Arial" ))
+		(text "DIQ2[diq_width-1..0]" (rect 21 107 98 119)(font "Arial" ))
+		(line (pt 0 112)(pt 16 112)(line_width 3))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "DIQ2_IQSEL2" (rect 0 0 60 12)(font "Arial" ))
+		(text "DIQ2_IQSEL2" (rect 21 123 81 135)(font "Arial" ))
+		(line (pt 0 128)(pt 16 128)(line_width 1))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "data_src" (rect 0 0 35 12)(font "Arial" ))
+		(text "data_src" (rect 21 139 56 151)(font "Arial" ))
+		(line (pt 0 144)(pt 16 144)(line_width 1))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "fr_start" (rect 0 0 30 12)(font "Arial" ))
+		(text "fr_start" (rect 21 155 51 167)(font "Arial" ))
+		(line (pt 0 160)(pt 16 160)(line_width 1))
+	)
+	(port
+		(pt 0 176)
+		(input)
+		(text "mimo_en" (rect 0 0 37 12)(font "Arial" ))
+		(text "mimo_en" (rect 21 171 58 183)(font "Arial" ))
+		(line (pt 0 176)(pt 16 176)(line_width 1))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "ch_en[15..0]" (rect 0 0 48 12)(font "Arial" ))
+		(text "ch_en[15..0]" (rect 21 187 69 199)(font "Arial" ))
+		(line (pt 0 192)(pt 16 192)(line_width 3))
+	)
+	(port
+		(pt 0 208)
+		(input)
+		(text "smpl_width[1..0]" (rect 0 0 62 12)(font "Arial" ))
+		(text "smpl_width[1..0]" (rect 21 203 83 215)(font "Arial" ))
+		(line (pt 0 208)(pt 16 208)(line_width 3))
+	)
+	(port
+		(pt 0 224)
+		(input)
+		(text "pct_clr_detect" (rect 0 0 56 12)(font "Arial" ))
+		(text "pct_clr_detect" (rect 21 219 77 231)(font "Arial" ))
+		(line (pt 0 224)(pt 16 224)(line_width 1))
+	)
+	(port
+		(pt 0 240)
+		(input)
+		(text "clr_pct_loss_flag" (rect 0 0 68 12)(font "Arial" ))
+		(text "clr_pct_loss_flag" (rect 21 235 89 247)(font "Arial" ))
+		(line (pt 0 240)(pt 16 240)(line_width 1))
+	)
+	(port
+		(pt 0 256)
+		(input)
+		(text "clr_smpl_nr" (rect 0 0 48 12)(font "Arial" ))
+		(text "clr_smpl_nr" (rect 21 251 69 263)(font "Arial" ))
+		(line (pt 0 256)(pt 16 256)(line_width 1))
+	)
+	(port
+		(pt 0 272)
+		(input)
+		(text "outfifo_full" (rect 0 0 41 12)(font "Arial" ))
+		(text "outfifo_full" (rect 21 267 62 279)(font "Arial" ))
+		(line (pt 0 272)(pt 16 272)(line_width 1))
+	)
+	(port
+		(pt 0 288)
+		(input)
+		(text "outfifo_wrusedw[outfifo_size-1..0]" (rect 0 0 130 12)(font "Arial" ))
+		(text "outfifo_wrusedw[outfifo_size-1..0]" (rect 21 283 151 295)(font "Arial" ))
+		(line (pt 0 288)(pt 16 288)(line_width 3))
+	)
+	(port
+		(pt 304 32)
+		(output)
+		(text "outfifo_wr" (rect 0 0 40 12)(font "Arial" ))
+		(text "outfifo_wr" (rect 243 27 283 39)(font "Arial" ))
+		(line (pt 304 32)(pt 288 32)(line_width 1))
+	)
+	(port
+		(pt 304 48)
+		(output)
+		(text "outfifo_data[63..0]" (rect 0 0 71 12)(font "Arial" ))
+		(text "outfifo_data[63..0]" (rect 212 43 283 55)(font "Arial" ))
+		(line (pt 304 48)(pt 288 48)(line_width 3))
+	)
+	(port
+		(pt 304 64)
+		(output)
+		(text "wrrxfifo_wr" (rect 0 0 46 12)(font "Arial" ))
+		(text "wrrxfifo_wr" (rect 237 59 283 71)(font "Arial" ))
+		(line (pt 304 64)(pt 288 64)(line_width 1))
+	)
+	(parameter
+		"dev_family"
+		"Cyclone IV E"
+		""
+		(type "PARAMETER_STRING")	)
+	(parameter
+		"diq_width"
+		"12"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"infifo_wrsize"
+		"12"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"outfifo_size"
+		"13"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(drawing
+		(rectangle (rect 16 16 288 320)(line_width 1))
+	)
+	(annotation_block (parameter)(rect 320 -64 420 16))
+)

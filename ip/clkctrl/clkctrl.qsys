@@ -9,14 +9,6 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element $${FILENAME}
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone IV E";
-         type = "String";
-      }
-   }
    element altclkctrl_0
    {
       datum _sortIndex
@@ -64,7 +56,7 @@
  <module
    name="altclkctrl_0"
    kind="altclkctrl"
-   version="15.0"
+   version="15.1"
    enabled="1"
    autoexport="1">
   <parameter name="CLOCK_TYPE" value="1" />

@@ -42,7 +42,7 @@ set_global_assignment -name DEVICE EP4CE40F23C8
 set_global_assignment -name TOP_LEVEL_ENTITY lms7_trx_top
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 15.0.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "15:20:53  APRIL 08, 2016"
-set_global_assignment -name LAST_QUARTUS_VERSION 15.0.0
+set_global_assignment -name LAST_QUARTUS_VERSION 15.1.2
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -66,7 +66,7 @@ set_location_assignment PIN_Y21 -to FX3_DQ[3]
 set_location_assignment PIN_Y22 -to FX3_DQ[2]
 set_location_assignment PIN_AA21 -to FX3_DQ[1]
 set_location_assignment PIN_M19 -to FX3_DQ[0]
-set_location_assignment PIN_T18 -to FX3_PCLK
+set_location_assignment PIN_T21 -to FX3_PCLK
 set_instance_assignment -name IO_STANDARD "1.8 V" -to FX3_DQ[15]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to FX3_DQ[14]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to FX3_DQ[13]
@@ -160,7 +160,6 @@ set_location_assignment PIN_G21 -to LMS_MCLK1
 set_location_assignment PIN_B11 -to LMS_MCLK2
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_TXEN
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_RXEN
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_MCLK1
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1_D[5]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_FCLK1
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LMS_DIQ1_D[0]
@@ -649,7 +648,7 @@ set_location_assignment PIN_AA20 -to DDR2_2_addr[9]
 set_location_assignment PIN_AB17 -to DDR2_2_addr[10]
 set_location_assignment PIN_U16 -to DDR2_2_addr[11]
 set_location_assignment PIN_U14 -to DDR2_2_addr[12]
-set_location_assignment PIN_T21 -to SI_CLK2
+set_location_assignment PIN_AB12 -to SI_CLK2
 set_instance_assignment -name IO_STANDARD "1.8 V" -to SI_CLK2
 set_location_assignment PIN_U1 -to BOM_VER[2]
 set_location_assignment PIN_U2 -to BOM_VER[1]
@@ -667,6 +666,21 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to SI_CLK7
 set_instance_assignment -name IO_STANDARD "1.8 V" -to SI_CLK6
 set_global_assignment -name SEED 1
 set_global_assignment -name SYNCHRONIZER_IDENTIFICATION AUTO
+set_location_assignment PIN_B18 -to LMS_CORE_LDO_EN
+set_location_assignment PIN_B9 -to LMS_TXNRX1
+set_location_assignment PIN_B8 -to LMS_TXNRX2
+set_location_assignment PIN_J7 -to FPGA_I2C_SDA
+set_location_assignment PIN_H7 -to FPGA_I2C_SCL
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_I2C_SDA
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to FPGA_I2C_SCL
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to FPGA_I2C_SDA
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to FPGA_I2C_SCL
+set_global_assignment -name VHDL_FILE src/general/busy_delay.vhd
+set_global_assignment -name QIP_FILE software/lms_ctr_app/mem_init/meminit.qip
+set_global_assignment -name VHDL_FILE src/nios_cpu/nios_cpu.vhd
+set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
+set_global_assignment -name VHDL_FILE src/fx3/slaveFIFO5b/slaveFIFO5b.vhd
+set_global_assignment -name VHDL_FILE src/fx3/slaveFIFO5b/FX3_slaveFIFO5b_top.vhd
 set_global_assignment -name QIP_FILE ip/clkctrl/clkctrl/synthesis/clkctrl.qip
 set_global_assignment -name VHDL_FILE src/general/FX3_LED_ctrl.vhd
 set_global_assignment -name VHDL_FILE src/rx_modules/rx_path.vhd
@@ -691,13 +705,11 @@ set_global_assignment -name VHDL_FILE src/spi/pllcfg.vhd
 set_global_assignment -name VHDL_FILE src/rx_modules/fifo_inst.vhd
 set_global_assignment -name VHDL_FILE src/testing/pkt_tester.vhd
 set_global_assignment -name BDF_FILE symbols/LTE_tx_path.bdf
-set_global_assignment -name BDF_FILE symbols/FX3_slave.bdf
 set_global_assignment -name VHDL_FILE src/general/my_busmux.vhd
 set_global_assignment -name VHDL_FILE src/testing/test_data_dd.vhd
 set_global_assignment -name VHDL_FILE src/rx_packets/rx_pct_data_v2.vhd
 set_global_assignment -name VHDL_FILE src/rx_packets/compress_v2.vhd
 set_global_assignment -name BDF_FILE symbols/LTE_rx_path.bdf
-set_global_assignment -name VHDL_FILE src/fx3/FX3_slaveFIFO2a_16bus.vhd
 set_global_assignment -name VHDL_FILE src/reg_phase_shift/simple_reg.vhd
 set_global_assignment -name VHDL_FILE src/reg_phase_shift/phase_shift.vhd
 set_global_assignment -name QIP_FILE ip/pll_reconfig_module/pll_reconfig_module.qip
@@ -746,7 +758,9 @@ set_global_assignment -name VHDL_FILE src/self_test/clk_with_ref_test.vhd
 set_global_assignment -name VHDL_FILE src/self_test/singl_clk_with_ref_test.vhd
 set_global_assignment -name VHDL_FILE src/self_test/transition_count.vhd
 set_global_assignment -name QIP_FILE ip/txpll/txpll.qip
-set_location_assignment PIN_B18 -to LMS_CORE_LDO_EN
-set_location_assignment PIN_B9 -to LMS_TXNRX1
-set_location_assignment PIN_B8 -to LMS_TXNRX2
+set_global_assignment -name VHDL_FILE src/stream/stream_switch.vhd
+set_global_assignment -name BDF_FILE symbols/pll_block_rx.bdf
+set_location_assignment PIN_B22 -to PWR_SRC
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to PWR_SRC
+set_global_assignment -name VHDL_FILE src/general/diq2_sampling.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
