@@ -29,7 +29,7 @@ set max_mclk2_delay		[expr $mclk2_length * $tPD_stripline]
 set min_mclk2_delay		[expr $mclk2_length * $tPD_stripline]
 	#Calculated expresions
 set LMS_DIQ2_max_dly [expr $max_diq2_data_delay + $LMS7_Tsu - $min_mclk2_delay]
-set LMS_DIQ2_min_dly [expr $min_diq2_data_delay - $LMS7_Th - $min_mclk2_delay]
+set LMS_DIQ2_min_dly [expr $min_diq2_data_delay + $LMS7_Th  - $min_mclk2_delay]
 
 
 set LMS7_UI 			[expr $MCLK1_period/2]
