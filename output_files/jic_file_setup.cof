@@ -2,7 +2,7 @@
 <cof>
 	<eprom_name>EPCS16</eprom_name>
 	<flash_loader_device>EP4CE40</flash_loader_device>
-	<output_filename>output_files/LimeSDR-USB_lms7_trx.jic</output_filename>
+	<output_filename>output_files/LimeSDR-USB_lms7_trx_HW_1.4.jic</output_filename>
 	<n_pages>1</n_pages>
 	<width>1</width>
 	<mode>7</mode>
