@@ -98,7 +98,7 @@ create_clock -period $FX3_period 	-name FX3_PCLK			[get_ports FX3_PCLK]
 #Virtual clocks
 ################################################################################
 create_clock -name LMS_DIQ2_LAUNCH_CLK		-period $MCLK2_period
-create_clock -name FX3_PCLK_VIRT				-period $FX3_period 	  
+create_clock -name FX3_PCLK_VIRT				-period $FX3_period	  
 
 ################################################################################
 #Generated clocks
@@ -128,10 +128,16 @@ create_generated_clock -name RX_PLLCLK_C1 \
 								-phase 90 [get_pins inst32|inst35|altpll_component|auto_generated|pll1|clk[1]]
 
 #NIOS spi
-create_generated_clock -name FPGA_SPI0_SCLK \
-								-source [get_ports FX3_PCLK] \
+create_generated_clock 	-name FPGA_SPI0_SCLK_reg \
+								-source [get_ports {FX3_PCLK}] \
 								-divide_by 6 \
-								[get_registers nios_cpu:inst42|lms_ctr:u0|lms_ctr_spi_lms:spi_lms|SCLK_reg]
+								[get_registers {nios_cpu:inst42|lms_ctr:u0|lms_ctr_spi_lms:spi_lms|SCLK_reg}]
+								
+create_generated_clock 	-name FPGA_SPI0_SCLK_out \
+								-source [get_registers {nios_cpu:inst42|lms_ctr:u0|lms_ctr_spi_lms:spi_lms|SCLK_reg}] \
+								[get_ports FPGA_SPI0_SCLK]
+								
+set_false_path				-to [get_ports FPGA_SPI0_SCLK]
 								
 create_generated_clock -name FPGA_SPI1_SCLK \
 								-source [get_ports FX3_PCLK] \
@@ -189,7 +195,19 @@ set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -max $FX3_ctl_in_max_dly [get_
 set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -min $FX3_ctl_in_min_dly [get_ports {FX3_CTL4 FX3_CTL5 FX3_CTL8}]
 
 set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -max $FX3_d_in_max_dly [get_ports {FX3_DQ*}]
-set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -min $FX3_d_in_min_dly [get_ports {FX3_DQ*}]						
+set_input_delay -clock [get_clocks FX3_PCLK_VIRT] -min $FX3_d_in_min_dly [get_ports {FX3_DQ*}]	
+
+
+#NIOS SPI0
+#To overcontrain inputs setup time only for fitter by 10%
+if {$::quartus(nameofexecutable) ne "quartus_sta"} {
+	set_input_delay -clock [get_clocks FPGA_SPI0_SCLK_out] -max 20.9 [get_ports {FPGA_SPI0_MISO}] -clock_fall
+	set_input_delay -clock [get_clocks FPGA_SPI0_SCLK_out] -min 16.2 [get_ports {FPGA_SPI0_MISO}] -clock_fall
+} else {
+	set_input_delay -clock [get_clocks FPGA_SPI0_SCLK_out] -max 19.0 [get_ports {FPGA_SPI0_MISO}] -clock_fall
+	set_input_delay -clock [get_clocks FPGA_SPI0_SCLK_out] -min 16.2 [get_ports {FPGA_SPI0_MISO}] -clock_fall
+}
+
 
 ################################################################################
 #Output constraints
@@ -233,7 +251,12 @@ set_output_delay -clock [get_clocks FX3_PCLK_VIRT] -clock_fall -min $FX3_ctl_out
 set_output_delay -clock [get_clocks FX3_PCLK_VIRT] -clock_fall -max $FX3_d_out_max_dly \
 								[get_ports {FX3_DQ*}]
 set_output_delay -clock [get_clocks FX3_PCLK_VIRT] -clock_fall -min $FX3_d_out_min_dly \
-								[get_ports {FX3_DQ*}]	
+								[get_ports {FX3_DQ*}]
+							
+						
+#NIOS SPI				
+set_output_delay -clock [get_clocks FPGA_SPI0_SCLK_out] -max 15 [get_ports {FPGA_SPI0_MOSI}] 
+set_output_delay -clock [get_clocks FPGA_SPI0_SCLK_out] -min -15 [get_ports {FPGA_SPI0_MOSI}]	
 
 #set_multicycle_path -setup -from [get_clocks FX3_PCLK_VIRT ] -to [get_clocks FX3_PCLK] 2
 set_multicycle_path -hold -from [get_clocks FX3_PCLK_VIRT ] -to [get_clocks FX3_PCLK] 1
@@ -251,11 +274,16 @@ set_clock_groups -asynchronous 	-group {SI_CLK0} \
 											-group {SI_CLK7} \
 											-group {LMK_CLK} \
 											-group {BRDG_SPI_SCLK} \
-											-group {FX3_PCLK FX3_PCLK_VIRT} \
-											-group {LMS_MCLK1 TX_PLLCLK_C0 TX_PLLCLK_C1 LMS_DIQ1_LAUNCHCLK_PLL LMS_FCLK1_PLL} \
-											-group {LMS_MCLK2 LMS_FCLK2 RX_PLLCLK_C0 RX_PLLCLK_C1} \
-											-group {FPGA_SPI0_SCLK} \
-											-group {FPGA_SPI1_SCLK}
+											-group {LMS_MCLK1 } \
+											-group {TX_PLLCLK_C0 } \
+											-group {TX_PLLCLK_C1 } \
+											-group {LMS_DIQ1_LAUNCHCLK_PLL} \
+											-group {LMS_FCLK1_PLL} \
+											-group {LMS_MCLK2 } \
+											-group {LMS_FCLK2 } \
+											-group {FX3_PCLK FPGA_SPI0_SCLK_reg FPGA_SPI0_SCLK_out} \
+											-group {inst27|DDR2_ctrl_top_inst|ddr2_inst|ddr2_controller_phy_inst|ddr2_phy_inst|ddr2_phy_alt_mem_phy_inst|clk|pll|altpll_component|auto_generated|pll1|clk[1]} \
+											-group {inst46|ddr2_inst|ddr2_controller_phy_inst|ddr2_phy_inst|ddr2_phy_alt_mem_phy_inst|clk|pll|altpll_component|auto_generated|pll1|clk[1]} 
 											
 set_clock_groups	-exclusive 		-group {LMS_DIQ1_LAUNCHCLK_PLL LMS_FCLK1_PLL} \
 											-group {LMS_DIQ1_LAUNCHCLK_DRCT LMS_FCLK1_DRCT}	
@@ -309,7 +337,14 @@ set_false_path -setup 	-fall_from 	[get_clocks LMS_DIQ2_LAUNCH_CLK] -rise_to \
 set_false_path -hold 	-rise_from 	[get_clocks LMS_DIQ2_LAUNCH_CLK] -rise_to \
 												[get_clocks RX_PLLCLK_C1]
 set_false_path -hold 	-fall_from 	[get_clocks LMS_DIQ2_LAUNCH_CLK] -fall_to \
-												[get_clocks RX_PLLCLK_C1]											
+												[get_clocks RX_PLLCLK_C1]	
+		
+#Multicycle paths for NIOS SPI
+set_multicycle_path -setup -end -from [get_clocks {FPGA_SPI0_SCLK_out}] -to [get_clocks {FX3_PCLK}] [expr 3]
+set_multicycle_path -hold -end -from [get_clocks {FPGA_SPI0_SCLK_out}] -to [get_clocks {FX3_PCLK}] [expr 5]
+
+set_multicycle_path -setup -start -from [get_clocks FX3_PCLK] -to [get_clocks FPGA_SPI0_SCLK_out] 3
+set_multicycle_path -hold -start -from [get_clocks FX3_PCLK] -to [get_clocks FPGA_SPI0_SCLK_out] 5		
 	
 #set false paths between low speed signals
 set_false_path -from * -to [get_ports FPGA_LED*]
@@ -330,13 +365,11 @@ set_false_path -from [get_ports HW_VER*] 			-to *
 set_false_path -from [get_ports BOM_VER*] 		-to *
 set_false_path -from [get_ports ADF_MUXOUT*] 	-to *
 set_false_path -from [get_ports BRDG_SPI*] 		-to *
-set_false_path -from [get_ports FPGA_SPI0*] 		-to *
 set_false_path -from [get_ports PWR_SRC] 			-to *
 set_false_path -from [get_ports FPGA_I2C_SCL] 	-to *
 set_false_path -from [get_ports FPGA_I2C_SDA] 	-to *
 
 set_false_path -to [get_ports LMS_RESET*]
-set_false_path -to [get_ports FPGA_SPI0*]
 set_false_path -to [get_ports BRDG_SPI*]
 set_false_path -to [get_ports FPGA_SPI1*]
 #set false paths to output clocks 
@@ -344,7 +377,12 @@ set_false_path -to [get_ports FPGA_SPI1*]
 #allows it to be used as a clock for output delay analysis
 set_false_path -to [get_ports LMS_FCLK1]
 set_false_path -to [get_ports LMS_FCLK2]
-set_false_path -to [get_ports FPGA_SPI0_SCLK]
 set_false_path -to [get_ports FPGA_SPI1_SCLK]
 
+set_false_path -to [get_registers tstcfg:inst39|dout_reg[*]]
 
+set_false_path -from [get_registers {tstcfg:inst39|mem[3][5]}]
+set_false_path -from [get_registers {ddr2_tester:inst46|ddr2_traffic_gen:traffic_gen_inst|ddr2_traffic_gen_mm_traffic_generator_0:mm_traffic_generator_0|driver_avl_use_be_avl_use_burstbegin:traffic_generator_0|pnf_per_bit_persist[*]}]
+set_false_path -from [get_registers {wfm_player_top:inst27|DDR2_ctrl_top:DDR2_ctrl_top_inst|ddr2_traffic_gen:traffic_gen_inst|ddr2_traffic_gen_mm_traffic_generator_0:mm_traffic_generator_0|driver_avl_use_be_avl_use_burstbegin:traffic_generator_0|pnf_per_bit_persist[*]}]
+set_false_path -from [get_registers {ddr2_tester:inst46|ddr2_traffic_gen:traffic_gen_inst|ddr2_traffic_gen_mm_traffic_generator_0:mm_traffic_generator_0|driver_avl_use_be_avl_use_burstbegin:traffic_generator_0|driver_fsm_avl_use_be_avl_use_burstbegin:real_driver.driver_fsm_inst|stage.TIMEOUT}]
+set_false_path -from [get_registers {ddr2_tester:inst46|ddr2_traffic_gen:traffic_gen_inst|ddr2_traffic_gen_mm_traffic_generator_0:mm_traffic_generator_0|driver_avl_use_be_avl_use_burstbegin:traffic_generator_0|driver_fsm_avl_use_be_avl_use_burstbegin:real_driver.driver_fsm_inst|stage.TEST_COMPLETE}]
