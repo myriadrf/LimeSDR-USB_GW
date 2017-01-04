@@ -110,7 +110,7 @@ signal current_state, next_state :   states;
 
 
 
-component compress_v2 is
+component bit_pack is
   port (
         --input ports 
         clk             : in std_logic;
@@ -511,7 +511,7 @@ outfifo_data<=pct_rsrvd when allpct_wr_cnt<1 else
 -------------------------------------------------------------------------------
 -- port maps of modules
 -------------------------------------------------------------------------------              
-cmpr_inst : compress_v2 
+cmpr_inst : bit_pack 
   port map(
         clk             => clk, 
         reset_n         => reset_n,
