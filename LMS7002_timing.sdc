@@ -5,6 +5,7 @@
 	#LMS_MCLK2 period
 set LMS_MCLK1_period  		6.25
 set LMS_MCLK2_period			6.25
+set LMS_MCLK2_period_5MHz	200.0
 	#Setup and hold times from datasheet
 set LMS_LMS7_Tsu				1.00
 set LMS_LMS7_Th				0.20
@@ -25,10 +26,13 @@ create_clock -period $LMS_MCLK1_period 			-name LMS_MCLK1			[get_ports LMS_MCLK1
 
 create_clock -period $LMS_MCLK2_period 			-name LMS_MCLK2 			[get_ports LMS_MCLK2]
 
+create_clock -period $LMS_MCLK2_period_5MHz 		-name LMS_MCLK2_5MHZ 	[get_ports LMS_MCLK2] -add
+
 ################################################################################
 #Virtual clocks
 ################################################################################
-create_clock -name LMS_MCLK2_VIRT		-period $LMS_MCLK2_period
+create_clock -name LMS_MCLK2_VIRT			-period $LMS_MCLK2_period
+create_clock -name LMS_MCLK2_VIRT_5MHz		-period $LMS_MCLK2_period_5MHz
 
 ################################################################################
 #Generated clocks
@@ -56,9 +60,11 @@ create_generated_clock -name LMS_FCLK1_DRCT \
 															
 #LMS RX PLL
 create_generated_clock -name RX_PLLCLK_C0 \
+								-master [get_clocks LMS_MCLK2] \
 								-source [get_pins inst32|inst35|altpll_component|auto_generated|pll1|inclk[0]] \
 								-phase 0 [get_pins inst32|inst35|altpll_component|auto_generated|pll1|clk[0]]
 create_generated_clock -name RX_PLLCLK_C1 \
+								-master [get_clocks LMS_MCLK2] \
 								-source [get_pins inst32|inst35|altpll_component|auto_generated|pll1|inclk[0]] \
 								-phase 260 [get_pins inst32|inst35|altpll_component|auto_generated|pll1|clk[1]]
 								
@@ -70,7 +76,7 @@ create_generated_clock 	-name LMS_FCLK2 \
 ################################################################################
 #Input constraints
 ################################################################################
-#LMS1
+#LMS1 when MCLK2 is 160MHz
 set_input_delay	-max $LMS7_IN_MAX_DELAY \
 						-clock [get_clocks LMS_MCLK2_VIRT] [get_ports {LMS_DIQ2_D[*] LMS_DIQ2_IQSEL2}]
 						
@@ -83,6 +89,20 @@ set_input_delay	-max $LMS7_IN_MAX_DELAY \
 												
 set_input_delay	-min $LMS7_IN_MIN_DELAY \
 						-clock [get_clocks LMS_MCLK2_VIRT] \
+						-clock_fall [get_ports {LMS_DIQ2_D[*] LMS_DIQ2_IQSEL2}] -add_delay
+#LMS1 when MCLK2 is 5MHz						
+set_input_delay	-max $LMS7_IN_MAX_DELAY \
+						-clock [get_clocks LMS_MCLK2_VIRT_5MHz] [get_ports {LMS_DIQ2_D[*] LMS_DIQ2_IQSEL2}] -add_delay
+						
+set_input_delay	-min $LMS7_IN_MIN_DELAY \
+						-clock [get_clocks LMS_MCLK2_VIRT_5MHz] [get_ports {LMS_DIQ2_D[*] LMS_DIQ2_IQSEL2}] -add_delay
+						
+set_input_delay	-max $LMS7_IN_MAX_DELAY \
+						-clock [get_clocks LMS_MCLK2_VIRT_5MHz] \
+						-clock_fall [get_ports {LMS_DIQ2_D[*] LMS_DIQ2_IQSEL2}] -add_delay
+												
+set_input_delay	-min $LMS7_IN_MIN_DELAY \
+						-clock [get_clocks LMS_MCLK2_VIRT_5MHz] \
 						-clock_fall [get_ports {LMS_DIQ2_D[*] LMS_DIQ2_IQSEL2}] -add_delay
 						
 ################################################################################
@@ -134,14 +154,14 @@ set_false_path -hold 	-fall_from 	[get_clocks LMS_MCLK2_VIRT] -fall_to \
 												[get_clocks RX_PLLCLK_C1]	
 												
 #Between Edge aligned same edge transfers in DIQ2 interface (When sampling with direct LMS_MCLK2 clock <5MHz)
-set_false_path -setup 	-rise_from 	[get_clocks LMS_MCLK2_VIRT] -rise_to \
-												[get_clocks LMS_MCLK2]
-set_false_path -setup 	-fall_from 	[get_clocks LMS_MCLK2_VIRT] -fall_to \
-												[get_clocks LMS_MCLK2]
-set_false_path -hold 	-rise_from 	[get_clocks LMS_MCLK2_VIRT] -fall_to \
-												[get_clocks LMS_MCLK2]
-set_false_path -hold 	-fall_from 	[get_clocks LMS_MCLK2_VIRT] -rise_to \
-												[get_clocks LMS_MCLK2]
+set_false_path -setup 	-rise_from 	[get_clocks LMS_MCLK2_VIRT_5MHz] -rise_to \
+												[get_clocks LMS_MCLK2_5MHZ]
+set_false_path -setup 	-fall_from 	[get_clocks LMS_MCLK2_VIRT_5MHz] -fall_to \
+												[get_clocks LMS_MCLK2_5MHZ]
+set_false_path -hold 	-rise_from 	[get_clocks LMS_MCLK2_VIRT_5MHz] -fall_to \
+												[get_clocks LMS_MCLK2_5MHZ]
+set_false_path -hold 	-fall_from 	[get_clocks LMS_MCLK2_VIRT_5MHz] -rise_to \
+												[get_clocks LMS_MCLK2_5MHZ]
 												
 set_multicycle_path -hold -end -from [get_clocks {LMS_MCLK2_VIRT}] -to [get_clocks {RX_PLLCLK_C1}] [expr -1]
 
@@ -156,9 +176,14 @@ set_false_path -hold 	-fall_from 	[get_clocks TX_PLLCLK_C1] -rise_to \
 												[get_clocks LMS_FCLK1_PLL]
 
 #Clock groups					
-#Clock groups are set in top .sdc file
+#Other clock groups are set in top .sdc file
 set_clock_groups -exclusive 	-group {LMS_FCLK1_PLL} \
 										-group {LMS_FCLK1_DRCT}
+										
+set_clock_groups -exclusive 	-group {LMS_MCLK2} \
+										-group {LMS_MCLK2_5MHZ}
+
+set_false_path -from [get_clocks LMS_MCLK2_VIRT] -to [get_clocks LMS_MCLK2]
 											
 #False Path between PLL output and clock output ports LMS2_FCLK1 an LMS2_FCLK2
 set_false_path -to [get_ports LMS_FCLK*]	
