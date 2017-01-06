@@ -163,7 +163,7 @@ set_clock_groups -asynchronous 	-group {SI_CLK0} \
 											-group {SI_CLK7} \
 											-group {LMK_CLK} \
 											-group {BRDG_SPI_SCLK} \
-											-group {LMS_MCLK1 } \
+											-group {LMS_MCLK1 LMS_MCLK1_5MHZ} \
 											-group {TX_PLLCLK_C0 } \
 											-group {TX_PLLCLK_C1 } \
 											-group {LMS_MCLK2_5MHZ LMS_MCLK2_VIRT_5MHz} \
