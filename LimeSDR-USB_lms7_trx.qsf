@@ -721,6 +721,13 @@ set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1_D[0]
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_DIQ1_IQSEL
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LMS_FCLK1
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_MCLK1
+set_instance_assignment -name IO_STANDARD "2.5 V" -to HW_VER[0]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to HW_VER[1]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to HW_VER[2]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to HW_VER[3]
+set_global_assignment -name VHDL_FILE src/txiqmux/synth/txiqmux.vhd
+set_global_assignment -name VHDL_FILE src/txiqmux/synth/txiq_tst_ptrn.vhd
 set_global_assignment -name VHDL_FILE src/rx_packets/pack_56_to_64.vhd
 set_global_assignment -name VHDL_FILE src/rx_packets/pack_48_to_64.vhd
 set_global_assignment -name VHDL_FILE src/rx_packets/bit_pack.vhd
@@ -810,9 +817,5 @@ set_global_assignment -name QIP_FILE ip/txpll/txpll.qip
 set_global_assignment -name VHDL_FILE src/stream/stream_switch.vhd
 set_global_assignment -name BDF_FILE symbols/pll_block_rx.bdf
 set_global_assignment -name VHDL_FILE src/general/diq2_sampling.vhd
-set_instance_assignment -name IO_STANDARD "2.5 V" -to LMS_MCLK1
-set_instance_assignment -name IO_STANDARD "2.5 V" -to HW_VER[0]
-set_instance_assignment -name IO_STANDARD "2.5 V" -to HW_VER[1]
-set_instance_assignment -name IO_STANDARD "2.5 V" -to HW_VER[2]
-set_instance_assignment -name IO_STANDARD "2.5 V" -to HW_VER[3]
+set_global_assignment -name VHDL_FILE src/general/sync_reg.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
