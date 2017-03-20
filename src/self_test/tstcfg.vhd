@@ -54,7 +54,9 @@ entity tstcfg is
 		DDR2_1_STATUS			: in std_logic_vector(2 downto 0);
 		DDR2_1_pnf_per_bit	: in std_logic_vector(31 downto 0);
 		DDR2_2_STATUS			: in std_logic_vector(2 downto 0);
-		DDR2_2_pnf_per_bit   : in std_logic_vector(31 downto 0)
+		DDR2_2_pnf_per_bit   : in std_logic_vector(31 downto 0);
+		TX_TST_I					: out std_logic_vector(15 downto 0);
+		TX_TST_Q					: out std_logic_vector(15 downto 0)
 
 
 	);
@@ -223,8 +225,8 @@ begin
 			mem(26)	<= "0000000000000000"; --RD   0 free, DDR2_2_STATUS
 			mem(27)	<= "0000000000000000"; --RD   0 free, DDR2_2_pnf_per_bit(15 downto 0);
 			mem(28)	<= "0000000000000000"; --RD	0 free, DDR2_2_pnf_per_bit(31 downto 16);
-			mem(29)	<= "0000000000000000"; --RD/W 0 free, Reserved
-			mem(30)	<= "0000000000000000"; --RD/W 0 free, Reserved
+			mem(29)	<= "1010101010101010"; --RD/W 0 free, TX_TST_I
+			mem(30)	<= "0101010101010101"; --RD/W 0 free, TX_TST_Q
 			mem(31)	<= "0000000000000000"; --RD/W 0 free, Reserved
 
 		elsif sclk'event and sclk = '1' then
@@ -252,6 +254,8 @@ begin
 		
 		TEST_EN			<= mem(1)(5 downto 0);
 		TEST_FRC_ERR	<= mem(3)(5 downto 0);
+		TX_TST_I			<= mem(29)(15 downto 0);
+		TX_TST_Q			<= mem(30)(15 downto 0);
 
 
 

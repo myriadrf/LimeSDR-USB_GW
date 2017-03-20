@@ -22,6 +22,8 @@ entity txiqmux is
       reset_n        : in std_logic;
       test_ptrn_en   : in std_logic;   -- Enables test pattern
       test_ptrn_fidm : in std_logic;   -- External Frame ID mode. Frame start at fsync = 0, when 0. Frame start at fsync = 1, when 1.
+		test_ptrn_I		: in std_logic_vector(15 downto 0);
+		test_ptrn_Q		: in std_logic_vector(15 downto 0);
       mux_sel        : in std_logic;   -- Mux select: 0 - tx, 1 - wfm
       tx_diq_h       : in std_logic_vector(diq_width downto 0);
       tx_diq_l       : in std_logic_vector(diq_width downto 0);
@@ -74,6 +76,8 @@ tst_ptrn_inst0 : entity work.txiq_tst_ptrn
       clk      => clk,
       reset_n  => reset_n,
       fidm     => test_ptrn_fidm,
+		ptrn_i	=> test_ptrn_I,
+		ptrn_q	=> test_ptrn_Q,
       diq_h    => isnt0_diq_h,
       diq_l    => isnt0_diq_l
         );
