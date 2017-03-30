@@ -35,45 +35,45 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   8 .debug_aranges 00000390  00000000  00000000  00004340  2**3
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_info   00004a1e  00000000  00000000  000046d0  2**0
+  9 .debug_info   00004a09  00000000  00000000  000046d0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_abbrev 000016d6  00000000  00000000  000090ee  2**0
+ 10 .debug_abbrev 000016d6  00000000  00000000  000090d9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_line   00001c06  00000000  00000000  0000a7c4  2**0
+ 11 .debug_line   00001c06  00000000  00000000  0000a7af  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_frame  000007bc  00000000  00000000  0000c3cc  2**2
+ 12 .debug_frame  000007bc  00000000  00000000  0000c3b8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    000016dd  00000000  00000000  0000cb88  2**0
+ 13 .debug_str    00001633  00000000  00000000  0000cb74  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_loc    0000080b  00000000  00000000  0000e265  2**0
+ 14 .debug_loc    0000080b  00000000  00000000  0000e1a7  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_alt_sim_info 00000040  00000000  00000000  0000ea70  2**2
+ 15 .debug_alt_sim_info 00000040  00000000  00000000  0000e9b4  2**2
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_ranges 000000a0  00000000  00000000  0000eab0  2**3
+ 16 .debug_ranges 000000a0  00000000  00000000  0000e9f8  2**3
                   CONTENTS, READONLY, DEBUGGING
- 17 .thread_model 00000003  00000000  00000000  0001031d  2**0
+ 17 .thread_model 00000003  00000000  00000000  00010265  2**0
                   CONTENTS, READONLY
- 18 .cpu          00000009  00000000  00000000  00010320  2**0
+ 18 .cpu          00000009  00000000  00000000  00010268  2**0
                   CONTENTS, READONLY
- 19 .qsys         00000001  00000000  00000000  00010329  2**0
+ 19 .qsys         00000001  00000000  00000000  00010271  2**0
                   CONTENTS, READONLY
- 20 .simulation_enabled 00000001  00000000  00000000  0001032a  2**0
+ 20 .simulation_enabled 00000001  00000000  00000000  00010272  2**0
                   CONTENTS, READONLY
- 21 .sysid_hash   00000004  00000000  00000000  0001032b  2**0
+ 21 .sysid_hash   00000004  00000000  00000000  00010273  2**0
                   CONTENTS, READONLY
- 22 .sysid_base   00000004  00000000  00000000  0001032f  2**0
+ 22 .sysid_base   00000004  00000000  00000000  00010277  2**0
                   CONTENTS, READONLY
- 23 .sysid_time   00000004  00000000  00000000  00010333  2**0
+ 23 .sysid_time   00000004  00000000  00000000  0001027b  2**0
                   CONTENTS, READONLY
- 24 .stderr_dev   00000004  00000000  00000000  00010337  2**0
+ 24 .stderr_dev   00000004  00000000  00000000  0001027f  2**0
                   CONTENTS, READONLY
- 25 .stdin_dev    00000004  00000000  00000000  0001033b  2**0
+ 25 .stdin_dev    00000004  00000000  00000000  00010283  2**0
                   CONTENTS, READONLY
- 26 .stdout_dev   00000004  00000000  00000000  0001033f  2**0
+ 26 .stdout_dev   00000004  00000000  00000000  00010287  2**0
                   CONTENTS, READONLY
- 27 .sopc_system_name 00000007  00000000  00000000  00010343  2**0
+ 27 .sopc_system_name 00000007  00000000  00000000  0001028b  2**0
                   CONTENTS, READONLY
- 28 .sopcinfo     000644ed  00000000  00000000  0001034a  2**0
+ 28 .sopcinfo     000644ed  00000000  00000000  00010292  2**0
                   CONTENTS, READONLY
 SYMBOL TABLE:
 00008000 l    d  .entry	00000000 .entry
@@ -1869,11 +1869,11 @@ Disassembly of section .text:
     990c:	00fff184 	movi	r3,-58
     9910:	10c00005 	stb	r3,0(r2)
     9914:	d0a00117 	ldw	r2,-32764(gp)
-    9918:	10c00203 	ldbu	r3,8(r2)
+    9918:	10c00243 	ldbu	r3,9(r2)
     991c:	d0a190c4 	addi	r2,gp,-31165
     9920:	10c00005 	stb	r3,0(r2)
     9924:	d0a00117 	ldw	r2,-32764(gp)
-    9928:	10c00243 	ldbu	r3,9(r2)
+    9928:	10c00203 	ldbu	r3,8(r2)
     992c:	d0a19104 	addi	r2,gp,-31164
     9930:	10c00005 	stb	r3,0(r2)
     9934:	d8000015 	stw	zero,0(sp)

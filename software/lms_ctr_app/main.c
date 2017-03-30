@@ -875,8 +875,8 @@ int main()
  	 				//write reg addr
  	 				sc_brdg_data[0] = 0x80;		// Write command & BOARD_GPIO_VAL register address MSB
  	 				sc_brdg_data[1] = 0xC6;		// BOARD_GPIO_VAL register address LSB
- 	 				sc_brdg_data[2] = LMS_Ctrl_Packet_Rx->Data_field[0];	// Data fields swapped, while MSB in the data packet is in the
- 	 				sc_brdg_data[3] = LMS_Ctrl_Packet_Rx->Data_field[1];	// leftmost byte
+ 	 				sc_brdg_data[2] = LMS_Ctrl_Packet_Rx->Data_field[1];	// Data fields swapped, while MSB in the data packet is in the
+ 	 				sc_brdg_data[3] = LMS_Ctrl_Packet_Rx->Data_field[0];	// leftmost byte
  	 				spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_BRD, 4, sc_brdg_data, 0, NULL, 0);
 
  	 				LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
