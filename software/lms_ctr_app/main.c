@@ -24,7 +24,8 @@
 
 //get info
 //#define FW_VER				1 //Initial version
-#define FW_VER				3 //
+//#define FW_VER				3 //
+#define FW_VER				4 //Commands CMD_GPIO_WR, CMD_GPIO_RD, CMD_GPIO_DIR_WR and CMD_GPIO_DIR_RD added
 
 
 #define SPI_NR_LMS7002M 0
@@ -837,6 +838,64 @@ int main()
 					else LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
 
 				break;
+
+
+ 	 			case CMD_GPIO_DIR_WR:
+ 	 				//if(Check_many_blocks (2)) break;
+
+ 					//write reg addr
+ 					sc_brdg_data[0] = 0x80;		// Write command & BOARD_GPIO_DIR register address MSB
+ 					sc_brdg_data[1] = 0xC4;		// BOARD_GPIO_DIR register address LSB
+ 					sc_brdg_data[2] = LMS_Ctrl_Packet_Rx->Data_field[1];	// Data fields swapped, while MSB in the data packet is in the
+ 					sc_brdg_data[3] = LMS_Ctrl_Packet_Rx->Data_field[0];	// leftmost byte
+ 					spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_BRD, 4, sc_brdg_data, 0, NULL, 0);
+
+ 	 				LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+ 	 			break;
+
+
+ 				case CMD_GPIO_DIR_RD:
+ 					//if(Check_many_blocks (2)) break;
+
+					//write reg addr
+ 					sc_brdg_data[0] = 0x00;		// Read command & BOARD_GPIO_DIR register address MSB
+ 					sc_brdg_data[1] = 0xC4;		// BOARD_GPIO_DIR register address LSB
+					spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_BRD, 2, sc_brdg_data, 2, &sc_brdg_data[2], 0);
+
+					LMS_Ctrl_Packet_Tx->Data_field[0] = sc_brdg_data[3];	// Data fields swapped, while MSB in the data packet is in the
+					LMS_Ctrl_Packet_Tx->Data_field[1] = sc_brdg_data[2];	// leftmost byte
+
+ 					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+ 				break;
+
+
+ 	 			case CMD_GPIO_WR:
+ 	 				//if(Check_many_blocks (2)) break;
+
+ 	 				//write reg addr
+ 	 				sc_brdg_data[0] = 0x80;		// Write command & BOARD_GPIO_VAL register address MSB
+ 	 				sc_brdg_data[1] = 0xC6;		// BOARD_GPIO_VAL register address LSB
+ 	 				sc_brdg_data[2] = LMS_Ctrl_Packet_Rx->Data_field[0];	// Data fields swapped, while MSB in the data packet is in the
+ 	 				sc_brdg_data[3] = LMS_Ctrl_Packet_Rx->Data_field[1];	// leftmost byte
+ 	 				spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_BRD, 4, sc_brdg_data, 0, NULL, 0);
+
+ 	 				LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+ 	 			break;
+
+
+ 				case CMD_GPIO_RD:
+ 					//if(Check_many_blocks (2)) break;
+
+					//write reg addr
+ 	 				sc_brdg_data[0] = 0x00;		// Read command & BOARD_GPIO_RD register address MSB
+ 	 				sc_brdg_data[1] = 0xC2;		// BOARD_GPIO_RD register address LSB
+ 					spirez = alt_avalon_spi_command(SPI_LMS_BASE, SPI_NR_BRD, 2, sc_brdg_data, 2, &sc_brdg_data[2], 0);
+
+ 					LMS_Ctrl_Packet_Tx->Data_field[0] = sc_brdg_data[3];	// Data fields swapped, while MSB in the data packet is in the
+ 					LMS_Ctrl_Packet_Tx->Data_field[1] = sc_brdg_data[2];	// leftmost byte
+
+ 					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
+ 				break;
 
 
  				default:

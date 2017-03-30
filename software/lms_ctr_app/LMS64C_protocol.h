@@ -78,8 +78,12 @@ enum eEXP_BOARD {
 #define CMD_PE636040_WR		0x41 //Writes data to PE636040 tuner
 #define CMD_PE636040_RD		0x42 //Reads data from PE636040 tuner
 
-#define CMD_GPIO_WR			0x51 //Controls board’s GPIOs	
-#define CMD_GPIO_RD			0x52 //Reads board’s GPIOs states 
+
+
+#define CMD_GPIO_DIR_WR		0x4F //Set GPIOs direction
+#define CMD_GPIO_DIR_RD		0x50 //Reads GPIOs direction
+#define CMD_GPIO_WR			0x51 //Controls board's GPIOs
+#define CMD_GPIO_RD			0x52 //Reads board's GPIOs states
 #define CMD_ALTERA_FPGA_GW_WR		0x53
 #define CMD_ALTERA_FPGA_GW_RD		0x54
 
