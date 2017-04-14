@@ -56,6 +56,7 @@ entity fpgacfg is
 		tx_en				: out std_logic;
 		rx_ptrn_en		: out std_logic;
 		tx_ptrn_en		: out std_logic;
+		tx_cnt_en		: out std_logic;
 		wfm_ch_en		: out std_logic_vector(15 downto 0);
 		wfm_play			: out std_logic;
 		wfm_load			: out std_logic;
@@ -217,7 +218,7 @@ begin
 			mem(7)	<= "0000000000000011"; --  0 free, ch_en[15:0]
 			mem(8)	<= "0000000100000010"; --  6 free, synch_dis, mimo_int_en, reserved[5:0], smpl_width[1:0]
 			mem(9)	<= "0000000000000011"; -- 14 free, txpct_loss_clr, smpl_nr_clr,			
-			mem(10)	<= "0000000000000000"; -- 14 free, tx_ptrn_en, rx_ptrn_en, reserved[5:0], tx_en, rx_en,
+			mem(10)	<= "0000000000000000"; -- 14 free, tx_cnt_en,tx_ptrn_en, rx_ptrn_en, reserved[5:0], tx_en, rx_en,
 			mem(11)	<= "0000000000000000"; -- 16 free, (Reserved)
 			mem(12)	<= "0000000000000011"; --  0 free, wfm_ch_en
 			mem(13)	<= "0000000000000000"; --  0 free, Reserved,wfm_load,wfm_play,Reserved
@@ -272,6 +273,7 @@ begin
 		tx_en				<= mem(10) (1);
 		rx_ptrn_en		<= mem(10) (8);
 		tx_ptrn_en		<= mem(10) (9);
+		tx_cnt_en		<= mem(10) (10);
 		
 		
 		
