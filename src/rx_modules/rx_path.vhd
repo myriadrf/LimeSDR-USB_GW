@@ -29,7 +29,8 @@ generic(
 		--data input 
 		DIQ2					: in std_logic_vector(diq_width-1 downto 0);
 		DIQ2_IQSEL2			: in std_logic;
-		--config signals 
+		--config signals
+		drct_clk_en			: in std_logic;
 		data_src				: in std_logic;
 		fr_start				: in std_logic;
 		mimo_en				: in std_logic;

@@ -29,6 +29,7 @@ entity diq2_samples is
 		rxiq				: in std_logic_vector(diq_width-1 downto 0);
 		rxiqsel			: in std_logic;
 		--config ports
+		drct_clk_en		: in std_logic;
 		data_src			: in std_logic; --selects between test data  - 1 and real data - 0 	
 		fr_start			: in std_logic;
 		mimo_en			: in std_logic;
@@ -56,7 +57,12 @@ signal inst2_data_out_h, inst2_data_out_l : std_logic_vector (diq_width downto 0
 signal test_data_h, test_data_l : std_logic_vector (diq_width downto 0);
 
 --data mux
-signal mux_data_h, mux_data_l		: std_logic_vector (diq_width downto 0);
+signal mux0_data_h, mux0_data_l					: std_logic_vector (diq_width downto 0);
+signal mux0_data_h_reg, mux0_data_l_reg		: std_logic_vector (diq_width downto 0);
+
+signal mux1_data_h, mux1_data_l					: std_logic_vector (diq_width downto 0);
+signal mux1_data_h_reg, mux1_data_l_reg		: std_logic_vector (diq_width downto 0);
+
 
 -- synchronized enable
 signal en_reg, en_synch	: std_logic; 
@@ -152,8 +158,45 @@ PORT MAP(
 		);		
 
 
-mux_data_h <= inst1_data_out_h when data_src='0' else inst2_data_out_h;
-mux_data_l <= inst1_data_out_l when data_src='0' else inst2_data_out_l;
+mux0_data_h <= inst1_data_out_h when drct_clk_en='0' else inst2_data_out_h;
+mux0_data_l <= inst1_data_out_l when drct_clk_en='0' else inst2_data_out_l;
+
+process(clk, reset_n)
+begin 
+	if reset_n = '0' then 
+		mux0_data_h_reg <= (others=>'0');
+		mux0_data_l_reg <= (others=>'0');
+	elsif (clk'event AND clk='1') then 
+		mux0_data_h_reg <= mux0_data_h;
+		mux0_data_l_reg <= mux0_data_l;
+	end if;
+end process;
+
+
+test_data_dd_inst3 : test_data_dd
+  PORT MAP(
+			clk       		=> clk,
+			reset_n   		=> reset_n,
+			fr_start	 		=> fr_start,
+			mimo_en			=> mimo_en,
+			data_h		  	=> test_data_h,
+			data_l		  	=> test_data_l
+        );
+		  
+mux1_data_h <= mux0_data_h_reg when data_src='0' else test_data_h;
+mux1_data_l <= mux0_data_l_reg when data_src='0' else test_data_l;
+
+process(clk, reset_n)
+begin 
+	if reset_n = '0' then 
+		mux1_data_h_reg <= (others=>'0');
+		mux1_data_l_reg <= (others=>'0');
+	elsif (clk'event AND clk='1') then 
+		mux1_data_h_reg <= mux1_data_h;
+		mux1_data_l_reg <= mux1_data_l;
+	end if;
+end process;		  
+
 
 
 wr_rx_fifo_v3_inst : wr_rx_fifo_v3
@@ -166,8 +209,8 @@ PORT MAP(clk 		=> clk,
 		 en 			=> en_synch,
 		 fifo_wfull => fifo_full,
 		 ch_en 		=> ch_en,
-		 diq_h 		=> mux_data_h,
-		 diq_l 		=> mux_data_l,
+		 diq_h 		=> mux1_data_h_reg,
+		 diq_l 		=> mux1_data_l_reg,
 		 fifo_wr 	=> fifo_wr,
 		 diq 			=> diq);
 
