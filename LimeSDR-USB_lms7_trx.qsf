@@ -711,12 +711,31 @@ set_instance_assignment -name IO_STANDARD "2.5 V" -to HW_VER[0]
 set_instance_assignment -name IO_STANDARD "2.5 V" -to HW_VER[1]
 set_instance_assignment -name IO_STANDARD "2.5 V" -to HW_VER[2]
 set_instance_assignment -name IO_STANDARD "2.5 V" -to HW_VER[3]
+set_location_assignment PIN_H8 -to FPGA_GPIO[0]
+set_location_assignment PIN_H6 -to FPGA_GPIO[1]
+set_location_assignment PIN_H2 -to FPGA_GPIO[2]
+set_location_assignment PIN_H1 -to FPGA_GPIO[3]
+set_location_assignment PIN_G4 -to FPGA_GPIO[4]
+set_location_assignment PIN_G3 -to FPGA_GPIO[5]
+set_location_assignment PIN_F2 -to FPGA_GPIO[6]
+set_location_assignment PIN_F1 -to FPGA_GPIO[7]
+set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[0]
+set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 0 -to LMS_DIQ1_D[1]
+set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[2]
+set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[3]
+set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[4]
+set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[6]
+set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 0 -to LMS_DIQ1_D[7]
+set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 0 -to LMS_DIQ1_D[8]
+set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[9]
+set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[10]
+set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 0 -to LMS_DIQ1_D[11]
+set_global_assignment -name VHDL_FILE src/bit_pack/synth/pack_56_to_64.vhd
+set_global_assignment -name VHDL_FILE src/bit_pack/synth/pack_48_to_64.vhd
+set_global_assignment -name VHDL_FILE src/bit_pack/synth/bit_pack.vhd
 set_global_assignment -name VHDL_FILE src/general/gpio_ctrl_top.vhd
 set_global_assignment -name VHDL_FILE src/txiqmux/synth/txiqmux.vhd
 set_global_assignment -name VHDL_FILE src/txiqmux/synth/txiq_tst_ptrn.vhd
-set_global_assignment -name VHDL_FILE src/rx_packets/pack_56_to_64.vhd
-set_global_assignment -name VHDL_FILE src/rx_packets/pack_48_to_64.vhd
-set_global_assignment -name VHDL_FILE src/rx_packets/bit_pack.vhd
 set_global_assignment -name VHDL_FILE src/general/busy_delay.vhd
 set_global_assignment -name QIP_FILE software/lms_ctr_app/mem_init/meminit.qip
 set_global_assignment -name VHDL_FILE src/nios_cpu/nios_cpu.vhd
@@ -805,24 +824,5 @@ set_global_assignment -name BDF_FILE symbols/pll_block_rx.bdf
 set_global_assignment -name VHDL_FILE src/general/diq2_sampling.vhd
 set_global_assignment -name VHDL_FILE src/general/sync_reg.vhd
 set_global_assignment -name VHDL_FILE src/general/gpio_ctrl.vhd
-set_location_assignment PIN_H8 -to FPGA_GPIO[0]
-set_location_assignment PIN_H6 -to FPGA_GPIO[1]
-set_location_assignment PIN_H2 -to FPGA_GPIO[2]
-set_location_assignment PIN_H1 -to FPGA_GPIO[3]
-set_location_assignment PIN_G4 -to FPGA_GPIO[4]
-set_location_assignment PIN_G3 -to FPGA_GPIO[5]
-set_location_assignment PIN_F2 -to FPGA_GPIO[6]
-set_location_assignment PIN_F1 -to FPGA_GPIO[7]
 set_global_assignment -name VHDL_FILE src/spi/periphcfg.vhd
-set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[0]
-set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 0 -to LMS_DIQ1_D[1]
-set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[2]
-set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[3]
-set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[4]
-set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[6]
-set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 0 -to LMS_DIQ1_D[7]
-set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 0 -to LMS_DIQ1_D[8]
-set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[9]
-set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[10]
-set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 0 -to LMS_DIQ1_D[11]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

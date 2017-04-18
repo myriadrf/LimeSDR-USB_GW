@@ -151,11 +151,6 @@ infiford_limit<= 	x"02A7" when sample_width_reg1="10" else
 pct_wr_end<='1' when allpct_wr_cnt=pct_size/8-1 else 
             '0';
   
-
-cmpr_dain <= "0000000000000000"  & diq0(63 downto 52) &  diq0(47 downto 36) & diq0(31 downto 20) & diq0(15 downto 4) when sample_width_reg1="10" else 
-					"00000000" 			& diq0(63 downto 50) &  diq0(47 downto 34) & diq0(31 downto 18) & diq0(15 downto 2) when sample_width_reg1="01" else
-					diq0;				  
-				  
   
 --packet reserved bits  
   pct_rsrvd0<="000000000000" & tx_pct_loss_detect & infifo_rdusedw(infifo_rdsize-1 downto infifo_rdsize-3);
@@ -515,7 +510,7 @@ cmpr_inst : bit_pack
   port map(
         clk             => clk, 
         reset_n         => reset_n,
-        data_in         => cmpr_dain,
+        data_in         => diq0,
         data_in_valid   => infifo_rd_sig,
         sample_width    => sample_width_reg1, 
         data_out        => cmprsd_data,
