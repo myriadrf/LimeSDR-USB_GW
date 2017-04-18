@@ -80,24 +80,30 @@ port map (
 		data_out_valid	=> inst0_data_out_valid
 );
 
-inst1 : pack_56_to_64 
-port map (
-	   clk       		=> clk,
-      reset_n   		=> reset_n,
-		data_in_wrreq	=> data_in_valid,
-		data56_in		=> data_in(55 downto 0),
-		data64_out		=> inst1_data64_out,
-		data_out_valid	=> inst1_data_out_valid
-);
+--inst1 : pack_56_to_64 
+--port map (
+--	   clk       		=> clk,
+--      reset_n   		=> reset_n,
+--		data_in_wrreq	=> data_in_valid,
+--		data56_in		=> data_in(55 downto 0),
+--		data64_out		=> inst1_data64_out,
+--		data_out_valid	=> inst1_data_out_valid
+--);
 
+--data_out <=inst0_data64_out when sample_width="10" else 
+--				inst1_data64_out when sample_width="01" else 
+--				data_in;
+--
+--data_out_valid <=	inst0_data_out_valid when sample_width="10" else 
+--				inst1_data_out_valid when sample_width="01" else 
+--				data_in_valid;
+
+				
 data_out <=inst0_data64_out when sample_width="10" else 
-				inst1_data64_out when sample_width="01" else 
 				data_in;
 
-data_out_valid <=	inst0_data_out_valid when sample_width="10" else 
-				inst1_data_out_valid when sample_width="01" else 
+data_out_valid <=	inst0_data_out_valid when sample_width="10" else
 				data_in_valid;
-
 
 end arch;   
 
