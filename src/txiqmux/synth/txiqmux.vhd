@@ -144,8 +144,8 @@ test_data_dd_inst1 : entity work.test_data_dd
 -- ----------------------------------------------------------------------------
 -- Mux 2, Mux 1 data and test data
 -- ----------------------------------------------------------------------------        
-mux2_diq_h <= mux1_diq_h_reg when test_data_en = '0' else inst1_data_h;
-mux2_diq_l <= mux1_diq_l_reg when test_data_en = '0' else inst1_data_l;
+mux2_diq_h <= mux1_diq_h_reg when test_data_en = '0' else inst1_data_l;
+mux2_diq_l <= mux1_diq_l_reg when test_data_en = '0' else inst1_data_h;
 
  mux2_reg : process(reset_n, clk)
     begin
