@@ -1,5 +1,5 @@
 //altpll bandwidth_type="AUTO" CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" clk0_divide_by=1 clk0_duty_cycle=50 clk0_multiply_by=1 clk0_phase_shift="0" clk1_divide_by=1 clk1_duty_cycle=50 clk1_multiply_by=1 clk1_phase_shift="0" device_family="Cyclone IV E" inclk0_input_frequency=6250 intended_device_family="Cyclone IV E" lpm_hint="CBX_MODULE_PREFIX=txpll" operation_mode="no_compensation" pll_type="AUTO" port_clk0="PORT_USED" port_clk1="PORT_USED" port_clk2="PORT_UNUSED" port_clk3="PORT_UNUSED" port_clk4="PORT_UNUSED" port_clk5="PORT_UNUSED" port_extclk0="PORT_UNUSED" port_extclk1="PORT_UNUSED" port_extclk2="PORT_UNUSED" port_extclk3="PORT_UNUSED" port_inclk1="PORT_UNUSED" port_phasecounterselect="PORT_USED" port_phasedone="PORT_USED" port_scandata="PORT_USED" port_scandataout="PORT_USED" scan_chain_mif_file="txpll.mif" self_reset_on_loss_lock="OFF" width_clock=5 width_phasecounterselect=3 areset clk configupdate inclk locked pfdena phasecounterselect phasedone phasestep phaseupdown scanclk scanclkena scandata scandataout scandone CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48
-//VERSION_BEGIN 15.1 cbx_altclkbuf 2016:02:01:19:04:59:SJ cbx_altiobuf_bidir 2016:02:01:19:04:59:SJ cbx_altiobuf_in 2016:02:01:19:04:59:SJ cbx_altiobuf_out 2016:02:01:19:04:59:SJ cbx_altpll 2016:02:01:19:04:59:SJ cbx_cycloneii 2016:02:01:19:04:59:SJ cbx_lpm_add_sub 2016:02:01:19:04:59:SJ cbx_lpm_compare 2016:02:01:19:04:59:SJ cbx_lpm_counter 2016:02:01:19:04:59:SJ cbx_lpm_decode 2016:02:01:19:04:59:SJ cbx_lpm_mux 2016:02:01:19:04:59:SJ cbx_mgl 2016:02:01:19:07:00:SJ cbx_nadder 2016:02:01:19:04:59:SJ cbx_stratix 2016:02:01:19:05:00:SJ cbx_stratixii 2016:02:01:19:05:00:SJ cbx_stratixiii 2016:02:01:19:05:00:SJ cbx_stratixv 2016:02:01:19:05:00:SJ cbx_util_mgl 2016:02:01:19:04:59:SJ  VERSION_END
+//VERSION_BEGIN 15.1 cbx_altclkbuf 2016:01:20:19:04:45:SJ cbx_altiobuf_bidir 2016:01:20:19:04:45:SJ cbx_altiobuf_in 2016:01:20:19:04:45:SJ cbx_altiobuf_out 2016:01:20:19:04:45:SJ cbx_altpll 2016:01:20:19:04:45:SJ cbx_cycloneii 2016:01:20:19:04:45:SJ cbx_lpm_add_sub 2016:01:20:19:04:45:SJ cbx_lpm_compare 2016:01:20:19:04:45:SJ cbx_lpm_counter 2016:01:20:19:04:45:SJ cbx_lpm_decode 2016:01:20:19:04:45:SJ cbx_lpm_mux 2016:01:20:19:04:45:SJ cbx_mgl 2016:01:20:20:20:04:SJ cbx_nadder 2016:01:20:19:04:45:SJ cbx_stratix 2016:01:20:19:04:45:SJ cbx_stratixii 2016:01:20:19:04:45:SJ cbx_stratixiii 2016:01:20:19:04:47:SJ cbx_stratixv 2016:01:20:19:04:47:SJ cbx_util_mgl 2016:01:20:19:04:45:SJ  VERSION_END
 //CBXI_INSTANCE_NAME="lms7_trx_top_pll_block_tx_inst33_txpll_inst35_altpll_altpll_component"
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
@@ -25,7 +25,7 @@
 
 
 //altpll_dynamic_phase_lcell CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" DEVICE_FAMILY="Cyclone IV E" INDEX=0 combout dataa datab datac datad ALTERA_INTERNAL_OPTIONS=ADV_NETLIST_OPT_ALLOWED = NEVER_ALLOW;REMOVE_REDUNDANT_LOGIC_CELLS = OFF;IGNORE_LCELL_BUFFERS = OFF
-//VERSION_BEGIN 15.1 cbx_altclkbuf 2016:02:01:19:04:59:SJ cbx_altiobuf_bidir 2016:02:01:19:04:59:SJ cbx_altiobuf_in 2016:02:01:19:04:59:SJ cbx_altiobuf_out 2016:02:01:19:04:59:SJ cbx_altpll 2016:02:01:19:04:59:SJ cbx_cycloneii 2016:02:01:19:04:59:SJ cbx_lpm_add_sub 2016:02:01:19:04:59:SJ cbx_lpm_compare 2016:02:01:19:04:59:SJ cbx_lpm_counter 2016:02:01:19:04:59:SJ cbx_lpm_decode 2016:02:01:19:04:59:SJ cbx_lpm_mux 2016:02:01:19:04:59:SJ cbx_mgl 2016:02:01:19:07:00:SJ cbx_nadder 2016:02:01:19:04:59:SJ cbx_stratix 2016:02:01:19:05:00:SJ cbx_stratixii 2016:02:01:19:05:00:SJ cbx_stratixiii 2016:02:01:19:05:00:SJ cbx_stratixv 2016:02:01:19:05:00:SJ cbx_util_mgl 2016:02:01:19:04:59:SJ  VERSION_END
+//VERSION_BEGIN 15.1 cbx_altclkbuf 2016:01:20:19:04:45:SJ cbx_altiobuf_bidir 2016:01:20:19:04:45:SJ cbx_altiobuf_in 2016:01:20:19:04:45:SJ cbx_altiobuf_out 2016:01:20:19:04:45:SJ cbx_altpll 2016:01:20:19:04:45:SJ cbx_cycloneii 2016:01:20:19:04:45:SJ cbx_lpm_add_sub 2016:01:20:19:04:45:SJ cbx_lpm_compare 2016:01:20:19:04:45:SJ cbx_lpm_counter 2016:01:20:19:04:45:SJ cbx_lpm_decode 2016:01:20:19:04:45:SJ cbx_lpm_mux 2016:01:20:19:04:45:SJ cbx_mgl 2016:01:20:20:20:04:SJ cbx_nadder 2016:01:20:19:04:45:SJ cbx_stratix 2016:01:20:19:04:45:SJ cbx_stratixii 2016:01:20:19:04:45:SJ cbx_stratixiii 2016:01:20:19:04:47:SJ cbx_stratixv 2016:01:20:19:04:47:SJ cbx_util_mgl 2016:01:20:19:04:45:SJ  VERSION_END
 
 //synthesis_resources = lut 1 
 //synopsys translate_off
@@ -68,7 +68,7 @@ endmodule //txpll_altpll_dyn_phase_le
 
 
 //altpll_dynamic_phase_lcell CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" DEVICE_FAMILY="Cyclone IV E" INDEX=1 combout dataa datab datac datad ALTERA_INTERNAL_OPTIONS=ADV_NETLIST_OPT_ALLOWED = NEVER_ALLOW;REMOVE_REDUNDANT_LOGIC_CELLS = OFF;IGNORE_LCELL_BUFFERS = OFF
-//VERSION_BEGIN 15.1 cbx_altclkbuf 2016:02:01:19:04:59:SJ cbx_altiobuf_bidir 2016:02:01:19:04:59:SJ cbx_altiobuf_in 2016:02:01:19:04:59:SJ cbx_altiobuf_out 2016:02:01:19:04:59:SJ cbx_altpll 2016:02:01:19:04:59:SJ cbx_cycloneii 2016:02:01:19:04:59:SJ cbx_lpm_add_sub 2016:02:01:19:04:59:SJ cbx_lpm_compare 2016:02:01:19:04:59:SJ cbx_lpm_counter 2016:02:01:19:04:59:SJ cbx_lpm_decode 2016:02:01:19:04:59:SJ cbx_lpm_mux 2016:02:01:19:04:59:SJ cbx_mgl 2016:02:01:19:07:00:SJ cbx_nadder 2016:02:01:19:04:59:SJ cbx_stratix 2016:02:01:19:05:00:SJ cbx_stratixii 2016:02:01:19:05:00:SJ cbx_stratixiii 2016:02:01:19:05:00:SJ cbx_stratixv 2016:02:01:19:05:00:SJ cbx_util_mgl 2016:02:01:19:04:59:SJ  VERSION_END
+//VERSION_BEGIN 15.1 cbx_altclkbuf 2016:01:20:19:04:45:SJ cbx_altiobuf_bidir 2016:01:20:19:04:45:SJ cbx_altiobuf_in 2016:01:20:19:04:45:SJ cbx_altiobuf_out 2016:01:20:19:04:45:SJ cbx_altpll 2016:01:20:19:04:45:SJ cbx_cycloneii 2016:01:20:19:04:45:SJ cbx_lpm_add_sub 2016:01:20:19:04:45:SJ cbx_lpm_compare 2016:01:20:19:04:45:SJ cbx_lpm_counter 2016:01:20:19:04:45:SJ cbx_lpm_decode 2016:01:20:19:04:45:SJ cbx_lpm_mux 2016:01:20:19:04:45:SJ cbx_mgl 2016:01:20:20:20:04:SJ cbx_nadder 2016:01:20:19:04:45:SJ cbx_stratix 2016:01:20:19:04:45:SJ cbx_stratixii 2016:01:20:19:04:45:SJ cbx_stratixiii 2016:01:20:19:04:47:SJ cbx_stratixv 2016:01:20:19:04:47:SJ cbx_util_mgl 2016:01:20:19:04:45:SJ  VERSION_END
 
 //synthesis_resources = lut 1 
 //synopsys translate_off
@@ -111,7 +111,7 @@ endmodule //txpll_altpll_dyn_phase_le1
 
 
 //altpll_dynamic_phase_lcell CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" DEVICE_FAMILY="Cyclone IV E" INDEX=2 combout dataa datab datac datad ALTERA_INTERNAL_OPTIONS=ADV_NETLIST_OPT_ALLOWED = NEVER_ALLOW;REMOVE_REDUNDANT_LOGIC_CELLS = OFF;IGNORE_LCELL_BUFFERS = OFF
-//VERSION_BEGIN 15.1 cbx_altclkbuf 2016:02:01:19:04:59:SJ cbx_altiobuf_bidir 2016:02:01:19:04:59:SJ cbx_altiobuf_in 2016:02:01:19:04:59:SJ cbx_altiobuf_out 2016:02:01:19:04:59:SJ cbx_altpll 2016:02:01:19:04:59:SJ cbx_cycloneii 2016:02:01:19:04:59:SJ cbx_lpm_add_sub 2016:02:01:19:04:59:SJ cbx_lpm_compare 2016:02:01:19:04:59:SJ cbx_lpm_counter 2016:02:01:19:04:59:SJ cbx_lpm_decode 2016:02:01:19:04:59:SJ cbx_lpm_mux 2016:02:01:19:04:59:SJ cbx_mgl 2016:02:01:19:07:00:SJ cbx_nadder 2016:02:01:19:04:59:SJ cbx_stratix 2016:02:01:19:05:00:SJ cbx_stratixii 2016:02:01:19:05:00:SJ cbx_stratixiii 2016:02:01:19:05:00:SJ cbx_stratixv 2016:02:01:19:05:00:SJ cbx_util_mgl 2016:02:01:19:04:59:SJ  VERSION_END
+//VERSION_BEGIN 15.1 cbx_altclkbuf 2016:01:20:19:04:45:SJ cbx_altiobuf_bidir 2016:01:20:19:04:45:SJ cbx_altiobuf_in 2016:01:20:19:04:45:SJ cbx_altiobuf_out 2016:01:20:19:04:45:SJ cbx_altpll 2016:01:20:19:04:45:SJ cbx_cycloneii 2016:01:20:19:04:45:SJ cbx_lpm_add_sub 2016:01:20:19:04:45:SJ cbx_lpm_compare 2016:01:20:19:04:45:SJ cbx_lpm_counter 2016:01:20:19:04:45:SJ cbx_lpm_decode 2016:01:20:19:04:45:SJ cbx_lpm_mux 2016:01:20:19:04:45:SJ cbx_mgl 2016:01:20:20:20:04:SJ cbx_nadder 2016:01:20:19:04:45:SJ cbx_stratix 2016:01:20:19:04:45:SJ cbx_stratixii 2016:01:20:19:04:45:SJ cbx_stratixiii 2016:01:20:19:04:47:SJ cbx_stratixv 2016:01:20:19:04:47:SJ cbx_util_mgl 2016:01:20:19:04:45:SJ  VERSION_END
 
 //synthesis_resources = lut 1 
 //synopsys translate_off
@@ -154,15 +154,15 @@ endmodule //txpll_altpll_dyn_phase_le12
 
 
 //lpm_counter CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" DEVICE_FAMILY="Cyclone IV E" lpm_modulus=3 lpm_port_updown="PORT_UNUSED" lpm_width=2 clock cnt_en q
-//VERSION_BEGIN 15.1 cbx_cycloneii 2016:02:01:19:04:59:SJ cbx_lpm_add_sub 2016:02:01:19:04:59:SJ cbx_lpm_compare 2016:02:01:19:04:59:SJ cbx_lpm_counter 2016:02:01:19:04:59:SJ cbx_lpm_decode 2016:02:01:19:04:59:SJ cbx_mgl 2016:02:01:19:07:00:SJ cbx_nadder 2016:02:01:19:04:59:SJ cbx_stratix 2016:02:01:19:05:00:SJ cbx_stratixii 2016:02:01:19:05:00:SJ  VERSION_END
+//VERSION_BEGIN 15.1 cbx_cycloneii 2016:01:20:19:04:45:SJ cbx_lpm_add_sub 2016:01:20:19:04:45:SJ cbx_lpm_compare 2016:01:20:19:04:45:SJ cbx_lpm_counter 2016:01:20:19:04:45:SJ cbx_lpm_decode 2016:01:20:19:04:45:SJ cbx_mgl 2016:01:20:20:20:04:SJ cbx_nadder 2016:01:20:19:04:45:SJ cbx_stratix 2016:01:20:19:04:45:SJ cbx_stratixii 2016:01:20:19:04:45:SJ  VERSION_END
 
 
 //lpm_add_sub CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48 CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" DEVICE_FAMILY="Cyclone IV E" LPM_DIRECTION="ADD" LPM_REPRESENTATION="UNSIGNED" LPM_WIDTH=2 ONE_INPUT_IS_CONSTANT="YES" USE_WYS="OPERATORS" cout dataa datab result
-//VERSION_BEGIN 15.1 cbx_cycloneii 2016:02:01:19:04:59:SJ cbx_lpm_add_sub 2016:02:01:19:04:59:SJ cbx_mgl 2016:02:01:19:07:00:SJ cbx_nadder 2016:02:01:19:04:59:SJ cbx_stratix 2016:02:01:19:05:00:SJ cbx_stratixii 2016:02:01:19:05:00:SJ  VERSION_END
+//VERSION_BEGIN 15.1 cbx_cycloneii 2016:01:20:19:04:45:SJ cbx_lpm_add_sub 2016:01:20:19:04:45:SJ cbx_mgl 2016:01:20:20:20:04:SJ cbx_nadder 2016:01:20:19:04:45:SJ cbx_stratix 2016:01:20:19:04:45:SJ cbx_stratixii 2016:01:20:19:04:45:SJ  VERSION_END
 
 
 //lpm_compare CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" DEVICE_FAMILY="Cyclone IV E" LPM_WIDTH=2 ONE_INPUT_IS_CONSTANT="YES" aeb dataa datab
-//VERSION_BEGIN 15.1 cbx_cycloneii 2016:02:01:19:04:59:SJ cbx_lpm_add_sub 2016:02:01:19:04:59:SJ cbx_lpm_compare 2016:02:01:19:04:59:SJ cbx_mgl 2016:02:01:19:07:00:SJ cbx_nadder 2016:02:01:19:04:59:SJ cbx_stratix 2016:02:01:19:05:00:SJ cbx_stratixii 2016:02:01:19:05:00:SJ  VERSION_END
+//VERSION_BEGIN 15.1 cbx_cycloneii 2016:01:20:19:04:45:SJ cbx_lpm_add_sub 2016:01:20:19:04:45:SJ cbx_lpm_compare 2016:01:20:19:04:45:SJ cbx_mgl 2016:01:20:20:20:04:SJ cbx_nadder 2016:01:20:19:04:45:SJ cbx_stratix 2016:01:20:19:04:45:SJ cbx_stratixii 2016:01:20:19:04:45:SJ  VERSION_END
 
 //synthesis_resources = 
 //synopsys translate_off
@@ -292,15 +292,15 @@ endmodule //txpll_cntr
 
 
 //lpm_counter CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" DEVICE_FAMILY="Cyclone IV E" lpm_modulus=6 lpm_port_updown="PORT_UNUSED" lpm_width=3 aclr clock cnt_en q
-//VERSION_BEGIN 15.1 cbx_cycloneii 2016:02:01:19:04:59:SJ cbx_lpm_add_sub 2016:02:01:19:04:59:SJ cbx_lpm_compare 2016:02:01:19:04:59:SJ cbx_lpm_counter 2016:02:01:19:04:59:SJ cbx_lpm_decode 2016:02:01:19:04:59:SJ cbx_mgl 2016:02:01:19:07:00:SJ cbx_nadder 2016:02:01:19:04:59:SJ cbx_stratix 2016:02:01:19:05:00:SJ cbx_stratixii 2016:02:01:19:05:00:SJ  VERSION_END
+//VERSION_BEGIN 15.1 cbx_cycloneii 2016:01:20:19:04:45:SJ cbx_lpm_add_sub 2016:01:20:19:04:45:SJ cbx_lpm_compare 2016:01:20:19:04:45:SJ cbx_lpm_counter 2016:01:20:19:04:45:SJ cbx_lpm_decode 2016:01:20:19:04:45:SJ cbx_mgl 2016:01:20:20:20:04:SJ cbx_nadder 2016:01:20:19:04:45:SJ cbx_stratix 2016:01:20:19:04:45:SJ cbx_stratixii 2016:01:20:19:04:45:SJ  VERSION_END
 
 
 //lpm_add_sub CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48 CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" DEVICE_FAMILY="Cyclone IV E" LPM_DIRECTION="ADD" LPM_REPRESENTATION="UNSIGNED" LPM_WIDTH=3 ONE_INPUT_IS_CONSTANT="YES" USE_WYS="OPERATORS" cout dataa datab result
-//VERSION_BEGIN 15.1 cbx_cycloneii 2016:02:01:19:04:59:SJ cbx_lpm_add_sub 2016:02:01:19:04:59:SJ cbx_mgl 2016:02:01:19:07:00:SJ cbx_nadder 2016:02:01:19:04:59:SJ cbx_stratix 2016:02:01:19:05:00:SJ cbx_stratixii 2016:02:01:19:05:00:SJ  VERSION_END
+//VERSION_BEGIN 15.1 cbx_cycloneii 2016:01:20:19:04:45:SJ cbx_lpm_add_sub 2016:01:20:19:04:45:SJ cbx_mgl 2016:01:20:20:20:04:SJ cbx_nadder 2016:01:20:19:04:45:SJ cbx_stratix 2016:01:20:19:04:45:SJ cbx_stratixii 2016:01:20:19:04:45:SJ  VERSION_END
 
 
 //lpm_compare CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" DEVICE_FAMILY="Cyclone IV E" LPM_WIDTH=3 ONE_INPUT_IS_CONSTANT="YES" aeb dataa datab
-//VERSION_BEGIN 15.1 cbx_cycloneii 2016:02:01:19:04:59:SJ cbx_lpm_add_sub 2016:02:01:19:04:59:SJ cbx_lpm_compare 2016:02:01:19:04:59:SJ cbx_mgl 2016:02:01:19:07:00:SJ cbx_nadder 2016:02:01:19:04:59:SJ cbx_stratix 2016:02:01:19:05:00:SJ cbx_stratixii 2016:02:01:19:05:00:SJ  VERSION_END
+//VERSION_BEGIN 15.1 cbx_cycloneii 2016:01:20:19:04:45:SJ cbx_lpm_add_sub 2016:01:20:19:04:45:SJ cbx_lpm_compare 2016:01:20:19:04:45:SJ cbx_mgl 2016:01:20:20:20:04:SJ cbx_nadder 2016:01:20:19:04:45:SJ cbx_stratix 2016:01:20:19:04:45:SJ cbx_stratixii 2016:01:20:19:04:45:SJ  VERSION_END
 
 //synthesis_resources = 
 //synopsys translate_off

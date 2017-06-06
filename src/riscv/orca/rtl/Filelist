@@ -1,0 +1,16 @@
+# Files in dependency order for Modelsim
+utils.vhd
+constants_pkg.vhd
+components.vhd
+4port_mem.vhd
+alu.vhd
+branch_unit.vhd
+decode.vhd
+execute.vhd
+instruction_fetch.vhd
+load_store_unit.vhd
+lve_top.vhd
+orca_core.vhd
+orca.vhd
+register_file.vhd
+sys_call.vhd

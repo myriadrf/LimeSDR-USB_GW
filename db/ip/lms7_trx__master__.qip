@@ -1,0 +1,1 @@
+set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) lms_orca/lms_orca.qip]

@@ -1,4 +1,4 @@
-//Legal Notice: (C)2016 Altera Corporation. All rights reserved.  Your
+//Legal Notice: (C)2017 Altera Corporation. All rights reserved.  Your
 //use of Altera Corporation's design tools, logic functions and other
 //software and tools, and its AMPP partner logic functions, and any
 //output files any of the foregoing (including device programming or
@@ -36,7 +36,7 @@
 //CPHA: 0
 //LSBFIRST: 0
 //EXTRADELAY: 1
-//TARGETSSDELAY: 2e-007
+//TARGETSSDELAY: 2e-07
 
 module lms_ctr_spi_1_ADF (
                            // inputs:

@@ -2,7 +2,7 @@ set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_TOOL_NAME "Q
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_TOOL_VERSION "15.1"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "lms_ctr" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../lms_ctr.sopcinfo"]
-set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name SLD_INFO "QSYS_NAME lms_ctr HAS_SOPCINFO 1 GENERATION_ID 1476792439"
+set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name SLD_INFO "QSYS_NAME lms_ctr HAS_SOPCINFO 1 GENERATION_ID 1496696012"
 set_global_assignment -library "lms_ctr" -name MISC_FILE [file join $::quartus(qip_path) "../lms_ctr.cmp"]
 set_global_assignment -library "lms_ctr" -name SLD_FILE [file join $::quartus(qip_path) "lms_ctr.regmap"]
 set_global_assignment -library "lms_ctr" -name SLD_FILE [file join $::quartus(qip_path) "lms_ctr.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_DI
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTQ3Njc5MjQzOQ==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTQ5NjY5NjAxMg==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBJViBF::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::RVA0Q0U0MEYyM0M4::QXV0byBERVZJQ0U="
 set_global_assignment -entity "lms_ctr" -library "lms_ctr" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::OA==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -1210,14 +1210,14 @@ set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartu
 set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/bitswap_qsys.v"]
 set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu.v"]
 set_global_assignment -library "lms_ctr" -name SDC_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu.sdc"]
-set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu.v"]
+set_global_assignment -library "lms_ctr" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu_rf_ram_a.mif"]
+set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu_test_bench.v"]
+set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu_debug_slave_wrapper.v"]
 set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu_debug_slave_sysclk.v"]
 set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu_debug_slave_tck.v"]
-set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu_debug_slave_wrapper.v"]
-set_global_assignment -library "lms_ctr" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu_ociram_default_contents.mif"]
-set_global_assignment -library "lms_ctr" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu_rf_ram_a.mif"]
 set_global_assignment -library "lms_ctr" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu_rf_ram_b.mif"]
-set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu_test_bench.v"]
+set_global_assignment -library "lms_ctr" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu_ociram_default_contents.mif"]
+set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_nios2_cpu_cpu.v"]
 set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_lms_ctr_gpio.v"]
 set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/lms_ctr_leds.v"]
 set_global_assignment -library "lms_ctr" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/i2c_opencores.v"]

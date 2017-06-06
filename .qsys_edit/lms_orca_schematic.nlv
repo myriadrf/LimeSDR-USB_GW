@@ -1,0 +1,41 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst lms_orca.vectorblox_orca_0 -pg 1 -lvl 2 -y 30
+preplace inst lms_orca.spi_1_DAC -pg 1 -lvl 3 -y 1250
+preplace inst lms_orca.controlled_reset -pg 1 -lvl 3 -y 310
+preplace inst lms_orca.switch -pg 1 -lvl 3 -y 1150
+preplace inst lms_orca.spi_lms -pg 1 -lvl 3 -y 650
+preplace inst lms_orca.lms_ctr_gpio -pg 1 -lvl 3 -y 890
+preplace inst lms_orca.clk_main -pg 1 -lvl 1 -y 50
+preplace inst lms_orca.sysid_qsys_0 -pg 1 -lvl 3 -y 1070
+preplace inst lms_orca.leds -pg 1 -lvl 3 -y 410
+preplace inst lms_orca -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst lms_orca.i2c_opencores_0 -pg 1 -lvl 3 -y 510
+preplace inst lms_orca.oc_mem -pg 1 -lvl 3 -y 990
+preplace inst lms_orca.Av_FIFO_Int_0 -pg 1 -lvl 3 -y 90
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)lms_orca.exfifo_of_d,(SLAVE)Av_FIFO_Int_0.cnd_of_d) 1 0 3 NJ 220 NJ 220 NJ
+preplace netloc FAN_OUT<net_container>lms_orca</net_container>(SLAVE)i2c_opencores_0.clock_reset,(SLAVE)sysid_qsys_0.reset,(SLAVE)oc_mem.reset1,(MASTER)clk_main.clk_reset,(SLAVE)switch.reset,(SLAVE)lms_ctr_gpio.reset,(SLAVE)leds.reset,(SLAVE)spi_lms.reset,(SLAVE)vectorblox_orca_0.reset,(SLAVE)controlled_reset.reset,(SLAVE)Av_FIFO_Int_0.reset,(SLAVE)spi_1_DAC.reset) 1 1 2 410 1320 770
+preplace netloc FAN_OUT<net_container>lms_orca</net_container>(SLAVE)vectorblox_orca_0.scratchpad_clk,(SLAVE)leds.clk,(SLAVE)spi_1_DAC.clk,(SLAVE)Av_FIFO_Int_0.clock,(MASTER)clk_main.clk,(SLAVE)i2c_opencores_0.clock,(SLAVE)oc_mem.clk1,(SLAVE)vectorblox_orca_0.clock,(SLAVE)sysid_qsys_0.clk,(SLAVE)lms_ctr_gpio.clk,(SLAVE)spi_lms.clk,(SLAVE)switch.clk,(SLAVE)controlled_reset.clk) 1 1 2 430 1200 750
+preplace netloc INTERCONNECT<net_container>lms_orca</net_container>(MASTER)vectorblox_orca_0.instruction,(SLAVE)oc_mem.s1,(SLAVE)leds.s1,(SLAVE)spi_1_DAC.spi_control_port,(SLAVE)i2c_opencores_0.avalon_slave_0,(SLAVE)sysid_qsys_0.control_slave,(SLAVE)Av_FIFO_Int_0.avalon_slave_0,(SLAVE)controlled_reset.s1,(SLAVE)lms_ctr_gpio.s1,(SLAVE)spi_lms.spi_control_port,(MASTER)vectorblox_orca_0.data,(SLAVE)switch.s1) 1 2 1 730
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)lms_orca.clk,(SLAVE)clk_main.clk_in) 1 0 1 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)lms_orca.vectorblox_orca_0_global_interrupts,(SLAVE)vectorblox_orca_0.global_interrupts) 1 0 2 NJ 40 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)Av_FIFO_Int_0.cnd_of_wrfull,(SLAVE)lms_orca.exfifo_of_wrfull) 1 0 3 NJ 260 NJ 260 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)lms_orca.switch_external_connection,(SLAVE)switch.external_connection) 1 0 3 NJ 1180 NJ 1180 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)spi_1_DAC.external,(SLAVE)lms_orca.spi_1_dac_external) 1 0 3 NJ 1280 NJ 1280 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)lms_orca.scl_exp,(SLAVE)i2c_opencores_0.export_scl) 1 0 3 NJ 580 NJ 580 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)lms_orca.i2c_opencores_0_interrupt_sender,(SLAVE)i2c_opencores_0.interrupt_sender) 1 0 3 NJ 620 NJ 620 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)lms_orca.sda_exp,(SLAVE)i2c_opencores_0.export_sda) 1 0 3 NJ 600 NJ 600 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)lms_orca.lms_ctr_gpio_external_connection,(SLAVE)lms_ctr_gpio.external_connection) 1 0 3 NJ 920 NJ 920 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)lms_orca.exfifo_if_rd,(SLAVE)Av_FIFO_Int_0.cnd_if_rd) 1 0 3 NJ 180 NJ 180 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)controlled_reset.external_connection,(SLAVE)lms_orca.controlled_reset_external_connection) 1 0 3 NJ 340 NJ 340 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)Av_FIFO_Int_0.cnd_if_d,(SLAVE)lms_orca.exfifo_if_d) 1 0 3 NJ 160 NJ 160 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)lms_orca.spi_lms_irq,(SLAVE)spi_lms.irq) 1 0 3 NJ 700 NJ 700 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)lms_orca.spi_1_dac_irq,(SLAVE)spi_1_DAC.irq) 1 0 3 NJ 1300 NJ 1300 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)Av_FIFO_Int_0.cnd_fifo_rst,(SLAVE)lms_orca.exfifo_rst) 1 0 3 NJ 140 NJ 140 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)Av_FIFO_Int_0.cnd_if_rdempty,(SLAVE)lms_orca.exfifo_if_rdempty) 1 0 3 NJ 200 NJ 200 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)spi_lms.external,(SLAVE)lms_orca.spi_lms_external) 1 0 3 NJ 680 NJ 680 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)lms_orca.in_reset,(SLAVE)clk_main.clk_in_reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)leds.external_connection,(SLAVE)lms_orca.leds_external_connection) 1 0 3 NJ 440 NJ 440 NJ
+preplace netloc EXPORT<net_container>lms_orca</net_container>(SLAVE)lms_orca.exfifo_of_wr,(SLAVE)Av_FIFO_Int_0.cnd_of_wr) 1 0 3 NJ 240 NJ 240 NJ
+levelinfo -pg 1 0 200 960
+levelinfo -hier lms_orca 210 240 480 800 950

@@ -1,0 +1,91 @@
+# //  Questa Sim-64
+# //  Version 10.2b linux_x86_64 May 16 2013
+# //
+# //  Copyright 1991-2013 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY INFORMATION
+# //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
+# //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
+# //
+# Loading project fft
+pwd
+# /home/cairo/cernbox/Projetos/fft2/Pipelined-Radix-2-SDF-FFT-master/modelsim_proj
+cd ..
+# reading /opt/questasim/questasim/linux_x86_64/../modelsim.ini
+cd cd ..
+# wrong # args: should be "cd ?dirName?"
+cd ..
+pwd
+# /home/cairo/cernbox/Projetos/fft2
+cd ..
+cd ..
+pwd
+# /home/cairo/cernbox
+cd orca
+# couldn't change working directory to "orca": no such file or directory
+ls
+# backup_sync.zip
+# CBPF
+# CERN
+# CPPM_Doctorat
+# dados_gerais.txt
+# Dev_Boards
+# fmc_adc_gui.jpeg
+# fmc_adc_gui.png
+# Freela
+# GSOC2017
+# PDFs
+# Proj-Aurora
+# Projetos
+# Proj_GTP_XUPV5
+# ReleaseNotes.txt
+cd GSOC2017
+cd orca
+ls
+# orca
+cd 
+pwd
+# /home/cairo
+cd cernbox/GSOC2017/orca/orca/sim
+ls
+# Makefile
+# rtl
+# simulate.tcl
+# system_avalon.qsys
+# system_axi.qsys
+# testall_sim.tcl
+# test_components
+# transcript
+source simulate.tcl
+# couldn't change working directory to "system/simulation/mentor": no such file or directory
+cd ..
+ls
+# de2-115
+# LICENSE.txt
+# README.md
+# rtl
+# sim
+# software
+# tools
+cd tools
+cd ..
+ls
+# de2-115
+# LICENSE.txt
+# README.md
+# rtl
+# sim
+# software
+# tools
+cd de2-115
+ls
+# Makefile
+# README.md
+# riscv_test.vhd
+# rtl
+# system.qpf
+# system.qsf
+# system.qsys
+# system.qws
+# system.sdc
