@@ -99,7 +99,7 @@ set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
 set_global_assignment -name ON_CHIP_BITSTREAM_DECOMPRESSION OFF
-set_global_assignment -name OPTIMIZATION_MODE "HIGH PERFORMANCE EFFORT"
+set_global_assignment -name OPTIMIZATION_MODE BALANCED
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
@@ -433,8 +433,6 @@ set_location_assignment PIN_T5 -to DDR2_1_ras_n
 set_location_assignment PIN_T7 -to DDR2_1_we_n
 set_location_assignment PIN_V1 -to DDR2_1_ba[2]
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to FPGA_SPI1_DAC_SS
-set_global_assignment -name SEARCH_PATH "h:\\working_dir\\altera\\limesdr-usb\\lms7_trx\\symbols"
-set_global_assignment -name SEARCH_PATH symbols/
 set_location_assignment PIN_F16 -to TX2_2_LB_SH
 set_location_assignment PIN_F11 -to TX2_2_LB_L
 set_location_assignment PIN_H11 -to TX2_2_LB_H
@@ -730,6 +728,37 @@ set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 0 -to LMS_DIQ1_D[8]
 set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[9]
 set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 1 -to LMS_DIQ1_D[10]
 set_instance_assignment -name CLOCK_TO_OUTPUT_DELAY 0 -to LMS_DIQ1_D[11]
+set_global_assignment -name SEARCH_PATH "h:\\working_dir\\altera\\limesdr-usb\\lms7_trx\\symbols"
+set_global_assignment -name SEARCH_PATH symbols/
+set_global_assignment -name VERILOG_INPUT_VERSION SYSTEMVERILOG_2005
+set_global_assignment -name VERILOG_SHOW_LMF_MAPPING_MESSAGES OFF
+set_global_assignment -name IP_SEARCH_PATHS "/home/cairo/cernbox/GSOC2017/LimeSDR-USB_GW/LimeSDR-USB_GW/src/riscv/pulpino/rtl/includes"
+set_global_assignment -name SEARCH_PATH src/riscv/pulpino/rtl/includes
+set_global_assignment -name SEARCH_PATH lms_orca/synthesis/submodules/
+set_global_assignment -name QIP_FILE lms_orca/synthesis/lms_orca.qip
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/utils.vhd -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/sys_call.vhd -library orca
+set_global_assignment -name VERILOG_FILE src/riscv/orca/rtl/spram.v -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/register_file.vhd -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/orca_core.vhd -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/orca.vhd -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/lve_top.vhd -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/load_store_unit.vhd -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/instruction_fetch.vhd -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/execute.vhd -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/decode.vhd -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/constants_pkg.vhd -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/components.vhd -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/branch_unit.vhd -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/alu.vhd -library orca
+set_global_assignment -name VHDL_FILE src/riscv/orca/rtl/4port_mem.vhd -library orca
+set_global_assignment -name VHDL_FILE symbols/tx_synchronizers.vhd
+set_global_assignment -name VHDL_FILE symbols/rx_synchronizers.vhd
+set_global_assignment -name VHDL_FILE symbols/LTE_tx_path.vhd
+set_global_assignment -name VHDL_FILE symbols/LTE_rx_path.vhd
+set_global_assignment -name VHDL_FILE symbols/pll_block.vhd
+set_global_assignment -name VHDL_FILE symbols/pll_block_rx.vhd
+set_global_assignment -name VHDL_FILE lms7_trx_top.vhd
 set_global_assignment -name VHDL_FILE src/bit_pack/synth/pack_56_to_64.vhd
 set_global_assignment -name VHDL_FILE src/bit_pack/synth/pack_48_to_64.vhd
 set_global_assignment -name VHDL_FILE src/bit_pack/synth/bit_pack.vhd
@@ -749,8 +778,6 @@ set_global_assignment -name VHDL_FILE src/rx_packets/diq2_samples.vhd
 set_global_assignment -name VHDL_FILE src/revision/revision.vhd
 set_global_assignment -name QIP_FILE ip/ddr2_traffic_gen/ddr2_traffic_gen/synthesis/ddr2_traffic_gen.qip
 set_global_assignment -name VHDL_FILE src/general/rstn_pulse.vhd
-set_global_assignment -name BDF_FILE symbols/pll_block_tx.bdf
-set_global_assignment -name BDF_FILE symbols/pll_block.bdf
 set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/wfm_wcmd_fsm.vhd
 set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/wfm_rcmd_fsm.vhd
 set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/wfm_player_top.vhd
@@ -765,12 +792,10 @@ set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/DDR2_arb.vhd
 set_global_assignment -name VHDL_FILE src/spi/pllcfg.vhd
 set_global_assignment -name VHDL_FILE src/rx_modules/fifo_inst.vhd
 set_global_assignment -name VHDL_FILE src/testing/pkt_tester.vhd
-set_global_assignment -name BDF_FILE symbols/LTE_tx_path.bdf
 set_global_assignment -name VHDL_FILE src/general/my_busmux.vhd
 set_global_assignment -name VHDL_FILE src/testing/test_data_dd.vhd
 set_global_assignment -name VHDL_FILE src/rx_packets/rx_pct_data_v2.vhd
 set_global_assignment -name VHDL_FILE src/rx_packets/compress_v2.vhd
-set_global_assignment -name BDF_FILE symbols/LTE_rx_path.bdf
 set_global_assignment -name VHDL_FILE src/reg_phase_shift/simple_reg.vhd
 set_global_assignment -name VHDL_FILE src/reg_phase_shift/phase_shift.vhd
 set_global_assignment -name QIP_FILE ip/pll_reconfig_module/pll_reconfig_module.qip
@@ -788,15 +813,12 @@ set_global_assignment -name VHDL_FILE src/spi/mcfg32wm_fsm.vhd
 set_global_assignment -name VHDL_FILE src/spi/mcfg_components.vhd
 set_global_assignment -name VHDL_FILE src/fx3/slaveFIFO2b_stream.vhd
 set_global_assignment -name VHDL_FILE src/general/alive.vhd
-set_global_assignment -name BDF_FILE lms7_trx_top.bdf
 set_global_assignment -name QIP_FILE ip/ddo/ddrox1.qip
 set_global_assignment -name QIP_FILE ip/pll/pll.qip
 set_global_assignment -name VHDL_FILE src/general/synchronizer.vhd
 set_global_assignment -name QIP_FILE ip/fpga_pll/fpga_pll.qip
 set_global_assignment -name VHDL_FILE src/general/capture_signal.vhd
 set_global_assignment -name VHDL_FILE src/general/bus_synch.vhd
-set_global_assignment -name BDF_FILE symbols/rx_synchronizers.bdf
-set_global_assignment -name BDF_FILE symbols/tx_synchronizers.bdf
 set_global_assignment -name VHDL_FILE src/testing/fx3_fifo_data.vhd
 set_global_assignment -name VHDL_FILE src/rx_modules/lms7002_ddin.vhd
 set_global_assignment -name VHDL_FILE src/tx_modules/lms7002_ddout.vhd
@@ -820,9 +842,11 @@ set_global_assignment -name VHDL_FILE src/self_test/singl_clk_with_ref_test.vhd
 set_global_assignment -name VHDL_FILE src/self_test/transition_count.vhd
 set_global_assignment -name QIP_FILE ip/txpll/txpll.qip
 set_global_assignment -name VHDL_FILE src/stream/stream_switch.vhd
-set_global_assignment -name BDF_FILE symbols/pll_block_rx.bdf
 set_global_assignment -name VHDL_FILE src/general/diq2_sampling.vhd
 set_global_assignment -name VHDL_FILE src/general/sync_reg.vhd
 set_global_assignment -name VHDL_FILE src/general/gpio_ctrl.vhd
 set_global_assignment -name VHDL_FILE src/spi/periphcfg.vhd
+set_global_assignment -name VHDL_FILE symbols/pll_block_tx.vhd
+set_global_assignment -name VHDL_FILE src/soc_wrapper.vhd
+set_global_assignment -name SYSTEMVERILOG_FILE src/riscv/pulpino/rtl/components/sp_ram.sv -library pulpino
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

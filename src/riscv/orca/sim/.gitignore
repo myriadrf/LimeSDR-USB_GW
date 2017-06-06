@@ -1,0 +1,10 @@
+simulate_axi.tcl
+testall_axi.tcl
+simulate_avalon.tcl
+testall_avalon.tcl
+simulate_avalon.tcl
+system_avalon
+system_csmith
+csmith-compile
+system_axi
+.qsys_edit

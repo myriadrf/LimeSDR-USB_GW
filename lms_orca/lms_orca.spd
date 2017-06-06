@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file path="simulation/lms_orca.vhd" type="VHDL" />
+ <topLevel name="lms_orca" />
+ <deviceFamily name="cycloneive" />
+ <modelMap controllerPath="lms_orca.oc_mem" modelPath="lms_orca.oc_mem" />
+</simPackage>

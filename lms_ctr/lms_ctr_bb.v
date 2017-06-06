@@ -1,6 +1,8 @@
 
 module lms_ctr (
 	clk_clk,
+	clk_in_reset_reset_n,
+	clk_out_reset_export,
 	exfifo_if_d_export,
 	exfifo_if_rd_export,
 	exfifo_if_rdempty_export,
@@ -24,9 +26,12 @@ module lms_ctr (
 	spi_lms_external_MOSI,
 	spi_lms_external_SCLK,
 	spi_lms_external_SS_n,
-	switch_external_connection_export);	
+	switch_external_connection_export,
+	vectorblox_orca_0_global_interrupts_export);	
 
 	input		clk_clk;
+	input		clk_in_reset_reset_n;
+	output		clk_out_reset_export;
 	input	[31:0]	exfifo_if_d_export;
 	output		exfifo_if_rd_export;
 	input		exfifo_if_rdempty_export;
@@ -51,4 +56,5 @@ module lms_ctr (
 	output		spi_lms_external_SCLK;
 	output	[4:0]	spi_lms_external_SS_n;
 	input	[7:0]	switch_external_connection_export;
+	input	[0:0]	vectorblox_orca_0_global_interrupts_export;
 endmodule

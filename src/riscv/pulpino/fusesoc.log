@@ -1,0 +1,147 @@
+DEBUG:fusesoc.main:Command line arguments: ['/usr/bin/fusesoc', 'fetch', '::pulpino:0']
+DEBUG:fusesoc.config:Looking for config files from /etc/fusesoc/fusesoc.conf:/home/cairo/.config/fusesoc/fusesoc.conf:fusesoc.conf
+DEBUG:fusesoc.config:Found config files in /home/cairo/.config/fusesoc/fusesoc.conf
+DEBUG:fusesoc.config:build_root=/home/cairo/cernbox/GSOC2017/LimeSDR-USB_GW/LimeSDR-USB_GW/src/riscv/pulpino/build
+DEBUG:fusesoc.config:cache_root=/home/cairo/.cache/fusesoc
+DEBUG:fusesoc.config:cores_root=/home/cairo/.local/share/fusesoc/orpsoc-cores:/home/cairo/.local/share/fusesoc/fusesoc-cores
+DEBUG:fusesoc.config:Not defined
+DEBUG:fusesoc.coremanager:Checking for cores in /home/cairo/.local/share/fusesoc/orpsoc-cores
+DEBUG:fusesoc.coremanager:Adding core ::wb_bfm:0
+DEBUG:fusesoc.coremanager:Adding core ::wb_bfm:1.0
+DEBUG:fusesoc.coremanager:Adding core ::verilator_tb_utils:0
+DEBUG:fusesoc.coremanager:Adding core ::mmuart:0
+DEBUG:fusesoc.coremanager:Adding core ::ethmac:0
+DEBUG:fusesoc.coremanager:Adding core ::wb_common:0
+DEBUG:fusesoc.coremanager:Adding core ::wb_intercon:0
+DEBUG:fusesoc.coremanager:Adding core ::wb_intercon:1.0
+DEBUG:fusesoc.coremanager:Adding core ::diila:0
+DEBUG:fusesoc.coremanager:Adding core ::s25fl064p:1.7
+DEBUG:fusesoc.coremanager:Adding core ::vlog_tb_utils:1.0
+DEBUG:fusesoc.coremanager:Adding core ::vlog_tb_utils:0
+DEBUG:fusesoc.coremanager:Adding core ::wb_altera_ddr_wrapper:0
+DEBUG:fusesoc.coremanager:Adding core ::uart16550:1.5.4
+DEBUG:fusesoc.coremanager:Adding core ::uart16550:1.5.2
+DEBUG:fusesoc.coremanager:Adding core ::uart16550:1.5
+DEBUG:fusesoc.coremanager:Adding core ::uart16550:1.5.3
+DEBUG:fusesoc.coremanager:Adding core ::osvvm:2015.06
+DEBUG:fusesoc.coremanager:Adding core ::picorv32:0
+DEBUG:fusesoc.coremanager:Adding core ::jtag_tap:1.13
+DEBUG:fusesoc.coremanager:Adding core ::jtag_tap:0
+DEBUG:fusesoc.coremanager:Adding core ::verilog-arbiter:0-r1
+DEBUG:fusesoc.coremanager:Adding core ::verilog-arbiter:0
+DEBUG:fusesoc.coremanager:Adding core ::mt46v16m16p:0
+DEBUG:fusesoc.coremanager:Adding core ::verilog_utils:0
+DEBUG:fusesoc.coremanager:Adding core ::uvvm_util:1.2.0
+DEBUG:fusesoc.coremanager:Adding core ::SD-card-controller:0-r1
+DEBUG:fusesoc.coremanager:Adding core ::SD-card-controller:0
+DEBUG:fusesoc.coremanager:Adding core ::opa:0
+DEBUG:fusesoc.coremanager:Adding core ::wb_ram:1.0
+DEBUG:fusesoc.coremanager:Adding core ::wb_sdram_ctrl:0-r2
+DEBUG:fusesoc.coremanager:Adding core ::wb_sdram_ctrl:0
+DEBUG:fusesoc.coremanager:Adding core ::wb_sdram_ctrl:0-r1
+DEBUG:fusesoc.coremanager:Adding core ::vga_lcd:0
+DEBUG:fusesoc.coremanager:Adding core ::wiredelay:0
+DEBUG:fusesoc.coremanager:Adding core ::simple_spi:1.6
+DEBUG:fusesoc.coremanager:Adding core ::simple_spi:0
+DEBUG:fusesoc.coremanager:Adding core ::i2c:0
+DEBUG:fusesoc.coremanager:Adding core ::i2c:1.13
+DEBUG:fusesoc.coremanager:Adding core ::i2c:1.14
+DEBUG:fusesoc.coremanager:Adding core ::adv_debug_sys:0
+DEBUG:fusesoc.coremanager:Adding core ::libaxis:1.0
+DEBUG:fusesoc.coremanager:Adding core ::ps2:0
+DEBUG:fusesoc.coremanager:Adding core ::wb_riscvscale:0
+DEBUG:fusesoc.coremanager:Adding core ::xilibs:0
+DEBUG:fusesoc.coremanager:Adding core ::scalable_arbiter:0
+DEBUG:fusesoc.coremanager:Adding core ::or1k_bootloaders:0.9
+DEBUG:fusesoc.coremanager:Adding core ::stream_utils:1.1
+DEBUG:fusesoc.coremanager:Adding core ::stream_utils:1.0
+DEBUG:fusesoc.coremanager:Adding core ::ac97:0
+DEBUG:fusesoc.coremanager:Adding core ::jtag_vpi:0-r2
+DEBUG:fusesoc.coremanager:Adding core ::csrbrg:0
+DEBUG:fusesoc.coremanager:Adding core ::altera_virtual_jtag:0
+DEBUG:fusesoc.coremanager:Adding core ::elf-loader:0
+DEBUG:fusesoc.coremanager:Adding core ::libstorage:1.0
+DEBUG:fusesoc.coremanager:Adding core ::mt48lc16m16a2:0
+DEBUG:fusesoc.coremanager:Adding core ::vscale:0
+DEBUG:fusesoc.coremanager:Adding core ::uart16550_model:0
+DEBUG:fusesoc.coremanager:Adding core ::cfi_ctrl:0
+DEBUG:fusesoc.coremanager:Adding core ::mor1kx:4.1
+DEBUG:fusesoc.coremanager:Adding core ::mor1kx:3.1
+DEBUG:fusesoc.coremanager:Adding core ::mor1kx:0
+DEBUG:fusesoc.coremanager:Adding core ::nyuzi:0
+DEBUG:fusesoc.coremanager:Adding core ::or1200:0
+DEBUG:fusesoc.coremanager:Adding core ::or1200:0-r2
+DEBUG:fusesoc.coremanager:Adding core ::ridecore:0
+DEBUG:fusesoc.coremanager:Adding core ::wb_avalon_bridge:0
+DEBUG:fusesoc.coremanager:Adding core ::fifo:1.0
+DEBUG:fusesoc.coremanager:Adding core ::ram_wb:0
+DEBUG:fusesoc.coremanager:Adding core ::axi_node:0
+DEBUG:fusesoc.coremanager:Adding core ::apb_uart:0
+DEBUG:fusesoc.coremanager:Adding core ::axi_slice_dc:0
+DEBUG:fusesoc.coremanager:Adding core ::apb_event_unit:0
+DEBUG:fusesoc.coremanager:Adding core ::ri5cy:0-r1
+DEBUG:fusesoc.coremanager:Adding core ::axi2apb:0
+DEBUG:fusesoc.coremanager:Adding core ::axi_slice:0
+DEBUG:fusesoc.coremanager:Adding core ::apb_pulpino:0
+DEBUG:fusesoc.coremanager:Adding core ::ri5cy:0
+DEBUG:fusesoc.coremanager:Adding core ::apb_ffl_if:0
+DEBUG:fusesoc.coremanager:Adding core ::axi_spi_master:0
+DEBUG:fusesoc.coremanager:Adding core ::axi_mem_if_DP:0
+DEBUG:fusesoc.coremanager:Adding core ::apb_gpio:0
+DEBUG:fusesoc.coremanager:Adding core ::pulpino_adv_debug_sys:0
+DEBUG:fusesoc.coremanager:Adding core ::apb_spi_master:0
+DEBUG:fusesoc.coremanager:Adding core ::pulpino:0
+DEBUG:fusesoc.coremanager:Adding core ::apb_timer:0
+DEBUG:fusesoc.coremanager:Adding core ::apb_i2c:0
+DEBUG:fusesoc.coremanager:Adding core ::axi_spi_slave:0
+DEBUG:fusesoc.coremanager:Adding core ::gpio:0
+DEBUG:fusesoc.coremanager:Adding core ::minimac2:0
+DEBUG:fusesoc.coremanager:Adding core ::or1200-generic:0
+DEBUG:fusesoc.coremanager:Adding core ::mor1kx-generic:0
+DEBUG:fusesoc.coremanager:Adding core ::de0_nano:0
+DEBUG:fusesoc.coremanager:Adding core ::atlys:0
+DEBUG:fusesoc.coremanager:Adding core ::neek:0
+DEBUG:fusesoc.coremanager:Adding core ::de2:0
+DEBUG:fusesoc.coremanager:Adding core ::nyuzi_de2_115:0
+DEBUG:fusesoc.coremanager:Adding core ::de1:0
+DEBUG:fusesoc.coremanager:Adding core ::sockit:0
+DEBUG:fusesoc.coremanager:Adding core ::vscale-generic:0
+DEBUG:fusesoc.coremanager:Checking for cores in /home/cairo/.local/share/fusesoc/fusesoc-cores
+DEBUG:fusesoc.coremanager:Adding core ::wb_bfm:1.2
+DEBUG:fusesoc.coremanager:Adding core ::wb_bfm:1.2.1
+DEBUG:fusesoc.coremanager:Adding core ::wb_common:1.0
+DEBUG:fusesoc.coremanager:Adding core ::wb_common:1.0.1
+DEBUG:fusesoc.coremanager:Adding core ::wb_intercon:1.2.1
+DEBUG:fusesoc.coremanager:Adding core ::wb_intercon:1.2
+DEBUG:fusesoc.coremanager:Adding core ::wb_intercon:1.1
+DEBUG:fusesoc.coremanager:Adding core ::vlog_tb_utils:1.1
+DEBUG:fusesoc.coremanager:Adding core ::uart16550:1.5.5
+DEBUG:fusesoc.coremanager:Adding core ::jtag_tap:1.13
+DEBUG:fusesoc.coremanager:Replacing ::jtag_tap:1.13 in /home/cairo/.local/share/fusesoc/orpsoc-cores/cores/jtag_tap with the version found in /home/cairo/.local/share/fusesoc/fusesoc-cores/jtag_tap
+DEBUG:fusesoc.coremanager:Adding core ::verilog-arbiter:0-r1
+DEBUG:fusesoc.coremanager:Replacing ::verilog-arbiter:0-r1 in /home/cairo/.local/share/fusesoc/orpsoc-cores/cores/verilog-arbiter with the version found in /home/cairo/.local/share/fusesoc/fusesoc-cores/verilog-arbiter
+DEBUG:fusesoc.coremanager:Adding core ::wb_streamer:1.1
+DEBUG:fusesoc.coremanager:Adding core ::wb_ram:1.1
+DEBUG:fusesoc.coremanager:Adding core ::simple_spi:1.6
+DEBUG:fusesoc.coremanager:Replacing ::simple_spi:1.6 in /home/cairo/.local/share/fusesoc/orpsoc-cores/cores/simple_spi with the version found in /home/cairo/.local/share/fusesoc/fusesoc-cores/simple_spi
+DEBUG:fusesoc.coremanager:Adding core ::ddr2_1024:5.83
+DEBUG:fusesoc.coremanager:Adding core ::cdc_utils:0.1
+DEBUG:fusesoc.coremanager:Adding core ::or1k_bootloaders:0.9.1
+DEBUG:fusesoc.coremanager:Adding core ::stream_utils:1.1
+DEBUG:fusesoc.coremanager:Replacing ::stream_utils:1.1 in /home/cairo/.local/share/fusesoc/orpsoc-cores/cores/stream_utils with the version found in /home/cairo/.local/share/fusesoc/fusesoc-cores/stream_utils
+DEBUG:fusesoc.coremanager:Adding core ::stream_utils:1.3
+DEBUG:fusesoc.coremanager:Adding core ::stream_utils:1.2
+DEBUG:fusesoc.coremanager:Adding core ::ac97:1.2
+DEBUG:fusesoc.coremanager:Adding core ::jtag_vpi:0-r2
+DEBUG:fusesoc.coremanager:Replacing ::jtag_vpi:0-r2 in /home/cairo/.local/share/fusesoc/orpsoc-cores/cores/jtag_vpi with the version found in /home/cairo/.local/share/fusesoc/fusesoc-cores/jtag_vpi
+DEBUG:fusesoc.coremanager:Adding core ::elf-loader:1.0
+DEBUG:fusesoc.coremanager:Adding core ::elf-loader:1.0.1
+DEBUG:fusesoc.coremanager:Adding core ::fifo:1.1
+DEBUG:fusesoc.coremanager:Adding core ::fifo:1.0
+DEBUG:fusesoc.coremanager:Replacing ::fifo:1.0 in /home/cairo/.local/share/fusesoc/orpsoc-cores/cores/fifo with the version found in /home/cairo/.local/share/fusesoc/fusesoc-cores/fifo
+DEBUG:fusesoc.coremanager:Adding core ::fifo:1.2
+DEBUG:fusesoc.coremanager:Adding core ::fifo:1.2.1
+DEBUG:fusesoc.coremanager:Adding core ::n25q128a11e:1.2
+DEBUG:fusesoc.main:Autodetected 64-bit mode
+DEBUG:fusesoc.main:Colorful output
+DEBUG:fusesoc.main:Concise output

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file path="simulation/lms_ctr.v" type="VERILOG" />
+ <topLevel name="lms_ctr" />
+ <deviceFamily name="cycloneive" />
+ <modelMap controllerPath="lms_ctr.oc_mem" modelPath="lms_ctr.oc_mem" />
+</simPackage>
