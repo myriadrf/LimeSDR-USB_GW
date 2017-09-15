@@ -30,6 +30,7 @@ entity txiq is
       --Tx interface data 
       DIQ_h		 	: out std_logic_vector(iq_width downto 0);
 		DIQ_l	 	   : out std_logic_vector(iq_width downto 0);
+      DIQ_valid   : out std_logic;
       --fifo ports 
       fifo_rdempty: in std_logic;
       fifo_rdreq  : out std_logic;
@@ -91,6 +92,8 @@ signal int_mode            : std_logic_vector(1 downto 0);
 signal rd_wait_cnt         : unsigned(3 downto 0);
 signal rd_wait_cnt_max     : unsigned(3 downto 0);
 signal rd_wait_cnt_max_reg : unsigned(3 downto 0);
+
+signal DIQ_valid_reg       : std_logic;
 
 type state_type is (idle, rd_samples, wait_rd_cycles);
 signal current_state, next_state : state_type;
@@ -324,6 +327,24 @@ end process;
 --To output ports   
 DIQ_l <= diq_L_reg_0;
 DIQ_h <= diq_H_reg_0; 
+
+process(reset_n, clk)
+begin 
+   if reset_n = '0' then 
+      DIQ_valid_reg  <= '0';
+      DIQ_valid      <= '0';
+   elsif (clk'event and clk = '1') then
+      if (current_state = rd_samples OR current_state = wait_rd_cycles) then 
+         DIQ_valid_reg <= '1';
+      else 
+         DIQ_valid_reg <= '0';
+      end if;
+      --there are 1 cycle delay between DIQ and DIQ_valid_reg, 
+      DIQ_valid <= DIQ_valid_reg;
+   end if;
+end process;
+   
+
  
 end arch;   
 

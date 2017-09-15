@@ -32,9 +32,9 @@ entity fifo2diq is
       pct_sync_size        : in std_logic_vector(15 downto 0); -- valid in external pulse mode only
       pct_buff_rdy         : in std_logic;
       --txant
-      txant_cyc_before_en  : in std_logic_vector(15 downto 0);
-      txant_cyc_after_en   : in std_logic_vector(15 downto 0);
-      txant_en             : out std_logic;                 
+      txant_cyc_before_en  : in std_logic_vector(15 downto 0); -- Only valid in external pulse sync mode
+      txant_cyc_after_en   : in std_logic_vector(15 downto 0); -- Only valid in external pulse sync mode
+      txant_en             : out std_logic;                    -- tx transmit enable                
       --Tx interface data 
       DIQ                  : out std_logic_vector(iq_width-1 downto 0);
       fsync                : out std_logic;
@@ -57,11 +57,14 @@ signal inst0_DIQ_h         : std_logic_vector (iq_width downto 0);
 signal inst0_DIQ_l         : std_logic_vector (iq_width downto 0);
 --inst1 signals
 signal inst1_fifo_rdreq    : std_logic;
+signal inst1_DIQ_valid     : std_logic;
 --inst3 signals
 signal inst3_txiq_en       : std_logic;
 signal inst3_pct_sync_size : std_logic_vector(15 downto 0);
+signal inst3_txant_en      : std_logic;
 
 signal int_mode            : std_logic_vector(1 downto 0);
+
   
 begin
    
@@ -122,6 +125,7 @@ inst0_lms7002_dout : entity work.lms7002_ddout
       fidm           => fidm,
       DIQ_h          => inst0_DIQ_h,
       DIQ_l          => inst0_DIQ_l,
+      DIQ_valid      => inst1_DIQ_valid,
       fifo_rdempty   => fifo_rdempty,
       fifo_rdreq     => inst1_fifo_rdreq,
       fifo_q         => fifo_q
@@ -140,12 +144,14 @@ txiq_ctrl_inst3 : entity work.txiq_ctrl
       txiq_en              => inst3_txiq_en,
       txant_cyc_before_en  => txant_cyc_before_en,
       txant_cyc_after_en   => txant_cyc_after_en,
-      txant_en             => txant_en
+      txant_en             => inst3_txant_en
         );
 
 fifo_rdreq <= inst1_fifo_rdreq;
 DIQ_h <= inst0_DIQ_h;
 DIQ_l <= inst0_DIQ_l;
+txant_en <= inst1_DIQ_valid when pct_sync_mode = '0' else inst3_txant_en;
+
 
   
 end arch;
