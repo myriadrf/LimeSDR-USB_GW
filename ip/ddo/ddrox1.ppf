@@ -2,6 +2,7 @@
 <!DOCTYPE pinplan>
 <pinplan intended_family="Cyclone IV E" variation_name="ddrox1" megafunction_name="ALTDDIO_OUT" specifies="all_ports">
 <global>
+<pin name="aclr" direction="input" scope="external"  />
 <pin name="datain_h[0..0]" direction="input" scope="external"  />
 <pin name="datain_l[0..0]" direction="input" scope="external"  />
 <pin name="outclock" direction="input" scope="external" source="clock"  />

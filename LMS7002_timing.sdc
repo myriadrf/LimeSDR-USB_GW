@@ -27,7 +27,6 @@ create_clock -period $LMS_MCLK1_period 			-name LMS_MCLK1			[get_ports LMS_MCLK1
 create_clock -period $LMS_MCLK1_period_5MHz 		-name LMS_MCLK1_5MHZ 	[get_ports LMS_MCLK1] -add
 
 create_clock -period $LMS_MCLK2_period 			-name LMS_MCLK2 			[get_ports LMS_MCLK2]
-
 create_clock -period $LMS_MCLK2_period_5MHz 		-name LMS_MCLK2_5MHZ 	[get_ports LMS_MCLK2] -add
 
 ################################################################################
@@ -43,39 +42,46 @@ create_clock -name LMS_MCLK2_VIRT_5MHz		-period $LMS_MCLK2_period_5MHz
 #LMS TX PLL
 create_generated_clock 	-name  TX_PLLCLK_C0 \
 								-master [get_clocks LMS_MCLK1] \
-								-source [get_pins inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]] \
-								-phase 0 [get_pins inst33|inst35|altpll_component|auto_generated|pll1|clk[0]]
+								-source [get_pins -compatibility_mode *tx_pll_top*\|*\|*\|pll1|inclk[0]] \
+								-phase 0 [get_pins -compatibility_mode *tx_pll_top*\|*\|*\|pll1|clk[0]]
 								
 create_generated_clock 	-name   TX_PLLCLK_C1 \
 								-master [get_clocks LMS_MCLK1] \
-								-source [get_pins inst33|inst35|altpll_component|auto_generated|pll1|inclk[0]] \
-								-phase 0 [get_pins inst33|inst35|altpll_component|auto_generated|pll1|clk[1]]
+								-source [get_pins -compatibility_mode *tx_pll_top*\|*\|*\|pll1|inclk[0]] \
+								-phase 0 [get_pins -compatibility_mode *tx_pll_top*\|*\|*\|pll1|clk[1]]
 								
 #LMS1_FCLK1 clock output pin 
 create_generated_clock -name LMS_FCLK1_PLL \
 								-master [get_clocks TX_PLLCLK_C0] \
-								-source [get_pins {inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout}] \
+								-source [get_pins -compatibility_mode *tx_pll_top*\|*\|*\|dataout*] \
 								[get_ports LMS_FCLK1]
 								
 create_generated_clock -name LMS_FCLK1_DRCT \
 								-master [get_clocks LMS_MCLK1_5MHZ] \
-								-source [get_pins {inst33|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout}] \
+								-source [get_pins -compatibility_mode *tx_pll_top*\|*\|*\|dataout*] \
 								[get_ports LMS_FCLK1] -add
 															
 #LMS RX PLL
 create_generated_clock -name RX_PLLCLK_C0 \
 								-master [get_clocks LMS_MCLK2] \
-								-source [get_pins inst32|inst35|altpll_component|auto_generated|pll1|inclk[0]] \
-								-phase 0 [get_pins inst32|inst35|altpll_component|auto_generated|pll1|clk[0]]
+								-source [get_pins -compatibility_mode *rx_pll_top*\|*\|*\|pll1|inclk[0]] \
+								-phase 0 [get_pins -compatibility_mode *rx_pll_top*\|*\|*\|pll1|clk[0]]
+
 create_generated_clock -name RX_PLLCLK_C1 \
 								-master [get_clocks LMS_MCLK2] \
-								-source [get_pins inst32|inst35|altpll_component|auto_generated|pll1|inclk[0]] \
-								-phase 260 [get_pins inst32|inst35|altpll_component|auto_generated|pll1|clk[1]]
-								
+								-source [get_pins -compatibility_mode *rx_pll_top*\|*\|*\|pll1|inclk[0]] \
+								-phase 0 [get_pins -compatibility_mode *rx_pll_top*\|*\|*\|pll1|clk[1]]
+#								
 #LMS_FCLK2 clock 							
-create_generated_clock 	-name LMS_FCLK2 \
-								-source [get_pins {inst32|inst61|ALTDDIO_OUT_component|auto_generated|ddio_outa[0]|dataout}] \
+create_generated_clock 	-name LMS_FCLK2_PLL \
+                        -master [get_clocks RX_PLLCLK_C0] \
+								-source [get_pins -compatibility_mode *rx_pll_top*\|*\|*\|dataout*] \
 								[get_ports {LMS_FCLK2}]
+
+create_generated_clock 	-name LMS_FCLK2_DRCT \
+                        -master [get_clocks LMS_MCLK2_5MHZ] \
+								-source [get_pins -compatibility_mode *rx_pll_top*\|*\|*\|dataout*] \
+								[get_ports {LMS_FCLK2}] -add
 								
 ################################################################################
 #Input constraints
@@ -197,8 +203,15 @@ set_clock_groups -exclusive 	-group {LMS_FCLK1_PLL} \
 set_clock_groups -exclusive 	-group {LMS_MCLK1} \
 										-group {LMS_MCLK1_5MHZ}
 										
-set_clock_groups -exclusive 	-group {LMS_MCLK2} \
-										-group {LMS_MCLK2_5MHZ}
+set_clock_groups -exclusive 	-group {LMS_MCLK2 LMS_MCLK2_VIRT} \
+										-group {LMS_MCLK2_5MHZ LMS_MCLK2_VIRT_5MHz}
+
+set_net_delay -from [get_pins -compatibility_mode *rx_pll_top*\|*c1_dly*\|combout*] -max 5
+set_net_delay -from [get_pins -compatibility_mode *rx_pll_top*\|*c1_dly*\|combout*] -min 4 
+
+set_net_delay -from [get_pins -compatibility_mode *tx_pll_top*\|*c1_dly*\|combout*] -max 5
+set_net_delay -from [get_pins -compatibility_mode *tx_pll_top*\|*c1_dly*\|combout*] -min 4
+
 										
 #False Path between PLL output and clock output ports LMS2_FCLK1 an LMS2_FCLK2
 set_false_path -to [get_ports LMS_FCLK*]	
@@ -210,5 +223,10 @@ set_false_path -from [get_clocks {LMS_MCLK1}] 		-to [get_clocks {LMS_FCLK1_PLL}]
 set_false_path -from [get_clocks {LMS_MCLK1}] 		-to [get_clocks {LMS_FCLK1_DRCT}]
 set_false_path -from [get_clocks {TX_PLLCLK_C1}] 	-to [get_clocks {LMS_FCLK1_DRCT}]
 set_false_path -from [get_clocks {LMS_MCLK1_5MHZ}] -to [get_clocks {LMS_FCLK1_PLL}]
+
+#To cut paths for RX interface clock mux
+set_false_path -from [get_clocks {LMS_MCLK2_VIRT_5MHz}] 		-to [get_clocks {RX_PLLCLK_C1}]
+
+
 
 
