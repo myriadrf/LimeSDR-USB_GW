@@ -93,6 +93,7 @@ component diq2_samples is
 		rxiq				: in std_logic_vector(diq_width-1 downto 0);
 		rxiqsel			: in std_logic;
 		--config ports
+      drct_clk_en    : in std_logic;
 		data_src			: in std_logic; --selects between test data  - 1 and real data - 0 	
 		fr_start			: in std_logic;
 		mimo_en			: in std_logic;
@@ -201,6 +202,7 @@ PORT MAP(
 		en					=> rstn_with_synch_en,
 		rxiq 				=> DIQ2,
 		rxiqsel			=> DIQ2_IQSEL2,
+      drct_clk_en    => drct_clk_en,
 		data_src			=> data_src,
 		fr_start 		=> fr_start,
 		mimo_en			=> mimo_en,
