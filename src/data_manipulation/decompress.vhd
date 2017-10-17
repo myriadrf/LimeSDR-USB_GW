@@ -128,7 +128,11 @@ end process;
 			data_in_reg<=(others=>'0'); 
 		elsif (wclk'event and wclk = '1') then
        state <= next_state;
-       data_in_reg<=data_in;
+       if data_in_valid = '1' then 
+         data_in_reg <=data_in;
+       else 
+         data_in_reg <= data_in_reg;
+       end if;
 		end if;
 	end process NextStateReg00;
 	
@@ -152,8 +156,6 @@ end process;
 			 when Idle =>
 			   if sample_width="10" then 			     
 			       next_state<=dec12_0;
-			   elsif sample_width="01" then
-			     		next_state<=dec14_0;
 			   else 
 			       next_state<=dec16_0;
 			   end if;
@@ -165,118 +167,65 @@ end process;
 			     fifo_d1<="0000" & data_in(23 downto 12);	   
 			   else 
 			     next_state<=dec12_0;
-			     fifo_d0<=(others=>'0');
 			   end if;
 			 when dec12_1 =>
 			   if data_in_valid='1' then
-			     next_state<=dec12_2;
-
+               next_state<=dec12_2;
+               fifo_d2<="0000" & data_in(3 downto 0) & data_in_reg(31 downto 24);
+               fifo_d3<="0000" & data_in(15 downto 4);
+               fifo_d4<="0000" & data_in(27 downto 16); 
 			   else 
 			     next_state<=dec12_1;
 			   end if;
-			   		fifo_d2<="0000" & data_in(3 downto 0) & data_in_reg(31 downto 24);
-			     fifo_d3<="0000" & data_in(15 downto 4);
-			     fifo_d4<="0000" & data_in(27 downto 16); 
 			   
 			 when dec12_2 =>
 			   if data_in_valid='1' then
-			     next_state<=dec12_0;
+               next_state<=dec12_0;
+               fifo_d5<="0000" & data_in(7 downto 0) & data_in_reg(31 downto 28);
+               fifo_d6<="0000" & data_in(19 downto 8);
+               fifo_d7<="0000" & data_in(31 downto 20);
 			   else 
 			     next_state<=dec12_2;
 			   end if; 
-			   fifo_d5<="0000" & data_in(7 downto 0) & data_in_reg(31 downto 28);
-			   fifo_d6<="0000" & data_in(19 downto 8);
-			   fifo_d7<="0000" & data_in(31 downto 20);
-			   
---for 14 bit data samples decoding	
-       when dec14_0 => --1
-  			   if data_in_valid='1' then 
-			     next_state<=dec14_1;
-			     fifo_d0<="00" & data_in(13 downto 0);		   
-			  	else  
-			  	  next_state<=dec14_0;
-			  	  fifo_d0<=(others=>'0');
-			  	end if;
-			 when dec14_1 => --2 ---not works
-			   if data_in_valid='1' then
-			     next_state<=dec14_2;
-			   else
-			     next_state<=dec14_1;
-			   end if;  
-			   fifo_d1<="00" &  data_in(11 downto 0) & data_in_reg(15 downto 14);
-			 when dec14_2 => --3
-			   if data_in_valid='1' then
-			     next_state<=dec14_3;
-			   else
-			     next_state<=dec14_2;
-			   end if;   
-			   fifo_d2<="00" &  data_in(9 downto 0) & data_in_reg(15 downto 12);
-			 when dec14_3 => --4
-			   if data_in_valid='1' then
-			     next_state<=dec14_4;
-			   else
-			     next_state<=dec14_3;
-			   end if; 			     
-			   fifo_d3<="00" &  data_in(7 downto 0) & data_in_reg(15 downto 10);
-			 when dec14_4 => --5
-			   if data_in_valid='1' then
-			     next_state<=dec14_5;
-			   else
-			     next_state<=dec14_4;
-			   end if; 			     
-			   fifo_d0<="00" &  data_in(5 downto 0) & data_in_reg(15 downto 8);
-			 when dec14_5 => --6
-			   if data_in_valid='1' then
-			     next_state<=dec14_6;
-			   else
-			     next_state<=dec14_5;
-			   end if; 			     
-			   fifo_d1<="00" &  data_in(3 downto 0) & data_in_reg(15 downto 6);
-			 when dec14_6 => --7
-			   next_state<=dec14_0;
-			   fifo_d2<="00" &  data_in(1 downto 0) & data_in_reg(15 downto 4);
-			   fifo_d3<="00" &  data_in(15 downto 2);
 			   
 	--for 16 bit data samples decoding
        when dec16_0 => --1
   			   if data_in_valid='1' then 
-			     next_state<=dec16_1;
---			     fifo_d0<=data_in(15 downto 0);
---			     fifo_d1<=data_in(31 downto 16);
+               next_state<=dec16_1;
 					fifo_d0<="0000" & data_in(15 downto 4);
 					fifo_d1<="0000" & data_in(31 downto 20);
 			  	else  
-			  	  next_state<=dec16_0;
-			  	  fifo_d0<=(others=>'0');
-			  	  fifo_d1<=(others=>'0');
+               next_state<=dec16_0;
+               fifo_d0<=(others=>'0');
+               fifo_d1<=(others=>'0');
 			  	end if;	     			   
 			 when dec16_1 => --2
 			   if data_in_valid='1' then
-			     next_state<=dec16_2;
+               next_state<=dec16_2;
+               fifo_d2<="0000" & data_in(15 downto 4);
+					fifo_d3<="0000" & data_in(31 downto 20);	
 			   else 
 			     next_state<=dec16_1;
 			   end if;
---			     fifo_d0<=data_in(15 downto 0);
---			     fifo_d1<=data_in(31 downto 16);
-					fifo_d2<="0000" & data_in(15 downto 4);
-					fifo_d3<="0000" & data_in(31 downto 20);		 
+	 
 			 when dec16_2 => --2
 			   if data_in_valid='1' then
 			     next_state<=dec16_3;
+               fifo_d4<="0000" & data_in(15 downto 4);
+					fifo_d5<="0000" & data_in(31 downto 20);
 			   else 
 			     next_state<=dec16_2;
 			   end if;
---			     fifo_d0<=data_in(15 downto 0);
---			     fifo_d1<=data_in(31 downto 16);
-					fifo_d4<="0000" & data_in(15 downto 4);
-					fifo_d5<="0000" & data_in(31 downto 20);		      
+		      
 			 when dec16_3 => --2
-			   next_state<=dec16_0;
---			     fifo_d0<=data_in(15 downto 0);
---			     fifo_d1<=data_in(31 downto 16);
-					fifo_d6<="0000" & data_in(15 downto 4);
-					fifo_d7<="0000" & data_in(31 downto 20);		 		 
-			   	  
+            if data_in_valid='1' then
+               next_state<=dec16_0;
+               fifo_d6<="0000" & data_in(15 downto 4);
+					fifo_d7<="0000" & data_in(31 downto 20);
+			   else 
+			     next_state<=dec16_3;
+			   end if;
+		
 			 when others =>
 				 next_state <= idle;
 
