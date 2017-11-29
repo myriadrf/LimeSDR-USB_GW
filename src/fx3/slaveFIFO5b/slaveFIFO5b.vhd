@@ -181,6 +181,8 @@ attribute noprune of slwr_cnt: signal is true;
 signal max_control_pct_cnt		: unsigned(15 downto 0);
 signal max_data_pct_cnt			: unsigned(15 downto 0);
 
+attribute noprune of max_data_pct_cnt: signal is true;
+
 constant USB2DIV				: integer := 1024/512;
 
 begin --architecture begining
@@ -284,18 +286,18 @@ GPIF_busy<=(not slrd_streamOUT_n) OR (not slwr_streamIN_n_d);
 process(clk, reset_n)begin
 	if(reset_n = '0')then 
 		max_control_pct_cnt <= to_unsigned(control_pct_size * 8 / data_width, max_control_pct_cnt'length);
-		max_data_pct_cnt <= to_unsigned(data_pct_size * 8 / data_width, max_data_pct_cnt'length) ;
+		max_data_pct_cnt <= to_unsigned(data_pct_size * 8 / data_width, max_data_pct_cnt'length) - 2 ;
 	elsif(clk'event and clk = '1')then
 		if usb_speed = '1' then 
 			max_control_pct_cnt <= to_unsigned(control_pct_size * 8 / data_width, max_control_pct_cnt'length);
-			max_data_pct_cnt <= to_unsigned(data_pct_size * 8 / data_width, max_data_pct_cnt'length) ;
+			max_data_pct_cnt <= to_unsigned(data_pct_size * 8 / data_width, max_data_pct_cnt'length) - 2 ;
 		else 
 			if control_pct_size < control_dma_size then 
 				max_control_pct_cnt <= to_unsigned(control_pct_size * 8 / data_width, max_control_pct_cnt'length);
 			else 
 				max_control_pct_cnt <= to_unsigned(control_pct_size * 8 / data_width / USB2DIV, max_control_pct_cnt'length);
 			end if;
-			max_data_pct_cnt <= to_unsigned(data_pct_size*8/data_width / USB2DIV, max_data_pct_cnt'length) ;
+			max_data_pct_cnt <= to_unsigned(data_pct_size*8/data_width / USB2DIV, max_data_pct_cnt'length) - 2;
 		end if;
 	end if;	
 end process;
@@ -699,7 +701,14 @@ stream_fsm : process(current_state, flaga_d, flagb_d, flg_latency_cnt, assert_cn
 		
 	when stream_in_write => 		--execute write to FX3 (FPGA ->PC) operation, and terminate depending on socket type
 		if (flagb_d = '0') then 			
-			next_state <= stream_in_write_wr_delay;
+         --next_state <= stream_in_write_wr_delay;
+         --to awoid corrupting endpoint when stream is stopped at PC side before 4096kB byte.
+         if max_data_pct_cnt < slwr_cnt then 
+            next_state <= stream_in_pktend;
+         else 
+            next_state <= stream_in_write_wr_delay;
+         end if;
+         
 -- Used when watermark flag is not available
 --		elsif (slwr_cnt = max_data_pct_cnt-2 and socket_type(to_integer(unsigned(faddr_reg)))='0') then 
 --			next_state <= stream_in_write_wr_delay;
