@@ -373,7 +373,7 @@ inst4 : fifo_inst --(for 81 endpoint, socket 2)
 					wrusedw_witdth  => EP81_wrusedw_width,  
 					rdwidth         => data_width,
 					rdusedw_width   => socket2_rdusedw_size,
-					show_ahead      => "OFF"
+					show_ahead      => "ON"
   ) 
   port map(
       --input ports 
@@ -398,7 +398,7 @@ inst5 : fifo_inst --(for 8F endpoint, socket 3)
 					wrusedw_witdth  => socket3_wrusedw_size,  
 					rdwidth         => data_width,
 					rdusedw_width   => socket3_rdusedw_size,
-					show_ahead      => "OFF"
+					show_ahead      => "ON"
   ) 
   port map(
       --input ports 

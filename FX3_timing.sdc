@@ -11,7 +11,10 @@ set_time_format -unit ns -decimal_places 3
 set FX3_period		10
 
 set FX3_tDS 2 
-set FX3_tDH 0
+set FX3_tDH 0.50
+
+set FX3_tDS 2 
+set FX3_tDH 0.50
 
 	#FX3 tRDS tWRS tAS tPES combined to FX3_tSU
 set FX3_tSU		2
@@ -21,7 +24,7 @@ set FX3_tH 		.5
 #set FX3_tCO_max 	7
 #set FX3_tCO_min 	0
 
-set FX3_tCO_max 	7
+set FX3_tCO_max 	9
 set FX3_tCO_min 	2
 
 #set FX3_tCFLG_max 	8
@@ -54,36 +57,34 @@ create_clock -period $FX3_period 	-name FX3_PCLK			[get_ports FX3_PCLK]
 #Virtual clocks
 ################################################################################
 create_clock -name FX3_PCLK_VIRT				-period $FX3_period	
+create_clock -name FX3_PCLK_VIRT_OUT				-period $FX3_period
 
 ################################################################################
 #Input constraints
 ################################################################################
 #FX3
 set_input_delay -clock [get_clocks FX3_PCLK_VIRT] \
--max $FX3_ctl_in_max_dly [get_ports {FX3_CTL4 FX3_CTL5 FX3_CTL8}] \
--clock_fall
+-max $FX3_ctl_in_max_dly [get_ports {FX3_CTL4 FX3_CTL5 FX3_CTL8}]
 set_input_delay -clock [get_clocks FX3_PCLK_VIRT] \
--min $FX3_ctl_in_min_dly [get_ports {FX3_CTL4 FX3_CTL5 FX3_CTL8}] \
--clock_fall
+-min $FX3_ctl_in_min_dly [get_ports {FX3_CTL4 FX3_CTL5 FX3_CTL8}]
 
 set_input_delay -clock [get_clocks FX3_PCLK_VIRT] \
--max $FX3_d_in_max_dly [get_ports {FX3_DQ*}] \
--clock_fall
+-max $FX3_d_in_max_dly [get_ports {FX3_DQ*}]
 set_input_delay -clock [get_clocks FX3_PCLK_VIRT] \
--min $FX3_d_in_min_dly [get_ports {FX3_DQ*}] \
--clock_fall
+-min $FX3_d_in_min_dly [get_ports {FX3_DQ*}]
 
 ################################################################################
 #Output constraints
 ################################################################################		
 #FX3
-set_output_delay -clock [get_clocks FX3_PCLK_VIRT] -clock_fall -max $FX3_ctl_out_max_dly \
+set_output_delay -clock [get_clocks FX3_PCLK_VIRT_OUT] -max $FX3_ctl_out_max_dly \
 								[get_ports {FX3_CTL0 FX3_CTL1 FX3_CTL2 \
 												FX3_CTL3 FX3_CTL7 FX3_CTL11 FX3_CTL12}]
-set_output_delay -clock [get_clocks FX3_PCLK_VIRT] -clock_fall -min $FX3_ctl_out_min_dly \
+set_output_delay -clock [get_clocks FX3_PCLK_VIRT_OUT] -min $FX3_ctl_out_min_dly \
 								[get_ports {FX3_CTL0 FX3_CTL1 FX3_CTL2 \
 								FX3_CTL3 FX3_CTL7 FX3_CTL11 FX3_CTL12}]
-set_output_delay -clock [get_clocks FX3_PCLK_VIRT] -clock_fall -max $FX3_d_out_max_dly \
+                        
+set_output_delay -clock [get_clocks FX3_PCLK_VIRT_OUT] -max $FX3_d_out_max_dly \
 								[get_ports {FX3_DQ*}]
-set_output_delay -clock [get_clocks FX3_PCLK_VIRT] -clock_fall -min $FX3_d_out_min_dly \
+set_output_delay -clock [get_clocks FX3_PCLK_VIRT_OUT] -min $FX3_d_out_min_dly \
 								[get_ports {FX3_DQ*}]

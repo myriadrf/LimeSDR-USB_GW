@@ -101,6 +101,7 @@ signal slwr_streamIN_n     : std_logic;
 signal slwr_streamIN_n_d   : std_logic;
 signal slrd_streamOUT_n		: std_logic;
 signal slrd_streamOUT_n_d	: std_logic;
+signal slrd_streamOUT_n_d1	: std_logic;
 signal pktend_streamIN_n	: std_logic;
 signal flaga_d             : std_logic;
 signal flagb_d             : std_logic;
@@ -273,12 +274,20 @@ socket_fifo_rdy<=x"0000000" & socket3_fifo_rdy & socket2_fifo_rdy & socket1_fifo
 clk_out<=clk;
   
 --output signal asignments
-slrd   <= slrd_streamOUT_n;
+--slrd   <= slrd_streamOUT_n;
 slwr   <= slwr_streamIN_n_d;   
 
 sloe   <= sloe_stream_n;
 pktend <= pktend_streamIN_n;
 slcs   <= '0';
+
+process(clk, reset_n)begin
+	if(reset_n = '0')then 
+      slrd <= '1';
+	elsif(clk'event and clk = '1')then
+      slrd   <= slrd_streamOUT_n;
+	end if;	
+end process;
 
 GPIF_busy<=(not slrd_streamOUT_n) OR (not slwr_streamIN_n_d);
 
@@ -323,7 +332,7 @@ process(clk, reset_n)begin
 end process;
 
 process(current_state)begin
-	if((current_state = stream_in_write) OR (current_state = stream_in_pktend))then
+	if (current_state = stream_in_write) then
 		slwr_streamIN_n <= '0';
 	else
 		slwr_streamIN_n <= '1';
@@ -358,10 +367,14 @@ end process;
 process(clk, reset_n)begin
 	if(reset_n = '0')then 
 		slrd_streamOUT_n_d<='1';
+      slrd_streamOUT_n_d1<='1'; 
 		socket_fifo_wr<='0';
 	elsif(clk'event and clk = '1')then
-		slrd_streamOUT_n_d<=slrd_streamOUT_n;
-		socket_fifo_wr<= not slrd_streamOUT_n_d;
+		slrd_streamOUT_n_d <=slrd_streamOUT_n;
+      slrd_streamOUT_n_d1<= slrd_streamOUT_n_d;
+      socket_fifo_wr<= not slrd_streamOUT_n_d1;
+
+
 	end if;	
 end process;
 
@@ -373,11 +386,31 @@ process(current_state) begin
 	end if;	
 end process;
 
-socket_fifo_q <= socket0_fifo_q when faddr_reg="00000" else 
-					  socket1_fifo_q when faddr_reg="00001" else
-					  socket2_fifo_q when faddr_reg="00010" else
-					  socket3_fifo_q when faddr_reg="00011" else
-					  (others=>'0');
+process(clk, reset_n)begin
+	if(reset_n = '0') then 
+      socket_fifo_q <= (others=>'0');
+	elsif(clk'event and clk = '1')then
+      case faddr_reg is 
+         when "00000" => 
+            socket_fifo_q <= socket0_fifo_q;
+         when "00001" => 
+            socket_fifo_q <= socket1_fifo_q;
+         when "00010" => 
+            socket_fifo_q <= socket2_fifo_q;
+         when "00011" => 
+            socket_fifo_q <= socket3_fifo_q;
+         when others => 
+            socket_fifo_q <= (others=>'0');
+      end case;
+	end if;	
+end process;
+
+
+--socket_fifo_q <= socket0_fifo_q when faddr_reg="00000" else 
+--					  socket1_fifo_q when faddr_reg="00001" else
+--					  socket2_fifo_q when faddr_reg="00010" else
+--					  socket3_fifo_q when faddr_reg="00011" else
+--					  (others=>'0');
 
 process(slwr_streamIN_n_d, socket_fifo_q)begin
 	if(slwr_streamIN_n_d = '0')then
@@ -389,11 +422,45 @@ end process;
 
 
 
+process(clk, reset_n)begin
+	if(reset_n = '0') then 
+      socket0_fifo_wr	<= '0';
+      socket1_fifo_wr	<= '0';
+      socket2_fifo_wr	<= '0';
+      socket3_fifo_wr	<= '0';
+	elsif(clk'event and clk = '1')then
+   
+      if faddr_reg = "00000" then 
+         socket0_fifo_wr	<= socket_fifo_wr;
+      else 
+         socket0_fifo_wr	<= '0';
+      end if;
+      
+      if faddr_reg = "00001" then 
+         socket1_fifo_wr	<= socket_fifo_wr;
+      else 
+         socket1_fifo_wr	<= '0';
+      end if;
 
-socket0_fifo_wr	<= socket_fifo_wr when faddr_reg = "00000" else '0';
-socket1_fifo_wr	<= socket_fifo_wr when faddr_reg = "00001" else '0';
-socket2_fifo_wr	<= socket_fifo_wr when faddr_reg = "00010" else '0';
-socket3_fifo_wr	<= socket_fifo_wr when faddr_reg = "00011" else '0';
+      if faddr_reg = "00010" then 
+         socket2_fifo_wr	<= socket_fifo_wr;
+      else 
+         socket2_fifo_wr	<= '0';
+      end if;
+
+      if faddr_reg = "00011" then 
+         socket3_fifo_wr	<= socket_fifo_wr;
+      else 
+         socket3_fifo_wr	<= '0';
+      end if;
+
+	end if;	
+end process;
+
+--socket0_fifo_wr	<= socket_fifo_wr when faddr_reg = "00000" else '0';
+--socket1_fifo_wr	<= socket_fifo_wr when faddr_reg = "00001" else '0';
+--socket2_fifo_wr	<= socket_fifo_wr when faddr_reg = "00010" else '0';
+--socket3_fifo_wr	<= socket_fifo_wr when faddr_reg = "00011" else '0';
 
 socket0_fifo_rd	<= socket_fifo_rd when faddr_reg = "00000" else '0';
 socket1_fifo_rd	<= socket_fifo_rd when faddr_reg = "00001" else '0';
@@ -431,7 +498,7 @@ process(clk, reset_n)begin
 		rd_oe_delay_cnt <= "00";
 	elsif(clk'event and clk = '1')then	
 	 	if(current_state = stream_out_read) then
-			rd_oe_delay_cnt <= "01";
+			rd_oe_delay_cnt <= "00";
       elsif((current_state = stream_out_read_rd_and_oe_delay) and (rd_oe_delay_cnt > 0))then
 			rd_oe_delay_cnt <= rd_oe_delay_cnt - 1;
 		else
@@ -445,8 +512,8 @@ process(clk, reset_n)begin
 	if(reset_n = '0')then 
 		oe_delay_cnt <= "00";
 	elsif(clk'event and clk = '1')then	
-	 	if(current_state = stream_out_read_rd_and_oe_delay) then
-			oe_delay_cnt <= "10";
+	 	if(current_state = stream_out_read_rd_and_oe_delay OR current_state = idle) then
+			oe_delay_cnt <= "11";
 			--oe_delay_cnt <= "01";
       elsif((current_state = stream_out_read_oe_delay) and (oe_delay_cnt > 0))then
 			oe_delay_cnt <= oe_delay_cnt - 1;
@@ -634,7 +701,7 @@ stream_in_fsm_f : process(clk, reset_n)begin
 end process;
 
 --Stream state machine combo
-stream_fsm : process(current_state, flaga_d, flagb_d, flg_latency_cnt, assert_cnt, rd_wr, faddr_reg,
+stream_fsm : process(current_state, flaga_d, flagb, flg_latency_cnt, assert_cnt, rd_wr, faddr_reg,
 							rd_oe_delay_cnt, oe_delay_cnt, slrd_cnt, slwr_cnt, socket_type, max_data_pct_cnt, 
 							max_control_pct_cnt,socket_fifo_rdy)begin
 							
@@ -700,14 +767,16 @@ stream_fsm : process(current_state, flaga_d, flagb_d, flg_latency_cnt, assert_cn
 		end if;
 		
 	when stream_in_write => 		--execute write to FX3 (FPGA ->PC) operation, and terminate depending on socket type
-		if (flagb_d = '0') then 			
+		if (flagb = '0') then 			
          --next_state <= stream_in_write_wr_delay;
+         next_state <= idle;
+         
          --to awoid corrupting endpoint when stream is stopped at PC side before 4096kB byte.
-         if max_data_pct_cnt < slwr_cnt then 
-            next_state <= stream_in_pktend;
-         else 
-            next_state <= stream_in_write_wr_delay;
-         end if;
+--         if max_data_pct_cnt < slwr_cnt then 
+--            next_state <= stream_in_pktend;
+--         else 
+--            next_state <= stream_in_write_wr_delay;
+--         end if;
          
 -- Used when watermark flag is not available
 --		elsif (slwr_cnt = max_data_pct_cnt-2 and socket_type(to_integer(unsigned(faddr_reg)))='0') then 
@@ -726,7 +795,8 @@ stream_fsm : process(current_state, flaga_d, flagb_d, flg_latency_cnt, assert_cn
 	
 	when stream_out_read =>			--execute read operation from FX3 (PC->FPGA)
 		if(flagb_d = '0')then
-			next_state <= stream_out_read_rd_and_oe_delay;
+			--next_state <= stream_out_read_rd_and_oe_delay;
+         next_state <= stream_out_read_oe_delay;
 --		Used when watermark flag is not available
 --		elsif ( slrd_cnt= max_data_pct_cnt-3 and socket_type(to_integer(unsigned(faddr_reg)))='0') then
 --			next_state <= stream_out_read_rd_and_oe_delay;

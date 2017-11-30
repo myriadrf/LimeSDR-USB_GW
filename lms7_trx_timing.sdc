@@ -87,7 +87,7 @@ set_output_delay -clock [get_clocks FPGA_SPI0_SCLK_out] -max 15 [get_ports {FPGA
 set_output_delay -clock [get_clocks FPGA_SPI0_SCLK_out] -min -15 [get_ports {FPGA_SPI0_MOSI}]	
 
 #set_multicycle_path -setup -from [get_clocks FX3_PCLK_VIRT ] -to [get_clocks FX3_PCLK] 2
-set_multicycle_path -hold -from [get_clocks FX3_PCLK_VIRT ] -to [get_clocks FX3_PCLK] 1
+#set_multicycle_path -hold -from [get_clocks FX3_PCLK_VIRT ] -to [get_clocks FX3_PCLK] 1
 								
 ################################################################################
 #Asyncronous clocks
