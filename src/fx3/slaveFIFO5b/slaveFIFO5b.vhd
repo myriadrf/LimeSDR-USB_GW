@@ -701,8 +701,8 @@ stream_in_fsm_f : process(clk, reset_n)begin
 end process;
 
 --Stream state machine combo
-stream_fsm : process(current_state, flaga_d, flagb_d, flagb, flg_latency_cnt, assert_cnt, rd_wr, faddr_reg,
-							rd_oe_delay_cnt, oe_delay_cnt, slrd_cnt, slwr_cnt, socket_type, max_data_pct_cnt, 
+stream_fsm : process(current_state, flaga_d, flagb_d, flagb, flg_latency_cnt, rd_wr, faddr_reg,
+							rd_oe_delay_cnt, oe_delay_cnt, slwr_cnt, socket_type, 
 							max_control_pct_cnt,socket_fifo_rdy)begin
 							
 	next_state <= current_state;
@@ -716,33 +716,15 @@ stream_fsm : process(current_state, flaga_d, flagb_d, flagb, flg_latency_cnt, as
 		
 	when wait_flg_latency => 		--wait for valid flag
 		if flg_latency_cnt >= 4 then 
---			if num_of_sockets > 1 then 
---				next_state <= prep_socket_addr;
---			else 
---				next_state <= wait_flagA;
---			end if;
          next_state <= wait_flagA;
 		else	
 			next_state <= wait_flg_latency;
 		end if;
 			
---	when prep_socket_addr =>		--currently not used, an not tested!
---		next_state <= wait_socket_delay;
---	
---	when wait_socket_delay => 		
---		next_state <= assert_epswitch;	
---	
---	when assert_epswitch =>			--wait valid flag
---		if (assert_cnt= 70) then 
---			next_state <= wait_flagA;
---		else 
---			next_state <= assert_epswitch;
---		end if;
 		
 	when wait_flagA => 				--wait when DMA buffer is ready
 		if flaga_d = '1' then
 			next_state<=wait_flagB;
-			--next_state <= idle;
 		else 
 			next_state <= idle;
 		end if;
@@ -764,24 +746,11 @@ stream_fsm : process(current_state, flaga_d, flagb_d, flagb, flg_latency_cnt, as
 			end if;
 		else
 			next_state <= wait_flagB;
-			--next_state <= idle;
 		end if;
 		
 	when stream_in_write => 		--execute write to FX3 (FPGA ->PC) operation, and terminate depending on socket type
 		if (flagb = '0') then 			
-         --next_state <= stream_in_write_wr_delay;
          next_state <= idle;
-         
-         --to awoid corrupting endpoint when stream is stopped at PC side before 4096kB byte.
---         if max_data_pct_cnt < slwr_cnt then 
---            next_state <= stream_in_pktend;
---         else 
---            next_state <= stream_in_write_wr_delay;
---         end if;
-         
--- Used when watermark flag is not available
---		elsif (slwr_cnt = max_data_pct_cnt-2 and socket_type(to_integer(unsigned(faddr_reg)))='0') then 
---			next_state <= stream_in_write_wr_delay;
 		elsif (slwr_cnt = max_control_pct_cnt-2 and socket_type(to_integer(unsigned(faddr_reg)))='1') then
 			next_state <= stream_in_pktend;
 		else
@@ -798,11 +767,6 @@ stream_fsm : process(current_state, flaga_d, flagb_d, flagb, flg_latency_cnt, as
 		if(flagb_d = '0')then
 			--next_state <= stream_out_read_rd_and_oe_delay;
          next_state <= stream_out_read_oe_delay;
---		Used when watermark flag is not available
---		elsif ( slrd_cnt= max_data_pct_cnt-3 and socket_type(to_integer(unsigned(faddr_reg)))='0') then
---			next_state <= stream_out_read_rd_and_oe_delay;
---		elsif (slrd_cnt = max_control_pct_cnt-3 and socket_type(to_integer(unsigned(faddr_reg)))='1') then
---			next_state <= stream_out_read_rd_and_oe_delay;
 		else
 			next_state <= stream_out_read;
 		end if;
