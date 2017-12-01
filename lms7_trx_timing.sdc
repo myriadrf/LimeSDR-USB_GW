@@ -175,6 +175,7 @@ set_false_path -to [get_ports FPGA_SPI1_SCLK]
 set_false_path -to [get_registers tstcfg:inst39|dout_reg[*]]
 
 set_false_path -from [get_registers {tstcfg:inst39|mem[3][5]}]
+set_false_path -from [get_registers {fpgacfg:inst24|mem[13][2]}]
 set_false_path -from [get_registers {ddr2_tester:inst46|ddr2_traffic_gen:traffic_gen_inst|ddr2_traffic_gen_mm_traffic_generator_0:mm_traffic_generator_0|driver_avl_use_be_avl_use_burstbegin:traffic_generator_0|pnf_per_bit_persist[*]}]
 set_false_path -from [get_registers {wfm_player_top:inst27|DDR2_ctrl_top:DDR2_ctrl_top_inst|ddr2_traffic_gen:traffic_gen_inst|ddr2_traffic_gen_mm_traffic_generator_0:mm_traffic_generator_0|driver_avl_use_be_avl_use_burstbegin:traffic_generator_0|pnf_per_bit_persist[*]}]
 set_false_path -from [get_registers {ddr2_tester:inst46|ddr2_traffic_gen:traffic_gen_inst|ddr2_traffic_gen_mm_traffic_generator_0:mm_traffic_generator_0|driver_avl_use_be_avl_use_burstbegin:traffic_generator_0|driver_fsm_avl_use_be_avl_use_burstbegin:real_driver.driver_fsm_inst|stage.TIMEOUT}]
