@@ -701,7 +701,7 @@ stream_in_fsm_f : process(clk, reset_n)begin
 end process;
 
 --Stream state machine combo
-stream_fsm : process(current_state, flaga_d, flagb, flg_latency_cnt, assert_cnt, rd_wr, faddr_reg,
+stream_fsm : process(current_state, flaga_d, flagb_d, flagb, flg_latency_cnt, assert_cnt, rd_wr, faddr_reg,
 							rd_oe_delay_cnt, oe_delay_cnt, slrd_cnt, slwr_cnt, socket_type, max_data_pct_cnt, 
 							max_control_pct_cnt,socket_fifo_rdy)begin
 							
@@ -715,28 +715,29 @@ stream_fsm : process(current_state, flaga_d, flagb, flg_latency_cnt, assert_cnt,
 		next_state <= wait_flg_latency;
 		
 	when wait_flg_latency => 		--wait for valid flag
-		if flg_latency_cnt = 4 then 
-			if num_of_sockets > 1 then 
-				next_state <= prep_socket_addr;
-			else 
-				next_state <= wait_flagA;
-			end if;
+		if flg_latency_cnt >= 4 then 
+--			if num_of_sockets > 1 then 
+--				next_state <= prep_socket_addr;
+--			else 
+--				next_state <= wait_flagA;
+--			end if;
+         next_state <= wait_flagA;
 		else	
 			next_state <= wait_flg_latency;
 		end if;
 			
-	when prep_socket_addr =>		--currently not used, an not tested!
-		next_state <= wait_socket_delay;
-	
-	when wait_socket_delay => 		
-		next_state <= assert_epswitch;	
-	
-	when assert_epswitch =>			--wait valid flag
-		if (assert_cnt= 70) then 
-			next_state <= wait_flagA;
-		else 
-			next_state <= assert_epswitch;
-		end if;
+--	when prep_socket_addr =>		--currently not used, an not tested!
+--		next_state <= wait_socket_delay;
+--	
+--	when wait_socket_delay => 		
+--		next_state <= assert_epswitch;	
+--	
+--	when assert_epswitch =>			--wait valid flag
+--		if (assert_cnt= 70) then 
+--			next_state <= wait_flagA;
+--		else 
+--			next_state <= assert_epswitch;
+--		end if;
 		
 	when wait_flagA => 				--wait when DMA buffer is ready
 		if flaga_d = '1' then
