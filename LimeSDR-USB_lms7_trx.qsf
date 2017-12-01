@@ -397,7 +397,6 @@ set_global_assignment -name VHDL_FILE src/general/diq2_sampling.vhd
 set_global_assignment -name VHDL_FILE src/general/sync_reg.vhd
 set_global_assignment -name VHDL_FILE src/general/gpio_ctrl.vhd
 set_global_assignment -name VHDL_FILE src/spi/periphcfg.vhd
-set_global_assignment -name BDF_FILE lms7_trx_top_no_ram.bdf
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
