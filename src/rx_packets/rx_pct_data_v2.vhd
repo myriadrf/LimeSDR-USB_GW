@@ -56,7 +56,7 @@ end rx_pct_data_v2;
 architecture arch of rx_pct_data_v2 is
 --sync registers
 signal en_reg0, en_reg1 : std_logic;
-signal tx_pct_loss_reg0, tx_pct_loss_reg1 : std_logic;
+signal tx_pct_loss_reg0, tx_pct_loss_reg1, tx_pct_loss_reg2 : std_logic;
 signal tx_pct_loss_clr_reg0, tx_pct_loss_clr_reg1 : std_logic;
 --counters
 signal head_cnt         : unsigned(1 downto 0);
@@ -307,8 +307,9 @@ end process;
       if reset_n='0' then
 			en_reg0<='0';
 			en_reg1<='0';
-			tx_pct_loss_reg0<='0';
-			tx_pct_loss_reg1<='0';
+			tx_pct_loss_reg0<='1';
+			tx_pct_loss_reg1<='1';
+         tx_pct_loss_reg2<='1';
 			tx_pct_loss_clr_reg0<='0';
 			tx_pct_loss_clr_reg1<='0';
 			sample_width_reg0<="10";
@@ -318,6 +319,7 @@ end process;
  	      en_reg1<=en_reg0;
  	      tx_pct_loss_reg0<=tx_pct_loss;
  	      tx_pct_loss_reg1<=tx_pct_loss_reg0;
+         tx_pct_loss_reg2<=tx_pct_loss_reg1;
  	      tx_pct_loss_clr_reg0<=tx_pct_loss_clr;
  	      tx_pct_loss_clr_reg1<=tx_pct_loss_clr_reg0;
 			sample_width_reg0<=sample_width;
@@ -481,7 +483,7 @@ end process;
           tx_pct_loss_detect<='0';
  	    elsif (clk'event and clk = '1') then
  	      if en_reg1='1' then
- 	        if tx_pct_loss_reg1='1' then 
+ 	        if tx_pct_loss_reg1='1' AND tx_pct_loss_reg2 = '0' then 
  	          tx_pct_loss_detect<='1';
  	        elsif  tx_pct_loss_clr_reg1='1' then 
  	          tx_pct_loss_detect<='0';
