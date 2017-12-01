@@ -88,3 +88,6 @@ set_output_delay -clock [get_clocks FX3_PCLK_VIRT_OUT] -max $FX3_d_out_max_dly \
 								[get_ports {FX3_DQ*}]
 set_output_delay -clock [get_clocks FX3_PCLK_VIRT_OUT] -min $FX3_d_out_min_dly \
 								[get_ports {FX3_DQ*}]
+                        
+#there is extra clock cycle for FX3_CTL2, should be fine                        
+set_false_path -to [get_ports FX3_CTL2]
