@@ -101,6 +101,7 @@ signal slwr_streamIN_n     : std_logic;
 signal slwr_streamIN_n_d   : std_logic;
 signal slrd_streamOUT_n		: std_logic;
 signal slrd_streamOUT_n_d	: std_logic;
+signal slrd_streamOUT_n_d1	: std_logic;
 signal pktend_streamIN_n	: std_logic;
 signal flaga_d             : std_logic;
 signal flagb_d             : std_logic;
@@ -180,6 +181,8 @@ attribute noprune of slwr_cnt: signal is true;
 
 signal max_control_pct_cnt		: unsigned(15 downto 0);
 signal max_data_pct_cnt			: unsigned(15 downto 0);
+
+attribute noprune of max_data_pct_cnt: signal is true;
 
 constant USB2DIV				: integer := 1024/512;
 
@@ -271,12 +274,20 @@ socket_fifo_rdy<=x"0000000" & socket3_fifo_rdy & socket2_fifo_rdy & socket1_fifo
 clk_out<=clk;
   
 --output signal asignments
-slrd   <= slrd_streamOUT_n;
+--slrd   <= slrd_streamOUT_n;
 slwr   <= slwr_streamIN_n_d;   
 
 sloe   <= sloe_stream_n;
 pktend <= pktend_streamIN_n;
 slcs   <= '0';
+
+process(clk, reset_n)begin
+	if(reset_n = '0')then 
+      slrd <= '1';
+	elsif(clk'event and clk = '1')then
+      slrd   <= slrd_streamOUT_n;
+	end if;	
+end process;
 
 GPIF_busy<=(not slrd_streamOUT_n) OR (not slwr_streamIN_n_d);
 
@@ -284,18 +295,18 @@ GPIF_busy<=(not slrd_streamOUT_n) OR (not slwr_streamIN_n_d);
 process(clk, reset_n)begin
 	if(reset_n = '0')then 
 		max_control_pct_cnt <= to_unsigned(control_pct_size * 8 / data_width, max_control_pct_cnt'length);
-		max_data_pct_cnt <= to_unsigned(data_pct_size * 8 / data_width, max_data_pct_cnt'length) ;
+		max_data_pct_cnt <= to_unsigned(data_pct_size * 8 / data_width, max_data_pct_cnt'length) - 2 ;
 	elsif(clk'event and clk = '1')then
 		if usb_speed = '1' then 
 			max_control_pct_cnt <= to_unsigned(control_pct_size * 8 / data_width, max_control_pct_cnt'length);
-			max_data_pct_cnt <= to_unsigned(data_pct_size * 8 / data_width, max_data_pct_cnt'length) ;
+			max_data_pct_cnt <= to_unsigned(data_pct_size * 8 / data_width, max_data_pct_cnt'length) - 2 ;
 		else 
 			if control_pct_size < control_dma_size then 
 				max_control_pct_cnt <= to_unsigned(control_pct_size * 8 / data_width, max_control_pct_cnt'length);
 			else 
 				max_control_pct_cnt <= to_unsigned(control_pct_size * 8 / data_width / USB2DIV, max_control_pct_cnt'length);
 			end if;
-			max_data_pct_cnt <= to_unsigned(data_pct_size*8/data_width / USB2DIV, max_data_pct_cnt'length) ;
+			max_data_pct_cnt <= to_unsigned(data_pct_size*8/data_width / USB2DIV, max_data_pct_cnt'length) - 2;
 		end if;
 	end if;	
 end process;
@@ -321,7 +332,7 @@ process(clk, reset_n)begin
 end process;
 
 process(current_state)begin
-	if((current_state = stream_in_write) OR (current_state = stream_in_pktend))then
+	if (current_state = stream_in_write) then
 		slwr_streamIN_n <= '0';
 	else
 		slwr_streamIN_n <= '1';
@@ -356,10 +367,14 @@ end process;
 process(clk, reset_n)begin
 	if(reset_n = '0')then 
 		slrd_streamOUT_n_d<='1';
+      slrd_streamOUT_n_d1<='1'; 
 		socket_fifo_wr<='0';
 	elsif(clk'event and clk = '1')then
-		slrd_streamOUT_n_d<=slrd_streamOUT_n;
-		socket_fifo_wr<= not slrd_streamOUT_n_d;
+		slrd_streamOUT_n_d <=slrd_streamOUT_n;
+      slrd_streamOUT_n_d1<= slrd_streamOUT_n_d;
+      socket_fifo_wr<= not slrd_streamOUT_n_d1;
+
+
 	end if;	
 end process;
 
@@ -371,11 +386,31 @@ process(current_state) begin
 	end if;	
 end process;
 
-socket_fifo_q <= socket0_fifo_q when faddr_reg="00000" else 
-					  socket1_fifo_q when faddr_reg="00001" else
-					  socket2_fifo_q when faddr_reg="00010" else
-					  socket3_fifo_q when faddr_reg="00011" else
-					  (others=>'0');
+process(clk, reset_n)begin
+	if(reset_n = '0') then 
+      socket_fifo_q <= (others=>'0');
+	elsif(clk'event and clk = '1')then
+      case faddr_reg is 
+         when "00000" => 
+            socket_fifo_q <= socket0_fifo_q;
+         when "00001" => 
+            socket_fifo_q <= socket1_fifo_q;
+         when "00010" => 
+            socket_fifo_q <= socket2_fifo_q;
+         when "00011" => 
+            socket_fifo_q <= socket3_fifo_q;
+         when others => 
+            socket_fifo_q <= (others=>'0');
+      end case;
+	end if;	
+end process;
+
+
+--socket_fifo_q <= socket0_fifo_q when faddr_reg="00000" else 
+--					  socket1_fifo_q when faddr_reg="00001" else
+--					  socket2_fifo_q when faddr_reg="00010" else
+--					  socket3_fifo_q when faddr_reg="00011" else
+--					  (others=>'0');
 
 process(slwr_streamIN_n_d, socket_fifo_q)begin
 	if(slwr_streamIN_n_d = '0')then
@@ -387,11 +422,45 @@ end process;
 
 
 
+process(clk, reset_n)begin
+	if(reset_n = '0') then 
+      socket0_fifo_wr	<= '0';
+      socket1_fifo_wr	<= '0';
+      socket2_fifo_wr	<= '0';
+      socket3_fifo_wr	<= '0';
+	elsif(clk'event and clk = '1')then
+   
+      if faddr_reg = "00000" then 
+         socket0_fifo_wr	<= socket_fifo_wr;
+      else 
+         socket0_fifo_wr	<= '0';
+      end if;
+      
+      if faddr_reg = "00001" then 
+         socket1_fifo_wr	<= socket_fifo_wr;
+      else 
+         socket1_fifo_wr	<= '0';
+      end if;
 
-socket0_fifo_wr	<= socket_fifo_wr when faddr_reg = "00000" else '0';
-socket1_fifo_wr	<= socket_fifo_wr when faddr_reg = "00001" else '0';
-socket2_fifo_wr	<= socket_fifo_wr when faddr_reg = "00010" else '0';
-socket3_fifo_wr	<= socket_fifo_wr when faddr_reg = "00011" else '0';
+      if faddr_reg = "00010" then 
+         socket2_fifo_wr	<= socket_fifo_wr;
+      else 
+         socket2_fifo_wr	<= '0';
+      end if;
+
+      if faddr_reg = "00011" then 
+         socket3_fifo_wr	<= socket_fifo_wr;
+      else 
+         socket3_fifo_wr	<= '0';
+      end if;
+
+	end if;	
+end process;
+
+--socket0_fifo_wr	<= socket_fifo_wr when faddr_reg = "00000" else '0';
+--socket1_fifo_wr	<= socket_fifo_wr when faddr_reg = "00001" else '0';
+--socket2_fifo_wr	<= socket_fifo_wr when faddr_reg = "00010" else '0';
+--socket3_fifo_wr	<= socket_fifo_wr when faddr_reg = "00011" else '0';
 
 socket0_fifo_rd	<= socket_fifo_rd when faddr_reg = "00000" else '0';
 socket1_fifo_rd	<= socket_fifo_rd when faddr_reg = "00001" else '0';
@@ -429,7 +498,7 @@ process(clk, reset_n)begin
 		rd_oe_delay_cnt <= "00";
 	elsif(clk'event and clk = '1')then	
 	 	if(current_state = stream_out_read) then
-			rd_oe_delay_cnt <= "01";
+			rd_oe_delay_cnt <= "00";
       elsif((current_state = stream_out_read_rd_and_oe_delay) and (rd_oe_delay_cnt > 0))then
 			rd_oe_delay_cnt <= rd_oe_delay_cnt - 1;
 		else
@@ -443,8 +512,8 @@ process(clk, reset_n)begin
 	if(reset_n = '0')then 
 		oe_delay_cnt <= "00";
 	elsif(clk'event and clk = '1')then	
-	 	if(current_state = stream_out_read_rd_and_oe_delay) then
-			oe_delay_cnt <= "10";
+	 	if(current_state = stream_out_read_rd_and_oe_delay OR current_state = idle) then
+			oe_delay_cnt <= "11";
 			--oe_delay_cnt <= "01";
       elsif((current_state = stream_out_read_oe_delay) and (oe_delay_cnt > 0))then
 			oe_delay_cnt <= oe_delay_cnt - 1;
@@ -632,8 +701,8 @@ stream_in_fsm_f : process(clk, reset_n)begin
 end process;
 
 --Stream state machine combo
-stream_fsm : process(current_state, flaga_d, flagb_d, flg_latency_cnt, assert_cnt, rd_wr, faddr_reg,
-							rd_oe_delay_cnt, oe_delay_cnt, slrd_cnt, slwr_cnt, socket_type, max_data_pct_cnt, 
+stream_fsm : process(current_state, flaga_d, flagb_d, flagb, flg_latency_cnt, rd_wr, faddr_reg,
+							rd_oe_delay_cnt, oe_delay_cnt, slwr_cnt, socket_type, 
 							max_control_pct_cnt,socket_fifo_rdy)begin
 							
 	next_state <= current_state;
@@ -646,33 +715,16 @@ stream_fsm : process(current_state, flaga_d, flagb_d, flg_latency_cnt, assert_cn
 		next_state <= wait_flg_latency;
 		
 	when wait_flg_latency => 		--wait for valid flag
-		if flg_latency_cnt = 4 then 
-			if num_of_sockets > 1 then 
-				next_state <= prep_socket_addr;
-			else 
-				next_state <= wait_flagA;
-			end if;
+		if flg_latency_cnt >= 4 then 
+         next_state <= wait_flagA;
 		else	
 			next_state <= wait_flg_latency;
 		end if;
 			
-	when prep_socket_addr =>		--currently not used, an not tested!
-		next_state <= wait_socket_delay;
-	
-	when wait_socket_delay => 		
-		next_state <= assert_epswitch;	
-	
-	when assert_epswitch =>			--wait valid flag
-		if (assert_cnt= 70) then 
-			next_state <= wait_flagA;
-		else 
-			next_state <= assert_epswitch;
-		end if;
 		
 	when wait_flagA => 				--wait when DMA buffer is ready
 		if flaga_d = '1' then
 			next_state<=wait_flagB;
-			--next_state <= idle;
 		else 
 			next_state <= idle;
 		end if;
@@ -694,15 +746,11 @@ stream_fsm : process(current_state, flaga_d, flagb_d, flg_latency_cnt, assert_cn
 			end if;
 		else
 			next_state <= wait_flagB;
-			--next_state <= idle;
 		end if;
 		
 	when stream_in_write => 		--execute write to FX3 (FPGA ->PC) operation, and terminate depending on socket type
-		if (flagb_d = '0') then 			
-			next_state <= stream_in_write_wr_delay;
--- Used when watermark flag is not available
---		elsif (slwr_cnt = max_data_pct_cnt-2 and socket_type(to_integer(unsigned(faddr_reg)))='0') then 
---			next_state <= stream_in_write_wr_delay;
+		if (flagb = '0') then 			
+         next_state <= idle;
 		elsif (slwr_cnt = max_control_pct_cnt-2 and socket_type(to_integer(unsigned(faddr_reg)))='1') then
 			next_state <= stream_in_pktend;
 		else
@@ -717,12 +765,8 @@ stream_fsm : process(current_state, flaga_d, flagb_d, flg_latency_cnt, assert_cn
 	
 	when stream_out_read =>			--execute read operation from FX3 (PC->FPGA)
 		if(flagb_d = '0')then
-			next_state <= stream_out_read_rd_and_oe_delay;
---		Used when watermark flag is not available
---		elsif ( slrd_cnt= max_data_pct_cnt-3 and socket_type(to_integer(unsigned(faddr_reg)))='0') then
---			next_state <= stream_out_read_rd_and_oe_delay;
---		elsif (slrd_cnt = max_control_pct_cnt-3 and socket_type(to_integer(unsigned(faddr_reg)))='1') then
---			next_state <= stream_out_read_rd_and_oe_delay;
+			--next_state <= stream_out_read_rd_and_oe_delay;
+         next_state <= stream_out_read_oe_delay;
 		else
 			next_state <= stream_out_read;
 		end if;
