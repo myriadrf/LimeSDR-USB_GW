@@ -9,6 +9,9 @@ set_time_format -unit ns -decimal_places 3
 read_sdc LMS7002_timing.sdc
 
 
+################################################################################
+#Timing parameters
+################################################################################
 
 ################################################################################
 #Base clocks
@@ -23,10 +26,14 @@ create_clock -period "27MHz" 			-name SI_CLK6			[get_ports SI_CLK6]
 create_clock -period "27MHz" 			-name SI_CLK7			[get_ports SI_CLK7]
 #LMK clock buffer clock
 create_clock -period "30.72MHz"		-name LMK_CLK			[get_ports LMK_CLK]
+#FX3 spi clock
+create_clock -period "1MHz" 			-name BRDG_SPI_SCLK	[get_ports BRDG_SPI_SCLK]
+
 
 ################################################################################
 #Virtual clocks
-################################################################################ 
+################################################################################
+  
 
 ################################################################################
 #Generated clocks
@@ -65,6 +72,7 @@ derive_clock_uncertainty
 #Input constraints
 ################################################################################
 
+
 #NIOS SPI0
 #To overcontrain inputs setup time only for fitter by 10%
 if {$::quartus(nameofexecutable) ne "quartus_sta"} {
@@ -79,7 +87,6 @@ if {$::quartus(nameofexecutable) ne "quartus_sta"} {
 ################################################################################
 #Output constraints
 ################################################################################						
-											
 							
 						
 #NIOS SPI				
@@ -102,12 +109,17 @@ set_clock_groups -asynchronous 	-group {SI_CLK0} \
 											-group {SI_CLK7} \
 											-group {LMK_CLK} \
 											-group {BRDG_SPI_SCLK} \
-											-group {LMS_MCLK1 LMS_MCLK1_5MHZ} \
+											-group {LMS_MCLK1} \
+                                 -group {LMS_MCLK1_5MHZ} \
 											-group {TX_PLLCLK_C0 } \
-											-group {TX_PLLCLK_C1 } \
-											-group {LMS_MCLK2_5MHZ LMS_MCLK2_VIRT_5MHz} \
-											-group {LMS_MCLK2 LMS_MCLK2_VIRT RX_PLLCLK_C1} \
-											-group {RX_PLLCLK_C0 } \
+											-group {TX_PLLCLK_C1 LMS_FCLK1_PLL} \
+                                 -group {LMS_FCLK1_DRCT } \
+                                 -group {LMS_MCLK2} \
+											-group {LMS_MCLK2_5MHZ} \
+											-group {RX_PLLCLK_C0} \
+											-group {RX_PLLCLK_C1 } \
+                                 -group {LMS_FCLK2_PLL} \
+                                 -group {LMS_FCLK2_DRCT } \
 											-group {FX3_PCLK FPGA_SPI0_SCLK_reg FPGA_SPI0_SCLK_out} \
 											-group {inst27|DDR2_ctrl_top_inst|ddr2_inst|ddr2_controller_phy_inst|ddr2_phy_inst|ddr2_phy_alt_mem_phy_inst|clk|pll|altpll_component|auto_generated|pll1|clk[1]} \
 											-group {inst46|ddr2_inst|ddr2_controller_phy_inst|ddr2_phy_inst|ddr2_phy_alt_mem_phy_inst|clk|pll|altpll_component|auto_generated|pll1|clk[1]} 
@@ -161,10 +173,37 @@ set_false_path -from [get_ports BRDG_SPI*] 		-to *
 set_false_path -from [get_ports PWR_SRC] 			-to *
 set_false_path -from [get_ports FPGA_I2C_SCL] 	-to *
 set_false_path -from [get_ports FPGA_I2C_SDA] 	-to *
+set_false_path -from [get_ports FPGA_GPIO*] 
+set_false_path -from [get_ports LM75_OS*]        
 
 set_false_path -to [get_ports LMS_RESET*]
 set_false_path -to [get_ports BRDG_SPI*]
 set_false_path -to [get_ports FPGA_SPI1*]
+set_false_path -to [get_ports FAN_CTRL*]
+
+#To be fixed
+set_false_path -to [get_ports FPGA_SPI0_LMS_SS*]
+
+
+set_multicycle_path 	-from [get_registers {rx_path_top:inst28|smpl_cnt:smpl_cnt_inst3|lpm_cnt_inst:lpm_cnt_inst_inst0|lpm_counter:LPM_COUNTER_component|cntr_f5l:auto_generated|counter_reg_bit[*]}] \
+							-to [get_registers {rx_path_top:inst28|smpl_cnt:smpl_cnt_inst3|lpm_cnt_inst:lpm_cnt_inst_inst0|lpm_counter:LPM_COUNTER_component|cntr_f5l:auto_generated|counter_reg_bit[*]}] \
+							-setup -end 2
+							
+set_multicycle_path 	-from [get_registers {rx_path_top:inst28|smpl_cnt:smpl_cnt_inst3|lpm_cnt_inst:lpm_cnt_inst_inst0|lpm_counter:LPM_COUNTER_component|cntr_f5l:auto_generated|counter_reg_bit[*]}] \
+							-to [get_registers {rx_path_top:inst28|smpl_cnt:smpl_cnt_inst3|lpm_cnt_inst:lpm_cnt_inst_inst0|lpm_counter:LPM_COUNTER_component|cntr_f5l:auto_generated|counter_reg_bit[*]}] \
+							-hold -end 1
+							
+							
+set_multicycle_path 	-from [get_registers {rx_path_top:inst28|smpl_cnt:smpl_cnt_inst4|lpm_cnt_inst:lpm_cnt_inst_inst0|lpm_counter:LPM_COUNTER_component|cntr_f5l:auto_generated|counter_reg_bit[*]}] \
+							-to [get_registers {rx_path_top:inst28|smpl_cnt:smpl_cnt_inst4|lpm_cnt_inst:lpm_cnt_inst_inst0|lpm_counter:LPM_COUNTER_component|cntr_f5l:auto_generated|counter_reg_bit[*]}] \
+							-setup -end 2
+							
+set_multicycle_path 	-from [get_registers {rx_path_top:inst28|smpl_cnt:smpl_cnt_inst4|lpm_cnt_inst:lpm_cnt_inst_inst0|lpm_counter:LPM_COUNTER_component|cntr_f5l:auto_generated|counter_reg_bit[*]}] \
+							-to [get_registers {rx_path_top:inst28|smpl_cnt:smpl_cnt_inst4|lpm_cnt_inst:lpm_cnt_inst_inst0|lpm_counter:LPM_COUNTER_component|cntr_f5l:auto_generated|counter_reg_bit[*]}] \
+							-hold -end 1
+
+
+
 #set false paths to output clocks 
 #it removes the path from the Unconstrained Paths report, but
 #allows it to be used as a clock for output delay analysis
@@ -180,3 +219,8 @@ set_false_path -from [get_registers {ddr2_tester:inst46|ddr2_traffic_gen:traffic
 set_false_path -from [get_registers {wfm_player_top:inst27|DDR2_ctrl_top:DDR2_ctrl_top_inst|ddr2_traffic_gen:traffic_gen_inst|ddr2_traffic_gen_mm_traffic_generator_0:mm_traffic_generator_0|driver_avl_use_be_avl_use_burstbegin:traffic_generator_0|pnf_per_bit_persist[*]}]
 set_false_path -from [get_registers {ddr2_tester:inst46|ddr2_traffic_gen:traffic_gen_inst|ddr2_traffic_gen_mm_traffic_generator_0:mm_traffic_generator_0|driver_avl_use_be_avl_use_burstbegin:traffic_generator_0|driver_fsm_avl_use_be_avl_use_burstbegin:real_driver.driver_fsm_inst|stage.TIMEOUT}]
 set_false_path -from [get_registers {ddr2_tester:inst46|ddr2_traffic_gen:traffic_gen_inst|ddr2_traffic_gen_mm_traffic_generator_0:mm_traffic_generator_0|driver_avl_use_be_avl_use_burstbegin:traffic_generator_0|driver_fsm_avl_use_be_avl_use_burstbegin:real_driver.driver_fsm_inst|stage.TEST_COMPLETE}]
+set_false_path -from [get_registers *sync_reg0\[*\]]
+
+
+
+

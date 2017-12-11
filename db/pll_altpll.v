@@ -1,6 +1,6 @@
-//altpll bandwidth_type="AUTO" CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" clk0_divide_by=1 clk0_duty_cycle=50 clk0_multiply_by=1 clk0_phase_shift="0" clk1_divide_by=1 clk1_duty_cycle=50 clk1_multiply_by=1 clk1_phase_shift="0" compensate_clock="CLK1" device_family="Cyclone IV E" inclk0_input_frequency=6250 intended_device_family="Cyclone IV E" lpm_hint="CBX_MODULE_PREFIX=pll" operation_mode="source_synchronous" pll_type="AUTO" port_clk0="PORT_USED" port_clk1="PORT_USED" port_clk2="PORT_UNUSED" port_clk3="PORT_UNUSED" port_clk4="PORT_UNUSED" port_clk5="PORT_UNUSED" port_extclk0="PORT_UNUSED" port_extclk1="PORT_UNUSED" port_extclk2="PORT_UNUSED" port_extclk3="PORT_UNUSED" port_inclk1="PORT_UNUSED" port_phasecounterselect="PORT_USED" port_phasedone="PORT_USED" port_scandata="PORT_USED" port_scandataout="PORT_USED" scan_chain_mif_file="pll.mif" self_reset_on_loss_lock="OFF" width_clock=5 width_phasecounterselect=3 areset clk configupdate inclk locked pfdena phasecounterselect phasedone phasestep phaseupdown scanclk scanclkena scandata scandataout scandone CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48
+//altpll bandwidth_type="AUTO" CBX_DECLARE_ALL_CONNECTED_PORTS="OFF" clk0_divide_by=1 clk0_duty_cycle=50 clk0_multiply_by=1 clk0_phase_shift="0" clk1_divide_by=1 clk1_duty_cycle=50 clk1_multiply_by=1 clk1_phase_shift="0" compensate_clock="CLK1" device_family="Cyclone IV E" inclk0_input_frequency=6250 intended_device_family="Cyclone IV E" lpm_hint="CBX_MODULE_PREFIX=pll" operation_mode="source_synchronous" pll_type="AUTO" port_clk0="PORT_USED" port_clk1="PORT_USED" port_clk2="PORT_UNUSED" port_clk3="PORT_UNUSED" port_clk4="PORT_UNUSED" port_clk5="PORT_UNUSED" port_extclk0="PORT_UNUSED" port_extclk1="PORT_UNUSED" port_extclk2="PORT_UNUSED" port_extclk3="PORT_UNUSED" port_inclk1="PORT_UNUSED" port_phasecounterselect="PORT_USED" port_phasedone="PORT_USED" port_scandata="PORT_USED" port_scandataout="PORT_USED" scan_chain_mif_file="ip/txpll/txpll.mif" self_reset_on_loss_lock="OFF" width_clock=5 width_phasecounterselect=3 areset clk configupdate inclk locked phasecounterselect phasedone phasestep phaseupdown scanclk scanclkena scandata scandataout scandone CARRY_CHAIN="MANUAL" CARRY_CHAIN_LENGTH=48
 //VERSION_BEGIN 15.1 cbx_altclkbuf 2016:02:01:19:04:59:SJ cbx_altiobuf_bidir 2016:02:01:19:04:59:SJ cbx_altiobuf_in 2016:02:01:19:04:59:SJ cbx_altiobuf_out 2016:02:01:19:04:59:SJ cbx_altpll 2016:02:01:19:04:59:SJ cbx_cycloneii 2016:02:01:19:04:59:SJ cbx_lpm_add_sub 2016:02:01:19:04:59:SJ cbx_lpm_compare 2016:02:01:19:04:59:SJ cbx_lpm_counter 2016:02:01:19:04:59:SJ cbx_lpm_decode 2016:02:01:19:04:59:SJ cbx_lpm_mux 2016:02:01:19:04:59:SJ cbx_mgl 2016:02:01:19:07:00:SJ cbx_nadder 2016:02:01:19:04:59:SJ cbx_stratix 2016:02:01:19:05:00:SJ cbx_stratixii 2016:02:01:19:05:00:SJ cbx_stratixiii 2016:02:01:19:05:00:SJ cbx_stratixv 2016:02:01:19:05:00:SJ cbx_util_mgl 2016:02:01:19:04:59:SJ  VERSION_END
-//CBXI_INSTANCE_NAME="lms7_trx_top_pll_block_inst32_pll_inst35_altpll_altpll_component"
+//CBXI_INSTANCE_NAME="lms7_trx_top_tx_pll_top_inst32_altpll_altpll_inst3"
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
 
@@ -450,7 +450,6 @@ module  pll_altpll
 	configupdate,
 	inclk,
 	locked,
-	pfdena,
 	phasecounterselect,
 	phasedone,
 	phasestep,
@@ -465,7 +464,6 @@ module  pll_altpll
 	input   configupdate;
 	input   [1:0]  inclk;
 	output   locked;
-	input   pfdena;
 	input   [2:0]  phasecounterselect;
 	output   phasedone;
 	input   phasestep;
@@ -481,7 +479,6 @@ module  pll_altpll
 	tri0   areset;
 	tri0   configupdate;
 	tri0   [1:0]  inclk;
-	tri1   pfdena;
 	tri1   [2:0]  phasecounterselect;
 	tri1   phasestep;
 	tri1   phaseupdown;
@@ -600,7 +597,6 @@ module  pll_altpll
 	.fbout(wire_pll1_fbout),
 	.inclk(inclk),
 	.locked(wire_pll1_locked),
-	.pfdena(pfdena),
 	.phasecounterselect({wire_altpll_dyn_phase_le5_combout, wire_altpll_dyn_phase_le4_combout, wire_altpll_dyn_phase_le2_combout}),
 	.phasedone(wire_pll1_phasedone),
 	.phasestep((phasestep | internal_phasestep_reg_wire)),
@@ -616,7 +612,8 @@ module  pll_altpll
 	// synopsys translate_off
 	`endif
 	,
-	.clkswitch(1'b0)
+	.clkswitch(1'b0),
+	.pfdena(1'b1)
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_on
 	`endif
@@ -635,7 +632,7 @@ module  pll_altpll
 		pll1.inclk0_input_frequency = 6250,
 		pll1.operation_mode = "source_synchronous",
 		pll1.pll_type = "auto",
-		pll1.scan_chain_mif_file = "pll.mif",
+		pll1.scan_chain_mif_file = "ip/txpll/txpll.mif",
 		pll1.self_reset_on_loss_lock = "off",
 		pll1.lpm_type = "cycloneive_pll";
 	assign

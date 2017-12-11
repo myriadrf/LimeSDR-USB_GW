@@ -44,6 +44,7 @@ ddr2_phy_autodetectedpins.tcl
 alt_sld_fab_wrapper_hw.tcl
 *.csv
 *.rpt
+!*.fit.rpt
 *.txt
 *.qws
 *.qarlog
@@ -54,8 +55,16 @@ alt_sld_fab_wrapper_hw.tcl
 *.xml
 
 #--------------
+# Modelsim files
+#--------------
+*.wlf
+
+#--------------
 # generated folders
 #--------------
 simulation/
 incremental_db/
 workspace/
+source_library/
+db/
+greybox_tmp/
