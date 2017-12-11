@@ -16,6 +16,7 @@
 
 FUNCTION ddrox1 
 (
+	aclr,
 	datain_h[0..0],
 	datain_l[0..0],
 	outclock

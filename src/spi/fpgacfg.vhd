@@ -48,8 +48,12 @@ entity fpgacfg is
 		--Interface Config		
 		ch_en				: out std_logic_vector(15 downto 0);
 		smpl_width		: out std_logic_vector(1 downto 0);
+		mode				: out std_logic;
+		ddr_en			: out std_logic;
+		trxiq_pulse		: out std_logic;
 		mimo_int_en		: out std_logic;
 		synch_dis		: out std_logic;
+		synch_mode		: out std_logic;
 		smpl_nr_clr		: out std_logic;
 		txpct_loss_clr	: out std_logic;
 		rx_en				: out std_logic;
@@ -85,7 +89,12 @@ entity fpgacfg is
 		FPGA_LED1_CTRL		: out std_logic_vector(2 downto 0);
 		FPGA_LED2_CTRL		: out std_logic_vector(2 downto 0);
 		FX3_LED_CTRL		: out std_logic_vector(2 downto 0);
-		FCLK_ENA				: out std_logic_vector(1 downto 0)
+		FCLK_ENA				: out std_logic_vector(1 downto 0);
+		sync_pulse_period : out std_logic_vector(31 downto 0);
+		sync_size			: out std_logic_vector(15 downto 0);
+		txant_pre			: out std_logic_vector(15 downto 0);
+		txant_post			: out std_logic_vector(15 downto 0)
+		
 		
 
 
@@ -216,17 +225,17 @@ begin
 			mem(6)	<= "0000000000000000"; --  5 free, load_phase_reg, cnt_ind[4:0], clk_ind[4:0]
 			--Interface Config
 			mem(7)	<= "0000000000000011"; --  0 free, ch_en[15:0]
-			mem(8)	<= "0000000100000010"; --  6 free, synch_dis, mimo_int_en, reserved[5:0], smpl_width[1:0]
+			mem(8)	<= "0000000100000010"; --  6 free, sync_mode,synch_dis, mimo_int_en, trxiq_pulse, ddr_en, mode, reserved[2:0], smpl_width[1:0]
 			mem(9)	<= "0000000000000011"; -- 14 free, txpct_loss_clr, smpl_nr_clr,			
-			mem(10)	<= "0000000000000000"; -- 14 free, tx_cnt_en,tx_ptrn_en, rx_ptrn_en, reserved[5:0], tx_en, rx_en,
-			mem(11)	<= "0000000000000000"; -- 16 free, (Reserved)
+			mem(10)	<= "0000000000000000"; -- 14 free, tx_en, rx_en,
+			mem(11)	<= "0000000000000000"; -- 16 free, 
 			mem(12)	<= "0000000000000011"; --  0 free, wfm_ch_en
 			mem(13)	<= "0000000000000000"; --  0 free, Reserved,wfm_load,wfm_play,Reserved
 			mem(14)	<= "0000000000000010"; -- 14 free, Reserved,wfm_smpl_width
-			mem(15)	<= "0000000000000000"; -- 16 free, (Reserved)
+			mem(15)	<= x"03FC"; 			  -- 16 free, sync_size
 			--Peripheral config
-			mem(16)	<= "0000000000011000"; -- 16 free, (Reserved)
-			mem(17)	<= "0000000000000010"; -- 16 free, (Reserved)
+			mem(16)	<= x"0001"; 			  -- 16 free, txant_pre
+			mem(17)	<= x"0001";				  -- 16 free, txant_post
 			mem(18)  <= "1111111111111111"; --  0 free, SPI_SS[15:0]
 			mem(19)	<= "0110111101101011"; --  0 free, rsrvd,LMS2_RXEN,LMS2_TXEN,LMS2_TXNRX2,LMS2_TXNRX1,LMS2_CORE_LDO_EN,LMS2_RESET,LMS2_SS,rsrvd,LMS1_RXEN,LMS1_TXEN,LMS1_TXNRX2,LMS1_TXNRX1,LMS1_CORE_LDO_EN,LMS1_RESET,LMS1_SS
 			mem(20)	<= "0000000000000011"; --  0 free, (Reserved LMS control)
@@ -238,6 +247,8 @@ begin
 			mem(27)	<= "0000000000000000"; --  0 free, Reserved[15:0]
 			mem(28)	<= "0000000000000000"; --  0 free, Reserved[15:4],FX3_LED_G,FX3_LED_R,FX3_LED_OVRD
 			mem(29)	<= "0000000000000001"; --  0 free, FCLK_ENA[1:0]
+			mem(30)	<= x"0003"; 			  -- 	sync_pulse_period MSb 
+			mem(31)  <= x"D090"; 			  -- sync_pulse_period LSb
 			
 		elsif sclk'event and sclk = '1' then
 				if mem_we = '1' then
@@ -265,8 +276,12 @@ begin
 		--Interface Config		
 		ch_en				<= mem(7);
 		smpl_width		<= mem(8) (1 downto 0);
+		mode				<= mem(8) (5);
+		ddr_en			<= mem(8) (6);
+		trxiq_pulse		<= mem(8) (7);
 		mimo_int_en		<= mem(8) (8);
 		synch_dis		<= mem(8) (9);
+		synch_mode		<= mem(8) (10);
 		smpl_nr_clr		<= mem(9) (0);
 		txpct_loss_clr	<= mem(9) (1);
 		rx_en				<= mem(10) (0);
@@ -275,18 +290,19 @@ begin
 		tx_ptrn_en		<= mem(10) (9);
 		tx_cnt_en		<= mem(10) (10);
 		
-		
-		
 		wfm_ch_en		<= mem(12) (15 downto 0);
 		wfm_play			<= mem(13) (1);
 		wfm_load			<= mem(13) (2);
 		wfm_smpl_width	<= mem(13) (1 downto 0);
+		
+		sync_size		<= mem(15) (15 downto 0);
+		txant_pre		<= mem(16) (15 downto 0);
+		txant_post		<= mem(17) (15 downto 0);
 
 		for_loop : for i in 0 to 15 generate --to prevent SPI_SS to go low on same time as sen
 			SPI_SS(i)<= mem(18)(i) OR (NOT sen);
 		end generate;
 		
-
 		LMS1_SS 				<= mem(19)(0) OR (NOT sen); --to prevent SPI_SS to go low on same time as sen
 		LMS1_RESET 			<= mem(19)(1);
 		LMS1_CORE_LDO_EN 	<= mem(19)(2);
@@ -307,6 +323,7 @@ begin
 		FPGA_LED2_CTRL		<= mem(26)(6 downto 4);
 		FX3_LED_CTRL		<= mem(28)(2 downto 0);
 		FCLK_ENA				<= mem(29)(1 downto 0);
+		sync_pulse_period <= mem(30) (15 downto 0) & mem(31) (15 downto 0);
 
 
 end fpgacfg_arch;
