@@ -77,8 +77,10 @@ signal inst0_in_pct_wrfull    : std_logic;
 --for clk domain crosing
 signal pct_sync_dis_rclk            : std_logic;
 signal inst0_pct_hdr_0_rclk         : std_logic_vector(63 downto 0);
+signal inst0_pct_hdr_0_rclk_stage0  : std_logic_vector(63 downto 0);
 signal inst0_pct_hdr_0_valid_rclk   : std_logic_vector(n_buff-1 downto 0);
 signal inst0_pct_hdr_1_rclk         : std_logic_vector(63 downto 0);
+signal inst0_pct_hdr_1_rclk_stage0  : std_logic_vector(63 downto 0);
 signal inst0_pct_hdr_1_valid_rclk   : std_logic_vector(n_buff-1 downto 0);
 
 --inst1
@@ -120,7 +122,11 @@ begin
 --inst0_pct_hdr_0 bus is changed once per packet, safe to use sync registers 
 bus_sync_reg0 : entity work.bus_sync_reg
  generic map (64) 
- port map(rclk, '1', inst0_pct_hdr_0, inst0_pct_hdr_0_rclk);
+ port map(rclk, '1', inst0_pct_hdr_0, inst0_pct_hdr_0_rclk_stage0);
+
+bus_sync_reg1 : entity work.bus_sync_reg
+ generic map (64) 
+ port map(rclk, '1', inst0_pct_hdr_0_rclk_stage0, inst0_pct_hdr_0_rclk);
  
  
  gen_handshake_sync_0  : 
@@ -140,10 +146,14 @@ bus_sync_reg0 : entity work.bus_sync_reg
  -- generic map (n_buff) 
 -- port map(rclk, '1', (others=>'1'), inst0_pct_hdr_0_valid_rclk);
 
---inst0_pct_hdr_1 bus is changed once per packet, safe to use sync registers  
+--inst0_pct_hdr_1 bus is changed once per packet, safe to use sync registers 
  bus_sync_reg2 : entity work.bus_sync_reg
  generic map (64) 
- port map(rclk, '1', inst0_pct_hdr_1, inst0_pct_hdr_1_rclk);
+ port map(rclk, '1', inst0_pct_hdr_1, inst0_pct_hdr_1_rclk_stage0);
+ 
+ bus_sync_reg3 : entity work.bus_sync_reg
+ generic map (64) 
+ port map(rclk, '1', inst0_pct_hdr_1_rclk_stage0, inst0_pct_hdr_1_rclk);
  
  
   gen_handshake_sync_1  : 
