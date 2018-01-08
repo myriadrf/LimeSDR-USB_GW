@@ -61,6 +61,10 @@ signal smpl_nr_array       : smpl_nr_array_type;
 
 signal pct_smpl_nr_less       : std_logic_vector(n_buff-1 downto 0);
 signal pct_smpl_nr_sync_dis   : std_logic_vector(n_buff-1 downto 0);
+signal pct_buff_rdy_reg0      : std_logic_vector(n_buff-1 downto 0);
+signal pct_buff_rdy_reg1      : std_logic_vector(n_buff-1 downto 0);
+signal pct_buff_rdy_reg2      : std_logic_vector(n_buff-1 downto 0);
+signal pct_buff_rdy_reg3      : std_logic_vector(n_buff-1 downto 0);
 
 
 COMPONENT lpm_compare
@@ -101,6 +105,9 @@ begin
       end loop;
    end if;
 end process;
+
+
+
 
 -- ----------------------------------------------------------------------------
 -- Pipelined comparators
@@ -150,10 +157,18 @@ process(clk, reset_n)
 begin
    if reset_n = '0' then 
       pct_data_clr_n <= (others=>'0');
-   elsif (clk'event AND clk='1') then 
+      pct_buff_rdy_reg0 <=(others=>'0');
+      pct_buff_rdy_reg1 <=(others=>'0');
+      pct_buff_rdy_reg2 <=(others=>'0');
+      pct_buff_rdy_reg3 <=(others=>'0');
+   elsif (clk'event AND clk='1') then
+      pct_buff_rdy_reg0 <= pct_buff_rdy;
+      pct_buff_rdy_reg1 <= pct_buff_rdy_reg0;
+      pct_buff_rdy_reg2 <= pct_buff_rdy_reg1;
+      pct_buff_rdy_reg3 <= pct_buff_rdy_reg2;
       for i in 0 to n_buff-1 loop
          if pct_data_clr_dis(i) = '0' AND pct_smpl_nr_sync_dis(i) = '0' AND 
-            pct_smpl_nr_less(i) = '1' AND pct_buff_rdy(i) = '1' then 
+            pct_smpl_nr_less(i) = '1' AND pct_buff_rdy_reg3(i) = '1' then 
             pct_data_clr_n(i)<= '0';
          else 
             pct_data_clr_n(i)<= '1';
