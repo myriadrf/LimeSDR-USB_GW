@@ -275,7 +275,7 @@ begin
    if reset_n = '0' then 
       in_pct_full <= '0';
    elsif (wclk'event AND wclk='1') then 
-      if unsigned(instx_wrempty) = 0 then 
+      if unsigned(instx_wrempty) = 0 OR inst0_in_pct_wrfull = '1' then 
          in_pct_full <= '1';
       else
          in_pct_full <= '0';
