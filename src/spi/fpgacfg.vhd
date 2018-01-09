@@ -120,12 +120,28 @@ architecture fpgacfg_arch of fpgacfg is
 	
 	signal oe: std_logic;										-- Tri state buffers control
 	signal spi_config_data_rev	: std_logic_vector(143 downto 0);
+   
+   signal COMPILE_REV_reg     : std_logic_vector(7 downto 0);
+   attribute noprune          : boolean;
+   attribute noprune of COMPILE_REV_reg: signal is true;
 	
 	-- Components
 	use work.mcfg_components.mcfg32wm_fsm;
 	for all: mcfg32wm_fsm use entity work.mcfg32wm_fsm(mcfg32wm_fsm_arch);
 
 begin
+
+   ---------------------------------------------------------------------------------------------
+	-- To avoid optimizations
+	-- ---------------------------------------------------------------------------------------------
+	process(sclk, lreset)
+	begin
+		if lreset = '0' then
+			COMPILE_REV_reg <= std_logic_vector(to_unsigned(COMPILE_REV, 8));
+		elsif sclk'event and sclk = '1' then
+         COMPILE_REV_reg <= std_logic_vector(to_unsigned(COMPILE_REV, 8));
+		end if;
+	end process;
 
 
 	-- ---------------------------------------------------------------------------------------------
@@ -191,7 +207,7 @@ begin
 			elsif dout_reg_len = '1' then
 				case inst_reg(4 downto 0) is	-- mux read-only outputs
 					when "00001" => dout_reg <= x"0002";
-					when "00010" => dout_reg <= (15 downto 8 => '0') & std_logic_vector(to_unsigned(COMPILE_REV, 8));
+					when "00010" => dout_reg <= (15 downto 8 => '0') & COMPILE_REV_reg;
 					when "00011" => dout_reg <= (15 downto 8 => '0') & PWR_SRC & BOM_VER & HW_VER;
 					when others  => dout_reg <= mem(to_integer(unsigned(inst_reg(4 downto 0))));
 				end case;
