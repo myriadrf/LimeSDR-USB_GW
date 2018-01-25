@@ -37,13 +37,19 @@ entity pllcfg_top is
 			-- PLL Lock flags
 		pll_lock		: in std_logic_vector(n_pll-1 downto 0);	
 			-- PLL Configuratioin Related
+      phcfg_mode  : out std_logic;
+      phcfg_tst   : out std_logic;
 		phcfg_start	: out std_logic_vector(n_pll-1 downto 0); --
 		pllcfg_start: out std_logic_vector(n_pll-1 downto 0); --
 		pllrst_start: out std_logic_vector(n_pll-1 downto 0); --
 		phcfg_updn	: out std_logic; --
 		cnt_ind		: out std_logic_vector(4 downto 0); --
 		cnt_phase	: out std_logic_vector(15 downto 0); --
-		pllcfg_data	: out std_logic_vector(143 downto 0)
+		pllcfg_data	: out std_logic_vector(143 downto 0);
+      auto_phcfg_done   : in std_logic_vector(n_pll-1 downto 0);
+      auto_phcfg_err    : in std_logic_vector(n_pll-1 downto 0);
+      auto_phcfg_smpls  : out std_logic_vector(15 downto 0);
+      auto_phcfg_step   : out std_logic_vector(15 downto 0)
         
         );
 end pllcfg_top;
@@ -103,6 +109,12 @@ signal pllcfg_busy_vect	: std_logic_vector(15 downto 0);
 signal pllcfg_done_bit	: std_logic;
 signal pllcfg_done_vect	: std_logic_vector(15 downto 0);
 
+signal auto_phcfg_done_bit	   : std_logic;
+signal auto_phcfg_done_vect	: std_logic_vector(15 downto 0);
+
+signal auto_phcfg_err_bit	   : std_logic;
+signal auto_phcfg_err_vect	   : std_logic_vector(15 downto 0);
+
 signal pll_lock_vect		: std_logic_vector(15 downto 0);
 
 signal phcfg_start_vect	: std_logic_vector(15 downto 0);
@@ -115,91 +127,6 @@ signal pllrst_start_bit	: std_logic;
 
 signal pllcfg_data_rev	: std_logic_vector(143 downto 0);
 
-component pllcfg is
-	port (
-			-- Address and location of this module
-			-- Will be hard wired at the top level
-		maddress			: in std_logic_vector(9 downto 0);
-		mimo_en			: in std_logic;	-- MIMO enable, from TOP SPI (always 1)	
-			-- Serial port A IOs
-		sdinA				: in std_logic; 	-- Data in
-		sclkA				: in std_logic; 	-- Data clock
-		senA				: in std_logic;	-- Enable signal (active low)
-		sdoutA			: out std_logic; 	-- Data out
-		oenA				: out std_logic; -- NC
-			-- Serial port B IOs
-		sdinB				: in std_logic; 	-- Data in
-		sclkB				: in std_logic; 	-- Data clock
-		senB				: in std_logic;	-- Enable signal (active low)
-		sdoutB			: out std_logic; 	-- Data out
-		oenB				: out std_logic; -- NC
-			-- Signals coming from the pins or top level serial interface
-		lreset			: in std_logic; 	-- Logic reset signal, resets logic cells only  (use only one reset)
-		mreset			: in std_logic; 	-- Memory reset signal, resets configuration memory only (use only one reset)
-			-- Status Inputs
-		pllcfg_busy		: in std_logic;
-		pllcfg_done		: in std_logic;
-			-- PLL Lock flags
-		pll_lock			: in std_logic_vector(15 downto 0);	
-			-- PLL Configuratioin Related
-		phcfg_start		: out std_logic; --
-		pllcfg_start	: out std_logic; --
-		pllrst_start	: out std_logic; --
-		phcfg_updn		: out std_logic; --
-		cnt_ind			: out std_logic_vector(4 downto 0); --
-		pll_ind			: out std_logic_vector(4 downto 0); --
-		
-		cnt_phase		: out std_logic_vector(15 downto 0); --
---		
---		pllcfg_bs		: out std_logic_vector(3 downto 0); -- (for Cyclone V)
-		chp_curr			: out std_logic_vector(2 downto 0); --
-		pllcfg_vcodiv	: out std_logic; --
-		pllcfg_lf_res	: out std_logic_vector(4 downto 0); -- (for Cyclone IV)
-		pllcfg_lf_cap	: out std_logic_vector(1 downto 0); -- (for cyclone IV)
-		
-		m_odddiv			: out std_logic; --
-		m_byp				: out std_logic; --
-		n_odddiv			: out std_logic; --
-		n_byp				: out std_logic; --
-
-		c0_odddiv		: out std_logic; --
-		c0_byp			: out std_logic; --
-		c1_odddiv		: out std_logic; --
-		c1_byp			: out std_logic; --
-		c2_odddiv		: out std_logic; --
-		c2_byp			: out std_logic; --
-		c3_odddiv		: out std_logic; --
-		c3_byp			: out std_logic; --
-		c4_odddiv		: out std_logic; --
-		c4_byp			: out std_logic; --
---		c5_odddiv		: out std_logic; --
---		c5_byp			: out std_logic; --
---		c6_odddiv		: out std_logic; --
---		c6_byp			: out std_logic; --
---		c7_odddiv		: out std_logic; --
---		c7_byp			: out std_logic; --
---		c8_odddiv		: out std_logic; --
---		c8_byp			: out std_logic; --
---		c9_odddiv		: out std_logic; --
---		c9_byp			: out std_logic; --
---		
-		n_cnt				: out std_logic_vector(15 downto 0); -- 
-		m_cnt				: out std_logic_vector(15 downto 0); -- 
---		m_frac			: out std_logic_vector(31 downto 0); -- 
-		c0_cnt			: out std_logic_vector(15 downto 0); -- 
-		c1_cnt			: out std_logic_vector(15 downto 0); -- 
-		c2_cnt			: out std_logic_vector(15 downto 0); -- 
-		c3_cnt			: out std_logic_vector(15 downto 0); -- 
-		c4_cnt			: out std_logic_vector(15 downto 0) -- 
---		c5_cnt			: out std_logic_vector(15 downto 0); -- 
---		c6_cnt			: out std_logic_vector(15 downto 0); -- 
---		c7_cnt			: out std_logic_vector(15 downto 0); -- 
---		c8_cnt			: out std_logic_vector(15 downto 0); -- 
---		c9_cnt			: out std_logic_vector(15 downto 0) -- 
-
-
-	);
-end component;
   
 begin
 
@@ -209,12 +136,23 @@ pllcfg_busy_vect(15 downto n_pll)<=(others=>'0');
 pllcfg_done_vect(n_pll-1 downto 0)<=pllcfg_done;
 pllcfg_done_vect(15 downto n_pll)<=(others=>'0');
 
+auto_phcfg_done_vect(n_pll-1 downto 0)<=auto_phcfg_done;
+auto_phcfg_done_vect(15 downto n_pll)<=(others=>'0');
+
+auto_phcfg_err_vect(n_pll-1 downto 0)<=auto_phcfg_err;
+auto_phcfg_err_vect(15 downto n_pll)<=(others=>'0');
+
 pll_lock_vect(n_pll-1 downto 0)<=pll_lock;
 pll_lock_vect(15 downto n_pll)<=(others=>'0');
 
 process(pll_ind, pllcfg_busy_vect, pllcfg_done_vect) begin
 	pllcfg_busy_bit<=pllcfg_busy_vect(to_integer(unsigned(pll_ind)));
 	pllcfg_done_bit<=pllcfg_done_vect(to_integer(unsigned(pll_ind)));
+end process;
+
+process(pll_ind, auto_phcfg_done_vect, auto_phcfg_err_vect) begin
+	auto_phcfg_done_bit  <=auto_phcfg_done_vect(to_integer(unsigned(pll_ind)));
+	auto_phcfg_err_bit   <=auto_phcfg_err_vect(to_integer(unsigned(pll_ind)));
 end process;
 
 
@@ -242,7 +180,7 @@ pllrst_start <= pllrst_start_vect(n_pll-1 downto 0);
 
 
 
-pllcfg_inst	: pllcfg
+pllcfg_inst	: entity work.pllcfg
 port map (
 		maddress			=> "0000000001",
 		mimo_en			=> '1',
@@ -260,13 +198,17 @@ port map (
 		mreset			=> mreset,
 		pllcfg_busy 	=> pllcfg_busy_bit,
 		pllcfg_done 	=> pllcfg_done_bit,
+      phcfg_done     => auto_phcfg_done_bit,
+      phcfg_error    => auto_phcfg_err_bit,
 		pll_lock			=> pll_lock_vect,
 		phcfg_start 	=> phcfg_start_bit,
 		pllcfg_start 	=> pllcfg_start_bit,
 		pllrst_start 	=> pllrst_start_bit,
 		phcfg_updn 		=> phcfg_updn,
 		cnt_ind			=> cnt_ind,
-		pll_ind			=> pll_ind,	
+		pll_ind			=> pll_ind,
+      phcfg_mode     => phcfg_mode,
+      phcfg_tst      => phcfg_tst, 
 		cnt_phase 		=> cnt_phase,		
 --		pllcfg_bs		=> open, 
 		chp_curr			=> chp_curr, 
@@ -304,12 +246,14 @@ port map (
 		c1_cnt			=> c1_cnt,
 		c2_cnt			=> c2_cnt,
 		c3_cnt			=> c3_cnt,
-		c4_cnt			=> c4_cnt
+		c4_cnt			=> c4_cnt,
 --		c5_cnt			=> c5_cnt, 
 --		c6_cnt			=> c6_cnt, 
 --		c7_cnt			=> c7_cnt,
 --		c8_cnt			=> c8_cnt,
---		c9_cnt			=> c9_cnt
+--		c9_cnt			=> c9_cnt,
+      auto_phcfg_smpls  => auto_phcfg_smpls,
+      auto_phcfg_step   => auto_phcfg_step 
 );
 
 

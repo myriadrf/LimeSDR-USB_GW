@@ -794,6 +794,10 @@ set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FX3_DQ[28]
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FX3_DQ[29]
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FX3_DQ[30]
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to FX3_DQ[31]
+set_global_assignment -name VHDL_FILE src/rx_path_top/smpl_cmp/synth/smpl_cmp.vhd
+set_global_assignment -name VHDL_FILE src/dyn_ps/synth/pll_ps_top.vhd
+set_global_assignment -name VHDL_FILE src/dyn_ps/synth/pll_ps_fsm.vhd
+set_global_assignment -name VHDL_FILE src/dyn_ps/synth/pll_ps.vhd
 set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
 set_global_assignment -name SDC_FILE FX3_timing.sdc
 set_global_assignment -name SDC_FILE lms7_trx_timing.sdc
@@ -872,7 +876,6 @@ set_global_assignment -name VHDL_FILE src/reg_phase_shift/phase_shift.vhd
 set_global_assignment -name QIP_FILE ip/pll_reconfig_module/pll_reconfig_module.qip
 set_global_assignment -name VHDL_FILE src/data_manipulation/decompress.vhd
 set_global_assignment -name VHDL_FILE src/wfm_ram_buffer/sl_ctrl.vhd
-set_global_assignment -name VHDL_FILE src/dyn_ps/pll_ps_cntrl.vhd
 set_global_assignment -name VHDL_FILE src/pll_reconfig_ctrl/config_ctrl.vhd
 set_global_assignment -name VHDL_FILE src/spi/miso_mux.vhd
 set_global_assignment -name VHDL_FILE src/spi/mem_package.vhd
