@@ -144,11 +144,11 @@ end process;
 --state machine
 -- ----------------------------------------------------------------------------
 fsm_f : process(clk, reset_n)begin
-	if(reset_n = '0')then
-		current_state  <= idle;
-	elsif(clk'event and clk = '1')then 
-		current_state <= next_state;
-	end if;	
+   if(reset_n = '0')then
+      current_state  <= idle;
+   elsif(clk'event and clk = '1')then 
+      current_state <= next_state;
+   end if;
 end process;
 
 -- ----------------------------------------------------------------------------
@@ -157,10 +157,10 @@ end process;
 fsm : process(current_state, en, en_reg, current_phase_step_cnt, 
                phase_step_cnt, pll_phasedone, check_phase_done_cnt, phase_reg, 
                pll_phasedone_neg_reg) begin
-	next_state <= current_state;
-	case current_state is
-	  
-		when idle =>                     -- wait for start
+   next_state <= current_state;
+   case current_state is
+   
+      when idle =>                     -- wait for start
          -- rising edge of ps_en and ps_mode = 1
          if en = '1' AND en_reg = '0' then 
             next_state <= check_phase_step;
@@ -197,9 +197,9 @@ fsm : process(current_state, en, en_reg, current_phase_step_cnt,
       when end_phase => 
          next_state <= idle;
          
-		when others => 
-			next_state <= idle;
-	end case;
+      when others => 
+         next_state <= idle;
+   end case;
 end process;
 
 -- ----------------------------------------------------------------------------

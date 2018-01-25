@@ -22,7 +22,8 @@ entity pll_ps_fsm is
       clk               : in std_logic;
       reset_n           : in std_logic;
       --module control ports
-      ps_en             : in std_logic; -- 0 - disabled, 1- enabled
+      ps_en             : in std_logic; -- 0 - disabled, 1 - enabled
+      ps_reset_at_start : in std_logic; -- 0 - disabled, 1 - enabled (PLL is reseted before start)
       ps_mode           : in std_logic; -- 0 - manual, 1 - auto
       ps_cnt            : in std_logic_vector(2 downto 0); 
                                                    -- 000 - ALL, 001 -   M, 010 - C0,
@@ -73,9 +74,11 @@ signal step_cnt_min                    : unsigned(9 downto 0);
 signal step_cnt_max                    : unsigned(9 downto 0);
 signal step_cnt_diff                   : unsigned(9 downto 0);
 signal step_cnt_middle                 : unsigned(9 downto 0);
+signal step_cnt_reverse                : unsigned(9 downto 0); 
 signal ps_ctrl_en_reg                  : std_logic;
 signal prep_phase_cnt                  : unsigned(3 downto 0);
 signal ps_ctrl_phase_reg               : std_logic_vector(9 downto 0);
+signal ps_ctrl_updwn_reg               : std_logic;
 signal ps_done_reg                     : std_logic;
 signal ps_status_reg                   : std_logic;
 signal wait_after_ph_shift_cnt         : unsigned(7 downto 0);
@@ -191,7 +194,7 @@ end process;
 -- ----------------------------------------------------------------------------
 --state machine combo
 -- ----------------------------------------------------------------------------
-fsm : process(current_state, ps_en, ps_mode, pll_locked, 
+fsm : process(current_state, ps_en, ps_mode, ps_reset_at_start, pll_locked, 
                smpl_cmp_done, smpl_cmp_error, find_min, find_max, 
                ps_ctrl_busy, ps_ctrl_busy_reg, ps_en_reg, step_cnt, 
                prep_phase_cnt, wait_after_ph_shift_cnt, step_cnt_max_reg) begin
@@ -200,8 +203,12 @@ fsm : process(current_state, ps_en, ps_mode, pll_locked,
    
       when idle =>                     -- wait for start
          -- rising edge of ps_en and ps_mode = 1
-         if ((ps_en = '1' AND ps_en_reg = '0') AND ps_mode = '1') then 
-            next_state <= rst_pll;
+         if ((ps_en = '1' AND ps_en_reg = '0') AND ps_mode = '1') then
+            if ps_reset_at_start = '1' then 
+               next_state <= rst_pll;
+            else 
+               next_state <= wait_pll_lock;
+            end if;
          else 
             next_state <= idle;
          end if;
@@ -256,48 +263,47 @@ fsm : process(current_state, ps_en, ps_mode, pll_locked,
             next_state <= cmp_smpls;
          end if;
          
-         when min_found =>       -- minimum phase is found, proceed
-            next_state <= check_max_steps;
+      when min_found =>       -- minimum phase is found, proceed
+         next_state <= check_max_steps;
          
-         when max_found =>       -- maximum phase is found, prepare final phase value
-            next_state <= prep_phase;
+      when max_found =>       -- maximum phase is found, prepare final phase value
+         next_state <= prep_phase;
          
-         when check_max_steps =>
-            if step_cnt < step_cnt_max_reg then 
-               next_state <= ph_shift;
-            else
-               if find_min = '0' then 
-                  next_state <= prep_phase;
-               else 
-                  next_state <= end_srch;
-               end if;
-            end if;
-         
-         when ph_shift =>
-            if ps_ctrl_busy = '0' AND ps_ctrl_busy_reg = '1' then  --falling edge 
-               --next_state <= check_cmp_status;
-               next_state <= wait_after_ph_shift;              
-            else 
-               next_state <= ph_shift;
-            end if;
-            
-         when wait_after_ph_shift => 
-            if wait_after_ph_shift_cnt > x"FD" then 
-               next_state <= check_cmp_status;
-            else 
-               next_state <= wait_after_ph_shift;
-            end if;
-            
-            
-         when prep_phase =>     -- wait some cycles until final phase value is calculated
-            if prep_phase_cnt > 2 then 
-               next_state <= rst_pll;
-            else 
+      when check_max_steps =>
+         if step_cnt < step_cnt_max_reg then 
+            next_state <= ph_shift;
+         else
+            if find_min = '0' then 
                next_state <= prep_phase;
+            else 
+               next_state <= end_srch;
             end if;
-            
-         when end_srch =>       -- end searching procedure
-            next_state <= idle;
+         end if;
+         
+      when ph_shift =>
+         if ps_ctrl_busy = '0' AND ps_ctrl_busy_reg = '1' then  --falling edge 
+            next_state <= wait_after_ph_shift;              
+         else 
+            next_state <= ph_shift;
+         end if;
+         
+      when wait_after_ph_shift => 
+         if wait_after_ph_shift_cnt > x"FD" then 
+            next_state <= check_cmp_status;
+         else 
+            next_state <= wait_after_ph_shift;
+         end if;
+         
+         
+      when prep_phase =>     -- wait some cycles until final phase value is calculated
+         if prep_phase_cnt > 2 then 
+            next_state <= ph_shift;
+         else 
+            next_state <= prep_phase;
+         end if;
+         
+      when end_srch =>       -- end searching procedure
+         next_state <= idle;
          
       when others => 
          next_state <= idle;
@@ -420,11 +426,20 @@ begin
       if current_state = idle then 
          ps_ctrl_phase_reg <= ps_step_size;
       elsif current_state = prep_phase then 
-         ps_ctrl_phase_reg <= std_logic_vector(step_cnt_middle);
+         ps_ctrl_phase_reg <= std_logic_vector(step_cnt_reverse);
       else 
          ps_ctrl_phase_reg <= ps_ctrl_phase_reg;
       end if;
       
+      -- phase shift control module phase direction register
+      if current_state = idle then 
+         ps_ctrl_updwn_reg <= ps_updwn;
+      elsif current_state = prep_phase then 
+         ps_ctrl_updwn_reg <= not ps_updwn_reg;
+      else 
+         ps_ctrl_updwn_reg <= ps_ctrl_updwn_reg;
+      end if;
+          
       -- phase shift done register
       if ps_en = '0' then
          ps_done_reg <= '0';
@@ -454,9 +469,11 @@ begin
    if reset_n = '0' then 
       step_cnt_diff     <= (others => '0');
       step_cnt_middle   <= (others => '0');
+      step_cnt_reverse  <= (others => '0');
    elsif (clk'event AND clk='1') then 
       step_cnt_diff     <= step_cnt_max - step_cnt_min;
       step_cnt_middle   <= unsigned('0' & step_cnt_diff(9 downto 1)) + step_cnt_min;
+      step_cnt_reverse  <= step_cnt - step_cnt_middle;
    end if;
 end process;
 
@@ -466,7 +483,7 @@ end process;
 -- ----------------------------------------------------------------------------
 ps_ctrl_en     <= ps_en                   when ps_mode = '0' else ps_ctrl_en_reg;
 ps_ctrl_cnt    <= ps_cnt                  when ps_mode = '0' else ps_cnt_reg;
-ps_ctrl_updown <= ps_updwn                when ps_mode = '0' else ps_updwn_reg;
+ps_ctrl_updown <= ps_updwn                when ps_mode = '0' else ps_ctrl_updwn_reg;
 ps_ctrl_phase  <= ps_phase                when ps_mode = '0' else ps_ctrl_phase_reg;
 ps_done        <= ps_done_reg_manual_mode when ps_mode = '0' else ps_done_reg;
 ps_status      <= ps_ctrl_busy            when ps_mode = '0' else ps_status_reg;

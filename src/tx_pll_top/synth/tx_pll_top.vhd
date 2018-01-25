@@ -350,23 +350,7 @@ pll_reconfig_module_inst1 : ENTITY work.pll_reconfig_module
       rom_address_out      => inst1_rom_address_out,
       write_rom_ena        => inst1_write_rom_ena
 );
-      
-----------------------------------------------------------------------------
--- Dynamic phase shift controller instance
-----------------------------------------------------------------------------
---pll_ps_cntrl_inst2 : entity work.pll_ps_cntrl
---   port map(
---      clk               => inst1_pll_scanclk,
---      reset_n           => pll_areset_n,
---      phase             => dynps_phase_sync,
---      ps_en             => dynps_en_sync,
---      ph_done           => inst3_phasedone,
---      pll_locked        => inst3_locked,
---      pll_reconfig      => rcnfig_en_sync_scanclk,
---      ph_step           => inst2_pll_phasestep,
---      ps_status         => inst2_ps_status,
---      psen_cnt_out      => open
---      ); 
+ 
 
 pll_ps_top_inst2 : entity work.pll_ps_top
    port map(

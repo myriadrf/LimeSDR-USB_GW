@@ -199,23 +199,6 @@ end process;
       end if;
    end process;
 
-   
--- pll_ps_cntrl_inst0 : entity work.pll_ps_cntrl
-   -- port map(
-      --input ports 
-      -- clk               => clk,
-      -- reset_n           => reset_n,
-      -- phase             => inst1_ps_ctrl_phase,
-      -- ps_en             => inst1_ps_ctrl_en,
-      -- ph_done           => pll_phasedone,
-      -- pll_locked        => pll_locked,
-      -- pll_reconfig      => pll_reconfig,
-      --output ports 
-      -- ph_step           => inst0_ph_step,
-      -- ps_status         => inst0_ps_status,
-      -- psen_cnt_out      => open
-   -- );
-
 -- ----------------------------------------------------------------------------
 -- lower level instances
 -- ----------------------------------------------------------------------------   
@@ -243,6 +226,7 @@ pll_ps_fsm_inst1 : entity work.pll_ps_fsm
       reset_n           => reset_n,
       --module control ports
       ps_en             => inst1_ps_en,
+      ps_reset_at_start => '1',
       ps_mode           => ps_mode,
       ps_cnt            => ps_cnt,
       ps_updwn          => ps_updwn,
