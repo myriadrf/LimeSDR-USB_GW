@@ -1,8 +1,8 @@
 -- ----------------------------------------------------------------------------	
--- FILE: 	p2d_rd_fsm.vhd
--- DESCRIPTION:	FSM for data reading from packets.
--- DATE:	April 6, 2017
--- AUTHOR(s):	Lime Microsystems
+-- FILE:          p2d_rd_fsm.vhd
+-- DESCRIPTION:   FSM for data reading from packets.
+-- DATE:          April 6, 2017
+-- AUTHOR(s):     Lime Microsystems
 -- REVISIONS:
 -- ----------------------------------------------------------------------------	
 
@@ -35,7 +35,7 @@ entity p2d_rd_fsm is
       pct_buff_rdy         : in std_logic_vector(n_buff-1 downto 0);   --assert only one bit at the same time
       
       rd_fsm_rdy           : out std_logic; -- status of FSM
-      rd_fsm_rd_hold       : out std_logic
+      rd_fsm_rd_done       : out std_logic
       
         );
 end p2d_rd_fsm;
@@ -46,7 +46,7 @@ end p2d_rd_fsm;
 architecture arch of p2d_rd_fsm is
 --declare signals,  components here
 
-type state_type is (idle, sel_buff, rd_buff, rd_hold);
+type state_type is (idle, sel_buff, rd_buff, rd_done);
 signal current_state, next_state : state_type;   
 
 signal pct_buff_rdy_int    : std_logic;
@@ -54,7 +54,9 @@ signal pct_buff_sel        : std_logic_vector(n_buff-1 downto 0);
 
 signal pct_size_rd_limit   : unsigned(pct_size_w-1 downto 0); 
 signal rd_cnt              : unsigned(pct_size_w-1 downto 0);
-signal rd_end              : std_logic;
+
+signal rd_sig              : std_logic;
+
 
 
 begin
@@ -66,16 +68,8 @@ process(clk, reset_n)
 begin
    if reset_n = '0' then 
       pct_size_rd_limit <= (others=>'0');
-      rd_end <= '0';
    elsif (clk'event AND clk='1') then 
       pct_size_rd_limit <= unsigned(pct_size) - 2;
-      if rd_cnt >= pct_size_rd_limit AND current_state = rd_buff then  
-         rd_end <= '1';
-      elsif current_state = idle then 
-         rd_end <= '0';
-      else 
-         rd_end <= rd_end;
-      end if;
    end if;
 end process;
 
@@ -86,11 +80,13 @@ process(clk, reset_n)
 begin
    if reset_n = '0' then 
       rd_cnt <= (others=>'0');
-   elsif (clk'event AND clk='1') then 
+   elsif (clk'event AND clk='1') then
       if current_state = rd_buff then 
-         rd_cnt <= rd_cnt+1;
-      elsif current_state = rd_hold then
-         rd_cnt <= rd_cnt;
+         if rd_sig = '1' then
+            rd_cnt <= rd_cnt + 1;
+         else 
+            rd_cnt <= rd_cnt;
+         end if;
       else 
          rd_cnt <= (others=>'0');
       end if;
@@ -127,60 +123,49 @@ begin
    end if;
 end process;
 
-process(current_state)
-begin 
-if current_state = rd_hold then 
-      rd_fsm_rd_hold <= '1';
-   else 
-      rd_fsm_rd_hold <= '0';
-   end if;
-end process;
-
 -- ----------------------------------------------------------------------------
 --state machine
 -- ----------------------------------------------------------------------------
 fsm_f : process(clk, reset_n)
 begin
-	if(reset_n = '0')then
-		current_state <= idle;
-	elsif(clk'event and clk = '1')then
+   if(reset_n = '0')then
+      current_state <= idle;
+   elsif(clk'event and clk = '1')then
       current_state <= next_state;
-	end if;	
+   end if;
 end process;
 
 -- ----------------------------------------------------------------------------
 --state machine combo
 -- ----------------------------------------------------------------------------
-fsm : process(current_state, pct_buff_rdy_int, rd_end, pct_data_buff_full) begin
-	next_state <= current_state;
-	case current_state is
-	  
-		when idle =>
-         if pct_buff_rdy_int = '1'  AND pct_data_buff_full = '0'then 
+fsm : process(current_state, pct_buff_rdy_int, pct_data_buff_full, rd_cnt, pct_size_rd_limit) begin
+   next_state <= current_state;
+   case current_state is
+   
+      when idle =>
+         if pct_buff_rdy_int = '1'  AND pct_data_buff_full = '0' then 
             next_state <= rd_buff;
          else 
             next_state <= idle;
          end if;
          
       when rd_buff => 
-         if rd_end = '1' then 
-            next_state <= idle;
-         elsif pct_data_buff_full = '1' then 
-            next_state <= rd_hold;
-         else 
+         if rd_cnt < pct_size_rd_limit then
             next_state <= rd_buff;
+         else
+            if pct_data_buff_full = '0' then 
+               next_state <= rd_done;
+            else 
+               next_state <= rd_buff;
+            end if;
          end if; 
-
-      when rd_hold => 
-         if pct_data_buff_full = '0' then
-            next_state <= rd_buff;
-         else 
-            next_state <= rd_hold;
-         end if;
+         
+      when rd_done => 
+         next_state <= idle;
      
-		when others => 
-			next_state <= idle;
-	end case;
+      when others => 
+         next_state <= idle;
+   end case;
 end process;
 
 -- ----------------------------------------------------------------------------
@@ -189,12 +174,15 @@ end process;
 out_reg1 : process(clk, reset_n)
 begin
    if reset_n = '0' then 
-      pct_data_rdreq <= (others=>'0');
+      rd_sig <= '0';
+      pct_data_rdreq <= (others =>'0');
    elsif (clk'event AND clk='1') then 
-      if current_state = rd_buff then 
+      if pct_data_buff_full = '0' AND current_state = rd_buff then 
+         rd_sig <= '1';
          pct_data_rdreq <= pct_buff_sel;
       else 
-         pct_data_rdreq <= (others=>'0');         
+         rd_sig <= '0';
+         pct_data_rdreq <= (others =>'0');
       end if;
    end if;
 end process;
@@ -213,19 +201,26 @@ begin
 end process;
 
 
-process(current_state) 
+process(current_state, pct_data_buff_full) 
 begin 
-   if current_state = idle then 
+   if current_state = idle AND pct_data_buff_full = '0' then 
       rd_fsm_rdy <= '1';
    else 
       rd_fsm_rdy <= '0';
    end if;
 end process;
 
+process(current_state) 
+begin 
+   if current_state = rd_done then 
+      rd_fsm_rd_done <= '1';
+   else 
+      rd_fsm_rd_done <= '0';
+   end if;
+end process;
+
+
+
 
 end arch;   
-
-
-
-
 

@@ -24,7 +24,7 @@ end tx_path_top_tb;
 architecture tb_behave of tx_path_top_tb is
    constant clk0_period    : time := 16 ns;   --RX clk, ~180MBs
    constant clk1_period    : time := 10 ns;     --Transfer clk, 100MHz, 400MBs 
-   constant clk2_period    : time := 16 ns;   --TX clk, 
+   constant clk2_period    : time := 100 ns;   --TX clk, 
    --signals
    signal clk0,clk1,clk2   : std_logic;
    signal reset_n          : std_logic; 
@@ -70,7 +70,7 @@ architecture tb_behave of tx_path_top_tb is
    
    signal rd_pct              : std_logic;
    signal rd_pct_cnt          : unsigned(31 downto 0);
-   signal rd_pct_cnt_max      : unsigned(31 downto 0) := (to_unsigned(3072,32));
+   signal rd_pct_cnt_max      : unsigned(31 downto 0) := (to_unsigned(3584,32));
    signal pct_data            : std_logic_vector(63 downto 0);
    
    type my_array is array (0 to smpl_nr_delay) of std_logic_vector(63 downto 0);
@@ -103,7 +103,7 @@ begin
       res: process is
    begin
       reset_n <= '0'; wait for 20 ns;
-      report "reset_n released" severity failure ;     
+      --report "reset_n released" severity failure ;     
       reset_n <= '1'; wait;
    end process res;
    
@@ -152,7 +152,7 @@ process(clk0, reset_n)
          inst0_fifo_wrreq <= '0';
       elsif (clk0'event AND clk0='1') then
          --if inst1_in_pct_full = '0' then
-         if rd_pct_cnt < rd_pct_cnt_max-1 then 
+         if rd_pct_cnt < rd_pct_cnt_max-1 AND inst1_in_pct_full = '0' then 
             rd_pct <= '1';
             --rd_pct <= NOT rd_pct;
          else 
@@ -256,7 +256,7 @@ tx_path_top_inst0 : entity work.tx_path_top
       out_pct_data_w       => 64,
       decomp_fifo_size     => 9
       )
-   port map(
+      port map(
       pct_wrclk            => clk1,
       iq_rdclk             => clk2,
       reset_n              => reset_n,
