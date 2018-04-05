@@ -95,8 +95,9 @@ signal isnt2_pct_buff_rd_en         : std_logic_vector(n_buff-1 downto 0);
 --inst3
 signal inst3_pct_data_rdreq         : std_logic_vector(n_buff-1 downto 0);
 signal inst3_pct_data_rdstate       : std_logic_vector(n_buff-1 downto 0);
-signal inst3_pct_size               : std_logic_vector(pct_size_w-1 downto 0); 
-signal inst3_rd_fsm_rd_hold         : std_logic;
+signal inst3_pct_size               : std_logic_vector(pct_size_w-1 downto 0);
+signal inst3_rd_fsm_rdy             : std_logic;
+signal inst3_rd_fsm_rd_done         : std_logic;
 
 --instx
 signal instx_wrempty                : std_logic_vector(n_buff-1 downto 0);
@@ -376,7 +377,8 @@ p2d_sync_fsm_inst2 : entity work.p2d_sync_fsm
       pct_data_clr_n       => inst1_pct_data_clr_n,
       pct_buff_rdy         => pct_buff_rdy_int,
       
-      pct_rd_fsm_hold      => inst3_rd_fsm_rd_hold,
+      pct_rd_fsm_rdy       => inst3_rd_fsm_rdy,
+      pct_rd_fsm_done      => inst3_rd_fsm_rd_done,
 
       pct_buff_rd_en       => isnt2_pct_buff_rd_en
       
@@ -399,8 +401,8 @@ p2d_rd_fsm_inst3 : entity work.p2d_rd_fsm
       
 
       pct_buff_rdy         => isnt2_pct_buff_rd_en,
-      rd_fsm_rdy           => open,
-      rd_fsm_rd_hold       => inst3_rd_fsm_rd_hold
+      rd_fsm_rdy           => inst3_rd_fsm_rdy,
+      rd_fsm_rd_done       => inst3_rd_fsm_rd_done
       
         );
         

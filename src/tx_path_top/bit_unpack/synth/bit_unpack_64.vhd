@@ -81,15 +81,15 @@ port map (
 		data_out_valid	=> inst0_data_out_valid
 );
 
-unpack_64_to_56_inst1 : entity work.unpack_64_to_56 
-port map (
-	   clk       		=> clk,
-      reset_n   		=> reset_n,
-		data_in_wrreq	=> data_in_valid,
-		data64_in		=> data_in,
-		data56_out		=> inst1_data56_out,
-		data_out_valid	=> inst1_data_out_valid
-);
+--unpack_64_to_56_inst1 : entity work.unpack_64_to_56 
+--port map (
+--	   clk       		=> clk,
+--      reset_n   		=> reset_n,
+--		data_in_wrreq	=> data_in_valid,
+--		data64_in		=> data_in,
+--		data56_out		=> inst1_data56_out,
+--		data_out_valid	=> inst1_data_out_valid
+--);
 
 unpack_64_to_64_inst2 : entity work.unpack_64_to_64 
 port map (
