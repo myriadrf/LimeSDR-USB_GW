@@ -24,11 +24,9 @@ entity rxtx_top is
       DEV_FAMILY              : string := "Cyclone IV E";
       -- TX parameters
       TX_IQ_WIDTH             : integer := 12;
-      TX_PCT_SIZE_W           : integer := 16;
       TX_N_BUFF               : integer := 4; -- 2,4 valid values
       TX_IN_PCT_DATA_W        : integer := 32;
       TX_OUT_PCT_DATA_W       : integer := 64;
-      TX_DECOMP_FIFO_SIZE     : integer := 9; -- 256 words
       
       -- RX parameters
       RX_IQ_WIDTH             : integer := 12;
@@ -37,7 +35,6 @@ entity rxtx_top is
       RX_PCT_BUFF_WRUSEDW_W   : integer := 12;  --bus width in bits 
       
       -- WFM
-      WFM_FIFO_WRUSEDW_SIZE   : integer := 12;
       WFM_LIMIT               : integer := 4096;
       --DDR2 controller parameters
       WFM_CNTRL_RATE          : integer := 1; --1 - full rate, 2 - half rate
@@ -45,13 +42,10 @@ entity rxtx_top is
       WFM_ADDR_SIZE           : integer := 25;
       WFM_LCL_BUS_SIZE        : integer := 63;
       WFM_LCL_BURST_LENGTH    : integer := 2;
-      WFM_CMD_FIFO_SIZE       : integer := 9;
       --WFM player parameters
       WFM_WFM_INFIFO_SIZE     : integer := 12;
-      WFM_WFM_OUTFIFO_SIZE    : integer := 11;
       WFM_DATA_WIDTH          : integer := 32;
-      WFM_IQ_WIDTH            : integer := 12;
-      WFM_DCMPR_FIFO_SIZE     : integer := 10
+      WFM_IQ_WIDTH            : integer := 12
    );
    port (
       -- Configuration memory ports     
@@ -173,7 +167,7 @@ begin
    generic map(
       data_width              => TX_IN_PCT_DATA_W,
       wfm_fifo_wrusedw_size   => WFM_WFM_INFIFO_SIZE,
-      wfm_limit               => WFM_LIMIT
+      wfm_limit               => 4096
       )
    port map(
       clk               => tx_pct_wrclk,
@@ -202,11 +196,11 @@ begin
    generic map( 
       dev_family           => DEV_FAMILY,
       iq_width             => TX_IQ_WIDTH,
-      pct_size_w           => TX_PCT_SIZE_W,
+      pct_size_w           => 16,
       n_buff               => TX_N_BUFF,
       in_pct_data_w        => TX_IN_PCT_DATA_W,
-      out_pct_data_w       => TX_OUT_PCT_DATA_W,
-      decomp_fifo_size     => TX_DECOMP_FIFO_SIZE
+      out_pct_data_w       => 64,
+      decomp_fifo_size     => 9
       )
    port map(
       pct_wrclk            => tx_pct_wrclk,
@@ -263,13 +257,13 @@ begin
       addr_size         => WFM_ADDR_SIZE,
       lcl_bus_size      => WFM_LCL_BUS_SIZE,
       lcl_burst_length  => WFM_LCL_BURST_LENGTH,
-      cmd_fifo_size     => WFM_CMD_FIFO_SIZE,
+      cmd_fifo_size     => 9,
       --WFM player parameters
       wfm_infifo_size   => WFM_WFM_INFIFO_SIZE,
-      wfm_outfifo_size  => WFM_WFM_OUTFIFO_SIZE,
+      wfm_outfifo_size  => 11,
       data_width        => WFM_DATA_WIDTH,
       iq_width          => WFM_IQ_WIDTH,
-      dcmpr_fifo_size   => WFM_DCMPR_FIFO_SIZE
+      dcmpr_fifo_size   => 10
    )
    port map(
       --input ports
@@ -374,7 +368,7 @@ begin
       dev_family           => DEV_FAMILY,
       iq_width             => RX_IQ_WIDTH,
       invert_input_clocks  => RX_INVERT_INPUT_CLOCKS,
-      smpl_buff_rdusedw_w  => RX_SMPL_BUFF_RDUSEDW_W, 
+      smpl_buff_rdusedw_w  => 11, 
       pct_buff_wrusedw_w   => RX_PCT_BUFF_WRUSEDW_W
    )
    port map(

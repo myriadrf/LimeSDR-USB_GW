@@ -17,26 +17,37 @@ use work.fpgacfg_pkg.all;
 use work.pllcfg_pkg.all;
 use work.tstcfg_pkg.all;
 use work.periphcfg_pkg.all;
+use work.FIFO_PACK.all;
 
 -- ----------------------------------------------------------------------------
 -- Entity declaration
 -- ----------------------------------------------------------------------------
 entity lms7_trx_top is
    generic(
+      -- General parameters
       DEV_FAMILY              : string := "Cyclone IV E";
-      
+      -- LMS7002 related 
       LMS_DIQ_WIDTH           : integer := 12;
-      
+      -- FX3 (USB3) related
       FX3_PCLK_PERIOD         : integer := 10;
-      FX3_DQ_WIDTH            : integer := 32;
-      FX3_EP81_WRUSEDW_WIDTH  : integer := 12;
-      FX3_EP0F_RWIDTH         : integer := 32;
-      
+      FX3_DQ_WIDTH            : integer := 32;     -- FX3 Data bus size
+      FX3_EP01_SIZE           : integer := 16384;  -- Stream PC->FPGA, FIFO size in bytes
+      FX3_EP01_RWIDTH         : integer := 32;     -- Stream PC->FPGA, FIFO rd width 
+      FX3_EP81_SIZE           : integer := 16384;  -- Stream FPGA->PC, FIFO size in bytes
+      FX3_EP81_WWIDTH         : integer := 64;     -- Stream FPGA->PC, FIFO wr width
+      FX3_EP0F_SIZE           : integer := 1024;   -- Control PC->FPGA, FIFO size in bytes
+      FX3_EP0F_RWIDTH         : integer := 32;     -- Control PC->FPGA, rd width
+      FX3_EP8F_SIZE           : integer := 1024;   -- Control FPGA->PC, FIFO size in bytes
+      FX3_EP8F_WWIDTH         : integer := 32;     -- Control FPGA->PC, wr width
+      -- 
+      TX_N_BUFF               : integer := 4;      -- N 4KB buffers in TX interface (2 OR 4)
+      WFM_INFIFO_SIZE         : integer := 8192;   -- WFM in FIFO buffer size in bytes 
+      -- Internal configuration memory 
       FPGACFG_START_ADDR      : integer := 0;
       PLLCFG_START_ADDR       : integer := 32;
       TSTCFG_START_ADDR       : integer := 96;
       PERIPHCFG_START_ADDR    : integer := 192;
-      
+      -- External periphery
       N_GPIO                  : integer := 8
    );
    port (
@@ -45,7 +56,7 @@ entity lms7_trx_top is
       EXT_GND           : in     std_logic;
       -- ----------------------------------------------------------------------------
       -- Clock sources
-         -- Reference clock, coming from lmk clock buffer.
+         -- Reference clock, coming from LMK clock buffer.
       LMK_CLK           : in     std_logic;
          -- Clock generator si5351c
       SI_CLK0           : in     std_logic;
@@ -185,7 +196,7 @@ signal reset_n                   : std_logic;
 signal reset_n_fx3_pclk          : std_logic;
 signal reset_n_si_clk0           : std_logic;
 
---inst0
+--inst0 (NIOS CPU instance)
 signal inst0_exfifo_if_rd        : std_logic;
 signal inst0_exfifo_of_d         : std_logic_vector(FX3_DQ_WIDTH-1 downto 0);
 signal inst0_exfifo_of_wr        : std_logic;
@@ -208,7 +219,7 @@ signal inst0_to_tstcfg           : t_TO_TSTCFG;
 signal inst0_from_periphcfg      : t_FROM_PERIPHCFG;
 signal inst0_to_periphcfg        : t_TO_PERIPHCFG;
 
---inst1
+--inst1 (pll_top instance)
 signal inst1_txpll_c1            : std_logic;
 signal inst1_txpll_locked        : std_logic;
 signal inst1_txpll_smpl_cmp_en   : std_logic;
@@ -219,10 +230,14 @@ signal inst1_rxpll_smpl_cmp_en   : std_logic;
 signal inst1_rxpll_smpl_cmp_cnt  : std_logic_vector(15 downto 0);
 
 --inst2
+constant C_EP01_RDUSEDW_WIDTH    : integer := FIFO_WORDS_TO_Nbits(FX3_EP01_SIZE/(FX3_EP01_RWIDTH/8),true);
+constant C_EP81_WRUSEDW_WIDTH    : integer := FIFO_WORDS_TO_Nbits(FX3_EP81_SIZE/(FX3_EP81_WWIDTH/8),true);
+constant C_EP0F_RDUSEDW_WIDTH    : integer := FIFO_WORDS_TO_Nbits(FX3_EP0F_SIZE/(FX3_EP0F_RWIDTH/8),true);
+constant C_EP8F_WRUSEDW_WIDTH    : integer := FIFO_WORDS_TO_Nbits(FX3_EP8F_SIZE/(FX3_EP8F_WWIDTH/8),true);
 signal inst2_ext_buff_data       : std_logic_vector(FX3_DQ_WIDTH-1 downto 0);
 signal inst2_ext_buff_wr         : std_logic;
 signal inst2_EP81_wfull          : std_logic;
-signal inst2_EP81_wrusedw        : std_logic_vector(FX3_EP81_WRUSEDW_WIDTH-1 downto 0);
+signal inst2_EP81_wrusedw        : std_logic_vector(C_EP81_WRUSEDW_WIDTH-1 downto 0);
 signal inst2_EP0F_rdata          : std_logic_vector(FX3_EP0F_RWIDTH-1 downto 0);
 signal inst2_EP0F_rempty         : std_logic;
 signal inst2_EP8F_wfull          : std_logic;
@@ -233,6 +248,7 @@ signal inst2_faddr               : std_logic_vector(4 downto 0);
 signal inst5_busy : std_logic;
 
 --inst6
+constant C_WFM_INFIFO_SIZE          : integer := FIFO_WORDS_TO_Nbits(WFM_INFIFO_SIZE/(FX3_DQ_WIDTH/8),true);
 signal inst6_tx_pct_loss_flg        : std_logic;
 signal inst6_tx_txant_en            : std_logic;
 signal inst6_tx_in_pct_full         : std_logic;
@@ -242,6 +258,7 @@ signal inst6_rx_smpl_cmp_done       : std_logic;
 signal inst6_rx_smpl_cmp_err        : std_logic;
 signal inst6_to_tstcfg_from_rxtx    : t_TO_TSTCFG_FROM_RXTX;
 signal inst6_rx_pct_fifo_aclrn_req  : std_logic;
+
 
 
 begin
@@ -264,7 +281,7 @@ begin
 -- NIOS CPU instance.
 -- CPU is responsible for communication interfaces and control logic
 -- ----------------------------------------------------------------------------   
-   nios_cpu_inst0 : entity work.nios_cpu
+   inst0_nios_cpu : entity work.nios_cpu
    generic map (
       FPGACFG_START_ADDR   => FPGACFG_START_ADDR,
       PLLCFG_START_ADDR    => PLLCFG_START_ADDR,
@@ -312,7 +329,7 @@ begin
 -- pll_top instance.
 -- Clock source for LMS7002 RX and TX logic
 -- ----------------------------------------------------------------------------   
-   pll_top_inst1 : entity work.pll_top
+   inst1_pll_top : entity work.pll_top
    generic map(
       N_PLL                         => 2,
       -- TX pll parameters          
@@ -381,22 +398,28 @@ begin
       -- pllcfg ports
       from_pllcfg          => inst0_from_pllcfg,
       to_pllcfg            => inst0_to_pllcfg
-      );
+   );
       
 -- ----------------------------------------------------------------------------
 -- FX3_slaveFIFO5b_top instance.
 -- USB3 interface 
 -- ----------------------------------------------------------------------------
-   FX3_slaveFIFO5b_top_inst2 : entity work.FX3_slaveFIFO5b_top
+   inst2_FX3_slaveFIFO5b_top : entity work.FX3_slaveFIFO5b_top
    generic map(
       dev_family           => DEV_FAMILY,
-      data_width           => FX3_DQ_WIDTH,    --when data_width is changed to 16b, socketx_wrusedw_size and 
-                                     --socketx_rdusedw_size has to be doubled to maintain same size
-      EP01_rwidth          => 64,
-      EP81_wrusedw_width   => FX3_EP81_WRUSEDW_WIDTH,
-      EP81_wwidth          => 64,
-      EP0F_rwidth          => FX3_EP0F_RWIDTH,
-      EP8F_wwidth          => 32
+      data_width           => FX3_DQ_WIDTH,
+      -- Stream, socket 0, (PC->FPGA) 
+      EP01_rdusedw_width   => C_EP01_RDUSEDW_WIDTH,
+      EP01_rwidth				=> FX3_EP01_RWIDTH,
+      -- Stream, socket 2, (FPGA->PC)
+      EP81_wrusedw_width	=> C_EP81_WRUSEDW_WIDTH,
+      EP81_wwidth				=> FX3_EP81_WWIDTH,
+      -- Control, socket 1, (PC->FPGA)
+      EP0F_rdusedw_width   => C_EP0F_RDUSEDW_WIDTH,
+      EP0F_rwidth				=> FX3_EP0F_RWIDTH,
+      -- Control, socket 3, (FPGA->PC)
+      EP8F_wrusedw_width   => C_EP8F_WRUSEDW_WIDTH,
+      EP8F_wwidth				=> FX3_EP8F_WWIDTH 
    )
    port map(
       reset_n              => reset_n_fx3_pclk, --input reset active low
@@ -451,7 +474,7 @@ begin
 -- tst_top instance.
 -- Clock and External DDR2 memroy test logic
 -- ----------------------------------------------------------------------------
-   tst_top_inst3 : entity work.tst_top
+   inst3_tst_top : entity work.tst_top
    port map(
       --input ports 
       FX3_clk           => FX3_PCLK,
@@ -489,7 +512,7 @@ begin
 -- general_periph_top instance.
 -- Control module for external periphery
 -- ----------------------------------------------------------------------------
-   general_periph_top_inst4 : entity work.general_periph_top
+   inst4_general_periph_top : entity work.general_periph_top
    generic map(
       DEV_FAMILY  => DEV_FAMILY,
       N_GPIO      => N_GPIO
@@ -533,7 +556,7 @@ begin
       fan_ctrl_out         => FAN_CTRL
    );
    
-   busy_delay_inst5 : entity work.busy_delay
+   inst5_busy_delay : entity work.busy_delay
    generic map(
       clock_period   => FX3_PCLK_PERIOD,
       delay_time     => 200  -- delay time in ms
@@ -552,39 +575,30 @@ begin
 -- rxtx_top instance.
 -- Receive and transmit interface for LMS7002
 -- ----------------------------------------------------------------------------
-   rxtx_top_inst6 : entity work.rxtx_top
+   inst6_rxtx_top : entity work.rxtx_top
    generic map(
       DEV_FAMILY              => DEV_FAMILY,
       -- TX parameters
       TX_IQ_WIDTH             => LMS_DIQ_WIDTH,
-      TX_PCT_SIZE_W           => 16,
-      TX_N_BUFF               => 4, -- 2,4 valid values
-      TX_IN_PCT_DATA_W        => 32,
-      TX_OUT_PCT_DATA_W       => 64,
-      TX_DECOMP_FIFO_SIZE     => 9, -- 256 words
+      TX_N_BUFF               => TX_N_BUFF,     -- 2,4 valid values
+      TX_IN_PCT_DATA_W        => FX3_DQ_WIDTH,  -- Same as FX3 bus width
       
       -- RX parameters
       RX_IQ_WIDTH             => LMS_DIQ_WIDTH,
       RX_INVERT_INPUT_CLOCKS  => "ON",
-      RX_SMPL_BUFF_RDUSEDW_W  => 11, --bus width in bits 
-      RX_PCT_BUFF_WRUSEDW_W   => 12,  --bus width in bits 
+      RX_PCT_BUFF_WRUSEDW_W   => C_EP81_WRUSEDW_WIDTH, --bus width in bits 
       
       -- WFM
-      WFM_FIFO_WRUSEDW_SIZE   => 12,
-      WFM_LIMIT               => 4096,
       --DDR2 controller parameters
       WFM_CNTRL_RATE          => 1, --1 - full rate, 2 - half rate
       WFM_CNTRL_BUS_SIZE      => 16,
       WFM_ADDR_SIZE           => 25,
       WFM_LCL_BUS_SIZE        => 64,
       WFM_LCL_BURST_LENGTH    => 2,
-      WFM_CMD_FIFO_SIZE       => 9,
       --WFM player parameters
-      WFM_WFM_INFIFO_SIZE     => 12,
-      WFM_WFM_OUTFIFO_SIZE    => 11,
-      WFM_DATA_WIDTH          => 32,
-      WFM_IQ_WIDTH            => 12,
-      WFM_DCMPR_FIFO_SIZE     => 10
+      WFM_WFM_INFIFO_SIZE     => C_WFM_INFIFO_SIZE,
+      WFM_DATA_WIDTH          => FX3_DQ_WIDTH,
+      WFM_IQ_WIDTH            => LMS_DIQ_WIDTH
    )
    port map(                                             
       from_fpgacfg            => inst0_from_fpgacfg,
@@ -646,34 +660,34 @@ begin
 -- ----------------------------------------------------------------------------
 -- Output ports
 -- ----------------------------------------------------------------------------
-FX3_CTL11         <= inst2_faddr(1);
-FX3_CTL12         <= inst2_faddr(0);
-
-FPGA_SPI0_MOSI    <= inst0_spi_lms_MOSI;
-FPGA_SPI0_SCLK    <= inst0_spi_lms_SCLK;
-FPGA_SPI0_LMS_SS  <= inst0_spi_lms_SS_n(0);
-
-LMS_RESET         <= inst0_from_fpgacfg.LMS1_RESET AND inst0_lms_ctr_gpio(0);
-LMS_TXEN          <= inst0_from_fpgacfg.LMS1_TXEN;
-LMS_RXEN          <= inst0_from_fpgacfg.LMS1_RXEN;
-LMS_CORE_LDO_EN   <= inst0_from_fpgacfg.LMS1_CORE_LDO_EN;
-LMS_TXNRX1        <= inst0_from_fpgacfg.LMS1_TXNRX1;
-LMS_TXNRX2        <= inst0_from_fpgacfg.LMS1_TXNRX2;
-
-TX1_2_LB_L        <= inst0_from_fpgacfg.GPIO(0);
-TX1_2_LB_H        <= not inst0_from_fpgacfg.GPIO(0);
-TX1_2_LB_AT       <= inst0_from_fpgacfg.GPIO(1);
-TX1_2_LB_SH       <= inst0_from_fpgacfg.GPIO(2);
-
-TX2_2_LB_L        <= inst0_from_fpgacfg.GPIO(4);
-TX2_2_LB_H        <= not inst0_from_fpgacfg.GPIO(4);
-TX2_2_LB_AT       <= inst0_from_fpgacfg.GPIO(5);
-TX2_2_LB_SH       <= inst0_from_fpgacfg.GPIO(6);
-
-FPGA_SPI1_MOSI    <= inst0_spi_1_MOSI;
-FPGA_SPI1_SCLK    <= inst0_spi_1_SCLK;
-FPGA_SPI1_DAC_SS  <= inst0_spi_1_SS_n(0);
-FPGA_SPI1_ADF_SS  <= inst0_spi_1_SS_n(1);
+   FX3_CTL11         <= inst2_faddr(1);
+   FX3_CTL12         <= inst2_faddr(0);
+   
+   FPGA_SPI0_MOSI    <= inst0_spi_lms_MOSI;
+   FPGA_SPI0_SCLK    <= inst0_spi_lms_SCLK;
+   FPGA_SPI0_LMS_SS  <= inst0_spi_lms_SS_n(0);
+   
+   LMS_RESET         <= inst0_from_fpgacfg.LMS1_RESET AND inst0_lms_ctr_gpio(0);
+   LMS_TXEN          <= inst0_from_fpgacfg.LMS1_TXEN;
+   LMS_RXEN          <= inst0_from_fpgacfg.LMS1_RXEN;
+   LMS_CORE_LDO_EN   <= inst0_from_fpgacfg.LMS1_CORE_LDO_EN;
+   LMS_TXNRX1        <= inst0_from_fpgacfg.LMS1_TXNRX1;
+   LMS_TXNRX2        <= inst0_from_fpgacfg.LMS1_TXNRX2;
+   
+   TX1_2_LB_L        <= inst0_from_fpgacfg.GPIO(0);
+   TX1_2_LB_H        <= not inst0_from_fpgacfg.GPIO(0);
+   TX1_2_LB_AT       <= inst0_from_fpgacfg.GPIO(1);
+   TX1_2_LB_SH       <= inst0_from_fpgacfg.GPIO(2);
+   
+   TX2_2_LB_L        <= inst0_from_fpgacfg.GPIO(4);
+   TX2_2_LB_H        <= not inst0_from_fpgacfg.GPIO(4);
+   TX2_2_LB_AT       <= inst0_from_fpgacfg.GPIO(5);
+   TX2_2_LB_SH       <= inst0_from_fpgacfg.GPIO(6);
+   
+   FPGA_SPI1_MOSI    <= inst0_spi_1_MOSI;
+   FPGA_SPI1_SCLK    <= inst0_spi_1_SCLK;
+   FPGA_SPI1_DAC_SS  <= inst0_spi_1_SS_n(0);
+   FPGA_SPI1_ADF_SS  <= inst0_spi_1_SS_n(1);
 
 
 end arch;   

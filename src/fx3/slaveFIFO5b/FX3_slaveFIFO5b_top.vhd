@@ -8,6 +8,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.FIFO_PACK.all;
 
 LIBRARY altera_mf;
 USE altera_mf.altera_mf_components.all;
@@ -18,13 +19,20 @@ USE altera_mf.altera_mf_components.all;
 entity FX3_slaveFIFO5b_top is
 	generic (
 				dev_family				: string := "Cyclone IV E";
-				data_width				: integer := 32;								--when data_width is changed to 16b, socketx_wrusedw_size and 
-																								--socketx_rdusedw_size has to be doubled to maintain same size
-				EP01_rwidth				: integer := 64;
+				data_width				: integer := 32;  --when data_width is changed to 16b, socketx_wrusedw_size and 				
+                                                   --socketx_rdusedw_size has to be doubled to maintain same size
+            -- Stream, socket 0, (PC->FPGA) 
+            EP01_rdusedw_width   : integer := 10;
+				EP01_rwidth				: integer := 32;
+            -- Stream, socket 2, (FPGA->PC)
 				EP81_wrusedw_width	: integer := 10;
-				EP81_wwidth				: integer := 64;			
-				EP0F_rwidth				: integer := 8;
-				EP8F_wwidth				: integer := 8
+				EP81_wwidth				: integer := 64;
+            -- Control, socket 1, (PC->FPGA)
+            EP0F_rdusedw_width   : integer := 9;
+				EP0F_rwidth				: integer := 32;
+            -- Control, socket 3, (FPGA->PC)
+            EP8F_wrusedw_width   : integer := 9;
+				EP8F_wwidth				: integer := 32
 				);
 	port(
 				reset_n 					: in std_logic;									--input reset active low
@@ -80,17 +88,17 @@ end entity FX3_slaveFIFO5b_top;
 
 architecture arch of FX3_slaveFIFO5b_top is
 
-constant socket0_wrusedw_size : integer := 11;
-constant socket0_rdusedw_size : integer := 10; 
+constant socket0_wrusedw_size : integer := FIFOWR_SIZE (data_width, EP01_rwidth, EP01_rdusedw_width);
+constant socket0_rdusedw_size : integer := EP01_rdusedw_width; 
 
-constant socket1_wrusedw_size : integer := 9;
-constant socket1_rdusedw_size : integer := 9; 
+constant socket1_wrusedw_size : integer := FIFOWR_SIZE (data_width, EP0F_rdusedw_width, EP0F_rdusedw_width);
+constant socket1_rdusedw_size : integer := EP0F_rdusedw_width; 
 
-constant socket2_wrusedw_size : integer := 10;
-constant socket2_rdusedw_size : integer := 11;
+constant socket2_wrusedw_size : integer := EP81_wrusedw_width;
+constant socket2_rdusedw_size : integer := FIFORD_SIZE (EP81_wwidth, data_width, EP81_wrusedw_width);
 
-constant socket3_wrusedw_size : integer := 9;
-constant socket3_rdusedw_size : integer := 9;
+constant socket3_wrusedw_size : integer := EP8F_wrusedw_width;
+constant socket3_rdusedw_size : integer := FIFORD_SIZE (EP8F_wwidth, data_width, EP8F_wrusedw_width);
 
 
 	--socket 0 (configured to read data from it PC->FPGA)
