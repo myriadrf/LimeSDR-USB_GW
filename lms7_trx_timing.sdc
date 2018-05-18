@@ -37,10 +37,10 @@ create_clock -period "1MHz" 			-name BRDG_SPI_SCLK	[get_ports BRDG_SPI_SCLK]
 create_generated_clock 	-name FPGA_SPI0_SCLK_reg \
 								-source [get_ports {FX3_PCLK}] \
 								-divide_by 6 \
-								[get_registers {nios_cpu:nios_cpu_inst0|lms_ctr:lms_ctr_inst0|lms_ctr_spi_lms:spi_lms|SCLK_reg}]
+								[get_registers {*|lms_ctr_spi_lms:spi_lms|SCLK_reg}]
 								
 create_generated_clock 	-name FPGA_SPI0_SCLK_out \
-								-source [get_registers {nios_cpu:nios_cpu_inst0|lms_ctr:lms_ctr_inst0|lms_ctr_spi_lms:spi_lms|SCLK_reg}] \
+								-source [get_registers {*|lms_ctr_spi_lms:spi_lms|SCLK_reg}] \
 								[get_ports FPGA_SPI0_SCLK]
 								
 set_false_path				-to [get_ports FPGA_SPI0_SCLK]
@@ -48,7 +48,7 @@ set_false_path				-to [get_ports FPGA_SPI0_SCLK]
 create_generated_clock -name FPGA_SPI1_SCLK \
 								-source [get_ports FX3_PCLK] \
 								-divide_by 6 \
-								[get_registers nios_cpu:nios_cpu_inst0|lms_ctr:lms_ctr_inst0|lms_ctr_spi_1_ADF:spi_1_adf|SCLK_reg]								
+								[get_registers {*|lms_ctr_spi_1_ADF:spi_1_adf|SCLK_reg}]								
 
 
 ################################################################################

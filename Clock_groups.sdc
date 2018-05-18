@@ -23,6 +23,6 @@ set_clock_groups -asynchronous 	-group {SI_CLK0} \
                                  -group {LMS_FCLK2_PLL} \
                                  -group {LMS_FCLK2_DRCT } \
 											-group {FX3_PCLK FPGA_SPI0_SCLK_reg FPGA_SPI0_SCLK_out} \
-											-group {rxtx_top_inst6|wfm_player_top_inst2|DDR2_ctrl_top_inst|ddr2_inst|ddr2_controller_phy_inst|ddr2_phy_inst|ddr2_phy_alt_mem_phy_inst|clk|pll|altpll_component|auto_generated|pll1|clk[1]} \
-											-group {tst_top_inst3|ddr2_tester_inst2|ddr2_inst|ddr2_controller_phy_inst|ddr2_phy_inst|ddr2_phy_alt_mem_phy_inst|clk|pll|altpll_component|auto_generated|pll1|clk[1]} 
+											-group {*|wfm_player_top_inst2|DDR2_ctrl_top_inst|ddr2_inst|ddr2_controller_phy_inst|ddr2_phy_inst|ddr2_phy_alt_mem_phy_inst|clk|pll|altpll_component|auto_generated|pll1|clk[1]} \
+											-group {*|ddr2_tester_inst2|ddr2_inst|ddr2_controller_phy_inst|ddr2_phy_inst|ddr2_phy_alt_mem_phy_inst|clk|pll|altpll_component|auto_generated|pll1|clk[1]} 
 											
