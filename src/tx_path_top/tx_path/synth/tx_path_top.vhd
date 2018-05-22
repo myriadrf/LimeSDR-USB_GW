@@ -19,7 +19,7 @@ entity tx_path_top is
       iq_width             : integer := 12;
       pct_size_w           : integer := 16;
       n_buff               : integer := 4; -- 2,4 valid values
-      in_pct_data_w        : integer := 32;
+      in_pct_data_w        : integer := 128;
       out_pct_data_w       : integer := 64;
       decomp_fifo_size     : integer := 9 -- 256 words
       );
@@ -59,9 +59,9 @@ entity tx_path_top is
       DIQ_h                : out std_logic_vector(iq_width downto 0);
       DIQ_l                : out std_logic_vector(iq_width downto 0);
       --fifo ports 
-      in_pct_wrreq         : in std_logic;
+      in_pct_rdreq         : out std_logic;
       in_pct_data          : in std_logic_vector(in_pct_data_w-1 downto 0);
-      in_pct_full          : out std_logic
+      in_pct_rdy           : in std_logic
       );
 end tx_path_top;
 
@@ -303,10 +303,9 @@ generic map(
       pct_sync_dis      => pct_sync_dis,
       sample_nr         => rx_sample_nr_iq_rdclk,
       
-      in_pct_wrreq      => in_pct_wrreq,
+      in_pct_rdreq      => in_pct_rdreq,
       in_pct_data       => in_pct_data,
-      in_pct_last       => open,
-      in_pct_full       => in_pct_full,
+      in_pct_rdy        => in_pct_rdy,
       in_pct_clr_flag   => inst0_in_pct_clr_flag,
       in_pct_buff_rdy   => inst0_in_pct_buff_rdy,
       

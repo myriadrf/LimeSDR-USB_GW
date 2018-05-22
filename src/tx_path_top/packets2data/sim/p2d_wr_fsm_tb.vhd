@@ -8,6 +8,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.FIFO_PACK.all;
 
 -- ----------------------------------------------------------------------------
 -- Entity declaration
@@ -21,21 +22,42 @@ end p2d_wr_fsm_tb;
 
 architecture tb_behave of p2d_wr_fsm_tb is
 constant clk0_period   : time := 10 ns;
-constant clk1_period   : time := 10 ns; 
+constant clk1_period   : time := 48 ns; 
    --signals
 signal clk0,clk1		: std_logic;
 signal reset_n       : std_logic; 
+
+
+constant N_BUFF                  : integer := 4;
+constant C_PACKET_SIZE           : integer := 48;
+
+
+
+-- 
+constant C_PCT_WR_WIDTH          : integer := 32;
+constant C_PCT_RD_WIDTH          : integer := 128;
+constant C_PCT_FIFO_SIZE         : integer := 4096; -- packet FIFO size in bytes
+constant C_PCT_WRUSEDW_WIDTH     : integer := FIFO_WORDS_TO_Nbits((C_PCT_FIFO_SIZE*8)/C_PCT_WR_WIDTH, true);
+constant C_PCT_RDUSEDW_WIDTH     : integer := FIFORD_SIZE(C_PCT_WR_WIDTH, C_PCT_RD_WIDTH, C_PCT_WRUSEDW_WIDTH); 
+
+constant C_PACKET_WORDS          : integer := (C_PACKET_SIZE*8)/C_PCT_WR_WIDTH;
+
    
-   --dut0 signals
-signal dut0_pct_size          : std_logic_vector(15 downto 0):=x"0006";
-signal dut0_pct_hdr_0         : std_logic_vector(63 downto 0);
-signal dut0_pct_hdr_1         : std_logic_vector(63 downto 0);
-signal dut0_pct_data          : std_logic_vector(31 downto 0);
-signal dut0_pct_data_wrreq    : std_logic;
-signal dut0_in_pct_wrfull     : std_logic;
-signal dut0_pct_data_wrreq_delay : std_logic;
-signal dut0_pct_state         : std_logic_vector(1 downto 0);
-signal pct_cnt                : unsigned(31 downto 0);
+--dut0 signals
+signal dut0_wrreq                : std_logic;  
+signal dut0_data                 : std_logic_vector(C_PCT_WR_WIDTH-1 downto 0);
+signal dut0_wrempty              : std_logic;
+  
+--dut1
+signal dut1_in_pct_rdy           : std_logic;
+signal dut1_pct_size             : std_logic_vector(15 downto 0) := std_logic_vector(to_unsigned((C_PACKET_SIZE*8)/C_PCT_RD_WIDTH,16));
+signal dut1_in_pct_rdreq         : std_logic;
+signal dut1_pct_data_wrreq       : std_logic_vector(N_BUFF-1 downto 0);
+signal dut1_pct_buff_rdy         : std_logic_vector(N_BUFF-1 downto 0) := "1111";
+   
+signal dut0_q                    : std_logic_vector(C_PCT_RD_WIDTH-1 downto 0);
+signal dut0_rdusedw              : std_logic_vector(C_PCT_RDUSEDW_WIDTH-1 downto 0);
+   
   
 
 begin 
@@ -58,62 +80,75 @@ begin
 		reset_n <= '1'; wait;
 	end process res;
    
-   
- -- process is 
-    -- begin
-      -- dut0_pct_data_wrreq <= '0';
-      -- wait until reset_n = '1';
-      -- wait until rising_edge(clk0) AND dut0_pct_state(1)='0';
-      -- loop
-         -- if rising_edge(clk0) AND dut0_pct_state(1)='1' then 
-            -- exit;
-         -- else 
-            -- wait until rising_edge(clk0);
-            -- dut0_pct_data_wrreq <= not dut0_pct_data_wrreq;
-            --dut0_pct_data_wrreq <=  '1';
-         -- end if;
-      -- end loop;
-    -- end process;
-    
-    
-     process(reset_n, clk0)
-    begin
-      if reset_n='0' then
-         pct_cnt <= (others=>'0');
-         dut0_pct_data_wrreq <= '0';        
-      elsif (clk0'event and clk0 = '1') then
-         if dut0_in_pct_wrfull = '0' then 
-            dut0_pct_data_wrreq <= '1';
-            --dut0_pct_data_wrreq <= NOT dut0_pct_data_wrreq;
-         else 
-            dut0_pct_data_wrreq <= '0';
+   process is 
+   begin
+      dut0_wrreq <= '0';
+      wait until rising_edge(clk0) AND reset_n = '1';
+         if dut0_wrempty = '1' then 
+            for i in 0 to C_PACKET_WORDS loop 
+               wait until rising_edge(clk0);
+               dut0_wrreq <= '1';
+            end loop;
          end if;
-         if dut0_pct_data_wrreq = '1' then 
-            pct_cnt <= pct_cnt + 1;
-         else 
-            pct_cnt <= pct_cnt;
-         end if;
- 	    end if;
-    end process;
-    
-    dut0_pct_data  <= std_logic_vector(pct_cnt);
+      
+   end process;
    
+   proc_name : process(clk0, reset_n)
+   begin
+      if reset_n = '0' then 
+         dut0_data <= (others=>'0');
+      elsif (clk0'event AND clk0='1') then 
+         if dut0_wrreq = '1' then 
+            dut0_data <= std_logic_vector(unsigned(dut0_data)+1);
+         else 
+            dut0_data <= (others=>'0');
+         end if;
+      end if;
+   end process;
+    
+    
+    
+   dut0_fifo_inst : entity work.fifo_inst
+   generic map(
+      dev_family     => "Cyclone IV E",
+      wrwidth        => C_PCT_WR_WIDTH,
+      wrusedw_witdth => C_PCT_WRUSEDW_WIDTH, 
+      rdwidth        => C_PCT_RD_WIDTH,
+      rdusedw_width  => C_PCT_RDUSEDW_WIDTH,
+      show_ahead     => "OFF"
+   )  
+  port map(
+      --input ports 
+      reset_n  => reset_n,
+      wrclk    => clk0,
+      wrreq    => dut0_wrreq,
+      data     => dut0_data,
+      wrfull   => open,
+      wrempty  => dut0_wrempty,
+      wrusedw  => open,
+      rdclk    => clk1,
+      rdreq    => dut1_in_pct_rdreq,
+      q        => dut0_q,
+      rdempty  => open,
+      rdusedw  => dut0_rdusedw
+   );
+   
+   dut1_in_pct_rdy <= '1' when unsigned(dut0_rdusedw) = (C_PACKET_SIZE*8)/C_PCT_RD_WIDTH else '0';
+ 
 
   
-  p2d_wr_fsm_dut0 : entity work.p2d_wr_fsm
+  p2d_wr_fsm_dut1 : entity work.p2d_wr_fsm
    generic map(
-      pct_size_w        => 16,
-      n_buff            => 4,
-      in_pct_data_w     => 32
+      N_BUFF            => N_BUFF,
+      PCT_SIZE          => C_PACKET_SIZE
    )
    port map(
-      clk               => clk0,
+      clk               => clk1,
       reset_n           => reset_n,
-      pct_size          => dut0_pct_size, 
       
-      in_pct_wrreq      => dut0_pct_data_wrreq,
-      in_pct_data       => dut0_pct_data,
-      in_pct_wrfull     => dut0_in_pct_wrfull,
+      in_pct_rdreq      => dut1_in_pct_rdreq,
+      in_pct_data       => dut0_q,
+      in_pct_rdy        => dut1_in_pct_rdy,
 
       pct_hdr_0         => open,
       pct_hdr_0_valid   => open,
@@ -122,11 +157,19 @@ begin
       pct_hdr_1_valid   => open,
       
       pct_data          => open,
-      pct_data_wrreq    => open,
+      pct_data_wrreq    => dut1_pct_data_wrreq,
       
-      pct_buff_rdy      => "0011"
+      pct_buff_rdy      => dut1_pct_buff_rdy
       );
-	
+      
+   gen : for i in 0 to N_BUFF-1 generate
+      process 
+      begin
+         wait until rising_edge(dut1_pct_data_wrreq(i));
+         dut1_pct_buff_rdy(i) <= not dut1_pct_buff_rdy(i);
+      end process;
+   end generate gen;
+      
 	end tb_behave;
   
   

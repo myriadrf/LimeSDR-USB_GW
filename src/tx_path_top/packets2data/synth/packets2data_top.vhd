@@ -44,10 +44,9 @@ entity packets2data_top is
       pct_sync_dis      : in std_logic;
       sample_nr         : in std_logic_vector(63 downto 0);
 
-      in_pct_wrreq      : in std_logic;
+      in_pct_rdreq      : out std_logic;
       in_pct_data       : in std_logic_vector(in_pct_data_w-1 downto 0);
-      in_pct_last       : out std_logic;
-      in_pct_full       : out std_logic;
+      in_pct_rdy        : in std_logic;
       in_pct_clr_flag   : out std_logic;
       in_pct_buff_rdy   : out std_logic_vector(n_buff-1 downto 0);
       
@@ -137,10 +136,9 @@ smpl_buff_wrfull <= fifo_full_sig;
       pct_sync_dis      => pct_sync_dis,
       sample_nr         => sample_nr,
       
-      in_pct_wrreq      => in_pct_wrreq,
+      in_pct_rdreq      => in_pct_rdreq,
       in_pct_data       => in_pct_data,
-      in_pct_last       => in_pct_last,
-      in_pct_full       => in_pct_full,
+      in_pct_rdy        => in_pct_rdy,
       in_pct_clr_flag   => in_pct_clr_flag,
       in_pct_buff_rdy   => in_pct_buff_rdy, 
       

@@ -43,9 +43,9 @@ entity packets2data is
       pct_sync_dis      : in std_logic;
       sample_nr         : in std_logic_vector(63 downto 0);
 
-      in_pct_wrreq      : in std_logic;
+      in_pct_rdreq      : out std_logic;
       in_pct_data       : in std_logic_vector(in_pct_data_w-1 downto 0);
-      in_pct_last       : out std_logic;
+      in_pct_rdy        : in std_logic;
       in_pct_full       : out std_logic;
       in_pct_clr_flag   : out std_logic;
       in_pct_buff_rdy   : out std_logic_vector(n_buff-1 downto 0);
@@ -76,12 +76,6 @@ signal inst0_in_pct_wrfull    : std_logic;
 
 --for clk domain crosing
 signal pct_sync_dis_rclk            : std_logic;
-signal inst0_pct_hdr_0_rclk         : std_logic_vector(63 downto 0);
-signal inst0_pct_hdr_0_rclk_stage0  : std_logic_vector(63 downto 0);
-signal inst0_pct_hdr_0_valid_rclk   : std_logic_vector(n_buff-1 downto 0);
-signal inst0_pct_hdr_1_rclk         : std_logic_vector(63 downto 0);
-signal inst0_pct_hdr_1_rclk_stage0  : std_logic_vector(63 downto 0);
-signal inst0_pct_hdr_1_valid_rclk   : std_logic_vector(n_buff-1 downto 0);
 
 --inst1
 signal inst1_pct_buff_rdy           : std_logic_vector(n_buff-1 downto 0);
@@ -118,61 +112,6 @@ signal smpl_buff_valid_int          : std_logic;
 
   
 begin
-
-
---inst0_pct_hdr_0 bus is changed once per packet, safe to use sync registers 
-bus_sync_reg0 : entity work.bus_sync_reg
- generic map (64) 
- port map(rclk, '1', inst0_pct_hdr_0, inst0_pct_hdr_0_rclk_stage0);
-
-bus_sync_reg1 : entity work.bus_sync_reg
- generic map (64) 
- port map(rclk, '1', inst0_pct_hdr_0_rclk_stage0, inst0_pct_hdr_0_rclk);
- 
- 
- gen_handshake_sync_0  : 
-   for i in 0 to n_buff-1 generate 
-      handake_sync_insx : entity work.handshake_sync port map
-         (wclk, 
-         reset_n, 
-         inst0_pct_hdr_0_valid(i), 
-         open, 
-         rclk, 
-         reset_n, 
-         inst0_pct_hdr_0_valid_rclk(i)
-      );
-  end generate gen_handshake_sync_0;
-  
--- bus_sync_reg1 : entity work.bus_sync_reg
- -- generic map (n_buff) 
--- port map(rclk, '1', (others=>'1'), inst0_pct_hdr_0_valid_rclk);
-
---inst0_pct_hdr_1 bus is changed once per packet, safe to use sync registers 
- bus_sync_reg2 : entity work.bus_sync_reg
- generic map (64) 
- port map(rclk, '1', inst0_pct_hdr_1, inst0_pct_hdr_1_rclk_stage0);
- 
- bus_sync_reg3 : entity work.bus_sync_reg
- generic map (64) 
- port map(rclk, '1', inst0_pct_hdr_1_rclk_stage0, inst0_pct_hdr_1_rclk);
- 
- 
-  gen_handshake_sync_1  : 
-   for i in 0 to n_buff-1 generate 
-      handake_sync_insx : entity work.handshake_sync port map
-         (wclk, 
-         reset_n, 
-         inst0_pct_hdr_1_valid(i), 
-         open, 
-         rclk, 
-         reset_n, 
-         inst0_pct_hdr_1_valid_rclk(i)
-      );
-  end generate gen_handshake_sync_1;
- 
--- bus_sync_reg3 : entity work.bus_sync_reg
- -- generic map (n_buff) 
--- port map(rclk, '1', (others=>'1'), inst0_pct_hdr_1_valid_rclk);
 
 sync_reg1 : entity work.sync_reg 
 port map(rclk, '1', pct_sync_dis, pct_sync_dis_rclk);
@@ -223,17 +162,15 @@ end process;
 -- ----------------------------------------------------------------------------
 p2d_wr_fsm_inst0 : entity work.p2d_wr_fsm
    generic map(
-      pct_size_w        => pct_size_w,
-      n_buff            => n_buff,
-      in_pct_data_w     => in_pct_data_w
+      N_BUFF            => n_buff,
+      PCT_SIZE          => 4096
    )
    port map(
       clk               => wclk,
       reset_n           => reset_n,
-      pct_size          => pct_size, 
-      in_pct_wrreq      => in_pct_wrreq,
+      in_pct_rdreq      => in_pct_rdreq,
       in_pct_data       => in_pct_data,
-      in_pct_wrfull     => inst0_in_pct_wrfull,
+      in_pct_rdy        => in_pct_rdy,
 
       pct_hdr_0         => inst0_pct_hdr_0,
       pct_hdr_0_valid   => inst0_pct_hdr_0_valid,
@@ -256,7 +193,7 @@ gen_fifo :
          generic map(
             dev_family	    => "Cyclone IV E",
             wrwidth         => in_pct_data_w,
-            wrusedw_witdth  => 11, --12=2048 words 
+            wrusedw_witdth  => 9, --12=2048 words 
             rdwidth         => 64,
             rdusedw_width   => 10,
             show_ahead      => "OFF"
@@ -279,22 +216,6 @@ gen_fifo :
 end generate gen_fifo;
 
 
-in_pct_last <= inst0_in_pct_wrfull;
-
-process(wclk, reset_n)
-begin
-   if reset_n = '0' then 
-      in_pct_full <= '0';
-   elsif (wclk'event AND wclk='1') then 
-      if unsigned(instx_wrempty) = 0 OR inst0_in_pct_wrfull = '1' then 
-         in_pct_full <= '1';
-      else
-         in_pct_full <= '0';
-      end if;      
-   end if;
-end process;
-
-
 process(rclk, reset_n)
 begin
    if reset_n = '0' then 
@@ -310,12 +231,8 @@ begin
    end if;
 end process;
 
-
-
-
 inst1_pct_buff_rdy   <= pct_buff_rdy_int;
 in_pct_buff_rdy      <= pct_buff_rdy_int;
-
 
 p2d_clr_fsm_inst1 : entity work.p2d_clr_fsm
    generic map(
@@ -329,11 +246,11 @@ p2d_clr_fsm_inst1 : entity work.p2d_clr_fsm
       
       smpl_nr              => sample_nr,
       
-      pct_hdr_0            => inst0_pct_hdr_0_rclk,
-      pct_hdr_0_valid      => inst0_pct_hdr_0_valid_rclk,
+      pct_hdr_0            => inst0_pct_hdr_0,
+      pct_hdr_0_valid      => inst0_pct_hdr_0_valid,
 
-      pct_hdr_1            => inst0_pct_hdr_1_rclk,
-      pct_hdr_1_valid      => inst0_pct_hdr_1_valid_rclk,
+      pct_hdr_1            => inst0_pct_hdr_1,
+      pct_hdr_1_valid      => inst0_pct_hdr_1_valid,
 
       pct_data_clr_n       => inst1_pct_data_clr_n,
       pct_data_clr_dis     => inst1_pct_data_clr_dis,
@@ -344,8 +261,7 @@ p2d_clr_fsm_inst1 : entity work.p2d_clr_fsm
         
 inst1_pct_data_clr_dis <= inst3_pct_data_rdstate when pct_sync_dis_rclk = '0' else (others=>'1');
         
-        
-        
+               
 p2d_sync_fsm_inst2 : entity work.p2d_sync_fsm
    generic map(
       pct_size_w           =>  pct_size_w,
@@ -368,11 +284,11 @@ p2d_sync_fsm_inst2 : entity work.p2d_sync_fsm
       
       smpl_nr              => sample_nr,
       
-      pct_hdr_0            => inst0_pct_hdr_0_rclk,
-      pct_hdr_0_valid      => inst0_pct_hdr_0_valid_rclk,
+      pct_hdr_0            => inst0_pct_hdr_0,
+      pct_hdr_0_valid      => inst0_pct_hdr_0_valid,
 
-      pct_hdr_1            => inst0_pct_hdr_1_rclk,
-      pct_hdr_1_valid      => inst0_pct_hdr_1_valid_rclk,
+      pct_hdr_1            => inst0_pct_hdr_1,
+      pct_hdr_1_valid      => inst0_pct_hdr_1_valid,
 
       pct_data_clr_n       => inst1_pct_data_clr_n,
       pct_buff_rdy         => pct_buff_rdy_int,
