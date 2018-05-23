@@ -95,7 +95,6 @@ signal rd_wait_cnt         : unsigned(3 downto 0);
 signal rd_wait_cnt_max     : unsigned(3 downto 0);
 signal rd_wait_cnt_max_reg : unsigned(3 downto 0);
 
-signal zero_samples_sent   : std_logic;
 signal zero_valid          : std_logic;
 
 type state_type is (idle, rd_samples, zero_samples, wait_rd_cycles);
@@ -220,8 +219,7 @@ end process;
 -- ----------------------------------------------------------------------------
 --state machine combo
 -- ----------------------------------------------------------------------------
-fsm : process(current_state, fifo_rdempty, rd_wait_cnt, rd_wait_cnt_max_reg, en,
-               zero_samples_sent) begin
+fsm : process(current_state, fifo_rdempty, rd_wait_cnt, rd_wait_cnt_max_reg, en) begin
    next_state <= current_state;
    case current_state is
    
@@ -239,7 +237,7 @@ fsm : process(current_state, fifo_rdempty, rd_wait_cnt, rd_wait_cnt_max_reg, en,
          if rd_wait_cnt = rd_wait_cnt_max_reg then 
             if fifo_rdempty = '0' AND en = '1' then 
                next_state <= rd_samples;
-            elsif fifo_rdempty = '1' AND zero_samples_sent = '0' then
+            elsif fifo_rdempty = '1' AND en = '1' then
                next_state <= zero_samples;
             else 
                next_state <= idle;
@@ -254,25 +252,6 @@ fsm : process(current_state, fifo_rdempty, rd_wait_cnt, rd_wait_cnt_max_reg, en,
       when others => 
          next_state<=idle;
    end case;
-end process;
-
-
--- ----------------------------------------------------------------------------
--- To know when FSM has entered zero_samples state
--- ----------------------------------------------------------------------------
-process(clk, reset_n)
-begin
-   if reset_n = '0' then 
-      zero_samples_sent <= '0';
-   elsif (clk'event AND clk='1') then 
-      if current_state = zero_samples then 
-         zero_samples_sent <= '1';
-      elsif current_state = rd_samples then 
-         zero_samples_sent <= '0';
-      else 
-         zero_samples_sent <= zero_samples_sent;
-      end if;
-   end if;
 end process;
 
 -- ----------------------------------------------------------------------------
