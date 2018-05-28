@@ -26,6 +26,7 @@ entity rxtx_top is
       TX_IQ_WIDTH             : integer := 12;
       TX_N_BUFF               : integer := 4; -- 2,4 valid values
       TX_IN_PCT_SIZE          : integer := 4096; -- TX packet size in bytes
+      TX_IN_PCT_HDR_SIZE      : integer := 16;
       TX_IN_PCT_DATA_W        : integer := 128;
       TX_IN_PCT_RDUSEDW_W     : integer := 11;
       TX_OUT_PCT_DATA_W       : integer := 64;
@@ -185,6 +186,8 @@ begin
    generic map( 
       dev_family           => DEV_FAMILY,
       iq_width             => TX_IQ_WIDTH,
+      TX_IN_PCT_SIZE       => TX_IN_PCT_SIZE,
+      TX_IN_PCT_HDR_SIZE   => TX_IN_PCT_HDR_SIZE,
       pct_size_w           => 16,
       n_buff               => TX_N_BUFF,
       in_pct_data_w        => TX_IN_PCT_DATA_W,

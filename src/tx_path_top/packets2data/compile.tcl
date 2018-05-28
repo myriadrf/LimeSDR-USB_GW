@@ -32,12 +32,17 @@ puts {
 
 #Add files to compile, follow compilation order(last file - top module)
 set library_file_list {
-                           source_library { ../../altera_inst/fifo_inst.vhd
+                           source_library { ../../packages/synth/FIFO_PACK.vhd
+                                            ../../altera_inst/fifo_inst.vhd
                                             ../../packages/synth/FIFO_PACK.vhd
+                                            synth/p2d_clr_fsm.vhd
+                                            synth/p2d_sync_fsm.vhd
                                             synth/p2d_wr_fsm.vhd
                                             synth/p2d_rd_fsm.vhd
+                                            synth/packets2data.vhd
                                             sim/p2d_wr_fsm_tb.vhd
                                             sim/p2d_rd_fsm_tb.vhd
+                                            sim/packets2data_tb.vhd
                                             
                            }
 }

@@ -20,6 +20,8 @@ use ieee.numeric_std.all;
 entity packets2data is
    generic (
       dev_family        : string := "Cyclone IV E";
+      TX_IN_PCT_SIZE    : integer := 4096;     
+      TX_IN_PCT_HDR_SIZE: integer := 16;           
       pct_size_w        : integer := 16;
       n_buff            : integer := 4; -- 2,4 valid values
       in_pct_data_w     : integer := 32;
@@ -27,32 +29,32 @@ entity packets2data is
    );
    port (
 
-      wclk              : in std_logic;
-      rclk              : in std_logic;
-      reset_n           : in std_logic;
-      --Mode settings
-      mode			      : in std_logic; -- JESD207: 1; TRXIQ: 0
-      trxiqpulse	      : in std_logic; -- trxiqpulse on: 1; trxiqpulse off: 0
-		ddr_en 		      : in std_logic; -- DDR: 1; SDR: 0
-		mimo_en		      : in std_logic; -- SISO: 1; MIMO: 0
-		ch_en			      : in std_logic_vector(1 downto 0); --"01" - Ch. A, "10" - Ch. B, "11" - Ch. A and Ch. B.  
-      sample_width      : in std_logic_vector(1 downto 0); --"10"-12bit, "01"-14bit, "00"-16bit;
+      wclk                    : in std_logic;
+      rclk                    : in std_logic;
+      reset_n                 : in std_logic;
+      --Mode settings      
+      mode			            : in std_logic; -- JESD207: 1; TRXIQ: 0
+      trxiqpulse	            : in std_logic; -- trxiqpulse on: 1; trxiqpulse off: 0
+		ddr_en 		            : in std_logic; -- DDR: 1; SDR: 0
+		mimo_en		            : in std_logic; -- SISO: 1; MIMO: 0
+		ch_en			            : in std_logic_vector(1 downto 0); --"01" - Ch. A, "10" - Ch. B, "11" - Ch. A and Ch. B.  
+      sample_width            : in std_logic_vector(1 downto 0); --"10"-12bit, "01"-14bit, "00"-16bit;
+            
+      pct_size                : in std_logic_vector(pct_size_w-1 downto 0); 
+            
+      pct_sync_dis            : in std_logic;
+      sample_nr               : in std_logic_vector(63 downto 0);
       
-      pct_size          : in std_logic_vector(pct_size_w-1 downto 0); 
+      in_pct_rdreq            : out std_logic;
+      in_pct_data             : in std_logic_vector(in_pct_data_w-1 downto 0);
+      in_pct_rdy              : in std_logic;
+            
+      in_pct_clr_flag         : out std_logic;
+      in_pct_buff_rdy         : out std_logic_vector(n_buff-1 downto 0);
       
-      pct_sync_dis      : in std_logic;
-      sample_nr         : in std_logic_vector(63 downto 0);
-
-      in_pct_rdreq      : out std_logic;
-      in_pct_data       : in std_logic_vector(in_pct_data_w-1 downto 0);
-      in_pct_rdy        : in std_logic;
-      in_pct_full       : out std_logic;
-      in_pct_clr_flag   : out std_logic;
-      in_pct_buff_rdy   : out std_logic_vector(n_buff-1 downto 0);
-      
-      smpl_buff_full    : in std_logic;
-      smpl_buff_q       : out std_logic_vector(out_pct_data_w-1 downto 0);
-      smpl_buff_valid   : out std_logic
+      smpl_buff_almost_full   : in std_logic;
+      smpl_buff_q             : out std_logic_vector(out_pct_data_w-1 downto 0);
+      smpl_buff_valid         : out std_logic
       
         );
 end packets2data;
@@ -92,6 +94,10 @@ signal inst3_pct_data_rdstate       : std_logic_vector(n_buff-1 downto 0);
 signal inst3_pct_size               : std_logic_vector(pct_size_w-1 downto 0);
 signal inst3_rd_fsm_rdy             : std_logic;
 signal inst3_rd_fsm_rd_done         : std_logic;
+signal inst3_pct_buff_rdreq         : std_logic_vector(n_buff-1 downto 0);
+signal inst3_pct_buff_clr_n         : std_logic_vector(n_buff-1 downto 0);
+signal inst3_pct_buff_sel           : std_logic_vector(3 downto 0);
+
 
 --instx
 signal instx_wrempty                : std_logic_vector(n_buff-1 downto 0);
@@ -145,7 +151,7 @@ begin
       in_pct_clr_flag <= '0';
    elsif (rclk'event AND rclk='1') then
       for i in 0 to n_buff-1 loop
-         inst1_pct_data_clr <= not inst1_pct_data_clr_n;
+         inst1_pct_data_clr <= not inst3_pct_buff_clr_n;
       end loop; 
       if unsigned(inst1_pct_data_clr) > 0 then 
          in_pct_clr_flag <= '1';
@@ -163,7 +169,7 @@ end process;
 p2d_wr_fsm_inst0 : entity work.p2d_wr_fsm
    generic map(
       N_BUFF            => n_buff,
-      PCT_SIZE          => 4096
+      PCT_SIZE          => TX_IN_PCT_SIZE
    )
    port map(
       clk               => wclk,
@@ -200,7 +206,7 @@ gen_fifo :
          ) 
          port map(
             --input ports 
-            reset_n       => inst1_pct_data_clr_n(i),
+            reset_n       => inst3_pct_buff_clr_n(i),
             wrclk         => wclk,
             wrreq         => inst0_pct_data_wrreq(i),
             data          => inst0_pct_data,
@@ -208,7 +214,7 @@ gen_fifo :
             wrempty		  => instx_wrempty(i),
             wrusedw       => open,
             rdclk 	     => rclk,
-            rdreq         => inst3_pct_data_rdreq(i),
+            rdreq         => inst3_pct_buff_rdreq(i),
             q             => instx_q(i),
             rdempty       => open,
             rdusedw       => instx_rdusedw(i)          
@@ -234,122 +240,65 @@ end process;
 inst1_pct_buff_rdy   <= pct_buff_rdy_int;
 in_pct_buff_rdy      <= pct_buff_rdy_int;
 
-p2d_clr_fsm_inst1 : entity work.p2d_clr_fsm
-   generic map(
-      pct_size_w           =>  pct_size_w,
-      n_buff               =>  n_buff
-   )
-   port map(
-      clk                  => rclk,
-      reset_n              => reset_n,
-      pct_size             => pct_size, 
-      
-      smpl_nr              => sample_nr,
-      
-      pct_hdr_0            => inst0_pct_hdr_0,
-      pct_hdr_0_valid      => inst0_pct_hdr_0_valid,
-
-      pct_hdr_1            => inst0_pct_hdr_1,
-      pct_hdr_1_valid      => inst0_pct_hdr_1_valid,
-
-      pct_data_clr_n       => inst1_pct_data_clr_n,
-      pct_data_clr_dis     => inst1_pct_data_clr_dis,
-		
-      pct_buff_rdy         => inst1_pct_buff_rdy
-      
-        );
         
 inst1_pct_data_clr_dis <= inst3_pct_data_rdstate when pct_sync_dis_rclk = '0' else (others=>'1');
+    
         
-               
-p2d_sync_fsm_inst2 : entity work.p2d_sync_fsm
+p2d_rd_inst3 : entity work.p2d_rd
    generic map(
-      pct_size_w           =>  pct_size_w,
-      n_buff               =>  n_buff
-   )
-   port map(
-      clk                  => rclk,
-      reset_n              => reset_n,
+      PCT_SIZE                => TX_IN_PCT_SIZE,    
+      PCT_HDR_SIZE            => TX_IN_PCT_HDR_SIZE,
+      N_BUFF                  => n_buff
+   )  
+   port map(   
+      clk                     => rclk,
+      reset_n                 => reset_n,
+         
+      synch_dis               => pct_sync_dis,
+         
+      pct_hdr_0               => inst0_pct_hdr_0,
+      pct_hdr_0_valid         => inst0_pct_hdr_0_valid,
+      pct_hdr_1               => inst0_pct_hdr_1,
+      pct_hdr_1_valid         => inst0_pct_hdr_1_valid,
+         
+      sample_nr               => sample_nr,  
+   
+      pct_buff_rdy            => pct_buff_rdy_int,
+      pct_buff_rdreq          => inst3_pct_buff_rdreq,
+      pct_buff_sel            => inst3_pct_buff_sel,
+      pct_buff_clr_n          => inst3_pct_buff_clr_n,
       
-      mode                 => mode, 
-      trxiqpulse           => trxiqpulse,	
-      ddr_en 		         => ddr_en,
-      mimo_en		         => mimo_en,	
-      ch_en			         => ch_en,
-      sample_width         => sample_width, 
-      
-      pct_size             => std_logic_vector(pct_size_only_data),
-      
-      pct_sync_dis         => pct_sync_dis_rclk,
-      
-      smpl_nr              => sample_nr,
-      
-      pct_hdr_0            => inst0_pct_hdr_0,
-      pct_hdr_0_valid      => inst0_pct_hdr_0_valid,
+      smpl_buff_almost_full   => smpl_buff_almost_full
 
-      pct_hdr_1            => inst0_pct_hdr_1,
-      pct_hdr_1_valid      => inst0_pct_hdr_1_valid,
+   );
 
-      pct_data_clr_n       => inst1_pct_data_clr_n,
-      pct_buff_rdy         => pct_buff_rdy_int,
-      
-      pct_rd_fsm_rdy       => inst3_rd_fsm_rdy,
-      pct_rd_fsm_done      => inst3_rd_fsm_rd_done,
-
-      pct_buff_rd_en       => isnt2_pct_buff_rd_en
-      
-        );
-        
-        
-p2d_rd_fsm_inst3 : entity work.p2d_rd_fsm
-   generic map(
-      pct_size_w           => pct_size_w,
-      n_buff               => n_buff
-   )
-   port map(
-      clk                  => rclk,
-      reset_n              => reset_n,
-      pct_size             => inst3_pct_size,
-     
-      pct_data_buff_full   => smpl_buff_full,
-      pct_data_rdreq       => inst3_pct_data_rdreq,
-      pct_data_rdstate     => inst3_pct_data_rdstate,
-      
-
-      pct_buff_rdy         => isnt2_pct_buff_rd_en,
-      rd_fsm_rdy           => inst3_rd_fsm_rdy,
-      rd_fsm_rd_done       => inst3_rd_fsm_rd_done
-      
-        );
-        
-        
-proc_name : process(rclk, reset_n)
-begin
-   if reset_n = '0' then 
-      instx_q_valid <= (others=>'0');
-      smpl_buff_q <= (others=> '0');
-      smpl_buff_valid <= '0';
-   elsif (rclk'event AND rclk='1') then 
-      instx_q_valid <= inst3_pct_data_rdreq;
-      smpl_buff_q <= pct_smpl_mux;
-      smpl_buff_valid <= smpl_buff_valid_int;
-   end if;
-end process;
-
-process(instx_q_valid,instx_q)
-variable tmp : integer := 0;
-begin
-   tmp := 0;
-   for i in 0 to n_buff-1 loop
-      if instx_q_valid(i)= '1' then 
-         tmp := i;
+   process(rclk, reset_n)
+   begin
+      if reset_n = '0' then 
+         smpl_buff_valid_int <= '0';
+      elsif (rclk'event AND rclk='1') then 
+         if unsigned(inst3_pct_buff_rdreq) > 0 then 
+            smpl_buff_valid_int <= '1';
+         else 
+            smpl_buff_valid_int <= '0';
+         end if;
       end if;
-      smpl_buff_valid_int <= instx_q_valid(tmp);
-      pct_smpl_mux <= instx_q(tmp);
-   end loop;
-end process;
+   end process;
 
--- smpl_buff_valid <= instx_q_valid;
+-- ----------------------------------------------------------------------------
+-- Output ports
+-- ---------------------------------------------------------------------------- 
+   
+   out_reg : process(rclk, reset_n)
+   begin
+      if reset_n = '0' then
+         smpl_buff_valid <= '0';         
+         smpl_buff_q <= (others=> '0');
+      elsif (rclk'event AND rclk='1') then
+         smpl_buff_valid   <= smpl_buff_valid_int;
+         smpl_buff_q       <= instx_q(to_integer(unsigned(inst3_pct_buff_sel)));
+      end if;
+   end process;
         
 
 

@@ -8,6 +8,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.FIFO_PACK.all;
+use ieee.STD_LOGIC_TEXTIO.ALL;
+use STD.textio.all;
 
 -- ----------------------------------------------------------------------------
 -- Entity declaration
@@ -24,18 +27,27 @@ constant clk0_period    : time := 10 ns;
 constant clk1_period    : time := 10 ns; 
 
 constant smpl_nr_delay  : integer := 13;
+constant C_PCT_SIZE     : integer := 4096;
    --signals
 signal clk0,clk1		   : std_logic;
 signal reset_n          : std_logic; 
-   
+
+constant file_data_width   : integer := 64;
+signal file_read           : std_logic;
+signal file_data           : std_logic_vector(file_data_width-1 downto 0);
+
+constant C_DUT0_SIZE             : integer := 4096;
+constant C_DUT0_WRWIDTH          : integer := file_data_width;
+constant C_DUT0_WRUSEDW_WITDTH   : integer := FIFO_WORDS_TO_Nbits((C_DUT0_SIZE*8)/C_DUT0_WRWIDTH, true);
+constant C_DUT0_RDWIDTH          : integer := 128;
+constant C_DUT0_RDUSEDW_WIDTH    : integer := FIFO_WORDS_TO_Nbits((C_DUT0_SIZE*8)/C_DUT0_RDWIDTH, true);
+
    --dut0 signals
-signal dut0_pct_size          : std_logic_vector(15 downto 0):=x"000A";
-signal dut0_pct_data          : std_logic_vector(31 downto 0);
-signal dut0_in_pct_wrreq      : std_logic;
-signal dut0_in_pct_last       : std_logic;
-signal dut0_sample_nr         : std_logic_vector(63 downto 0);
-signal pct_cnt                : unsigned(31 downto 0);
-signal pct_cnt_reg            : std_logic_vector(31 downto 0);
+signal dut0_wrreq    : std_logic;
+signal dut0_data     : std_logic_vector(C_DUT0_WRWIDTH-1 downto 0);
+signal dut0_wrempty  : std_logic;
+signal dut0_q        : std_logic_vector(C_DUT0_RDWIDTH-1 downto 0);
+signal dut0_rdusedw  : std_logic_vector(C_DUT0_RDUSEDW_WIDTH-1 downto 0);
 
 type my_array is array (0 to smpl_nr_delay) of std_logic_vector(63 downto 0);
 
@@ -62,83 +74,84 @@ begin
 		reset_n <= '1'; wait;
 	end process res;
    
+-- ----------------------------------------------------------------------------
+-- Writing to FIFO. Full packet is written to FIFO when dut0_wrempty is detected
+-- ----------------------------------------------------------------------------   
+   fifo_wr_proc : process 
+   begin
+      file_read <= '0';
+      wait until rising_edge(clk0) AND reset_n = '1';
+         for i in 0 to (C_PCT_SIZE*8)/C_DUT0_WRWIDTH - 1 loop
+            file_read <= '1';
+            wait until rising_edge(clk0);
+         end loop;
+         file_read <= '0';
+         wait until dut0_wrempty = '1';
+         wait until rising_edge(clk0);
+   end process;
    
-     process(reset_n, clk0)
-    begin
-      if reset_n='0' then
-         pct_cnt <= (others=>'0');
-         dut0_in_pct_wrreq <= '1'; 
-         pct_cnt_reg <= (others=>'0');
-      elsif (clk0'event and clk0 = '1') then
-            if dut0_in_pct_last='0' then             
-               dut0_in_pct_wrreq <= '1';
-               --dut0_in_pct_wrreq <= NOT dut0_in_pct_wrreq;
-            else 
-               dut0_in_pct_wrreq <= '0';
-            end if;
-         if dut0_in_pct_wrreq = '1' then 
-            pct_cnt <= pct_cnt + 1;
-         else 
-            pct_cnt <= pct_cnt;
-         end if;
-         pct_cnt_reg<= std_logic_vector(pct_cnt);
- 	    end if;
-    end process;
-    
-  
-   dut0_pct_data  <= std_logic_vector(pct_cnt);
-   
-   dut0_sample_nr <=pct_cnt_reg & std_logic_vector(pct_cnt);
-   
-   
-   
-   
-   proc_name : process(clk0, reset_n)
+-- ----------------------------------------------------------------------------
+-- Read packet data
+-- ----------------------------------------------------------------------------   
+   process(clk0, reset_n)
+      --select one of the three files depending on sample width
+      FILE in_file      : TEXT OPEN READ_MODE IS "sim/out_pct_6_12b";
+      --FILE in_file      : TEXT OPEN READ_MODE IS "sim/out_pct_6_14b";
+      --FILE in_file      : TEXT OPEN READ_MODE IS "sim/out_pct_6_16b";  
+      VARIABLE in_line  : LINE;
+      VARIABLE data     : std_logic_vector(63 downto 0);
    begin
       if reset_n = '0' then 
-         smpl_nr_array <= (others=>(others=>'0'));
+         file_data <= (others=>'0');
       elsif (clk0'event AND clk0='1') then 
-         for i in 0 to smpl_nr_delay-1 loop
-            if i = 0 then 
-               smpl_nr_array(0) <= dut0_sample_nr;
-            else 
-               smpl_nr_array(i) <= smpl_nr_array(i-1);
-            end if;
-         end loop;
+         if file_read = '1' then 
+            READLINE(in_file, in_line);
+            HREAD(in_line, data);
+            file_data <= data;
+         else 
+            file_data <= file_data;
+         end if;
+      end if;
+   end process;
+
+   process(clk0, reset_n)
+   begin
+      if reset_n = '0' then 
+         dut0_wrreq <= '0';
+      elsif (clk0'event AND clk0='1') then
+         dut0_wrreq <= file_read;
       end if;
    end process;
   
-  packets2data_dut0 : entity work.packets2data
-   generic map (
-      dev_family        => "Cyclone IV E",
-      pct_size_w        =>  16,
-      n_buff            =>  4, -- 2,4 valid values
-      in_pct_data_w     =>  32,
-      out_pct_data_w    =>  64
-   )
+-- ----------------------------------------------------------------------------
+-- FIFO instance (Simulating stream FIFO)
+-- ----------------------------------------------------------------------------   
+   fifo_inst_dut0 : entity work.fifo_inst
+   generic map(
+      dev_family     => "Cyclone IV E",
+      wrwidth        => C_DUT0_WRWIDTH,
+      wrusedw_witdth => C_DUT0_WRUSEDW_WITDTH,
+      rdwidth        => C_DUT0_RDWIDTH,
+      rdusedw_width  => C_DUT0_RDUSEDW_WIDTH,
+      show_ahead     => "OFF"
+   )  
    port map(
+      --input ports 
+      reset_n  => reset_n,
+      wrclk    => clk0,
+      wrreq    => dut0_wrreq,
+      data     => dut0_data,
+      wrfull   => open,
+      wrempty  => dut0_wrempty,
+      wrusedw  => open,
+      rdclk    => clk1,
+      rdreq    => '0',
+      q        => dut0_q,
+      rdempty  => open,
+      rdusedw  => dut0_rdusedw
+   ); 
 
-      wclk              => clk0,
-      rclk              => clk1, 
-      reset_n           => reset_n,
-      pct_size          => dut0_pct_size,
-      
-      pct_sync_dis      => '0',
-      sample_nr         => smpl_nr_array(smpl_nr_delay-1),
-      
-      in_pct_wrreq      => dut0_in_pct_wrreq,
-      in_pct_data       => dut0_pct_data,
-      in_pct_last       => dut0_in_pct_last,
-      in_pct_full       => open,
-      in_pct_buff_rdy   => open,
-      
-      smpl_buff_full    => '0',
-      smpl_buff_q       => open,    
-      smpl_buff_valid   => open
-        );
-      
-	
-	end tb_behave;
+   end tb_behave;
   
   
 

@@ -43,6 +43,7 @@ entity lms7_trx_top is
       -- 
       TX_N_BUFF               : integer := 4;      -- N 4KB buffers in TX interface (2 OR 4)
       TX_PCT_SIZE             : integer := 4096;   -- TX packet size in bytes
+      TX_IN_PCT_HDR_SIZE      : integer := 16;
       WFM_INFIFO_SIZE         : integer := 8192;   -- WFM in FIFO buffer size in bytes 
       -- Internal configuration memory 
       FPGACFG_START_ADDR      : integer := 0;
@@ -595,6 +596,7 @@ begin
       TX_IQ_WIDTH             => LMS_DIQ_WIDTH,
       TX_N_BUFF               => TX_N_BUFF,              -- 2,4 valid values
       TX_IN_PCT_SIZE          => TX_PCT_SIZE,
+      TX_IN_PCT_HDR_SIZE      => TX_IN_PCT_HDR_SIZE,
       TX_IN_PCT_DATA_W        => FX3_EP01_0_RWIDTH,      -- 
       TX_IN_PCT_RDUSEDW_W     => C_EP01_0_RDUSEDW_WIDTH,
       

@@ -17,6 +17,8 @@ entity tx_path_top is
    generic( 
       dev_family           : string := "Cyclone IV E";
       iq_width             : integer := 12;
+      TX_IN_PCT_SIZE       : integer := 4096; -- TX packet size in bytes
+      TX_IN_PCT_HDR_SIZE   : integer := 16;
       pct_size_w           : integer := 16;
       n_buff               : integer := 4; -- 2,4 valid values
       in_pct_data_w        : integer := 128;
@@ -280,6 +282,8 @@ generic map(
   packets2data_top_inst0 : entity work.packets2data_top
    generic map (
       dev_family        => dev_family,
+      TX_IN_PCT_SIZE    => TX_IN_PCT_SIZE,    
+      TX_IN_PCT_HDR_SIZE=> TX_IN_PCT_HDR_SIZE,
       pct_size_w        => pct_size_w,
       n_buff            => n_buff, -- 2,4 valid values
       in_pct_data_w     => in_pct_data_w,
