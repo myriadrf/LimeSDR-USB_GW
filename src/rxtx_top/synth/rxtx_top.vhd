@@ -31,7 +31,6 @@ entity rxtx_top is
       TX_IN_PCT_RDUSEDW_W     : integer := 11;
       TX_OUT_PCT_DATA_W       : integer := 64;
       
-      
       -- RX parameters
       RX_IQ_WIDTH             : integer := 12;
       RX_INVERT_INPUT_CLOCKS  : string := "OFF";
@@ -40,6 +39,8 @@ entity rxtx_top is
       
       -- WFM
       WFM_LIMIT               : integer := 4096;
+      WFM_IN_PCT_DATA_W       : integer := 32;
+      WFM_IN_PCT_RDUSEDW_W    : integer := 11;
       --DDR2 controller parameters
       WFM_CNTRL_RATE          : integer := 1; --1 - full rate, 2 - half rate
       WFM_CNTRL_BUS_SIZE      : integer := 16;
@@ -73,7 +74,15 @@ entity rxtx_top is
       
       -- WFM Player
       wfm_pll_ref_clk         : in     std_logic;
-      wfm_pll_ref_clk_reset_n : in     std_logic;   
+      wfm_pll_ref_clk_reset_n : in     std_logic;
+      wfm_phy_clk             : out    std_logic;
+         -- WFM FIFO read ports
+      wfm_in_pct_reset_n_req  : out    std_logic;
+      wfm_in_pct_rdreq        : out    std_logic;
+      wfm_in_pct_data         : in     std_logic_vector(WFM_IN_PCT_DATA_W-1 downto 0);
+      wfm_in_pct_rdempty      : in     std_logic;
+      wfm_in_pct_rdusedw      : in     std_logic_vector(WFM_IN_PCT_RDUSEDW_W-1 downto 0);
+      
          --DDR2 external memory signals
       wfm_mem_odt             : out    std_logic_vector (0 DOWNTO 0);
       wfm_mem_cs_n            : out    std_logic_vector (0 DOWNTO 0);
@@ -120,7 +129,7 @@ signal inst0_fifo_data           : std_logic_vector(TX_IN_PCT_DATA_W-1 downto 0)
 
 signal inst0_tx_fifo_wr          : std_logic;
 signal inst0_tx_fifo_data        : std_logic_vector(TX_IN_PCT_DATA_W-1 downto 0);
-signal inst0_wfm_data            : std_logic_vector(TX_IN_PCT_DATA_W-1 downto 0);
+signal inst0_wfm_data            : std_logic_vector(31 downto 0);
 signal inst0_wfm_fifo_wr         : std_logic;
 
 --inst1
@@ -240,71 +249,73 @@ begin
 -- wfm_player_top instance.
 -- 
 -- ----------------------------------------------------------------------------        
---   wfm_player_top_inst2 : entity work.wfm_player_top
---   generic map(
---      dev_family        => DEV_FAMILY, 
---      --DDR2 controller parameters
---      cntrl_rate        => WFM_CNTRL_RATE,--1 - full rate, 2 - half rate
---      cntrl_bus_size    => WFM_CNTRL_BUS_SIZE,
---      addr_size         => WFM_ADDR_SIZE,
---      lcl_bus_size      => WFM_LCL_BUS_SIZE,
---      lcl_burst_length  => WFM_LCL_BURST_LENGTH,
---      cmd_fifo_size     => 9,
---      --WFM player parameters
---      wfm_infifo_size   => WFM_WFM_INFIFO_SIZE,
---      wfm_outfifo_size  => 11,
---      data_width        => WFM_DATA_WIDTH,
---      iq_width          => WFM_IQ_WIDTH,
---      dcmpr_fifo_size   => 10
---   )
---   port map(
---      --input ports
---      reset_n              => wfm_pll_ref_clk_reset_n,
---      ddr2_pll_ref_clk     => wfm_pll_ref_clk,
---      
---      wcmd_clk             => tx_clk,        
---      rcmd_clk             => inst2_phy_clk,
---      
---      wfm_load             => from_fpgacfg.wfm_load,
---      wfm_play_stop        => from_fpgacfg.wfm_play, -- 1- play, 0- stop
---      
---      wfm_data             => inst0_wfm_data,
---      wfm_wr               => inst0_wfm_fifo_wr,
---      wfm_rdy              => inst2_wfm_rdy,
---      wfm_infifo_wrusedw   => inst2_wfm_infifo_wrusedw,
---      
---      sample_width         => from_fpgacfg.wfm_smpl_width, -- "00"-16bit, "01"-14bit, "10"-12bit
---      fr_start             => '0',
---      ch_en                => from_fpgacfg.wfm_ch_en(1 downto 0),
---      mimo_en              => '1',
---      
---      iq_clk               => tx_clk,
---      dd_iq_h              => inst2_dd_iq_h,
---      dd_iq_l              => inst2_dd_iq_l,
---      
---      --DDR2 external memory signals
---      mem_odt              => wfm_mem_odt,
---      mem_cs_n             => wfm_mem_cs_n,
---      mem_cke              => wfm_mem_cke,
---      mem_addr             => wfm_mem_addr,
---      mem_ba               => wfm_mem_ba,
---      mem_ras_n            => wfm_mem_ras_n,
---      mem_cas_n            => wfm_mem_cas_n,
---      mem_we_n             => wfm_mem_we_n,
---      mem_dm               => wfm_mem_dm,
---      phy_clk              => inst2_phy_clk,
---      mem_clk              => wfm_mem_clk,
---      mem_clk_n            => wfm_mem_clk_n,
---      mem_dq               => wfm_mem_dq,
---      mem_dqs              => wfm_mem_dqs,
---      begin_test           => from_tstcfg.TEST_EN(4),
---      insert_error         => from_tstcfg.TEST_FRC_ERR(4),
---      pnf_per_bit          => open,
---      pnf_per_bit_persist  => to_tstcfg_from_rxtx.DDR2_1_pnf_per_bit,
---      pass                 => to_tstcfg_from_rxtx.DDR2_1_STATUS(1),
---      fail                 => to_tstcfg_from_rxtx.DDR2_1_STATUS(2),
---      test_complete        => to_tstcfg_from_rxtx.DDR2_1_STATUS(0)
---   );
+   wfm_player_top_inst2 : entity work.wfm_player_top
+   generic map(
+      dev_family        => DEV_FAMILY, 
+      --DDR2 controller parameters
+      cntrl_rate        => WFM_CNTRL_RATE,--1 - full rate, 2 - half rate
+      cntrl_bus_size    => WFM_CNTRL_BUS_SIZE,
+      addr_size         => WFM_ADDR_SIZE,
+      lcl_bus_size      => WFM_LCL_BUS_SIZE,
+      lcl_burst_length  => WFM_LCL_BURST_LENGTH,
+      cmd_fifo_size     => 9,
+      --WFM player parameters
+      wfm_infifo_size   => WFM_WFM_INFIFO_SIZE,
+      wfm_outfifo_size  => 11,
+      data_width        => WFM_DATA_WIDTH,
+      iq_width          => WFM_IQ_WIDTH,
+      dcmpr_fifo_size   => 10
+   )
+   port map(
+      --input ports
+      reset_n                 => wfm_pll_ref_clk_reset_n,
+      ddr2_pll_ref_clk        => wfm_pll_ref_clk,
+         
+      wcmd_clk                => tx_clk,        
+      rcmd_clk                => inst2_phy_clk,
+         
+      wfm_load                => from_fpgacfg.wfm_load,
+      wfm_play_stop           => from_fpgacfg.wfm_play, -- 1- play, 0- stop
+      
+      wfm_infifo_reset_n_req  => wfm_in_pct_reset_n_req,
+      wfm_infifo_data         => wfm_in_pct_data,
+      wfm_infifo_rdreq        => wfm_in_pct_rdreq,
+      wfm_infifo_rdempty      => wfm_in_pct_rdempty,
+      wfm_rdy                 => inst2_wfm_rdy,
+      wfm_infifo_rdusedw      => wfm_in_pct_rdusedw,
+      
+      sample_width            => from_fpgacfg.wfm_smpl_width, -- "00"-16bit, "01"-14bit, "10"-12bit
+      fr_start                => '0',
+      ch_en                   => from_fpgacfg.wfm_ch_en(1 downto 0),
+      mimo_en                 => '1',
+      
+      iq_clk                  => tx_clk,
+      dd_iq_h                 => inst2_dd_iq_h,
+      dd_iq_l                 => inst2_dd_iq_l,
+      
+      --DDR2 external memory signals
+      mem_odt                 => wfm_mem_odt,
+      mem_cs_n                => wfm_mem_cs_n,
+      mem_cke                 => wfm_mem_cke,
+      mem_addr                => wfm_mem_addr,
+      mem_ba                  => wfm_mem_ba,
+      mem_ras_n               => wfm_mem_ras_n,
+      mem_cas_n               => wfm_mem_cas_n,
+      mem_we_n                => wfm_mem_we_n,
+      mem_dm                  => wfm_mem_dm,
+      phy_clk                 => inst2_phy_clk,
+      mem_clk                 => wfm_mem_clk,
+      mem_clk_n               => wfm_mem_clk_n,
+      mem_dq                  => wfm_mem_dq,
+      mem_dqs                 => wfm_mem_dqs,
+      begin_test              => from_tstcfg.TEST_EN(4),
+      insert_error            => from_tstcfg.TEST_FRC_ERR(4),
+      pnf_per_bit             => open,
+      pnf_per_bit_persist     => to_tstcfg_from_rxtx.DDR2_1_pnf_per_bit,
+      pass                    => to_tstcfg_from_rxtx.DDR2_1_STATUS(1),
+      fail                    => to_tstcfg_from_rxtx.DDR2_1_STATUS(2),
+      test_complete           => to_tstcfg_from_rxtx.DDR2_1_STATUS(0)
+   );
       
 -- ----------------------------------------------------------------------------
 -- txiqmux instance.
@@ -410,6 +421,13 @@ begin
       wait_cycles => from_fpgacfg.sync_pulse_period,
       pulse       => inst6_pulse
    );
+   
+   
+-- ----------------------------------------------------------------------------
+-- Output ports 
+-- ---------------------------------------------------------------------------- 
+   wfm_phy_clk             <= inst2_phy_clk;
+  
    
   
 end arch;   

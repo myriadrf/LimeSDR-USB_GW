@@ -44,7 +44,7 @@ entity lms7_trx_top is
       TX_N_BUFF               : integer := 4;      -- N 4KB buffers in TX interface (2 OR 4)
       TX_PCT_SIZE             : integer := 4096;   -- TX packet size in bytes
       TX_IN_PCT_HDR_SIZE      : integer := 16;
-      WFM_INFIFO_SIZE         : integer := 8192;   -- WFM in FIFO buffer size in bytes 
+      WFM_INFIFO_SIZE         : integer := 4096;   -- WFM in FIFO buffer size in bytes 
       -- Internal configuration memory 
       FPGACFG_START_ADDR      : integer := 0;
       PLLCFG_START_ADDR       : integer := 32;
@@ -250,6 +250,10 @@ signal inst2_faddr               : std_logic_vector(4 downto 0);
 signal inst2_EP01_0_rdata        : std_logic_vector(FX3_EP01_0_RWIDTH-1 downto 0);
 signal inst2_EP01_0_rempty       : std_logic;
 signal inst2_EP01_0_rdusedw      : std_logic_vector(C_EP01_0_RDUSEDW_WIDTH-1 downto 0);
+signal inst2_EP01_1_rdata        : std_logic_vector(FX3_EP01_1_RWIDTH-1 downto 0);
+signal inst2_EP01_1_rempty       : std_logic;
+signal inst2_EP01_1_rdusedw      : std_logic_vector(C_EP01_1_RDUSEDW_WIDTH-1 downto 0);
+
 
 --inst5
 signal inst5_busy : std_logic;
@@ -267,6 +271,10 @@ signal inst6_to_tstcfg_from_rxtx    : t_TO_TSTCFG_FROM_RXTX;
 signal inst6_rx_pct_fifo_aclrn_req  : std_logic;
 signal inst6_tx_in_pct_rdreq        : std_logic;
 signal inst6_tx_in_pct_reset_n_req  : std_logic;
+signal inst6_wfm_in_pct_reset_n_req : std_logic;
+signal inst6_wfm_in_pct_rdreq       : std_logic;
+signal inst6_wfm_phy_clk            : std_logic;
+
 
 
 
@@ -452,16 +460,22 @@ begin
       pktend               => FX3_CTL7,  --output pkt end 
       EPSWITCH             => open,
       
+      EP01_sel             => inst0_from_fpgacfg.wfm_load,
       --stream endpoint fifo (PC->FPGA) 
       EP01_0_rdclk         => inst1_txpll_c1,
       EP01_0_aclrn         => inst6_tx_in_pct_reset_n_req,
       EP01_0_rd            => inst6_tx_in_pct_rdreq,
       EP01_0_rdata         => inst2_EP01_0_rdata,
       EP01_0_rempty        => inst2_EP01_0_rempty,
-      EP01_0_rdusedw       => inst2_EP01_0_rdusedw, 
-      ext_buff_rdy         => inst6_tx_in_pct_full,
-      ext_buff_data        => inst2_ext_buff_data,
-      ext_buff_wr          => inst2_ext_buff_wr,
+      EP01_0_rdusedw       => inst2_EP01_0_rdusedw,
+     
+      EP01_1_rdclk         => inst1_txpll_c1,
+      EP01_1_aclrn         => inst6_wfm_in_pct_reset_n_req,
+      EP01_1_rd            => inst6_wfm_in_pct_rdreq,
+      EP01_1_rdata         => inst2_EP01_1_rdata,
+      EP01_1_rempty        => inst2_EP01_1_rempty,
+      EP01_1_rdusedw       => inst2_EP01_1_rdusedw, 
+      
       --stream endpoint fifo (FPGA->PC)
       EP81_wclk            => inst1_rxpll_c1,
       EP81_aclrn           => inst6_rx_pct_fifo_aclrn_req,
@@ -639,7 +653,14 @@ begin
       
       -- WFM Player
       wfm_pll_ref_clk         => SI_CLK0,
-      wfm_pll_ref_clk_reset_n => reset_n_si_clk0,     
+      wfm_pll_ref_clk_reset_n => reset_n_si_clk0,    
+      wfm_phy_clk             => inst6_wfm_phy_clk,
+         -- WFM FIFO read ports
+      wfm_in_pct_reset_n_req  => inst6_wfm_in_pct_reset_n_req,
+      wfm_in_pct_rdreq        => inst6_wfm_in_pct_rdreq, 
+      wfm_in_pct_data         => inst2_EP01_1_rdata,
+      wfm_in_pct_rdempty      => inst2_EP01_1_rempty,
+      wfm_in_pct_rdusedw      => inst2_EP01_1_rdusedw,
 
       --DDR2 external memory signals
       wfm_mem_odt             => DDR2_1_ODT,

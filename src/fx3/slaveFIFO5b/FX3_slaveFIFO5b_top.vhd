@@ -60,16 +60,22 @@ entity FX3_slaveFIFO5b_top is
       pktend         : out std_logic;     --output pkt end 
       EPSWITCH       : out std_logic;
       
-      --Stream endpoint fifo (PC->FPGA) 
+      EP01_sel       : in std_logic;      -- 0 - EP01_0,
+     --Stream endpoint fifo 0 (PC->FPGA) 
       EP01_0_rdclk   : in std_logic;
       EP01_0_aclrn   : in std_logic;
       EP01_0_rd      : in std_logic;
       EP01_0_rdata   : out std_logic_vector(EP01_0_rwidth-1 downto 0);
       EP01_0_rempty  : out std_logic;
       EP01_0_rdusedw : out std_logic_vector(EP01_0_rdusedw_width-1 downto 0);
-      ext_buff_rdy   : in std_logic;
-      ext_buff_data  : out std_logic_vector(data_width-1 downto 0);
-      ext_buff_wr    : out std_logic;
+      --Stream endpoint fifo 1 (PC->FPGA) 
+      EP01_1_rdclk   : in std_logic;
+      EP01_1_aclrn   : in std_logic;
+      EP01_1_rd      : in std_logic;
+      EP01_1_rdata   : out std_logic_vector(EP01_1_rwidth-1 downto 0);
+      EP01_1_rempty  : out std_logic;
+      EP01_1_rdusedw : out std_logic_vector(EP01_1_rdusedw_width-1 downto 0);
+
       --Stream endpoint fifo (FPGA->PC)
       EP81_wclk      : in std_logic;
       EP81_aclrn     : in std_logic;
@@ -100,20 +106,27 @@ end entity FX3_slaveFIFO5b_top;
 -- ----------------------------------------------------------------------------
 architecture arch of FX3_slaveFIFO5b_top is
 
-constant socket0_wrusedw_size : integer := FIFOWR_SIZE (data_width, EP01_0_rwidth, EP01_0_rdusedw_width);
-constant socket0_0_rdusedw_size : integer := EP01_0_rdusedw_width; 
+constant socket0_wrusedw_size    : integer := FIFOWR_SIZE (data_width, EP01_0_rwidth, EP01_0_rdusedw_width);
+constant socket0_0_rdusedw_size  : integer := EP01_0_rdusedw_width; 
+constant socket0_1_rdusedw_size  : integer := EP01_1_rdusedw_width; 
 
-constant socket1_wrusedw_size : integer := FIFOWR_SIZE (data_width, EP0F_rdusedw_width, EP0F_rdusedw_width);
-constant socket1_rdusedw_size : integer := EP0F_rdusedw_width; 
+constant socket1_wrusedw_size    : integer := FIFOWR_SIZE (data_width, EP0F_rdusedw_width, EP0F_rdusedw_width);
+constant socket1_rdusedw_size    : integer := EP0F_rdusedw_width; 
+   
+constant socket2_wrusedw_size    : integer := EP81_wrusedw_width;
+constant socket2_rdusedw_size    : integer := FIFORD_SIZE (EP81_wwidth, data_width, EP81_wrusedw_width);
+   
+constant socket3_wrusedw_size    : integer := EP8F_wrusedw_width;
+constant socket3_rdusedw_size    : integer := FIFORD_SIZE (EP8F_wwidth, data_width, EP8F_wrusedw_width);
 
-constant socket2_wrusedw_size : integer := EP81_wrusedw_width;
-constant socket2_rdusedw_size : integer := FIFORD_SIZE (EP81_wwidth, data_width, EP81_wrusedw_width);
-
-constant socket3_wrusedw_size : integer := EP8F_wrusedw_width;
-constant socket3_rdusedw_size : integer := FIFORD_SIZE (EP8F_wwidth, data_width, EP8F_wrusedw_width);
+signal EP01_sel_sync                   : std_logic;
+signal EP01_0_sclrn                    : std_logic;
+signal EP01_1_sclrn                    : std_logic;
+signal EP01_0_sclrn_reg                : std_logic;
+signal EP01_1_sclrn_reg                : std_logic;
 
 --inst0 
-signal inst0_rdempty : std_logic;
+signal inst0_rdempty                   : std_logic;
 
    --socket 0 (configured to read data from it PC->FPGA)
 signal inst1_socket0_fifo_reset_n      : std_logic;
@@ -127,19 +140,32 @@ signal inst1_socket1_fifo_data         : std_logic_vector(data_width-1 downto 0)
 signal inst1_socket1_fifo_wrusedw      : std_logic_vector(socket1_wrusedw_size-1 downto 0);
 signal inst1_socket1_fifo_wr           : std_logic;
 
---inst3
-signal inst3_reset_n                   : std_logic;
 --inst2
+signal inst2_wrreq                     : std_logic;
 signal inst2_fifo_wrusedw              : std_logic_vector(socket0_wrusedw_size-1 downto 0);
 signal inst2_reset_n                   : std_logic;
 
-signal inst4_fifo_q                    : std_logic_vector(data_width-1 downto 0);
-signal inst4_fifo_rdusedw              : std_logic_vector(socket2_rdusedw_size-1 downto 0);
-signal inst4_fifo_rd                   : std_logic;
+--inst3 
+signal inst3_reset_n                   : std_logic;
+signal inst3_pct_wr                    : std_logic;
+signal inst3_pct_payload_data          : std_logic_vector(data_width-1 downto 0);
+signal inst3_pct_payload_valid         : std_logic;
 
-signal inst5_fifo_q                    : std_logic_vector(data_width-1 downto 0);
-signal inst5_fifo_rdusedw              : std_logic_vector(socket3_rdusedw_size-1 downto 0);
-signal inst5_fifo_rd                   : std_logic;
+--inst4
+signal inst4_wrreq                     : std_logic;
+signal inst4_fifo_wrusedw              : std_logic_vector(socket0_wrusedw_size-1 downto 0);
+signal inst4_reset_n                   : std_logic;
+
+--inst5
+signal inst5_reset_n                   : std_logic;
+--inst6
+signal inst6_fifo_q                    : std_logic_vector(data_width-1 downto 0);
+signal inst6_fifo_rdusedw              : std_logic_vector(socket2_rdusedw_size-1 downto 0);
+signal inst6_fifo_rd                   : std_logic;
+--inst7
+signal inst7_fifo_q                    : std_logic_vector(data_width-1 downto 0);
+signal inst7_fifo_rdusedw              : std_logic_vector(socket3_rdusedw_size-1 downto 0);
+signal inst7_fifo_rd                   : std_logic;
 
 --signal ddr_clk_out                     :std_logic_vector(0 downto 0);
 
@@ -151,14 +177,62 @@ begin
 -- ----------------------------------------------------------------------------  
    -- Reset signal with synchronous removal to clk clock domain, 
    sync_reg0 : entity work.sync_reg 
-   port map(clk, EP01_0_aclrn, '1', inst1_socket0_fifo_reset_n);
-   
-   inst2_reset_n <= inst1_socket0_fifo_reset_n;
+   port map(clk, EP01_0_aclrn, '1', EP01_0_sclrn);
    
    sync_reg1 : entity work.sync_reg 
+   port map(clk, EP01_1_aclrn, '1', EP01_1_sclrn);
+  
+   
+   inst1_socket0_fifo_reset_n <= inst2_reset_n AND inst3_reset_n;
+   
+   sync_reg2 : entity work.sync_reg 
    port map(clk, EP0F_aclrn, '1', inst1_socket1_fifo_reset_n);
    
-   inst3_reset_n <= inst1_socket1_fifo_reset_n;
+   inst5_reset_n <= inst1_socket1_fifo_reset_n;
+   
+   -- inst2 module is reset with one cycle pulse when EP01_1_aclrn is realeased
+   process(clk, reset_n)
+   begin 
+      if reset_n = '0' then 
+         inst2_reset_n     <= '0';
+         EP01_0_sclrn_reg  <= '0';
+      elsif (clk'event AND clk = '1') then 
+         EP01_0_sclrn_reg <= EP01_0_sclrn;
+         
+         if EP01_0_sclrn = '1' and EP01_0_sclrn_reg = '0' then 
+            inst2_reset_n <= '0';
+         else 
+            inst2_reset_n <= '1';
+         end if;
+      end if;
+   end process;
+   
+   -- inst3 module is reset with one cycle pulse when EP01_1_aclrn is realeased
+   process(clk, reset_n)
+   begin 
+      if reset_n = '0' then 
+         inst3_reset_n     <= '0';
+         EP01_1_sclrn_reg  <= '0';
+      elsif (clk'event AND clk = '1') then 
+         EP01_1_sclrn_reg <= EP01_1_sclrn;
+         
+         if EP01_1_sclrn = '1' and EP01_1_sclrn_reg = '0' then 
+            inst3_reset_n <= '0';
+         else 
+            inst3_reset_n <= '1';
+         end if;
+      end if;
+   end process;
+   
+   inst4_reset_n <= inst3_reset_n;
+   
+   
+-- ----------------------------------------------------------------------------
+-- Sync registers
+-- ----------------------------------------------------------------------------   
+   sync_reg3 : entity work.sync_reg 
+   port map(clk, reset_n, EP01_sel, EP01_sel_sync);   
+   
    
    
    
@@ -223,26 +297,30 @@ begin
    
       --socket 2 (configured to write data to it FPGA->PC)
       socket2_fifo_data       => open, 
-      socket2_fifo_q          => inst4_fifo_q,
+      socket2_fifo_q          => inst6_fifo_q,
       socket2_fifo_wrusedw    => (others => '0'), 
-      socket2_fifo_rdusedw    => inst4_fifo_rdusedw,
+      socket2_fifo_rdusedw    => inst6_fifo_rdusedw,
       socket2_fifo_wr         => open, 
-      socket2_fifo_rd         => inst4_fifo_rd,
+      socket2_fifo_rd         => inst6_fifo_rd,
    
       --socket 3 (configured to write control data to it FPGA->PC)
       socket3_fifo_data       => open, 
-      socket3_fifo_q          => inst5_fifo_q,
+      socket3_fifo_q          => inst7_fifo_q,
       socket3_fifo_wrusedw    => (others => '0'), 
-      socket3_fifo_rdusedw    => inst5_fifo_rdusedw,
+      socket3_fifo_rdusedw    => inst7_fifo_rdusedw,
       socket3_fifo_wr         => open, 
-      socket3_fifo_rd         => inst5_fifo_rd,
+      socket3_fifo_rd         => inst7_fifo_rd,
       GPIF_busy               => GPIF_busy
       
    );
 -- ----------------------------------------------------------------------------
 --(for 01 endpoint, socket 0)
--- ---------------------------------------------------------------------------- 
-   inst2_EP01_FIFO : entity work.fifo_inst 
+-- There are two FIFO buffers for this endpoint, one of them debending on EP01_sel
+-- ----------------------------------------------------------------------------
+
+inst2_wrreq <= inst1_socket0_fifo_wr when EP01_sel_sync = '0' else '0';
+ 
+   inst2_EP01_0_FIFO : entity work.fifo_inst 
    generic map(
       dev_family     => dev_family,
       wrwidth        => data_width,
@@ -255,7 +333,7 @@ begin
       --input ports 
       reset_n  => inst2_reset_n,
       wrclk    => clk,
-      wrreq    => inst1_socket0_fifo_wr,
+      wrreq    => inst2_wrreq,
       data     => inst1_socket0_fifo_data,
       wrfull   => open,
       wrempty  => open,
@@ -266,19 +344,58 @@ begin
       rdempty  => EP01_0_rempty,
       rdusedw  => EP01_0_rdusedw   
    );
-  
-ext_buff_wr<=inst1_socket0_fifo_wr;  
-
---inst1_socket0_fifo_wrusedw <= (others=>'0') when ext_buff_rdy='1' else 
---                              (others=>'1');
-                              
-inst1_socket0_fifo_wrusedw <= inst2_fifo_wrusedw;
-
-ext_buff_data<=inst1_socket0_fifo_data;
+   
+   inst3_pct_wr <= inst1_socket0_fifo_wr when EP01_sel_sync = '1' else '0';
+   
+   pct_payload_extrct_inst3 : entity work.pct_payload_extrct
+   generic map(
+      data_w			=> data_width,
+      header_size		=> 16, 
+      pct_size			=> 4096
+   ) 
+  port map(
+      --input ports 
+      clk					=> clk,
+      reset_n				=> inst3_reset_n,
+      pct_data				=> inst1_socket0_fifo_data, 
+      pct_wr				=> inst3_pct_wr,
+      pct_payload_data	=> inst3_pct_payload_data,
+      pct_payload_valid	=> inst3_pct_payload_valid,
+      pct_payload_dest	=> open
+   );
+   
+   
+   inst4_EP01_1_FIFO : entity work.fifo_inst 
+   generic map(
+      dev_family     => dev_family,
+      wrwidth        => data_width,
+      wrusedw_witdth => socket0_wrusedw_size,  
+      rdwidth        => EP01_1_rwidth,
+      rdusedw_width  => socket0_1_rdusedw_size,
+      show_ahead     => "ON"
+   )
+   port map(
+      --input ports 
+      reset_n  => inst4_reset_n,
+      wrclk    => clk,
+      wrreq    => inst3_pct_payload_valid,
+      data     => inst3_pct_payload_data,
+      wrfull   => open,
+      wrempty  => open,
+      wrusedw  => inst4_fifo_wrusedw,
+      rdclk    => EP01_1_rdclk,
+      rdreq    => EP01_1_rd,
+      q        => EP01_1_rdata,
+      rdempty  => EP01_1_rempty,
+      rdusedw  => EP01_1_rdusedw   
+   );
+   
+inst1_socket0_fifo_wrusedw <= inst2_fifo_wrusedw when EP01_sel_sync = '0' else 
+                              inst4_fifo_wrusedw;
 -- ----------------------------------------------------------------------------
 --(for 0F endpoint, socket 1)
 -- ---------------------------------------------------------------------------- 
-   inst3_EP0F_FIFO : entity work.fifo_inst 
+   inst5_EP0F_FIFO : entity work.fifo_inst 
    generic map(
       dev_family     => dev_family,
       wrwidth        => data_width,
@@ -289,7 +406,7 @@ ext_buff_data<=inst1_socket0_fifo_data;
    )
   port map(
       --input ports 
-      reset_n  => inst3_reset_n,
+      reset_n  => inst5_reset_n,
       wrclk    => clk,
       wrreq    => inst1_socket1_fifo_wr,
       data     => inst1_socket1_fifo_data,
@@ -305,7 +422,7 @@ ext_buff_data<=inst1_socket0_fifo_data;
 -- ----------------------------------------------------------------------------
 --(for 81 endpoint, socket 2)
 -- ---------------------------------------------------------------------------- 
-   inst4_EP81_FIFO : entity work.fifo_inst 
+   inst6_EP81_FIFO : entity work.fifo_inst 
    generic map(
       dev_family     => dev_family,
       wrwidth        => EP81_wwidth,
@@ -324,15 +441,15 @@ ext_buff_data<=inst1_socket0_fifo_data;
       wrempty  => open,
       wrusedw  => EP81_wrusedw,
       rdclk    => clk,
-      rdreq    => inst4_fifo_rd,
-      q        => inst4_fifo_q,
+      rdreq    => inst6_fifo_rd,
+      q        => inst6_fifo_q,
       rdempty  => open,
-      rdusedw  => inst4_fifo_rdusedw    
+      rdusedw  => inst6_fifo_rdusedw    
         );
 -- ----------------------------------------------------------------------------
 --(for 8F endpoint, socket 3)
 -- ---------------------------------------------------------------------------- 
-   inst5_EP8F_FIFO : entity work.fifo_inst 
+   inst7_EP8F_FIFO : entity work.fifo_inst 
    generic map(
       dev_family     => dev_family,
       wrwidth        => EP8F_wwidth,
@@ -340,7 +457,7 @@ ext_buff_data<=inst1_socket0_fifo_data;
       rdwidth        => data_width,
       rdusedw_width  => socket3_rdusedw_size,
       show_ahead     => "ON"
-  ) 
+   ) 
   port map(
       --input ports 
       reset_n  => EP8F_aclrn,
@@ -351,10 +468,10 @@ ext_buff_data<=inst1_socket0_fifo_data;
       wrempty  => open,
       wrusedw  => open,
       rdclk    => clk,
-      rdreq    => inst5_fifo_rd,
-      q        => inst5_fifo_q,
+      rdreq    => inst7_fifo_rd,
+      q        => inst7_fifo_q,
       rdempty  => open,
-      rdusedw  => inst5_fifo_rdusedw    
+      rdusedw  => inst7_fifo_rdusedw    
    );
 
   
