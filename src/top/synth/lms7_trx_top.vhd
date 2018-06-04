@@ -719,13 +719,13 @@ begin
    LMS_TXNRX1        <= inst0_from_fpgacfg.LMS1_TXNRX1;
    LMS_TXNRX2        <= inst0_from_fpgacfg.LMS1_TXNRX2;
    
-   TX1_2_LB_L        <= inst0_from_fpgacfg.GPIO(0);
-   TX1_2_LB_H        <= not inst0_from_fpgacfg.GPIO(0);
+   TX1_2_LB_L        <= not inst0_from_fpgacfg.GPIO(0);
+   TX1_2_LB_H        <= inst0_from_fpgacfg.GPIO(0);
    TX1_2_LB_AT       <= inst0_from_fpgacfg.GPIO(1);
    TX1_2_LB_SH       <= inst0_from_fpgacfg.GPIO(2);
    
-   TX2_2_LB_L        <= inst0_from_fpgacfg.GPIO(4);
-   TX2_2_LB_H        <= not inst0_from_fpgacfg.GPIO(4);
+   TX2_2_LB_L        <= not inst0_from_fpgacfg.GPIO(4);
+   TX2_2_LB_H        <= inst0_from_fpgacfg.GPIO(4);
    TX2_2_LB_AT       <= inst0_from_fpgacfg.GPIO(5);
    TX2_2_LB_SH       <= inst0_from_fpgacfg.GPIO(6);
    
