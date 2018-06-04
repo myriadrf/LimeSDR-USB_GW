@@ -203,13 +203,13 @@ signal reset_n_si_clk0           : std_logic;
 signal inst0_exfifo_if_rd        : std_logic;
 signal inst0_exfifo_of_d         : std_logic_vector(FX3_DQ_WIDTH-1 downto 0);
 signal inst0_exfifo_of_wr        : std_logic;
-signal inst0_exfifo_rst          : std_logic;
-signal inst0_leds                : std_logic_vector(7 downto 0);
+signal inst0_exfifo_of_rst          : std_logic;
+signal inst0_gpo                : std_logic_vector(7 downto 0);
 signal inst0_lms_ctr_gpio        : std_logic_vector(3 downto 0);
-signal inst0_spi_lms_MISO        : std_logic;
-signal inst0_spi_lms_MOSI        : std_logic;
-signal inst0_spi_lms_SCLK        : std_logic;
-signal inst0_spi_lms_SS_n        : std_logic_vector(4 downto 0);
+signal inst0_spi_0_MISO          : std_logic;
+signal inst0_spi_0_MOSI          : std_logic;
+signal inst0_spi_0_SCLK          : std_logic;
+signal inst0_spi_0_SS_n          : std_logic_vector(4 downto 0);
 signal inst0_spi_1_MOSI          : std_logic;
 signal inst0_spi_1_SCLK          : std_logic;
 signal inst0_spi_1_SS_n          : std_logic_vector(1 downto 0);
@@ -306,27 +306,34 @@ begin
       PERIPHCFG_START_ADDR => PERIPHCFG_START_ADDR
    )
    port map(
-      clk100                     => FX3_PCLK,
+      clk                        => FX3_PCLK,
       reset_n                    => reset_n_fx3_pclk,
+      -- Control data FIFO
       exfifo_if_d                => inst2_EP0F_rdata,
       exfifo_if_rd               => inst0_exfifo_if_rd, 
       exfifo_if_rdempty          => inst2_EP0F_rempty,
       exfifo_of_d                => inst0_exfifo_of_d, 
       exfifo_of_wr               => inst0_exfifo_of_wr, 
       exfifo_of_wrfull           => inst2_EP8F_wfull,
-      exfifo_rst                 => inst0_exfifo_rst, 
-      leds                       => inst0_leds, 
-      lms_ctr_gpio               => inst0_lms_ctr_gpio, 
-      spi_lms_MISO               => FPGA_SPI0_MISO,
-      spi_lms_MOSI               => inst0_spi_lms_MOSI,
-      spi_lms_SCLK               => inst0_spi_lms_SCLK,
-      spi_lms_SS_n               => inst0_spi_lms_SS_n,
+      exfifo_of_rst              => inst0_exfifo_of_rst, 
+      -- SPI 0 
+      spi_0_MISO                 => FPGA_SPI0_MISO,
+      spi_0_MOSI                 => inst0_spi_0_MOSI,
+      spi_0_SCLK                 => inst0_spi_0_SCLK,
+      spi_0_SS_n                 => inst0_spi_0_SS_n,
+      -- SPI 1
       spi_1_MOSI                 => inst0_spi_1_MOSI,
       spi_1_SCLK                 => inst0_spi_1_SCLK,
       spi_1_SS_n                 => inst0_spi_1_SS_n,
-      switch                     => (others=>'0'),
+      -- I2C
       i2c_scl                    => FPGA_I2C_SCL,
       i2c_sda                    => FPGA_I2C_SDA,
+      -- Genral purpose I/O
+      gpi                        => (others=>'0'),
+      gpo                        => inst0_gpo, 
+      -- LMS7002 control 
+      lms_ctr_gpio               => inst0_lms_ctr_gpio,
+      -- Configuration registers
       from_fpgacfg               => inst0_from_fpgacfg,
       to_fpgacfg                 => inst0_to_fpgacfg,
       from_pllcfg                => inst0_from_pllcfg,
@@ -491,7 +498,7 @@ begin
       EP0F_rempty          => inst2_EP0F_rempty,
       --controll endpoint fifo (FPGA->PC)
       EP8F_wclk            => FX3_PCLK,
-      EP8F_aclrn           => not inst0_exfifo_rst,
+      EP8F_aclrn           => not inst0_exfifo_of_rst,
       EP8F_wr              => inst0_exfifo_of_wr,
       EP8F_wdata           => inst0_exfifo_of_d,
       EP8F_wfull           => inst2_EP8F_wfull,
@@ -595,7 +602,7 @@ begin
       --input ports 
       clk      => FX3_PCLK,
       reset_n  => reset_n_fx3_pclk,
-      busy_in  => inst0_leds(0) OR inst2_GPIF_busy OR FX3_CTL8,
+      busy_in  => inst0_gpo(0) OR inst2_GPIF_busy OR FX3_CTL8,
       busy_out => inst5_busy
    );
    
@@ -701,9 +708,9 @@ begin
    FX3_CTL11         <= inst2_faddr(1);
    FX3_CTL12         <= inst2_faddr(0);
    
-   FPGA_SPI0_MOSI    <= inst0_spi_lms_MOSI;
-   FPGA_SPI0_SCLK    <= inst0_spi_lms_SCLK;
-   FPGA_SPI0_LMS_SS  <= inst0_spi_lms_SS_n(0);
+   FPGA_SPI0_MOSI    <= inst0_spi_0_MOSI;
+   FPGA_SPI0_SCLK    <= inst0_spi_0_SCLK;
+   FPGA_SPI0_LMS_SS  <= inst0_spi_0_SS_n(0);
    
    LMS_RESET         <= inst0_from_fpgacfg.LMS1_RESET AND inst0_lms_ctr_gpio(0);
    LMS_TXEN          <= inst0_from_fpgacfg.LMS1_TXEN;
