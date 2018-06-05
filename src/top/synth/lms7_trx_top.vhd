@@ -31,8 +31,9 @@ entity lms7_trx_top is
       -- FX3 (USB3) related
       FX3_PCLK_PERIOD         : integer := 10;
       FX3_DQ_WIDTH            : integer := 32;     -- FX3 Data bus size
-      FX3_EP01_SIZE           : integer := 16384;  -- Stream PC->FPGA, FIFO size in bytes
-      FX3_EP01_RWIDTH         : integer := 32;     -- Stream PC->FPGA, FIFO rd width 
+      FX3_EP01_SIZE           : integer := 4096;   -- Stream PC->FPGA, FIFO size in bytes, same size for FX3_EP01_0 and FX3_EP01_1
+      FX3_EP01_0_RWIDTH       : integer := 128;     -- Stream PC->FPGA, FIFO rd width, FIFO number - 0
+      FX3_EP01_1_RWIDTH       : integer := 32;     -- Stream PC->FPGA, FIFO rd width, FIFO number - 1  
       FX3_EP81_SIZE           : integer := 16384;  -- Stream FPGA->PC, FIFO size in bytes
       FX3_EP81_WWIDTH         : integer := 64;     -- Stream FPGA->PC, FIFO wr width
       FX3_EP0F_SIZE           : integer := 1024;   -- Control PC->FPGA, FIFO size in bytes
@@ -41,7 +42,9 @@ entity lms7_trx_top is
       FX3_EP8F_WWIDTH         : integer := 32;     -- Control FPGA->PC, wr width
       -- 
       TX_N_BUFF               : integer := 4;      -- N 4KB buffers in TX interface (2 OR 4)
-      WFM_INFIFO_SIZE         : integer := 8192;   -- WFM in FIFO buffer size in bytes 
+      TX_PCT_SIZE             : integer := 4096;   -- TX packet size in bytes
+      TX_IN_PCT_HDR_SIZE      : integer := 16;
+      WFM_INFIFO_SIZE         : integer := 4096;   -- WFM in FIFO buffer size in bytes 
       -- Internal configuration memory 
       FPGACFG_START_ADDR      : integer := 0;
       PLLCFG_START_ADDR       : integer := 32;
@@ -200,13 +203,13 @@ signal reset_n_si_clk0           : std_logic;
 signal inst0_exfifo_if_rd        : std_logic;
 signal inst0_exfifo_of_d         : std_logic_vector(FX3_DQ_WIDTH-1 downto 0);
 signal inst0_exfifo_of_wr        : std_logic;
-signal inst0_exfifo_rst          : std_logic;
-signal inst0_leds                : std_logic_vector(7 downto 0);
+signal inst0_exfifo_of_rst          : std_logic;
+signal inst0_gpo                : std_logic_vector(7 downto 0);
 signal inst0_lms_ctr_gpio        : std_logic_vector(3 downto 0);
-signal inst0_spi_lms_MISO        : std_logic;
-signal inst0_spi_lms_MOSI        : std_logic;
-signal inst0_spi_lms_SCLK        : std_logic;
-signal inst0_spi_lms_SS_n        : std_logic_vector(4 downto 0);
+signal inst0_spi_0_MISO          : std_logic;
+signal inst0_spi_0_MOSI          : std_logic;
+signal inst0_spi_0_SCLK          : std_logic;
+signal inst0_spi_0_SS_n          : std_logic_vector(4 downto 0);
 signal inst0_spi_1_MOSI          : std_logic;
 signal inst0_spi_1_SCLK          : std_logic;
 signal inst0_spi_1_SS_n          : std_logic_vector(1 downto 0);
@@ -230,7 +233,8 @@ signal inst1_rxpll_smpl_cmp_en   : std_logic;
 signal inst1_rxpll_smpl_cmp_cnt  : std_logic_vector(15 downto 0);
 
 --inst2
-constant C_EP01_RDUSEDW_WIDTH    : integer := FIFO_WORDS_TO_Nbits(FX3_EP01_SIZE/(FX3_EP01_RWIDTH/8),true);
+constant C_EP01_0_RDUSEDW_WIDTH  : integer := FIFO_WORDS_TO_Nbits(FX3_EP01_SIZE/(FX3_EP01_0_RWIDTH/8),true);
+constant C_EP01_1_RDUSEDW_WIDTH  : integer := FIFO_WORDS_TO_Nbits(FX3_EP01_SIZE/(FX3_EP01_1_RWIDTH/8),true);
 constant C_EP81_WRUSEDW_WIDTH    : integer := FIFO_WORDS_TO_Nbits(FX3_EP81_SIZE/(FX3_EP81_WWIDTH/8),true);
 constant C_EP0F_RDUSEDW_WIDTH    : integer := FIFO_WORDS_TO_Nbits(FX3_EP0F_SIZE/(FX3_EP0F_RWIDTH/8),true);
 constant C_EP8F_WRUSEDW_WIDTH    : integer := FIFO_WORDS_TO_Nbits(FX3_EP8F_SIZE/(FX3_EP8F_WWIDTH/8),true);
@@ -243,6 +247,13 @@ signal inst2_EP0F_rempty         : std_logic;
 signal inst2_EP8F_wfull          : std_logic;
 signal inst2_GPIF_busy           : std_logic;
 signal inst2_faddr               : std_logic_vector(4 downto 0);
+signal inst2_EP01_0_rdata        : std_logic_vector(FX3_EP01_0_RWIDTH-1 downto 0);
+signal inst2_EP01_0_rempty       : std_logic;
+signal inst2_EP01_0_rdusedw      : std_logic_vector(C_EP01_0_RDUSEDW_WIDTH-1 downto 0);
+signal inst2_EP01_1_rdata        : std_logic_vector(FX3_EP01_1_RWIDTH-1 downto 0);
+signal inst2_EP01_1_rempty       : std_logic;
+signal inst2_EP01_1_rdusedw      : std_logic_vector(C_EP01_1_RDUSEDW_WIDTH-1 downto 0);
+
 
 --inst5
 signal inst5_busy : std_logic;
@@ -258,6 +269,12 @@ signal inst6_rx_smpl_cmp_done       : std_logic;
 signal inst6_rx_smpl_cmp_err        : std_logic;
 signal inst6_to_tstcfg_from_rxtx    : t_TO_TSTCFG_FROM_RXTX;
 signal inst6_rx_pct_fifo_aclrn_req  : std_logic;
+signal inst6_tx_in_pct_rdreq        : std_logic;
+signal inst6_tx_in_pct_reset_n_req  : std_logic;
+signal inst6_wfm_in_pct_reset_n_req : std_logic;
+signal inst6_wfm_in_pct_rdreq       : std_logic;
+signal inst6_wfm_phy_clk            : std_logic;
+
 
 
 
@@ -289,27 +306,34 @@ begin
       PERIPHCFG_START_ADDR => PERIPHCFG_START_ADDR
    )
    port map(
-      clk100                     => FX3_PCLK,
+      clk                        => FX3_PCLK,
       reset_n                    => reset_n_fx3_pclk,
+      -- Control data FIFO
       exfifo_if_d                => inst2_EP0F_rdata,
       exfifo_if_rd               => inst0_exfifo_if_rd, 
       exfifo_if_rdempty          => inst2_EP0F_rempty,
       exfifo_of_d                => inst0_exfifo_of_d, 
       exfifo_of_wr               => inst0_exfifo_of_wr, 
       exfifo_of_wrfull           => inst2_EP8F_wfull,
-      exfifo_rst                 => inst0_exfifo_rst, 
-      leds                       => inst0_leds, 
-      lms_ctr_gpio               => inst0_lms_ctr_gpio, 
-      spi_lms_MISO               => FPGA_SPI0_MISO,
-      spi_lms_MOSI               => inst0_spi_lms_MOSI,
-      spi_lms_SCLK               => inst0_spi_lms_SCLK,
-      spi_lms_SS_n               => inst0_spi_lms_SS_n,
+      exfifo_of_rst              => inst0_exfifo_of_rst, 
+      -- SPI 0 
+      spi_0_MISO                 => FPGA_SPI0_MISO,
+      spi_0_MOSI                 => inst0_spi_0_MOSI,
+      spi_0_SCLK                 => inst0_spi_0_SCLK,
+      spi_0_SS_n                 => inst0_spi_0_SS_n,
+      -- SPI 1
       spi_1_MOSI                 => inst0_spi_1_MOSI,
       spi_1_SCLK                 => inst0_spi_1_SCLK,
       spi_1_SS_n                 => inst0_spi_1_SS_n,
-      switch                     => (others=>'0'),
+      -- I2C
       i2c_scl                    => FPGA_I2C_SCL,
       i2c_sda                    => FPGA_I2C_SDA,
+      -- Genral purpose I/O
+      gpi                        => (others=>'0'),
+      gpo                        => inst0_gpo, 
+      -- LMS7002 control 
+      lms_ctr_gpio               => inst0_lms_ctr_gpio,
+      -- Configuration registers
       from_fpgacfg               => inst0_from_fpgacfg,
       to_fpgacfg                 => inst0_to_fpgacfg,
       from_pllcfg                => inst0_from_pllcfg,
@@ -409,8 +433,10 @@ begin
       dev_family           => DEV_FAMILY,
       data_width           => FX3_DQ_WIDTH,
       -- Stream, socket 0, (PC->FPGA) 
-      EP01_rdusedw_width   => C_EP01_RDUSEDW_WIDTH,
-      EP01_rwidth				=> FX3_EP01_RWIDTH,
+      EP01_0_rdusedw_width => C_EP01_0_RDUSEDW_WIDTH,
+      EP01_0_rwidth		   => FX3_EP01_0_RWIDTH,
+      EP01_1_rdusedw_width => C_EP01_1_RDUSEDW_WIDTH,
+      EP01_1_rwidth		   => FX3_EP01_1_RWIDTH,
       -- Stream, socket 2, (FPGA->PC)
       EP81_wrusedw_width	=> C_EP81_WRUSEDW_WIDTH,
       EP81_wwidth				=> FX3_EP81_WWIDTH,
@@ -424,7 +450,7 @@ begin
    port map(
       reset_n              => reset_n_fx3_pclk, --input reset active low
       clk                  => FX3_PCLK,         --input clk 100 Mhz  
-      clk_out              => open,             --output clk 100 Mhz 
+      --clk_out              => open,             --output clk 100 Mhz 
       usb_speed            => '1',              --USB3.0 - 1, USB2.0 - 0
       slcs                 => FX3_CTL0,         --output chip select
       fdata                => FX3_DQ,         
@@ -441,14 +467,22 @@ begin
       pktend               => FX3_CTL7,  --output pkt end 
       EPSWITCH             => open,
       
+      EP01_sel             => inst0_from_fpgacfg.wfm_load,
       --stream endpoint fifo (PC->FPGA) 
-      EP01_rdclk           => '0',
-      EP01_rd              => '0',
-      EP01_rdata           => open,
-      EP01_rempty          => open,
-      ext_buff_rdy         => inst6_tx_in_pct_full,
-      ext_buff_data        => inst2_ext_buff_data,
-      ext_buff_wr          => inst2_ext_buff_wr,
+      EP01_0_rdclk         => inst1_txpll_c1,
+      EP01_0_aclrn         => inst6_tx_in_pct_reset_n_req,
+      EP01_0_rd            => inst6_tx_in_pct_rdreq,
+      EP01_0_rdata         => inst2_EP01_0_rdata,
+      EP01_0_rempty        => inst2_EP01_0_rempty,
+      EP01_0_rdusedw       => inst2_EP01_0_rdusedw,
+     
+      EP01_1_rdclk         => inst1_txpll_c1,
+      EP01_1_aclrn         => inst6_wfm_in_pct_reset_n_req,
+      EP01_1_rd            => inst6_wfm_in_pct_rdreq,
+      EP01_1_rdata         => inst2_EP01_1_rdata,
+      EP01_1_rempty        => inst2_EP01_1_rempty,
+      EP01_1_rdusedw       => inst2_EP01_1_rdusedw, 
+      
       --stream endpoint fifo (FPGA->PC)
       EP81_wclk            => inst1_rxpll_c1,
       EP81_aclrn           => inst6_rx_pct_fifo_aclrn_req,
@@ -458,12 +492,13 @@ begin
       EP81_wrusedw         => inst2_EP81_wrusedw,
       --controll endpoint fifo (PC->FPGA)
       EP0F_rdclk           => FX3_PCLK,
+      EP0F_aclrn           => reset_n,
       EP0F_rd              => inst0_exfifo_if_rd,
       EP0F_rdata           => inst2_EP0F_rdata,
       EP0F_rempty          => inst2_EP0F_rempty,
       --controll endpoint fifo (FPGA->PC)
       EP8F_wclk            => FX3_PCLK,
-      EP8F_aclrn           => not inst0_exfifo_rst,
+      EP8F_aclrn           => not inst0_exfifo_of_rst,
       EP8F_wr              => inst0_exfifo_of_wr,
       EP8F_wdata           => inst0_exfifo_of_d,
       EP8F_wfull           => inst2_EP8F_wfull,
@@ -567,7 +602,7 @@ begin
       --input ports 
       clk      => FX3_PCLK,
       reset_n  => reset_n_fx3_pclk,
-      busy_in  => inst0_leds(0) OR inst2_GPIF_busy OR FX3_CTL8,
+      busy_in  => inst0_gpo(0) OR inst2_GPIF_busy OR FX3_CTL8,
       busy_out => inst5_busy
    );
    
@@ -580,8 +615,11 @@ begin
       DEV_FAMILY              => DEV_FAMILY,
       -- TX parameters
       TX_IQ_WIDTH             => LMS_DIQ_WIDTH,
-      TX_N_BUFF               => TX_N_BUFF,     -- 2,4 valid values
-      TX_IN_PCT_DATA_W        => FX3_DQ_WIDTH,  -- Same as FX3 bus width
+      TX_N_BUFF               => TX_N_BUFF,              -- 2,4 valid values
+      TX_IN_PCT_SIZE          => TX_PCT_SIZE,
+      TX_IN_PCT_HDR_SIZE      => TX_IN_PCT_HDR_SIZE,
+      TX_IN_PCT_DATA_W        => FX3_EP01_0_RWIDTH,      -- 
+      TX_IN_PCT_RDUSEDW_W     => C_EP01_0_RDUSEDW_WIDTH,
       
       -- RX parameters
       RX_IQ_WIDTH             => LMS_DIQ_WIDTH,
@@ -606,23 +644,30 @@ begin
       from_tstcfg             => inst0_from_tstcfg,
       
       -- TX module signals
-      tx_pct_wrclk            => FX3_PCLK,
-      tx_pct_wrclk_reset_n    => reset_n_fx3_pclk,
-      tx_iq_rdclk             => inst1_txpll_c1,
-      tx_iq_rdclk_reset_n     => inst1_txpll_locked,     
+      tx_clk                  => inst1_txpll_c1,
+      tx_clk_reset_n          => inst1_txpll_locked,     
       tx_pct_loss_flg         => inst6_tx_pct_loss_flg,
       tx_txant_en             => inst6_tx_txant_en,  
       --Tx interface data 
       tx_DIQ                  => LMS_DIQ1_D,
       tx_fsync                => LMS_DIQ1_IQSEL,
-      --fifo ports 
-      tx_in_pct_wrreq         => inst2_ext_buff_wr,
-      tx_in_pct_data          => inst2_ext_buff_data,
-      tx_in_pct_full          => inst6_tx_in_pct_full,
+      --fifo ports
+      tx_in_pct_reset_n_req   => inst6_tx_in_pct_reset_n_req,
+      tx_in_pct_rdreq         => inst6_tx_in_pct_rdreq,
+      tx_in_pct_data          => inst2_EP01_0_rdata,
+      tx_in_pct_rdempty       => inst2_EP01_0_rempty,
+      tx_in_pct_rdusedw       => inst2_EP01_0_rdusedw,
       
       -- WFM Player
       wfm_pll_ref_clk         => SI_CLK0,
-      wfm_pll_ref_clk_reset_n => reset_n_si_clk0,     
+      wfm_pll_ref_clk_reset_n => reset_n_si_clk0,    
+      wfm_phy_clk             => inst6_wfm_phy_clk,
+         -- WFM FIFO read ports
+      wfm_in_pct_reset_n_req  => inst6_wfm_in_pct_reset_n_req,
+      wfm_in_pct_rdreq        => inst6_wfm_in_pct_rdreq, 
+      wfm_in_pct_data         => inst2_EP01_1_rdata,
+      wfm_in_pct_rdempty      => inst2_EP01_1_rempty,
+      wfm_in_pct_rdusedw      => inst2_EP01_1_rdusedw,
 
       --DDR2 external memory signals
       wfm_mem_odt             => DDR2_1_ODT,
@@ -663,9 +708,9 @@ begin
    FX3_CTL11         <= inst2_faddr(1);
    FX3_CTL12         <= inst2_faddr(0);
    
-   FPGA_SPI0_MOSI    <= inst0_spi_lms_MOSI;
-   FPGA_SPI0_SCLK    <= inst0_spi_lms_SCLK;
-   FPGA_SPI0_LMS_SS  <= inst0_spi_lms_SS_n(0);
+   FPGA_SPI0_MOSI    <= inst0_spi_0_MOSI;
+   FPGA_SPI0_SCLK    <= inst0_spi_0_SCLK;
+   FPGA_SPI0_LMS_SS  <= inst0_spi_0_SS_n(0);
    
    LMS_RESET         <= inst0_from_fpgacfg.LMS1_RESET AND inst0_lms_ctr_gpio(0);
    LMS_TXEN          <= inst0_from_fpgacfg.LMS1_TXEN;

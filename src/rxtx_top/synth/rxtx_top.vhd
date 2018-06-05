@@ -25,17 +25,22 @@ entity rxtx_top is
       -- TX parameters
       TX_IQ_WIDTH             : integer := 12;
       TX_N_BUFF               : integer := 4; -- 2,4 valid values
-      TX_IN_PCT_DATA_W        : integer := 32;
+      TX_IN_PCT_SIZE          : integer := 4096; -- TX packet size in bytes
+      TX_IN_PCT_HDR_SIZE      : integer := 16;
+      TX_IN_PCT_DATA_W        : integer := 128;
+      TX_IN_PCT_RDUSEDW_W     : integer := 11;
       TX_OUT_PCT_DATA_W       : integer := 64;
       
       -- RX parameters
       RX_IQ_WIDTH             : integer := 12;
       RX_INVERT_INPUT_CLOCKS  : string := "OFF";
       RX_SMPL_BUFF_RDUSEDW_W  : integer := 11; --bus width in bits 
-      RX_PCT_BUFF_WRUSEDW_W   : integer := 12;  --bus width in bits 
+      RX_PCT_BUFF_WRUSEDW_W   : integer := 12; --bus width in bits 
       
       -- WFM
       WFM_LIMIT               : integer := 4096;
+      WFM_IN_PCT_DATA_W       : integer := 32;
+      WFM_IN_PCT_RDUSEDW_W    : integer := 11;
       --DDR2 controller parameters
       WFM_CNTRL_RATE          : integer := 1; --1 - full rate, 2 - half rate
       WFM_CNTRL_BUS_SIZE      : integer := 16;
@@ -53,23 +58,31 @@ entity rxtx_top is
       to_tstcfg_from_rxtx     : out    t_TO_TSTCFG_FROM_RXTX;
       from_tstcfg             : in     t_FROM_TSTCFG;
       -- TX path
-      tx_pct_wrclk            : in     std_logic;
-      tx_pct_wrclk_reset_n    : in     std_logic;
-      tx_iq_rdclk             : in     std_logic;
-      tx_iq_rdclk_reset_n     : in     std_logic;     
+      tx_clk                  : in     std_logic;
+      tx_clk_reset_n          : in     std_logic;    
       tx_pct_loss_flg         : out    std_logic;
       tx_txant_en             : out    std_logic;  
          -- Tx interface data 
       tx_DIQ                  : out    std_logic_vector(TX_IQ_WIDTH-1 downto 0);
       tx_fsync                : out    std_logic;
-         -- TX FIFO write ports 
-      tx_in_pct_wrreq         : in     std_logic;
+         -- TX FIFO read ports
+      tx_in_pct_reset_n_req   : out    std_logic;
+      tx_in_pct_rdreq         : out    std_logic;
       tx_in_pct_data          : in     std_logic_vector(TX_IN_PCT_DATA_W-1 downto 0);
-      tx_in_pct_full          : out    std_logic;
+      tx_in_pct_rdempty       : in     std_logic;
+      tx_in_pct_rdusedw       : in     std_logic_vector(TX_IN_PCT_RDUSEDW_W-1 downto 0);
       
       -- WFM Player
       wfm_pll_ref_clk         : in     std_logic;
-      wfm_pll_ref_clk_reset_n : in     std_logic;   
+      wfm_pll_ref_clk_reset_n : in     std_logic;
+      wfm_phy_clk             : out    std_logic;
+         -- WFM FIFO read ports
+      wfm_in_pct_reset_n_req  : out    std_logic;
+      wfm_in_pct_rdreq        : out    std_logic;
+      wfm_in_pct_data         : in     std_logic_vector(WFM_IN_PCT_DATA_W-1 downto 0);
+      wfm_in_pct_rdempty      : in     std_logic;
+      wfm_in_pct_rdusedw      : in     std_logic_vector(WFM_IN_PCT_RDUSEDW_W-1 downto 0);
+      
          --DDR2 external memory signals
       wfm_mem_odt             : out    std_logic_vector (0 DOWNTO 0);
       wfm_mem_cs_n            : out    std_logic_vector (0 DOWNTO 0);
@@ -111,16 +124,21 @@ architecture arch of rxtx_top is
      
 --inst0
 signal inst0_reset_n             : std_logic;
+signal inst0_fifo_wrreq          : std_logic;
+signal inst0_fifo_data           : std_logic_vector(TX_IN_PCT_DATA_W-1 downto 0);
+
 signal inst0_tx_fifo_wr          : std_logic;
 signal inst0_tx_fifo_data        : std_logic_vector(TX_IN_PCT_DATA_W-1 downto 0);
-signal inst0_wfm_data            : std_logic_vector(TX_IN_PCT_DATA_W-1 downto 0);
+signal inst0_wfm_data            : std_logic_vector(31 downto 0);
 signal inst0_wfm_fifo_wr         : std_logic;
 
 --inst1
+signal inst1_reset_n             : std_logic;
 signal inst1_DIQ_h               : std_logic_vector(TX_IQ_WIDTH downto 0);
 signal inst1_DIQ_l               : std_logic_vector(TX_IQ_WIDTH downto 0);
 signal inst1_in_pct_full         : std_logic;
 signal inst1_pct_loss_flg        : std_logic;
+signal inst1_in_pct_rdy          : std_logic;
 
 --inst2
 signal inst2_wfm_infifo_wrusedw  : std_logic_vector(WFM_WFM_INFIFO_SIZE-1 downto 0);
@@ -143,59 +161,42 @@ signal inst6_pulse               : std_logic;
 
 begin
    
-   -- Reset signal for inst0 with synchronous removal to tx_pct_wrclk clock domain, 
+   -- Reset signal for inst0 with synchronous removal to tx_pct_clk clock domain, 
    sync_reg0 : entity work.sync_reg 
-   port map(tx_pct_wrclk, from_fpgacfg.rx_en, '1', inst0_reset_n);
+   port map(tx_clk, from_fpgacfg.rx_en, '1', inst0_reset_n);
    
-   -- Reset signal for inst0 with synchronous removal to tx_pct_wrclk clock domain, 
-   sync_reg1 : entity work.sync_reg 
-   port map(tx_iq_rdclk, inst0_reset_n, '1', inst6_reset_n);
-   
-   inst5_reset_n <= inst0_reset_n;
+   tx_in_pct_reset_n_req   <= inst0_reset_n;   
+   inst1_reset_n           <= inst0_reset_n;
+   inst6_reset_n           <= inst0_reset_n;  
+   inst5_reset_n           <= inst0_reset_n;
    
    -- Reset signal for inst0 with synchronous removal to rx_clk clock domain, 
-   sync_reg2 : entity work.sync_reg 
+   sync_reg1 : entity work.sync_reg 
    port map(rx_clk, inst0_reset_n, '1', rx_pct_fifo_aclrn_req);
-   
-   
-
--- ----------------------------------------------------------------------------
--- Stream switch instance.
--- Used to switch incoming packets between WFM and TX 
--- ----------------------------------------------------------------------------
-   stream_switch_inst0 : entity work.stream_switch
-   generic map(
-      data_width              => TX_IN_PCT_DATA_W,
-      wfm_fifo_wrusedw_size   => WFM_WFM_INFIFO_SIZE,
-      wfm_limit               => 4096
-      )
-   port map(
-      clk               => tx_pct_wrclk,
-      reset_n           => tx_pct_wrclk_reset_n,
-      data_in           => tx_in_pct_data,
-      data_in_valid     => tx_in_pct_wrreq,
-      data_in_rdy       => tx_in_pct_full,
-      
-      dest_sel          => from_fpgacfg.wfm_load,
-      
-      tx_fifo_rdy       => not inst1_in_pct_full,
-      tx_fifo_wr        => inst0_tx_fifo_wr,
-      tx_fifo_data      => inst0_tx_fifo_data,
-      
-      wfm_rdy           => inst2_wfm_rdy,
-      wfm_fifo_wr       => inst0_wfm_fifo_wr,
-      wfm_data          => inst0_wfm_data,
-      wfm_fifo_wrusedw  => inst2_wfm_infifo_wrusedw 
-   );
-   
+     
 -- ----------------------------------------------------------------------------
 -- tx_path_top instance.
 -- 
--- ----------------------------------------------------------------------------   
+-- ----------------------------------------------------------------------------
+   process(tx_clk, inst1_reset_n)
+      begin
+      if inst1_reset_n = '0' then 
+         inst1_in_pct_rdy <= '0';
+      elsif (tx_clk'event AND tx_clk='1') then 
+         if unsigned(tx_in_pct_rdusedw) < (TX_IN_PCT_SIZE*8)/TX_IN_PCT_DATA_W then 
+            inst1_in_pct_rdy <= '0';
+         else 
+            inst1_in_pct_rdy <= '1';
+         end if;
+      end if;
+   end process;
+
    tx_path_top_inst1 : entity work.tx_path_top
    generic map( 
       dev_family           => DEV_FAMILY,
       iq_width             => TX_IQ_WIDTH,
+      TX_IN_PCT_SIZE       => TX_IN_PCT_SIZE,
+      TX_IN_PCT_HDR_SIZE   => TX_IN_PCT_HDR_SIZE,
       pct_size_w           => 16,
       n_buff               => TX_N_BUFF,
       in_pct_data_w        => TX_IN_PCT_DATA_W,
@@ -203,10 +204,10 @@ begin
       decomp_fifo_size     => 9
       )
    port map(
-      pct_wrclk            => tx_pct_wrclk,
-      iq_rdclk             => tx_iq_rdclk,
-      reset_n              => inst0_reset_n,
-      en                   => inst0_reset_n,
+      pct_wrclk            => tx_clk,
+      iq_rdclk             => tx_clk,
+      reset_n              => inst1_reset_n,
+      en                   => inst1_reset_n,
       
       rx_sample_clk        => rx_clk,
       rx_sample_nr         => inst5_smpl_nr_cnt,
@@ -238,9 +239,9 @@ begin
       DIQ_h                => inst1_DIQ_h,
       DIQ_l                => inst1_DIQ_l,
       --fifo ports 
-      in_pct_wrreq         => inst0_tx_fifo_wr,
-      in_pct_data          => inst0_tx_fifo_data,
-      in_pct_full          => inst1_in_pct_full
+      in_pct_rdreq         => tx_in_pct_rdreq,
+      in_pct_data          => tx_in_pct_data,
+      in_pct_rdy           => inst1_in_pct_rdy
       );
       
       
@@ -267,51 +268,53 @@ begin
    )
    port map(
       --input ports
-      reset_n              => wfm_pll_ref_clk_reset_n,
-      ddr2_pll_ref_clk     => wfm_pll_ref_clk,
+      reset_n                 => wfm_pll_ref_clk_reset_n,
+      ddr2_pll_ref_clk        => wfm_pll_ref_clk,
+         
+      wcmd_clk                => tx_clk,        
+      rcmd_clk                => inst2_phy_clk,
+         
+      wfm_load                => from_fpgacfg.wfm_load,
+      wfm_play_stop           => from_fpgacfg.wfm_play, -- 1- play, 0- stop
       
-      wcmd_clk             => tx_pct_wrclk,        
-      rcmd_clk             => inst2_phy_clk,
+      wfm_infifo_reset_n_req  => wfm_in_pct_reset_n_req,
+      wfm_infifo_data         => wfm_in_pct_data,
+      wfm_infifo_rdreq        => wfm_in_pct_rdreq,
+      wfm_infifo_rdempty      => wfm_in_pct_rdempty,
+      wfm_rdy                 => inst2_wfm_rdy,
+      wfm_infifo_rdusedw      => wfm_in_pct_rdusedw,
       
-      wfm_load             => from_fpgacfg.wfm_load,
-      wfm_play_stop        => from_fpgacfg.wfm_play, -- 1- play, 0- stop
+      sample_width            => from_fpgacfg.wfm_smpl_width, -- "00"-16bit, "01"-14bit, "10"-12bit
+      fr_start                => '0',
+      ch_en                   => from_fpgacfg.wfm_ch_en(1 downto 0),
+      mimo_en                 => '1',
       
-      wfm_data             => inst0_wfm_data,
-      wfm_wr               => inst0_wfm_fifo_wr,
-      wfm_rdy              => inst2_wfm_rdy,
-      wfm_infifo_wrusedw   => inst2_wfm_infifo_wrusedw,
-      
-      sample_width         => from_fpgacfg.wfm_smpl_width, -- "00"-16bit, "01"-14bit, "10"-12bit
-      fr_start             => '0',
-      ch_en                => from_fpgacfg.wfm_ch_en(1 downto 0),
-      mimo_en              => '1',
-      
-      iq_clk               => tx_iq_rdclk,
-      dd_iq_h              => inst2_dd_iq_h,
-      dd_iq_l              => inst2_dd_iq_l,
+      iq_clk                  => tx_clk,
+      dd_iq_h                 => inst2_dd_iq_h,
+      dd_iq_l                 => inst2_dd_iq_l,
       
       --DDR2 external memory signals
-      mem_odt              => wfm_mem_odt,
-      mem_cs_n             => wfm_mem_cs_n,
-      mem_cke              => wfm_mem_cke,
-      mem_addr             => wfm_mem_addr,
-      mem_ba               => wfm_mem_ba,
-      mem_ras_n            => wfm_mem_ras_n,
-      mem_cas_n            => wfm_mem_cas_n,
-      mem_we_n             => wfm_mem_we_n,
-      mem_dm               => wfm_mem_dm,
-      phy_clk              => inst2_phy_clk,
-      mem_clk              => wfm_mem_clk,
-      mem_clk_n            => wfm_mem_clk_n,
-      mem_dq               => wfm_mem_dq,
-      mem_dqs              => wfm_mem_dqs,
-      begin_test           => from_tstcfg.TEST_EN(4),
-      insert_error         => from_tstcfg.TEST_FRC_ERR(4),
-      pnf_per_bit          => open,
-      pnf_per_bit_persist  => to_tstcfg_from_rxtx.DDR2_1_pnf_per_bit,
-      pass                 => to_tstcfg_from_rxtx.DDR2_1_STATUS(1),
-      fail                 => to_tstcfg_from_rxtx.DDR2_1_STATUS(2),
-      test_complete        => to_tstcfg_from_rxtx.DDR2_1_STATUS(0)
+      mem_odt                 => wfm_mem_odt,
+      mem_cs_n                => wfm_mem_cs_n,
+      mem_cke                 => wfm_mem_cke,
+      mem_addr                => wfm_mem_addr,
+      mem_ba                  => wfm_mem_ba,
+      mem_ras_n               => wfm_mem_ras_n,
+      mem_cas_n               => wfm_mem_cas_n,
+      mem_we_n                => wfm_mem_we_n,
+      mem_dm                  => wfm_mem_dm,
+      phy_clk                 => inst2_phy_clk,
+      mem_clk                 => wfm_mem_clk,
+      mem_clk_n               => wfm_mem_clk_n,
+      mem_dq                  => wfm_mem_dq,
+      mem_dqs                 => wfm_mem_dqs,
+      begin_test              => from_tstcfg.TEST_EN(4),
+      insert_error            => from_tstcfg.TEST_FRC_ERR(4),
+      pnf_per_bit             => open,
+      pnf_per_bit_persist     => to_tstcfg_from_rxtx.DDR2_1_pnf_per_bit,
+      pass                    => to_tstcfg_from_rxtx.DDR2_1_STATUS(1),
+      fail                    => to_tstcfg_from_rxtx.DDR2_1_STATUS(2),
+      test_complete           => to_tstcfg_from_rxtx.DDR2_1_STATUS(0)
    );
       
 -- ----------------------------------------------------------------------------
@@ -323,8 +326,8 @@ begin
       diq_width   => TX_IQ_WIDTH
    )
    port map(
-      clk               => tx_iq_rdclk,
-      reset_n           => tx_iq_rdclk_reset_n,
+      clk               => tx_clk,
+      reset_n           => tx_clk_reset_n,
       test_ptrn_en      => from_fpgacfg.tx_ptrn_en,   -- Enables test pattern
       test_ptrn_fidm    => '0',   -- External Frame ID mode. Frame start at fsync = 0, when 0. Frame start at fsync = 1, when 1.
       test_ptrn_I       => from_tstcfg.TX_TST_I,
@@ -351,8 +354,8 @@ begin
    )
    port map(
       --input ports 
-      clk            => tx_iq_rdclk,
-      reset_n        => tx_iq_rdclk_reset_n,
+      clk            => tx_clk,
+      reset_n        => tx_clk_reset_n,
       data_in_h      => inst3_diq_h,
       data_in_l      => inst3_diq_l,
       --output ports 
@@ -413,11 +416,18 @@ begin
 -- ----------------------------------------------------------------------------   
    pulse_gen_inst6 : entity work.pulse_gen
       port map(
-      clk         => tx_iq_rdclk,
+      clk         => tx_clk,
       reset_n     => inst6_reset_n,
       wait_cycles => from_fpgacfg.sync_pulse_period,
       pulse       => inst6_pulse
    );
+   
+   
+-- ----------------------------------------------------------------------------
+-- Output ports 
+-- ---------------------------------------------------------------------------- 
+   wfm_phy_clk             <= inst2_phy_clk;
+  
    
   
 end arch;   

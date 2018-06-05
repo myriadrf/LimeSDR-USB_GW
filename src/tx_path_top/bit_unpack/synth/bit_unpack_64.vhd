@@ -91,6 +91,10 @@ port map (
 --		data_out_valid	=> inst1_data_out_valid
 --);
 
+inst1_data56_out     <= (others=> '0');
+inst1_data_out_valid <= '0';
+
+
 unpack_64_to_64_inst2 : entity work.unpack_64_to_64 
 port map (
 	   clk       		=> clk,
