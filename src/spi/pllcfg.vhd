@@ -10,6 +10,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.mem_package.all;
+use work.pllcfg_pkg.all;
 
 -- ----------------------------------------------------------------------------
 -- Entity declaration
@@ -18,100 +19,31 @@ entity pllcfg is
    port (
       -- Address and location of this module
       -- Will be hard wired at the top level
-      maddress : in std_logic_vector(9 downto 0);
-      mimo_en  : in std_logic; -- MIMO enable, from TOP SPI (always 1)
+      maddress       : in std_logic_vector(9 downto 0);
+      mimo_en        : in std_logic; -- MIMO enable, from TOP SPI (always 1)
       
       -- Serial port A IOs
-      sdinA    : in std_logic; -- Data in
-      sclkA    : in std_logic; -- Data clock
-      senA     : in std_logic; -- Enable signal (active low)
-      sdoutA   : out std_logic; -- Data out
+      sdinA          : in std_logic; -- Data in
+      sclkA          : in std_logic; -- Data clock
+      senA           : in std_logic; -- Enable signal (active low)
+      sdoutA         : out std_logic; -- Data out
       
-      oenA     : out std_logic; -- NC
+      oenA           : out std_logic; -- NC
       
       -- Serial port B IOs
-      sdinB    : in std_logic; -- Data in
-      sclkB    : in std_logic; -- Data clock
-      senB     : in std_logic;-- Enable signal (active low)
-      sdoutB   : out std_logic; -- Data out
+      sdinB          : in std_logic; -- Data in
+      sclkB          : in std_logic; -- Data clock
+      senB           : in std_logic;-- Enable signal (active low)
+      sdoutB         : out std_logic; -- Data out
       
-      oenB     : out std_logic; -- NC
-      
+      oenB           : out std_logic; -- NC
       
       -- Signals coming from the pins or top level serial interface
-      lreset   : in std_logic; -- Logic reset signal, resets logic cells only  (use only one reset)
-      mreset   : in std_logic; -- Memory reset signal, resets configuration memory only (use only one reset)
+      lreset         : in std_logic; -- Logic reset signal, resets logic cells only  (use only one reset)
+      mreset         : in std_logic; -- Memory reset signal, resets configuration memory only (use only one reset)
       
-      
-      -- Status Inputs
-      pllcfg_busy    : in std_logic;
-      pllcfg_done    : in std_logic;
-      phcfg_done     : in std_logic;
-      phcfg_error    : in std_logic;
-      
-      
-      -- PLL Lock flags
-      pll_lock       : in std_logic_vector(15 downto 0);
-      
-      -- PLL Configuratioin Related
-      phcfg_start    : out std_logic; --
-      pllcfg_start   : out std_logic; --
-      pllrst_start   : out std_logic; --
-      phcfg_updn     : out std_logic; --
-      cnt_ind        : out std_logic_vector(4 downto 0); --
-      pll_ind        : out std_logic_vector(4 downto 0); --
-      phcfg_mode     : out std_logic;
-      phcfg_tst      : out std_logic;
-      
-      cnt_phase      : out std_logic_vector(15 downto 0); --
-      --
-      --pllcfg_bs: out std_logic_vector(3 downto 0); -- (for Cyclone V)
-      chp_curr       : out std_logic_vector(2 downto 0); --
-      pllcfg_vcodiv  : out std_logic; --
-      pllcfg_lf_res  : out std_logic_vector(4 downto 0); -- (for Cyclone IV)
-      pllcfg_lf_cap  : out std_logic_vector(1 downto 0); -- (for cyclone IV)
-      
-      m_odddiv       : out std_logic; --
-      m_byp          : out std_logic; --
-      n_odddiv       : out std_logic; --
-      n_byp          : out std_logic; --
-      
-      c0_odddiv      : out std_logic; --
-      c0_byp         : out std_logic; --
-      c1_odddiv      : out std_logic; --
-      c1_byp         : out std_logic; --
-      c2_odddiv      : out std_logic; --
-      c2_byp         : out std_logic; --
-      c3_odddiv      : out std_logic; --
-      c3_byp         : out std_logic; --
-      c4_odddiv      : out std_logic; --
-      c4_byp         : out std_logic; --
-      --c5_odddiv    : out std_logic; --
-      --c5_byp       : out std_logic; --
-      --c6_odddiv    : out std_logic; --
-      --c6_byp       : out std_logic; --
-      --c7_odddiv    : out std_logic; --
-      --c7_byp       : out std_logic; --
-      --c8_odddiv    : out std_logic; --
-      --c8_byp       : out std_logic; --
-      --c9_odddiv    : out std_logic; --
-      --c9_byp       : out std_logic; --
-      --
-      n_cnt          : out std_logic_vector(15 downto 0); -- 
-      m_cnt          : out std_logic_vector(15 downto 0); -- 
-      --m_frac       : out std_logic_vector(31 downto 0); -- 
-      c0_cnt         : out std_logic_vector(15 downto 0); -- 
-      c1_cnt         : out std_logic_vector(15 downto 0); -- 
-      c2_cnt         : out std_logic_vector(15 downto 0); -- 
-      c3_cnt         : out std_logic_vector(15 downto 0); -- 
-      c4_cnt         : out std_logic_vector(15 downto 0); -- 
-      --c5_cnt       : out std_logic_vector(15 downto 0); -- 
-      --c6_cnt       : out std_logic_vector(15 downto 0); -- 
-      --c7_cnt       : out std_logic_vector(15 downto 0); -- 
-      --c8_cnt       : out std_logic_vector(15 downto 0); -- 
-      --c9_cnt       : out std_logic_vector(15 downto 0) --
-      auto_phcfg_smpls: out std_logic_vector(15 downto 0);
-      auto_phcfg_step   : out std_logic_vector(15 downto 0)
+      to_pllcfg      : in t_TO_PLLCFG;
+      from_pllcfg    : out t_FROM_PLLCFG
 
 );
 end pllcfg;
@@ -357,8 +289,8 @@ begin
          for_lop : for i in 4 to 15 loop
             mem(1)(i) <= '0';  
          end loop;
-         mem(1)(3 downto 0)<= phcfg_error & phcfg_done & pllcfg_busy & pllcfg_done;
-         mem(2)  <= pll_lock;
+         mem(1)(3 downto 0)<= to_pllcfg.phcfg_error & to_pllcfg.phcfg_done & to_pllcfg.pllcfg_busy & to_pllcfg.pllcfg_done;
+         mem(2)  <= to_pllcfg.pll_lock;
       end if;
    end if;
 end process ram;
@@ -366,66 +298,66 @@ end process ram;
 -- ---------------------------------------------------------------------------------------------
 -- Decoding logic, output assignments
 -- ---------------------------------------------------------------------------------------------
-phcfg_tst      <= mem(3)(15);   
-phcfg_mode     <= mem(3)(14);
-phcfg_updn     <= mem(3)(13);
-cnt_ind        <= mem(3)(12 downto 8);
-pll_ind        <= mem(3)(7 downto 3);
-pllrst_start   <= mem(3)(2);
-phcfg_start    <= mem(3)(1);
-pllcfg_start   <= mem(3)(0);
+from_pllcfg.phcfg_tst         <= mem(3)(15);   
+from_pllcfg.phcfg_mode        <= mem(3)(14);
+from_pllcfg.phcfg_updn        <= mem(3)(13);
+from_pllcfg.cnt_ind           <= mem(3)(12 downto 8);
+from_pllcfg.pll_ind           <= mem(3)(7 downto 3);
+from_pllcfg.pllrst_start      <= mem(3)(2);
+from_pllcfg.phcfg_start       <= mem(3)(1);
+from_pllcfg.pllcfg_start      <= mem(3)(0);
+   
+from_pllcfg.cnt_phase         <= mem(4);
+-- 
+--from_pllcfg.pllcfg_bs       <= mem(5)(14 downto 11);
+from_pllcfg.chp_curr          <= mem(5)(10 downto 8);
+from_pllcfg.pllcfg_vcodiv     <= mem(5)(7);
+from_pllcfg.pllcfg_lf_res     <= mem(5)(6 downto 2);
+from_pllcfg.pllcfg_lf_cap     <= mem(5)(1 downto 0);
+-- 
+from_pllcfg.m_odddiv          <= mem(6)(3);
+from_pllcfg.m_byp             <= mem(6)(2);
+from_pllcfg.n_odddiv          <= mem(6)(1);
+from_pllcfg.n_byp             <= mem(6)(0);
 
-cnt_phase      <= mem(4);
+
+from_pllcfg.c0_byp            <= mem(7)(0);
+from_pllcfg.c0_odddiv         <= mem(7)(1);
+from_pllcfg.c1_byp            <= mem(7)(2);
+from_pllcfg.c1_odddiv         <= mem(7)(3);
+from_pllcfg.c2_byp            <= mem(7)(4);
+from_pllcfg.c2_odddiv         <= mem(7)(5);
+from_pllcfg.c3_byp            <= mem(7)(6);
+from_pllcfg.c3_odddiv         <= mem(7)(7);
+from_pllcfg.c4_byp            <= mem(7)(8);
+from_pllcfg.c4_odddiv         <= mem(7)(9);
+--from_pllcfg.c5_byp          <= mem(7)(10);
+--from_pllcfg.c5_odddiv       <= mem(7)(11);
+--from_pllcfg.c6_byp          <= mem(7)(12);
+--from_pllcfg.c6_odddiv       <= mem(7)(13);
+--from_pllcfg.c7_byp          <= mem(7)(14);
+--from_pllcfg.c7_odddiv       <= mem(7)(15);
+--from_pllcfg.c8_byp          <= mem(8)(0);
+--from_pllcfg.c8_odddiv       <= mem(8)(1);
+--from_pllcfg.c9_byp          <= mem(8)(2);
+--from_pllcfg.c9_odddiv       <= mem(8)(3);
 --
---pllcfg_bs    <= mem(5)(14 downto 11);
-chp_curr       <= mem(5)(10 downto 8);
-pllcfg_vcodiv  <= mem(5)(7);
-pllcfg_lf_res  <= mem(5)(6 downto 2);
-pllcfg_lf_cap  <= mem(5)(1 downto 0);
---
-m_odddiv       <= mem(6)(3);
-m_byp          <= mem(6)(2);
-n_odddiv       <= mem(6)(1);
-n_byp          <= mem(6)(0);
+from_pllcfg.n_cnt             <= mem(10);
+from_pllcfg.m_cnt             <= mem(11);
+--from_pllcfg.m_frac          <= mem(13) & mem(12);
+from_pllcfg.c0_cnt            <= mem(14); 
+from_pllcfg.c1_cnt            <= mem(15); 
+from_pllcfg.c2_cnt            <= mem(16);
+from_pllcfg.c3_cnt            <= mem(17);
+from_pllcfg.c4_cnt            <= mem(18);
+--from_pllcfg.c5_cnt          <= mem(19);
+--from_pllcfg.c6_cnt          <= mem(20);
+--from_pllcfg.c7_cnt          <= mem(21);
+--from_pllcfg.c8_cnt          <= mem(22);
+--from_pllcfg.c9_cnt          <= mem(23);
 
-
-c0_byp         <= mem(7)(0);
-c0_odddiv      <= mem(7)(1);
-c1_byp         <= mem(7)(2);
-c1_odddiv      <= mem(7)(3);
-c2_byp         <= mem(7)(4);
-c2_odddiv      <= mem(7)(5);
-c3_byp         <= mem(7)(6);
-c3_odddiv      <= mem(7)(7);
-c4_byp         <= mem(7)(8);
-c4_odddiv      <= mem(7)(9);
---c5_byp       <= mem(7)(10);
---c5_odddiv    <= mem(7)(11);
---c6_byp       <= mem(7)(12);
---c6_odddiv    <= mem(7)(13);
---c7_byp       <= mem(7)(14);
---c7_odddiv    <= mem(7)(15);
---c8_byp       <= mem(8)(0);
---c8_odddiv    <= mem(8)(1);
---c9_byp       <= mem(8)(2);
---c9_odddiv    <= mem(8)(3);
---
-n_cnt          <= mem(10);
-m_cnt          <= mem(11);
---m_frac       <= mem(13) & mem(12);
-c0_cnt         <= mem(14); 
-c1_cnt         <= mem(15); 
-c2_cnt         <= mem(16);
-c3_cnt         <= mem(17);
-c4_cnt         <= mem(18);
---c5_cnt       <= mem(19);
---c6_cnt       <= mem(20);
---c7_cnt       <= mem(21);
---c8_cnt       <= mem(22);
---c9_cnt       <= mem(23);
-
-auto_phcfg_smpls <= mem(30);
-auto_phcfg_step  <= mem(31);
+from_pllcfg.auto_phcfg_smpls  <= mem(30);
+from_pllcfg.auto_phcfg_step   <= mem(31);
 
 
 end pllcfg_arch;

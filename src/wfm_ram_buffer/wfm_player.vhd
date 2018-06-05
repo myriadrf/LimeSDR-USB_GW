@@ -14,40 +14,42 @@ use ieee.numeric_std.all;
 -- ----------------------------------------------------------------------------
 entity wfm_player is
 	generic(
-		dev_family				: string  := "Cyclone IV E"; 
-		wfm_infifo_size		: integer := 11;
-		wfm_outfifo_size		: integer := 11;
-		data_width				: integer := 32;
-		iq_width					: integer := 12;
-		addr_size				: integer := 24;
-		cntrl_bus_size			: integer := 16;
-		lcl_burst_length		: integer := 2;
-		cntrl_rate				: integer := 1 --1 - full rate, 2 - half rate
-);
-  port (
-		ddr2_phy_clk			: in std_logic;
-		ddr2_phy_reset_n		: in std_logic;
+		dev_family				   : string  := "Cyclone IV E"; 
+		wfm_infifo_size		   : integer := 11;
+		wfm_outfifo_size		   : integer := 11;
+		data_width				   : integer := 32;
+		iq_width					   : integer := 12;
+		addr_size				   : integer := 24;
+		cntrl_bus_size			   : integer := 16;
+		lcl_burst_length		   : integer := 2;
+		cntrl_rate				   : integer := 1 --1 - full rate, 2 - half rate
+); 
+  port ( 
+		ddr2_phy_clk			   : in std_logic;
+		ddr2_phy_reset_n		   : in std_logic;
+   
+		wfm_load					   : in std_logic;
+		wfm_play_stop			   : in std_logic; -- 1- play, 0- stop
 
-		wfm_load					: in std_logic;
-		wfm_play_stop			: in std_logic; -- 1- play, 0- stop
-
-		wfm_data					: in std_logic_vector(data_width-1 downto 0);
-		wfm_wr					: in std_logic;
-		wfm_infifo_wrusedw 	: out std_logic_vector(wfm_infifo_size-1 downto 0);
-
-		wcmd_clk					: in std_logic;
-		wcmd_reset_n			: in  std_logic;
-		wcmd_rdy					: in std_logic;
-		wcmd_addr				: out std_logic_vector(addr_size-1 downto 0);
-		wcmd_wr					: out std_logic;
-		wcmd_brst_en			: out std_logic; --1- writes in burst, 0- single write
-		wcmd_data				: out std_logic_vector(cntrl_bus_size*2*cntrl_rate-1 downto 0);
-		rcmd_clk					: in std_logic;
-		rcmd_reset_n			: in std_logic;
-		rcmd_rdy					: in std_logic;
-		rcmd_addr				: out std_logic_vector(addr_size-1 downto 0);
-		rcmd_wr					: out std_logic;
-		rcmd_brst_en			: out std_logic --1- reads in burst, 0- single read
+      wfm_infifo_reset_n_req  : out std_logic;
+		wfm_infifo_data	      : in std_logic_vector(data_width-1 downto 0);
+		wfm_infifo_rdreq		   : out std_logic;
+      wfm_infifo_rdempty      : in std_logic;
+		wfm_infifo_rdusedw 	   : in std_logic_vector(wfm_infifo_size-1 downto 0);
+   
+		wcmd_clk					   : in std_logic;
+		wcmd_reset_n			   : in  std_logic;
+		wcmd_rdy					   : in std_logic;
+		wcmd_addr				   : out std_logic_vector(addr_size-1 downto 0);
+		wcmd_wr					   : out std_logic;
+		wcmd_brst_en			   : out std_logic; --1- writes in burst, 0- single write
+		wcmd_data				   : out std_logic_vector(cntrl_bus_size*2*cntrl_rate-1 downto 0);
+		rcmd_clk					   : in std_logic;
+		rcmd_reset_n			   : in std_logic;
+		rcmd_rdy					   : in std_logic;
+		rcmd_addr				   : out std_logic_vector(addr_size-1 downto 0);
+		rcmd_wr					   : out std_logic;
+		rcmd_brst_en			   : out std_logic --1- reads in burst, 0- single read
 	
    
         );
@@ -58,11 +60,6 @@ end wfm_player;
 -- ----------------------------------------------------------------------------
 architecture arch of wfm_player is
 --declare signals,  components here
-
-signal wfm_infifo_rdusedw 	: std_logic_vector(wfm_infifo_size-1 downto 0);
-signal wfm_infifo_rdreq		: std_logic;
-signal wfm_infifo_q			: std_logic_vector(cntrl_bus_size*2*cntrl_rate-1 downto 0);
-signal wfm_infifo_rdempty	: std_logic;
 
 signal wfm_load_wcmd0, wfm_load_wcmd1, wfm_load_wcmd2 : std_logic;
 
@@ -151,34 +148,7 @@ end component;
   
 begin
 
--- ----------------------------------------------------------------------------
--- WFM data buffer
--- ----------------------------------------------------------------------------
-wfm_in_fifo	: fifo_inst 
-generic map (
-		dev_family			=> dev_family,
-		wrwidth				=> data_width,
-		wrusedw_witdth		=> wfm_infifo_size, --9=256 words 
-		rdwidth				=> data_width,
-		rdusedw_width		=> wfm_infifo_size,
-		show_ahead			=> "ON"
-)
-port map (
-      reset_n       		=> wcmd_reset_n, 
-      wrclk         		=> wcmd_clk, 
-      wrreq         		=> wfm_wr, 
-      data          		=> wfm_data, 
-      wrfull        		=> open, 
-		wrempty		  		=> open, 
-      wrusedw       		=> wfm_infifo_wrusedw, 
-      rdclk 	     		=> wcmd_clk, 
-      rdreq         		=> wfm_infifo_rdreq, 
-      q             		=> wfm_infifo_q, 
-      rdempty      		=> wfm_infifo_rdempty, 
-      rdusedw       		=> wfm_infifo_rdusedw   
-);
-
-wcmd_data<=wfm_infifo_q;
+wcmd_data<=wfm_infifo_data;
 
 
 -- ----------------------------------------------------------------------------
@@ -254,6 +224,9 @@ wfm_rcmd_fsm_inst : wfm_rcmd_fsm
 		wfm_play_stop			=> wfm_play_stop
         
         );
+        
+        
+wfm_infifo_reset_n_req <= wfm_load;
 
 
 

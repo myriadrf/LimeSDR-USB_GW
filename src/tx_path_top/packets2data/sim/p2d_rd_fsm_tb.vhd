@@ -84,7 +84,7 @@ end process;
       if reset_n='0' then
          pct_cnt <= (others=>'0');
          dut0_pct_data_wrreq <= '0';
-         dut0_pct_data_buff_full <= '0';         
+        
       elsif (clk0'event and clk0 = '1') then
          if dut0_in_pct_wrfull = '0' then 
             dut0_pct_data_wrreq <= '1';
@@ -97,12 +97,24 @@ end process;
          else 
             pct_cnt <= pct_cnt;
          end if;
-         dut0_pct_data_buff_full <= NOT dut0_pct_data_buff_full;
-         --dut0_pct_data_buff_full <= '0';
  	    end if;
     end process;
     
     dut0_pct_data  <= std_logic_vector(pct_cnt);
+    
+    process 
+    begin 
+      dut0_pct_data_buff_full <= '0';
+      for i in 0 to 9 loop
+         wait until rising_edge(clk0);
+      end loop;
+      
+      dut0_pct_data_buff_full <= '1';
+      for i in 0 to 0 loop
+         wait until rising_edge(clk0);
+      end loop;
+ 
+    end process;
    
 
   

@@ -55,7 +55,7 @@ entity rx_path_top is
       smpl_cmp_done        : out std_logic;
       smpl_cmp_err         : out std_logic
      
-        );
+   );
 end rx_path_top;
 
 -- ----------------------------------------------------------------------------

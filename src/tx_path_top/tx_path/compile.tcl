@@ -35,6 +35,7 @@ set library_file_list {
                            source_library { ../../general/sync_reg.vhd
                                             ../../general/bus_sync_reg.vhd
                                             ../../general/general_pkg.vhd
+                                            ../../packages/synth/FIFO_PACK.vhd
                                             synth/sync_fifo_rw.vhd
                                             ../../altera_inst/fifo_inst.vhd
                                             ../../altera_inst/lms7002_ddout.vhd
@@ -48,6 +49,7 @@ set library_file_list {
                                             ../handshake_sync/synth/handshake_sync.vhd
                                             ../packets2data/synth/p2d_wr_fsm.vhd
                                             ../packets2data/synth/p2d_rd_fsm.vhd
+                                            ../packets2data/synth/p2d_rd.vhd
                                             ../packets2data/synth/p2d_clr_fsm.vhd
                                             ../packets2data/synth/p2d_sync_fsm.vhd
                                             ../packets2data/synth/packets2data.vhd

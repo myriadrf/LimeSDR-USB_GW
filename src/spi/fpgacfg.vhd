@@ -11,94 +11,36 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.mem_package.all;
 use work.revisions.all;
+use work.fpgacfg_pkg.all;
 
 -- ----------------------------------------------------------------------------
 -- Entity declaration
 -- ----------------------------------------------------------------------------
 entity fpgacfg is
-	port (
-		-- Address and location of this module
-		-- Will be hard wired at the top level
-		maddress	: in std_logic_vector(9 downto 0);
-		mimo_en	: in std_logic;	-- MIMO enable, from TOP SPI (always 1)
-	
-		-- Serial port IOs
-		sdin	: in std_logic; 	-- Data in
-		sclk	: in std_logic; 	-- Data clock
-		sen	: in std_logic;	-- Enable signal (active low)
-		sdout	: out std_logic; 	-- Data out
-	
-		-- Signals coming from the pins or top level serial interface
-		lreset	: in std_logic; 	-- Logic reset signal, resets logic cells only  (use only one reset)
-		mreset	: in std_logic; 	-- Memory reset signal, resets configuration memory only (use only one reset)
-		HW_VER	: in std_logic_vector(3 downto 0);
-		BOM_VER	: in std_logic_vector(2 downto 0);
-		PWR_SRC	: in std_logic;
-		
-		oen: out std_logic; --nc
-		stateo: out std_logic_vector(5 downto 0);
-		
-		
-		--FPGA direct clocking
-		phase_reg_sel 	: out std_logic_vector(15 downto 0);
-		clk_ind			: out std_logic_vector(4 downto 0);
-		cnt_ind			: out std_logic_vector(4 downto 0);
-		load_phase_reg	: out std_logic;
-		drct_clk_en		: out std_logic_vector(15 downto 0);
-		--Interface Config		
-		ch_en				: out std_logic_vector(15 downto 0);
-		smpl_width		: out std_logic_vector(1 downto 0);
-		mode				: out std_logic;
-		ddr_en			: out std_logic;
-		trxiq_pulse		: out std_logic;
-		mimo_int_en		: out std_logic;
-		synch_dis		: out std_logic;
-		synch_mode		: out std_logic;
-		smpl_nr_clr		: out std_logic;
-		txpct_loss_clr	: out std_logic;
-		rx_en				: out std_logic;
-		tx_en				: out std_logic;
-		rx_ptrn_en		: out std_logic;
-		tx_ptrn_en		: out std_logic;
-		tx_cnt_en		: out std_logic;
-		wfm_ch_en		: out std_logic_vector(15 downto 0);
-		wfm_play			: out std_logic;
-		wfm_load			: out std_logic;
-		wfm_smpl_width	: out std_logic_vector(1 downto 0);
-		SPI_SS			: out std_logic_vector(15 downto 0);
-		
-		LMS1_SS			: out std_logic;
---		LMS2_SS			: out std_logic;
---		ADF_SS			: out std_logic;
---		DAC_SS			: out std_logic;
---		POT1_SS			: out std_logic;
-		
-		LMS1_RESET			: out std_logic;
-		LMS1_CORE_LDO_EN	: out std_logic;
-		LMS1_TXNRX1			: out std_logic;
-		LMS1_TXNRX2			: out std_logic;
-		LMS1_TXEN			: out std_logic;
-		LMS1_RXEN			: out std_logic;
---		LMS2_RESET			: out std_logic;
---		LMS2_CORE_LDO_EN	: out std_logic;
---		LMS2_TXNRX1			: out std_logic;
---		LMS2_TXNRX2			: out std_logic;
---		LMS2_TXEN			: out std_logic;
---		LMS2_RXEN			: out std_logic;
-		GPIO					: out std_logic_vector(6 downto 0);
-		FPGA_LED1_CTRL		: out std_logic_vector(2 downto 0);
-		FPGA_LED2_CTRL		: out std_logic_vector(2 downto 0);
-		FX3_LED_CTRL		: out std_logic_vector(2 downto 0);
-		FCLK_ENA				: out std_logic_vector(1 downto 0);
-		sync_pulse_period : out std_logic_vector(31 downto 0);
-		sync_size			: out std_logic_vector(15 downto 0);
-		txant_pre			: out std_logic_vector(15 downto 0);
-		txant_post			: out std_logic_vector(15 downto 0)
-		
-		
-
-
-	);
+   port (
+      -- Address and location of this module
+      -- Will be hard wired at the top level
+      maddress    : in std_logic_vector(9 downto 0);
+      mimo_en     : in std_logic;   -- MIMO enable, from TOP SPI (always 1)
+   
+      -- Serial port IOs
+      sdin        : in std_logic;   -- Data in
+      sclk        : in std_logic;   -- Data clock
+      sen         : in std_logic;   -- Enable signal (active low)
+      sdout       : out std_logic;  -- Data out
+   
+      -- Signals coming from the pins or top level serial interface
+      lreset      : in std_logic;   -- Logic reset signal, resets logic cells only  (use only one reset)
+      mreset      : in std_logic;   -- Memory reset signal, resets configuration memory only (use only one reset)
+      
+      oen         : out std_logic; --nc
+      stateo      : out std_logic_vector(5 downto 0);
+      
+      to_fpgacfg  : in t_TO_FPGACFG;
+      from_fpgacfg: out t_FROM_FPGACFG
+      
+      
+   );
 end fpgacfg;
 
 -- ----------------------------------------------------------------------------
@@ -208,7 +150,7 @@ begin
 				case inst_reg(4 downto 0) is	-- mux read-only outputs
 					when "00001" => dout_reg <= x"0002";
 					when "00010" => dout_reg <= (15 downto 8 => '0') & COMPILE_REV_reg;
-					when "00011" => dout_reg <= (15 downto 8 => '0') & PWR_SRC & BOM_VER & HW_VER;
+					when "00011" => dout_reg <= (15 downto 9 => '0') & to_fpgacfg.PWR_SRC & to_fpgacfg.BOM_VER & to_fpgacfg.HW_VER;
 					when others  => dout_reg <= mem(to_integer(unsigned(inst_reg(4 downto 0))));
 				end case;
 			end if;			      
@@ -262,7 +204,7 @@ begin
 			mem(26)	<= "0000000000000000"; --  0 free, Reserved[15:8],FPGA_LED2_G,FPGA_LED2_R,FPGA_LED2_OVRD,Reserved,FPGA_LED1_G,FPGA_LED1_R,FPGA_LED1_OVRD
 			mem(27)	<= "0000000000000000"; --  0 free, Reserved[15:0]
 			mem(28)	<= "0000000000000000"; --  0 free, Reserved[15:4],FX3_LED_G,FX3_LED_R,FX3_LED_OVRD
-			mem(29)	<= "0000000000000001"; --  0 free, FCLK_ENA[1:0]
+			mem(29)	<= "0000000000001111"; --  0 free, CLK_ENA[1:0]
 			mem(30)	<= x"0003"; 			  -- 	sync_pulse_period MSb 
 			mem(31)  <= x"D090"; 			  -- sync_pulse_period LSb
 			
@@ -283,63 +225,63 @@ begin
 	-- ---------------------------------------------------------------------------------------------
 	-- Decoding logic
 	-- ---------------------------------------------------------------------------------------------
-			--FPGA direct clocking
-		phase_reg_sel 	<= mem(4);
-		drct_clk_en		<= mem(5);
-		clk_ind			<= mem(6) (4 downto 0);
-		cnt_ind			<= mem(6) (9 downto 5);
-		load_phase_reg	<= mem(6) (10);
-		--Interface Config		
-		ch_en				<= mem(7);
-		smpl_width		<= mem(8) (1 downto 0);
-		mode				<= mem(8) (5);
-		ddr_en			<= mem(8) (6);
-		trxiq_pulse		<= mem(8) (7);
-		mimo_int_en		<= mem(8) (8);
-		synch_dis		<= mem(8) (9);
-		synch_mode		<= mem(8) (10);
-		smpl_nr_clr		<= mem(9) (0);
-		txpct_loss_clr	<= mem(9) (1);
-		rx_en				<= mem(10) (0);
-		tx_en				<= mem(10) (1);
-		rx_ptrn_en		<= mem(10) (8);
-		tx_ptrn_en		<= mem(10) (9);
-		tx_cnt_en		<= mem(10) (10);
-		
-		wfm_ch_en		<= mem(12) (15 downto 0);
-		wfm_play			<= mem(13) (1);
-		wfm_load			<= mem(13) (2);
-		wfm_smpl_width	<= mem(13) (1 downto 0);
-		
-		sync_size		<= mem(15) (15 downto 0);
-		txant_pre		<= mem(16) (15 downto 0);
-		txant_post		<= mem(17) (15 downto 0);
+         --FPGA direct clocking
+      from_fpgacfg.phase_reg_sel    <= mem(4);
+      from_fpgacfg.drct_clk_en      <= mem(5);
+      from_fpgacfg.clk_ind          <= mem(6) (4 downto 0);
+      from_fpgacfg.cnt_ind          <= mem(6) (9 downto 5);
+      from_fpgacfg.load_phase_reg   <= mem(6) (10);
+      --Interface Config
+      from_fpgacfg.ch_en            <= mem(7);
+      from_fpgacfg.smpl_width       <= mem(8) (1 downto 0);
+      from_fpgacfg.mode             <= mem(8) (5);
+      from_fpgacfg.ddr_en           <= mem(8) (6);
+      from_fpgacfg.trxiq_pulse      <= mem(8) (7);
+      from_fpgacfg.mimo_int_en      <= mem(8) (8);
+      from_fpgacfg.synch_dis        <= mem(8) (9);
+      from_fpgacfg.synch_mode       <= mem(8) (10);
+      from_fpgacfg.smpl_nr_clr      <= mem(9) (0);
+      from_fpgacfg.txpct_loss_clr   <= mem(9) (1);
+      from_fpgacfg.rx_en            <= mem(10) (0);
+      from_fpgacfg.tx_en            <= mem(10) (1);
+      from_fpgacfg.rx_ptrn_en       <= mem(10) (8);
+      from_fpgacfg.tx_ptrn_en       <= mem(10) (9);
+      from_fpgacfg.tx_cnt_en        <= mem(10) (10);
+      
+      from_fpgacfg.wfm_ch_en        <= mem(12) (15 downto 0);
+      from_fpgacfg.wfm_play         <= mem(13) (1);
+      from_fpgacfg.wfm_load         <= mem(13) (2);
+      from_fpgacfg.wfm_smpl_width   <= mem(13) (1 downto 0);
+      
+      from_fpgacfg.sync_size        <= mem(15) (15 downto 0);
+      from_fpgacfg.txant_pre        <= mem(16) (15 downto 0);
+      from_fpgacfg.txant_post       <= mem(17) (15 downto 0);
 
-		for_loop : for i in 0 to 15 generate --to prevent SPI_SS to go low on same time as sen
-			SPI_SS(i)<= mem(18)(i) OR (NOT sen);
-		end generate;
-		
-		LMS1_SS 				<= mem(19)(0) OR (NOT sen); --to prevent SPI_SS to go low on same time as sen
-		LMS1_RESET 			<= mem(19)(1);
-		LMS1_CORE_LDO_EN 	<= mem(19)(2);
-		LMS1_TXNRX1			<= mem(19)(3); 
-		LMS1_TXNRX2 		<= mem(19)(4);
-		LMS1_TXEN			<= mem(19)(5); 
-		LMS1_RXEN 			<= mem(19)(6);
-	
---		LMS2_SS 				<= mem(19)(8) OR (NOT sen); --to prevent SPI_SS to go low on same time as sen
---		LMS2_RESET 			<= mem(19)(9);
---		LMS2_CORE_LDO_EN	<= mem(19)(10); 
---		LMS2_TXNRX1			<= mem(19)(11);
---		LMS2_TXNRX2			<= mem(19)(12);
---		LMS2_TXEN			<= mem(19)(13);
---		LMS2_RXEN			<= mem(19)(14);
-		GPIO					<= mem(23) (6 downto 0);
-		FPGA_LED1_CTRL		<= mem(26)(2 downto 0);
-		FPGA_LED2_CTRL		<= mem(26)(6 downto 4);
-		FX3_LED_CTRL		<= mem(28)(2 downto 0);
-		FCLK_ENA				<= mem(29)(1 downto 0);
-		sync_pulse_period <= mem(30) (15 downto 0) & mem(31) (15 downto 0);
+      for_loop : for i in 0 to 15 generate --to prevent SPI_SS to go low on same time as sen
+         from_fpgacfg.SPI_SS(i)<= mem(18)(i) OR (NOT sen);
+      end generate;
+      
+      from_fpgacfg.LMS1_SS          <= mem(19)(0) OR (NOT sen); --to prevent SPI_SS to go low on same time as sen
+      from_fpgacfg.LMS1_RESET       <= mem(19)(1);
+      from_fpgacfg.LMS1_CORE_LDO_EN <= mem(19)(2);
+      from_fpgacfg.LMS1_TXNRX1      <= mem(19)(3); 
+      from_fpgacfg.LMS1_TXNRX2      <= mem(19)(4);
+      from_fpgacfg.LMS1_TXEN        <= mem(19)(5); 
+      from_fpgacfg.LMS1_RXEN        <= mem(19)(6);
+
+--		from_fpgacfg.LMS2_SS 				<= mem(19)(8) OR (NOT sen); --to prevent SPI_SS to go low on same time as sen
+--		from_fpgacfg.LMS2_RESET 			<= mem(19)(9);
+--		from_fpgacfg.LMS2_CORE_LDO_EN	<= mem(19)(10); 
+--		from_fpgacfg.LMS2_TXNRX1			<= mem(19)(11);
+--		from_fpgacfg.LMS2_TXNRX2			<= mem(19)(12);
+--		from_fpgacfg.LMS2_TXEN			<= mem(19)(13);
+--		from_fpgacfg.LMS2_RXEN			<= mem(19)(14);
+      from_fpgacfg.GPIO             <= mem(23) (6 downto 0);
+      from_fpgacfg.FPGA_LED1_CTRL   <= mem(26)(2 downto 0);
+      from_fpgacfg.FPGA_LED2_CTRL   <= mem(26)(6 downto 4);
+      from_fpgacfg.FX3_LED_CTRL     <= mem(28)(2 downto 0);
+      from_fpgacfg.CLK_ENA          <= mem(29)(3 downto 0);
+      from_fpgacfg.sync_pulse_period <= mem(30) (15 downto 0) & mem(31) (15 downto 0);
 
 
 end fpgacfg_arch;

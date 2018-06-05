@@ -95,7 +95,9 @@ signal rd_wait_cnt         : unsigned(3 downto 0);
 signal rd_wait_cnt_max     : unsigned(3 downto 0);
 signal rd_wait_cnt_max_reg : unsigned(3 downto 0);
 
-type state_type is (idle, rd_samples, wait_rd_cycles);
+signal zero_valid          : std_logic;
+
+type state_type is (idle, rd_samples, zero_samples, wait_rd_cycles);
 signal current_state, next_state : state_type;
   
 begin
@@ -235,12 +237,17 @@ fsm : process(current_state, fifo_rdempty, rd_wait_cnt, rd_wait_cnt_max_reg, en)
          if rd_wait_cnt = rd_wait_cnt_max_reg then 
             if fifo_rdempty = '0' AND en = '1' then 
                next_state <= rd_samples;
+            elsif fifo_rdempty = '1' AND en = '1' then
+               next_state <= zero_samples;
             else 
                next_state <= idle;
             end if;
          else 
             next_state <= wait_rd_cycles;
          end if;
+         
+      when zero_samples => 
+         next_state <= wait_rd_cycles;
                   
       when others => 
          next_state<=idle;
@@ -269,8 +276,14 @@ process(clk, reset_n)
  begin
    if reset_n = '0' then
       int_fifo_q_valid  <= '0';
+      zero_valid        <= '0';
    elsif (clk'event AND clk = '1') then
       int_fifo_q_valid <= int_fifo_rdreq;
+      if current_state = zero_samples then 
+         zero_valid <= '1';
+      else 
+         zero_valid <= '0';
+      end if;
    end if;
  end process;
  
@@ -307,6 +320,11 @@ diq_L_reg_x_proc : process(reset_n, clk)
             diq_L_reg_1 <= int_fsync_L(1) & mux_pos1_L;
             diq_L_reg_2 <= int_fsync_L(2) & mux_pos2_L;
             diq_L_reg_3 <= int_fsync_L(3) & mux_pos3_L;
+         elsif zero_valid = '1' then 
+            diq_L_reg_0 <= int_fsync_L(0) & (iq_width-1 downto 0  =>'0');
+            diq_L_reg_1 <= int_fsync_L(1) & (iq_width-1 downto 0  =>'0');
+            diq_L_reg_2 <= int_fsync_L(2) & (iq_width-1 downto 0  =>'0');
+            diq_L_reg_3 <= int_fsync_L(3) & (iq_width-1 downto 0  =>'0');
          else 
             diq_L_reg_0 <= diq_L_reg_1;
             diq_L_reg_1 <= diq_L_reg_2;
@@ -332,6 +350,11 @@ diq_H_reg_x_proc : process(reset_n, clk)
             diq_H_reg_1 <= int_fsync_H(1) & mux_pos1_H;
             diq_H_reg_2 <= int_fsync_H(2) & mux_pos2_H;
             diq_H_reg_3 <= int_fsync_H(3) & mux_pos3_H;
+         elsif zero_valid = '1' then
+            diq_H_reg_0 <= int_fsync_H(0) & (iq_width-1 downto 0  =>'0');
+            diq_H_reg_1 <= int_fsync_H(1) & (iq_width-1 downto 0  =>'0');
+            diq_H_reg_2 <= int_fsync_H(2) & (iq_width-1 downto 0  =>'0');
+            diq_H_reg_3 <= int_fsync_H(3) & (iq_width-1 downto 0  =>'0');           
          else 
             diq_H_reg_0 <= diq_H_reg_1;
             diq_H_reg_1 <= diq_H_reg_2;

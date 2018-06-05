@@ -48,6 +48,7 @@ entity slaveFIFO5b is
 		EPSWITCH					: out std_logic;
 		
 		--socket 0 (configured to read data from it PC->FPGA)
+      socket0_fifo_reset_n    : in std_logic;
 		socket0_fifo_data			: out std_logic_vector(data_width-1 downto 0);
 		socket0_fifo_q				: in std_logic_vector(data_width-1 downto 0);
 		socket0_fifo_wrusedw		: in std_logic_vector(socket0_wrusedw_size-1 downto 0);
@@ -56,6 +57,7 @@ entity slaveFIFO5b is
 		socket0_fifo_rd			: out std_logic;
 
 		--socket 1 (configured to read control data from it PC->FPGA)
+      socket1_fifo_reset_n    : in std_logic;
 		socket1_fifo_data			: out std_logic_vector(data_width-1 downto 0);
 		socket1_fifo_q				: in std_logic_vector(data_width-1 downto 0);
 		socket1_fifo_wrusedw		: in std_logic_vector(socket1_wrusedw_size-1 downto 0);
@@ -214,8 +216,12 @@ socket0_fifo_rd_watermark 	<= to_unsigned((data_pct_size*8)/data_width,socket0_f
 										
 socket0_fifo_wr_watermark 	<=	socket0_max_wrwords - socket0_fifo_reserve;							
 								
-socket0_fifo_rdy				<= '1' when (rd_wr(0)='0' and unsigned(socket0_fifo_wrusedw) <=socket0_fifo_wr_watermark) else
-						 				'1' when (rd_wr(0)='1' and unsigned(socket0_fifo_rdusedw) >= socket0_fifo_rd_watermark) else 
+socket0_fifo_rdy				<= '1' when (rd_wr(0)='0' and 
+                                          socket0_fifo_reset_n = '1' AND 
+                                          unsigned(socket0_fifo_wrusedw) <=socket0_fifo_wr_watermark) else
+						 				'1' when (rd_wr(0)='1' and
+                                          socket0_fifo_reset_n = '1' AND 
+                                          unsigned(socket0_fifo_rdusedw) >= socket0_fifo_rd_watermark) else 
 						 				'0';
 
 --to determine socket1 watermarks and when socket is ready
@@ -231,8 +237,12 @@ socket1_fifo_rd_watermark 	<= to_unsigned((data_pct_size*8)/data_width,socket1_f
 								
 socket1_fifo_wr_watermark 	<=	socket1_max_wrwords - socket1_fifo_reserve;							
 								
-socket1_fifo_rdy				<= '1' when (rd_wr(1)='0' and unsigned(socket1_fifo_wrusedw) <= socket1_fifo_wr_watermark) else
-						 				'1' when (rd_wr(1)='1' and unsigned(socket1_fifo_rdusedw) >= socket1_fifo_rd_watermark) else 
+socket1_fifo_rdy				<= '1' when (rd_wr(1)='0' and 
+                                          socket1_fifo_reset_n = '1' AND 
+                                          unsigned(socket1_fifo_wrusedw) <= socket1_fifo_wr_watermark) else
+						 				'1' when (rd_wr(1)='1' and 
+                                          socket1_fifo_reset_n = '1' AND 
+                                          unsigned(socket1_fifo_rdusedw) >= socket1_fifo_rd_watermark) else 
 										'0';
 
 --to determine socket2 watermarks and when socket is ready

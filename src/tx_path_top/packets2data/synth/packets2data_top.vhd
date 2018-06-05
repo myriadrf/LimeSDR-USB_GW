@@ -19,7 +19,9 @@ use ieee.numeric_std.all;
 -- ----------------------------------------------------------------------------
 entity packets2data_top is
    generic (
-      dev_family        : string := "Cyclone IV E";
+      dev_family        : string  := "Cyclone IV E";
+      TX_IN_PCT_SIZE    : integer := 4096;     
+      TX_IN_PCT_HDR_SIZE: integer := 16;
       pct_size_w        : integer := 16;
       n_buff            : integer := 4; -- 2,4 valid values
       in_pct_data_w     : integer := 32;
@@ -44,10 +46,9 @@ entity packets2data_top is
       pct_sync_dis      : in std_logic;
       sample_nr         : in std_logic_vector(63 downto 0);
 
-      in_pct_wrreq      : in std_logic;
+      in_pct_rdreq      : out std_logic;
       in_pct_data       : in std_logic_vector(in_pct_data_w-1 downto 0);
-      in_pct_last       : out std_logic;
-      in_pct_full       : out std_logic;
+      in_pct_rdy        : in std_logic;
       in_pct_clr_flag   : out std_logic;
       in_pct_buff_rdy   : out std_logic_vector(n_buff-1 downto 0);
       
@@ -114,6 +115,8 @@ smpl_buff_wrfull <= fifo_full_sig;
   packets2data_inst0 : entity work.packets2data
    generic map (
       dev_family        => dev_family,
+      TX_IN_PCT_SIZE    => TX_IN_PCT_SIZE,        
+      TX_IN_PCT_HDR_SIZE=> TX_IN_PCT_HDR_SIZE,
       pct_size_w        => pct_size_w,
       n_buff            => n_buff,
       in_pct_data_w     => in_pct_data_w,
@@ -121,33 +124,32 @@ smpl_buff_wrfull <= fifo_full_sig;
    )
    port map(
 
-      wclk              => wclk,
-      rclk              => rclk, 
-      reset_n           => reset_n,
+      wclk                    => wclk,
+      rclk                    => rclk, 
+      reset_n                 => reset_n,
+               
+      mode                    => mode,
+      trxiqpulse              => trxiqpulse,	
+      ddr_en 		            => ddr_en,
+      mimo_en		            => mimo_en,	
+      ch_en			            => ch_en,
+      sample_width            => sample_width, 
+            
+      pct_size                => pct_size,
+               
+      pct_sync_dis            => pct_sync_dis,
+      sample_nr               => sample_nr,
+               
+      in_pct_rdreq            => in_pct_rdreq,
+      in_pct_data             => in_pct_data,
+      in_pct_rdy              => in_pct_rdy,
+      in_pct_clr_flag         => in_pct_clr_flag,
+      in_pct_buff_rdy         => in_pct_buff_rdy, 
       
-      mode              => mode,
-      trxiqpulse        => trxiqpulse,	
-      ddr_en 		      => ddr_en,
-      mimo_en		      => mimo_en,	
-      ch_en			      => ch_en,
-      sample_width      => sample_width, 
-     
-      pct_size          => pct_size,
-      
-      pct_sync_dis      => pct_sync_dis,
-      sample_nr         => sample_nr,
-      
-      in_pct_wrreq      => in_pct_wrreq,
-      in_pct_data       => in_pct_data,
-      in_pct_last       => in_pct_last,
-      in_pct_full       => in_pct_full,
-      in_pct_clr_flag   => in_pct_clr_flag,
-      in_pct_buff_rdy   => in_pct_buff_rdy, 
-      
-      smpl_buff_full    => fifo_full_sig,
-      smpl_buff_q       => inst0_smpl_buff_q,    
-      smpl_buff_valid   => inst0_smpl_buff_valid
-        );
+      smpl_buff_almost_full   => fifo_full_sig,
+      smpl_buff_q             => inst0_smpl_buff_q,    
+      smpl_buff_valid         => inst0_smpl_buff_valid
+   );
         
         
 bit_unpack_64_inst1 : entity work.bit_unpack_64
