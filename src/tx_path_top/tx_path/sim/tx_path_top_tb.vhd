@@ -71,6 +71,7 @@ architecture tb_behave of tx_path_top_tb is
    signal inst1_pct_sync_dis  : std_logic := '0';
    signal inst1_in_pct_rdy    : std_logic;
    signal inst1_in_pct_rdreq  : std_logic;
+   signal inst1_in_pct_reset_n_req  : std_logic;
    
    --inst2
    signal inst2_pct_sync_pulse   : std_logic;
@@ -193,7 +194,7 @@ end process;
    ) 
    port map(
       --input ports 
-      reset_n       => reset_n,
+      reset_n       => inst1_in_pct_reset_n_req,
       wrclk         => clk1,
       wrreq         => inst0_fifo_wrreq,
       data          => file_rdata,
@@ -267,7 +268,8 @@ end process;
 
       DIQ                  => open,
       fsync                => open,
-
+      
+      in_pct_reset_n_req   => inst1_in_pct_reset_n_req,
       in_pct_rdreq         => inst1_in_pct_rdreq,
       in_pct_data          => inst0_q,
       in_pct_rdy           => inst1_in_pct_rdy
