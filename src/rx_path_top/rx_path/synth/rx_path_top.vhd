@@ -41,6 +41,7 @@ entity rx_path_top is
       pct_fifo_wusedw      : in std_logic_vector(pct_buff_wrusedw_w-1 downto 0);
       pct_fifo_wrreq       : out std_logic;
       pct_fifo_wdata       : out std_logic_vector(63 downto 0);
+      pct_hdr_cap          : out std_logic;
       --sample nr
       clr_smpl_nr          : in std_logic;
       ld_smpl_nr           : in std_logic;
@@ -268,6 +269,7 @@ data2packets_top_inst2 : entity work.data2packets_top
       pct_buff_wrusedw  => pct_fifo_wusedw,
       pct_buff_wrreq    => pct_fifo_wrreq,
       pct_buff_wrdata   => pct_fifo_wdata,
+      pct_hdr_cap       => pct_hdr_cap,
       smpl_buff_rdusedw => inst1_rdusedw,
       smpl_buff_rdreq   => inst2_smpl_buff_rdreq,
       smpl_buff_rddata  => inst2_smpl_buff_rddata   
