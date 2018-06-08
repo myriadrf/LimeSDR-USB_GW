@@ -139,6 +139,7 @@ signal inst1_DIQ_l               : std_logic_vector(TX_IQ_WIDTH downto 0);
 signal inst1_in_pct_full         : std_logic;
 signal inst1_pct_loss_flg        : std_logic;
 signal inst1_in_pct_rdy          : std_logic;
+signal inst1_in_pct_reset_n_req  : std_logic;
 
 --inst2
 signal inst2_wfm_infifo_wrusedw  : std_logic_vector(WFM_WFM_INFIFO_SIZE-1 downto 0);
@@ -154,6 +155,7 @@ signal inst3_diq_l               : std_logic_vector(TX_IQ_WIDTH downto 0);
 --inst5
 signal inst5_reset_n             : std_logic;
 signal inst5_smpl_nr_cnt         : std_logic_vector(63 downto 0);
+signal inst5_pct_hdr_cap         : std_logic;
 
 --inst6
 signal inst6_reset_n             : std_logic;
@@ -165,7 +167,7 @@ begin
    sync_reg0 : entity work.sync_reg 
    port map(tx_clk, from_fpgacfg.rx_en, '1', inst0_reset_n);
    
-   tx_in_pct_reset_n_req   <= inst0_reset_n;   
+   tx_in_pct_reset_n_req   <= inst0_reset_n AND inst1_in_pct_reset_n_req;   
    inst1_reset_n           <= inst0_reset_n;
    inst6_reset_n           <= inst0_reset_n;  
    inst5_reset_n           <= inst0_reset_n;
@@ -218,7 +220,7 @@ begin
       pct_sync_size        => from_fpgacfg.sync_size,
             
       pct_loss_flg         => inst1_pct_loss_flg,
-      pct_loss_flg_clr     => from_fpgacfg.txpct_loss_clr,
+      pct_loss_flg_clr     => inst5_pct_hdr_cap, --from_fpgacfg.txpct_loss_clr
       
       --txant
       txant_cyc_before_en  => from_fpgacfg.txant_pre,
@@ -238,7 +240,8 @@ begin
       fsync                => open, 
       DIQ_h                => inst1_DIQ_h,
       DIQ_l                => inst1_DIQ_l,
-      --fifo ports 
+      --fifo ports
+      in_pct_reset_n_req   => inst1_in_pct_reset_n_req,
       in_pct_rdreq         => tx_in_pct_rdreq,
       in_pct_data          => tx_in_pct_data,
       in_pct_rdy           => inst1_in_pct_rdy
@@ -395,6 +398,7 @@ begin
       pct_fifo_wusedw      => rx_pct_fifo_wusedw,
       pct_fifo_wrreq       => rx_pct_fifo_wrreq,
       pct_fifo_wdata       => rx_pct_fifo_wdata,
+      pct_hdr_cap          => inst5_pct_hdr_cap,
       --sample nr
       clr_smpl_nr          => from_fpgacfg.smpl_nr_clr,
       ld_smpl_nr           => '0',

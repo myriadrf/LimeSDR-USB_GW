@@ -45,6 +45,7 @@ entity packets2data is
       pct_sync_dis            : in std_logic;
       sample_nr               : in std_logic_vector(63 downto 0);
       
+      in_pct_reset_n_req      : out std_logic;
       in_pct_rdreq            : out std_logic;
       in_pct_data             : in std_logic_vector(in_pct_data_w-1 downto 0);
       in_pct_rdy              : in std_logic;
@@ -66,14 +67,15 @@ architecture arch of packets2data is
 --declare signals,  components here
 
 --inst0
-signal inst0_pct_hdr_0        : std_logic_vector(63 downto 0);
-signal inst0_pct_hdr_0_valid  : std_logic_vector(n_buff-1 downto 0);
-signal inst0_pct_hdr_1        : std_logic_vector(63 downto 0);
-signal inst0_pct_hdr_1_valid  : std_logic_vector(n_buff-1 downto 0);
-signal inst0_pct_data         : std_logic_vector(in_pct_data_w-1 downto 0);
-signal inst0_pct_data_wrreq   : std_logic_vector(n_buff-1 downto 0);
-signal inst0_pct_buff_rdy     : std_logic_vector(n_buff-1 downto 0);
-signal inst0_in_pct_wrfull    : std_logic;
+signal inst0_pct_hdr_0           : std_logic_vector(63 downto 0);
+signal inst0_pct_hdr_0_valid     : std_logic_vector(n_buff-1 downto 0);
+signal inst0_pct_hdr_1           : std_logic_vector(63 downto 0);
+signal inst0_pct_hdr_1_valid     : std_logic_vector(n_buff-1 downto 0);
+signal inst0_pct_data            : std_logic_vector(in_pct_data_w-1 downto 0);
+signal inst0_pct_data_wrreq      : std_logic_vector(n_buff-1 downto 0);
+signal inst0_pct_buff_rdy        : std_logic_vector(n_buff-1 downto 0);
+signal inst0_in_pct_wrfull       : std_logic;
+signal inst0_in_pct_reset_n_req  : std_logic;
 
 
 --for clk domain crosing
@@ -153,7 +155,7 @@ begin
       for i in 0 to n_buff-1 loop
          inst1_pct_data_clr <= not inst3_pct_buff_clr_n;
       end loop; 
-      if unsigned(inst1_pct_data_clr) > 0 then 
+      if unsigned(inst1_pct_data_clr) > 0 OR inst0_in_pct_reset_n_req = '0' then 
          in_pct_clr_flag <= '1';
       else 
          in_pct_clr_flag <= '0';
@@ -174,6 +176,10 @@ p2d_wr_fsm_inst0 : entity work.p2d_wr_fsm
    port map(
       clk               => wclk,
       reset_n           => reset_n,
+      
+      pct_sync_dis      => pct_sync_dis,
+      sample_nr         => sample_nr,
+      in_pct_reset_n_req=> inst0_in_pct_reset_n_req,
       in_pct_rdreq      => in_pct_rdreq,
       in_pct_data       => in_pct_data,
       in_pct_rdy        => in_pct_rdy,
@@ -188,7 +194,8 @@ p2d_wr_fsm_inst0 : entity work.p2d_wr_fsm
       pct_data_wrreq    => inst0_pct_data_wrreq,
 
       pct_buff_rdy      => instx_wrempty     
-        );
+      );
+      
         
 -- ----------------------------------------------------------------------------
 -- Generated FIFO buffers
@@ -299,6 +306,8 @@ p2d_rd_inst3 : entity work.p2d_rd
          smpl_buff_q       <= instx_q(to_integer(unsigned(inst3_pct_buff_sel)));
       end if;
    end process;
+   
+   in_pct_reset_n_req <= inst0_in_pct_reset_n_req;
         
 
 

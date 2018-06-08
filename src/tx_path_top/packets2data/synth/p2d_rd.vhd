@@ -301,9 +301,11 @@ begin
       pct_buff_rdreq(to_integer(crnt_buff_cnt))   <= rd_req_int;
    end process;
    
-   process(current_state, crnt_buff_cnt)
+   process(current_state, crnt_buff_cnt, reset_n)
    begin
-      if current_state = clr_buff then 
+      if reset_n = '0' then
+         pct_buff_clr_n <= (others=>'0');
+      elsif current_state = clr_buff then
          pct_buff_clr_n <= (others=>'1');
          pct_buff_clr_n(to_integer(crnt_buff_cnt))   <= '0';
       else 

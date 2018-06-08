@@ -34,7 +34,8 @@ entity data2packets_top is
       pct_buff_wrdata   : out std_logic_vector(63 downto 0);
       smpl_buff_rdusedw : in std_logic_vector(smpl_buff_rdusedw_w-1 downto 0);
       smpl_buff_rdreq   : out std_logic;
-      smpl_buff_rddata  : in std_logic_vector(63 downto 0)
+      smpl_buff_rddata  : in std_logic_vector(63 downto 0);
+      pct_hdr_cap       : out std_logic
     
         );
 end data2packets_top;
@@ -76,6 +77,8 @@ signal smpl_buff_rdreq_reg          : std_logic;
 
 --input registers
 signal smpl_buff_rdusedw_reg        : std_logic_vector(smpl_buff_rdusedw_w-1 downto 0);
+
+signal pct_hdr_captured             : std_logic;
  
 begin
 
@@ -182,6 +185,19 @@ begin
    end if;
 end process;
 
+process(clk, reset_n)
+begin
+   if reset_n = '0' then 
+      pct_hdr_captured <= '0';
+   elsif (clk'event AND clk='1') then
+      if inst2_pct_state = "01" then 
+         pct_hdr_captured <= '1';
+      else 
+         pct_hdr_captured <= '0';
+      end if;
+   end if;
+end process;
+
 
 process(clk, reset_n)
 begin
@@ -280,6 +296,7 @@ end process;
 pct_buff_wrdata   <= pct_buff_wrdata_reg;  
 pct_buff_wrreq    <= smpl_buff_rdreq_reg;
 smpl_buff_rdreq   <= inst0_smpl_buff_rdreq;
+pct_hdr_cap       <= pct_hdr_captured;
      
 
 
