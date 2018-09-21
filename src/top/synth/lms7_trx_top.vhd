@@ -470,7 +470,8 @@ begin
       EP01_sel             => inst0_from_fpgacfg.wfm_load,
       --stream endpoint fifo (PC->FPGA) 
       EP01_0_rdclk         => inst1_txpll_c1,
-      EP01_0_aclrn         => inst6_tx_in_pct_reset_n_req,
+      EP01_0_aclrn_0       => inst0_from_fpgacfg.rx_en,
+      EP01_0_aclrn_1       => inst6_tx_in_pct_reset_n_req,
       EP01_0_rd            => inst6_tx_in_pct_rdreq,
       EP01_0_rdata         => inst2_EP01_0_rdata,
       EP01_0_rempty        => inst2_EP01_0_rempty,
