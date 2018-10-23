@@ -796,17 +796,18 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to BOM_VER[3]
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_global_assignment -name VHDL_FILE src/tx_path_top/packets2data/synth/p2d_rd.vhd
-set_global_assignment -name VHDL_FILE src/fifo_transfer/synth/fifo_trnsf.vhd
-set_global_assignment -name VHDL_FILE src/spi/tstcfg_pkg.vhd
-set_global_assignment -name VHDL_FILE src/spi/tstcfg.vhd
-set_global_assignment -name VHDL_FILE src/packages/synth/FIFO_PACK.vhd
 set_global_assignment -name QIP_FILE lms_ctr/synthesis/lms_ctr.qip
 set_global_assignment -name SDC_FILE FX3_timing.sdc
 set_global_assignment -name SDC_FILE LMS7002_timing.sdc
 set_global_assignment -name SDC_FILE lms7_trx_timing.sdc
 set_global_assignment -name QIP_FILE ip/ddr2/ddr2.qip
 set_global_assignment -name SDC_FILE Clock_groups.sdc
+set_global_assignment -name VHDL_FILE src/fx3/slaveFIFO5b/two_fifo_inst.vhd
+set_global_assignment -name VHDL_FILE src/tx_path_top/packets2data/synth/p2d_rd.vhd
+set_global_assignment -name VHDL_FILE src/fifo_transfer/synth/fifo_trnsf.vhd
+set_global_assignment -name VHDL_FILE src/spi/tstcfg_pkg.vhd
+set_global_assignment -name VHDL_FILE src/spi/tstcfg.vhd
+set_global_assignment -name VHDL_FILE src/packages/synth/FIFO_PACK.vhd
 set_global_assignment -name VHDL_FILE src/spi/periphcfg_pkg.vhd
 set_global_assignment -name VHDL_FILE src/spi/periphcfg.vhd
 set_global_assignment -name VHDL_FILE src/self_test/tst_top.vhd

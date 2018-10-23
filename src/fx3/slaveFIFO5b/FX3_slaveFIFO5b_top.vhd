@@ -63,7 +63,8 @@ entity FX3_slaveFIFO5b_top is
       EP01_sel       : in std_logic;      -- 0 - EP01_0,
      --Stream endpoint fifo 0 (PC->FPGA) 
       EP01_0_rdclk   : in std_logic;
-      EP01_0_aclrn   : in std_logic;
+      EP01_0_aclrn_0 : in std_logic;
+      EP01_0_aclrn_1 : in std_logic;
       EP01_0_rd      : in std_logic;
       EP01_0_rdata   : out std_logic_vector(EP01_0_rwidth-1 downto 0);
       EP01_0_rempty  : out std_logic;
@@ -120,9 +121,10 @@ constant socket3_wrusedw_size    : integer := EP8F_wrusedw_width;
 constant socket3_rdusedw_size    : integer := FIFORD_SIZE (EP8F_wwidth, data_width, EP8F_wrusedw_width);
 
 signal EP01_sel_sync                   : std_logic;
-signal EP01_0_sclrn                    : std_logic;
+signal EP01_0_sclrn_0                  : std_logic;
+signal EP01_0_sclrn_1                  : std_logic;
 signal EP01_1_sclrn                    : std_logic;
-signal EP01_0_sclrn_reg                : std_logic;
+signal EP01_0_sclrn_0_reg              : std_logic;
 signal EP01_1_sclrn_reg                : std_logic;
 
 --inst0 
@@ -177,15 +179,18 @@ begin
 -- ----------------------------------------------------------------------------  
    -- Reset signal with synchronous removal to clk clock domain, 
    sync_reg0 : entity work.sync_reg 
-   port map(clk, EP01_0_aclrn, '1', EP01_0_sclrn);
+   port map(clk, EP01_0_aclrn_0, '1', EP01_0_sclrn_0);
    
    sync_reg1 : entity work.sync_reg 
+   port map(clk, EP01_0_aclrn_1, '1', EP01_0_sclrn_1);
+   
+   sync_reg2 : entity work.sync_reg 
    port map(clk, EP01_1_aclrn, '1', EP01_1_sclrn);
   
    
    inst1_socket0_fifo_reset_n <= inst2_reset_n AND inst3_reset_n;
    
-   sync_reg2 : entity work.sync_reg 
+   sync_reg3 : entity work.sync_reg 
    port map(clk, EP0F_aclrn, '1', inst1_socket1_fifo_reset_n);
    
    inst5_reset_n <= inst1_socket1_fifo_reset_n;
@@ -195,11 +200,11 @@ begin
    begin 
       if reset_n = '0' then 
          inst2_reset_n     <= '0';
-         EP01_0_sclrn_reg  <= '0';
+         EP01_0_sclrn_0_reg  <= '0';
       elsif (clk'event AND clk = '1') then 
-         EP01_0_sclrn_reg <= EP01_0_sclrn;
+         EP01_0_sclrn_0_reg <= EP01_0_sclrn_0;
          
-         if EP01_0_sclrn = '1' and EP01_0_sclrn_reg = '0' then 
+         if EP01_0_sclrn_0 = '1' and EP01_0_sclrn_0_reg = '0' then 
             inst2_reset_n <= '0';
          else 
             inst2_reset_n <= '1';
@@ -230,7 +235,7 @@ begin
 -- ----------------------------------------------------------------------------
 -- Sync registers
 -- ----------------------------------------------------------------------------   
-   sync_reg3 : entity work.sync_reg 
+   sync_reg4 : entity work.sync_reg 
    port map(clk, reset_n, EP01_sel, EP01_sel_sync);   
    
    
@@ -318,32 +323,34 @@ begin
 -- There are two FIFO buffers for this endpoint, one of them debending on EP01_sel
 -- ----------------------------------------------------------------------------
 
-inst2_wrreq <= inst1_socket0_fifo_wr when EP01_sel_sync = '0' else '0';
- 
-   inst2_EP01_0_FIFO : entity work.fifo_inst 
+   inst2_wrreq <= inst1_socket0_fifo_wr when EP01_sel_sync = '0' else '0';
+   
+   inst2_EP01_0_FIFO : entity work.two_fifo_inst   
    generic map(
       dev_family     => dev_family,
-      wrwidth        => data_width,
-      wrusedw_witdth => socket0_wrusedw_size,  
+      wrwidth        => data_width, --32 bits ftdi side, 
+      wrusedw_witdth => socket0_wrusedw_size,            --10=512 words (2048kB), FTDI configuration requires accept 2048kB buffer  
       rdwidth        => EP01_0_rwidth,
-      rdusedw_width  => socket0_0_rdusedw_size,
-      show_ahead     => "OFF"
+      rdusedw_width  => socket0_0_rdusedw_size,   
+      show_ahead     => "OFF",
+      TRNSF_SIZE     => 512, 
+      TRNSF_N        => 8
    )
    port map(
-      --input ports 
-      reset_n  => inst2_reset_n,
-      wrclk    => clk,
-      wrreq    => inst2_wrreq,
-      data     => inst1_socket0_fifo_data,
-      wrfull   => open,
-      wrempty  => open,
-      wrusedw  => inst2_fifo_wrusedw,
-      rdclk    => EP01_0_rdclk,
-      rdreq    => EP01_0_rd,
-      q        => EP01_0_rdata,
-      rdempty  => EP01_0_rempty,
-      rdusedw  => EP01_0_rdusedw   
-   );
+      reset_0_n   => EP01_0_sclrn_0,
+      reset_1_n   => EP01_0_sclrn_1,  
+      wrclk       => clk,
+      wrreq       => inst2_wrreq,
+      data        => inst1_socket0_fifo_data,
+      wrfull      => open,
+      wrempty     => open,
+      wrusedw     => inst2_fifo_wrusedw,
+      rdclk       => EP01_0_rdclk,
+      rdreq       => EP01_0_rd,
+      q           => EP01_0_rdata,
+      rdempty     => EP01_0_rempty,
+      rdusedw     => EP01_0_rdusedw             
+   );	
    
    inst3_pct_wr <= inst1_socket0_fifo_wr when EP01_sel_sync = '1' else '0';
    

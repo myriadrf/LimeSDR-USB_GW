@@ -11,14 +11,15 @@ use IEEE.std_logic_arith.all;
 use IEEE.std_logic_unsigned.all;
 
 package revisions is
-	constant MAJOR_REV : INTEGER := 1;
+	constant MAJOR_REV : INTEGER := 2;
 	constant MINOR_REV : INTEGER := 1;
 	constant BETA_REV : INTEGER := 1;
-	constant COMPILE_REV : INTEGER := 17;
+	constant COMPILE_REV : INTEGER := 18;
 	constant COMPILE_YEAR_STAMP : INTEGER := 18;
-	constant COMPILE_MONTH_STAMP : INTEGER := 06;
-	constant COMPILE_DAY_STAMP : INTEGER := 04;
-	constant COMPILE_HOUR_STAMP : INTEGER := 16;
+	constant COMPILE_MONTH_STAMP : INTEGER := 09;
+	constant COMPILE_DAY_STAMP : INTEGER := 21;
+	constant COMPILE_HOUR_STAMP : INTEGER := 09;
 	
 	constant MAGIC_NUM : STD_LOGIC_VECTOR(31 downto 0) := X"D8A5F009";
+   constant BOARD_ID : STD_LOGIC_VECTOR(15 downto 0) := X"000E"; -- LimeSDR-USB
 end revisions;
