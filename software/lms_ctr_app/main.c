@@ -25,7 +25,8 @@
 //get info
 //#define FW_VER				1 //Initial version
 //#define FW_VER				3 //
-#define FW_VER				4 //Commands CMD_GPIO_WR, CMD_GPIO_RD, CMD_GPIO_DIR_WR and CMD_GPIO_DIR_RD added
+//#define FW_VER				4 //Commands CMD_GPIO_WR, CMD_GPIO_RD, CMD_GPIO_DIR_WR and CMD_GPIO_DIR_RD added
+#define FW_VER				5 // DAC value read from EEPROM memory
 
 
 #define SPI_NR_LMS7002M 0
@@ -45,13 +46,17 @@
 #define MCU_FIFO_WR_REG	0x04
 
 #define MAX_MCU_RETRIES	30
+
+#define DAC_VAL_ADDR  	0x0010		// Address in EEPROM memory where TCXO DAC value is stored
+#define DAC_DEFF_VAL	125			// Default TCXO DAC value loaded when EEPROM is empty
 uint8_t MCU_retries;
 
 uint8_t test, block, cmd_errors, glEp0Buffer_Rx[64], glEp0Buffer_Tx[64];
 tLMS_Ctrl_Packet *LMS_Ctrl_Packet_Tx = (tLMS_Ctrl_Packet*)glEp0Buffer_Tx;
 tLMS_Ctrl_Packet *LMS_Ctrl_Packet_Rx = (tLMS_Ctrl_Packet*)glEp0Buffer_Rx;
 
-unsigned char dac_val = 134;
+unsigned char dac_val = 125;
+
 unsigned char dac_data[2];
 
 signed short int converted_val = 300;
@@ -225,6 +230,26 @@ void Control_TCXO_ADF (unsigned char oe, unsigned char *data) //controls ADF4002
 	}
 }
 
+uint16_t rd_dac_val(uint16_t addr)
+{
+	uint8_t i2c_error;
+	uint8_t addr_lsb = (uint8_t) addr & 0x00FF;
+	uint8_t addr_msb = (uint8_t) (addr & 0xFF00) >> 8;
+	uint8_t eeprom_rd_val_0;
+	uint8_t eeprom_rd_val_1;
+	uint16_t rez;
+
+	i2c_error = I2C_start(I2C_OPENCORES_0_BASE, EEPROM_I2C_ADDR, 0);
+	i2c_error = I2C_write(I2C_OPENCORES_0_BASE, addr_msb, 0);
+	i2c_error = I2C_write(I2C_OPENCORES_0_BASE, addr_lsb, 0);
+	i2c_error = I2C_start(I2C_OPENCORES_0_BASE, EEPROM_I2C_ADDR, 1);
+	eeprom_rd_val_0 = I2C_read(I2C_OPENCORES_0_BASE, 0);
+	eeprom_rd_val_1 = I2C_read(I2C_OPENCORES_0_BASE, 1);
+
+	rez = ((uint16_t)eeprom_rd_val_1 << 8) | eeprom_rd_val_0;
+	return rez;
+}
+
 
 
 
@@ -237,113 +262,36 @@ int main()
 {
 	uint32_t* dest = (uint32_t*)glEp0Buffer_Tx;
     unsigned char led_pattern = 0x00;
-    //volatile uint32_t *uart = (volatile uint32_t*) UART_BASE;
-    //char *str = "Hello from NIOS II\r\n";
+    uint16_t eeprom_dac_val;
 
     volatile int spirez;
     char cnt = 0;
-
-    uint8_t status = 0;
 
     //Reset LMS7
     IOWR(LMS_CTR_GPIO_BASE, 0, 0x06);
     IOWR(LMS_CTR_GPIO_BASE, 0, 0x07);
 
-    //
-    uint8_t spi_wrbuf1[2] = {0x00, 0x20};
-    uint8_t spi_wrbuf2[6] = {0x80, 0x20, 0xFF, 0xFD, 0x00, 0x20};
-    //uint8_t spi_rdbuf[2] = {0x01, 0x00};
-
-    // Write initial data to the DAC
-	//dac_data[0] = (dac_val) >>2; //POWER-DOWN MODE = NORMAL OPERATION (MSB bits =00) + MSB data
-	//dac_data[1] = (dac_val) <<6; //LSB data
-	//spirez = alt_avalon_spi_command(SPI_1_DAC_BASE, SPI_NR_DAC, 2, dac_data, 0, NULL, 0);
-
-	//write default TCXO DAC value
-	Control_TCXO_ADF (0, NULL); //set ADF4002 CP to three-state
-	dac_val = 125; //default DAC value
-	Control_TCXO_DAC (1, &dac_val); //enable DAC output, set new val
-
-
-    //FLASH MEMORY
-    /*
-    spi_wrbuf1[0] = FLASH_CMD_READJEDECID;	//
-    spirez = alt_avalon_spi_command(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 1, spi_wrbuf1, 3, spi_wrbuf2, 0);
-	*/
-
-	//flash_page_data[FLASH_PAGE_SIZE];
-    //testFlash();
-    /*
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0000, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0001, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0002, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0003, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0004, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0005, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0006, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0007, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0008, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0009, FLASH_PAGE_SIZE, flash_page_data, 1);
-	spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x000A, FLASH_PAGE_SIZE, flash_page_data, 1);
-	//spirez = FlashSpiTransfer(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 0x0010, 10, flash_page_data, 1);
-	*/
-
     // I2C initialiazation
     I2C_init(I2C_OPENCORES_0_BASE, ALT_CPU_FREQ, 400000);
 
+	// Read TCXO DAC value from EEPROM memory
+	eeprom_dac_val = rd_dac_val(DAC_VAL_ADDR);
+	if (eeprom_dac_val == 0xFFFF){
+		dac_val = DAC_DEFF_VAL; //default DAC value
+	}
+	else {
+		dac_val = (unsigned char) eeprom_dac_val;
+	}
+
+    // Write initial data to the DAC
+	Control_TCXO_ADF (0, NULL);		//set ADF4002 CP to three-state
+	Control_TCXO_DAC (1, &dac_val); //enable DAC output, set new val
+
     // Configure LM75
     Configure_LM75();
-/*
- 	//Si5351C
-    spirez = I2C_start(I2C_OPENCORES_0_BASE, SI5351_I2C_ADDR, 0);
-    spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x09, 0);
-    spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x0F, 1);
-
-
-    spirez = I2C_start(I2C_OPENCORES_0_BASE, SI5351_I2C_ADDR, 0);
-    spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x09, 1);
-    spirez = I2C_start(I2C_OPENCORES_0_BASE, SI5351_I2C_ADDR, 1);
-    spirez = I2C_read(I2C_OPENCORES_0_BASE, 1);
-*/
-
- /*
-    // LM75
-	spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 0);
-	spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x00, 1);				// Pointer = temperature register
-	spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 1);
-
-	converted_val = (signed short int)I2C_read(I2C_OPENCORES_0_BASE, 0);
-	//converted_val = 0xE7 << 8;	// Test -25 deg
-	converted_val = 10 * (converted_val >> 8);
-	spirez = I2C_read(I2C_OPENCORES_0_BASE, 1);
-
-	if(spirez & 0x80) converted_val = converted_val + 5;
-*/
 
     while (1)	// infinite loop
     {
-        //led_pattern = IORD(SWITCH_BASE, 0);     // gets LEDs
-        //set_led(led_pattern<<3);                     // sets LEDs
-
-
-        // SPI
-        //spirez = alt_avalon_spi_command(SPI_LMS_BASE, 0, 2, spi_wrbuf1, 2, spi_rdbuf, 0);
-        //spirez = alt_avalon_spi_command(SPI_LMS_BASE, 0, 6, spi_wrbuf2, 2, spi_rdbuf, 0);
-        //spirez = alt_avalon_spi_command(SPI_LMS_BASE, 0, 2, spi_wrbuf1, 2, spi_rdbuf, 0);
-
-        //FLASH MEMORY
-        //spi_wrbuf1[0] = ReverseBitOrder(0x9F);	//
-        //spirez = alt_avalon_spi_command(SPI_FPGA_AS_BASE, SPI_NR_FLASH, 1, spi_wrbuf1, 3, spi_wrbuf2, 0);
-        //spi_wrbuf2[0] = ReverseBitOrder(spi_wrbuf2[0]);
-        //spi_wrbuf2[1] = ReverseBitOrder(spi_wrbuf2[1]);
-        //spi_wrbuf2[2] = ReverseBitOrder(spi_wrbuf2[2]);
-
-
-
-
-        // FIFO
-        //IOWR(AV_FIFO_INT_0_BASE, 0, cnt);		// Write Data to FIFO
-        //cnt++;
         spirez = IORD(AV_FIFO_INT_0_BASE, 2);	// Read FIFO Status
         if(!(spirez & 0x01))
         {
@@ -488,7 +436,6 @@ int main()
 
  					LMS_Ctrl_Packet_Tx->Header.Status = STATUS_COMPLETED_CMD;
  				break;
-
 
  				case CMD_ADF4002_WR:
  					if(Check_many_blocks (3)) break;
