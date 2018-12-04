@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Mar 30, 2017 2:57:03 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1490875023255</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>H:\working_dir\altera\LimeSDR-USB\lms7_trx\software\lms_ctr_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>Nov 29, 2018 11:11:51 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1543482711694</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>G:\working_dir\altera\LimeSDR-USB\lms7_trx\software\lms_ctr_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\lms_ctr.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>

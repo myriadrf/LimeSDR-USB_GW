@@ -111,8 +111,8 @@ enum eEXP_BOARD {
 #define CMD_MYRIAD_RST		0x80
 #define CMD_MYRIAD_WR		0x81
 #define CMD_MYRIAD_RD		0x82
-#define CMD_MYRIAD_FW_WR	0x8C //Writes FW to MyRiad board via SPI
-#define CMD_MYRIAD_FW_RD	0x8D //Reads FW from MyRiad board via SPI
+#define CMD_MEMORY_WR		0x8C //Writes FW to MyRiad board via SPI
+#define CMD_MEMORY_RD		0x8D //Reads FW from MyRiad board via SPI
 
 //status
 #define STATUS_COMPLETED_CMD		1 //Command successfully executed

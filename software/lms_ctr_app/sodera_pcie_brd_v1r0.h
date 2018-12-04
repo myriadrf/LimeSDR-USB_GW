@@ -49,6 +49,7 @@
 //I2C devices
 #define SI5351_I2C_ADDR		0x60 //0xC0
 #define   LM75_I2C_ADDR		0x48 //0x90
+#define EEPROM_I2C_ADDR		0x50 //0xA2
 
 //get info
 #define DEV_TYPE			LMS_DEV_SODERAPCIE
