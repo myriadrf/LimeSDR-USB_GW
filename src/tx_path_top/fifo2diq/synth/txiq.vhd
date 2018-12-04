@@ -43,7 +43,7 @@ end txiq;
 -- ----------------------------------------------------------------------------
 --Truth table for mode selection
 -- ----------------------------------------------------------------------------
--- Mode       | TRXIQ_PULSE  | MIMO DDR  | MIMO DDR  | MIMO DDR  |SISO SDR   | SISO DDR  |
+-- Mode       | TRXIQ_PULSE  | MIMO DDR  | MIMO DDR  | MIMO DDR  |SISO DDR   | SISO SDR  |
 --            |              |  all ch.  |  1 ch.    |  2 ch.    |           |           |
 -- trxiqpulse |       H      |     L     |    L      |    L      |     L     |     L     |
 -- ddr_en     |       X      |     H     |    H      |    H      |     H     |     L     |
