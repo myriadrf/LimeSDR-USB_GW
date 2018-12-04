@@ -40,7 +40,9 @@ entity diq2fifo is
       smpl_cmp_start : in std_logic;
       smpl_cmp_length: in std_logic_vector(15 downto 0);
       smpl_cmp_done  : out std_logic;
-      smpl_cmp_err   : out std_logic
+      smpl_cmp_err   : out std_logic;
+      -- sample counter enable
+      smpl_cnt_en    : out std_logic
 
         );
 end diq2fifo;
@@ -64,6 +66,8 @@ signal mux0_diq_l       : std_logic_vector (iq_width downto 0);
 
 signal mux0_diq_h_reg   : std_logic_vector (iq_width downto 0); 
 signal mux0_diq_l_reg   : std_logic_vector (iq_width downto 0);
+
+signal smpl_cnt_en_reg  : std_logic;
   
 begin
 
@@ -84,6 +88,19 @@ inst0_lms7002_ddin : entity work.lms7002_ddin
       data_out_l  => inst0_diq_out_l 
         );
         
+   process(clk, inst0_reset_n)
+   begin 
+      if inst0_reset_n = '0' then 
+         smpl_cnt_en_reg <= '0';
+      elsif rising_edge(clk) then 
+         if mimo_en = '0' AND ddr_en = '1' then 
+            smpl_cnt_en_reg <= '1';
+         else 
+            smpl_cnt_en_reg <= not smpl_cnt_en_reg;
+         end if;
+      end if;
+   end process;
+
         
 inst1_rxiq : entity work.rxiq
    generic map( 
@@ -163,10 +180,15 @@ inst3_smpl_cmp : entity work.smpl_cmp
       --DIQ bus
       diq_h       => inst0_diq_out_h,
       diq_l       => inst0_diq_out_l
-      );	  
-
-
+      );
+      
+      
+-- ----------------------------------------------------------------------------
+-- Output ports
+-- ----------------------------------------------------------------------------   
   
+   smpl_cnt_en <= smpl_cnt_en_reg;
+ 
 end arch;   
 
 

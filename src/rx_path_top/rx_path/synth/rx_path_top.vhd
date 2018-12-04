@@ -90,6 +90,7 @@ signal smpl_cmp_length_sync   : std_logic_vector(15 downto 0);
 --inst0 
 signal inst0_fifo_wrreq       : std_logic;
 signal inst0_fifo_wdata       : std_logic_vector(iq_width*4-1 downto 0);
+signal inst0_smpl_cnt_en      : std_logic;
 --inst1
 signal inst1_wrfull           : std_logic;
 signal inst1_q                : std_logic_vector(iq_width*4-1 downto 0);
@@ -202,7 +203,8 @@ diq2fifo_inst0 : entity work.diq2fifo
       smpl_cmp_start    => smpl_cmp_start_sync,
       smpl_cmp_length   => smpl_cmp_length_sync,
       smpl_cmp_done     => smpl_cmp_done,
-      smpl_cmp_err      => smpl_cmp_err
+      smpl_cmp_err      => smpl_cmp_err,
+      smpl_cnt_en       => inst0_smpl_cnt_en
         );
         
         
@@ -301,7 +303,7 @@ smpl_cnt_inst3 : entity work.smpl_cnt
 -- ----------------------------------------------------------------------------
 -- Instance for sample counter
 -- ----------------------------------------------------------------------------        
-smpl_cnt_inst4 : entity work.smpl_cnt
+iq_smpl_cnt_inst4 : entity work.iq_smpl_cnt
    generic map(
       cnt_width   => 64
    )
@@ -317,7 +319,7 @@ smpl_cnt_inst4 : entity work.smpl_cnt
       sclr        => clr_smpl_nr_sync,
       sload       => ld_smpl_nr_sync,
       data        => smpl_nr_in_sync,
-      cnt_en      => inst0_fifo_wrreq,
+      cnt_en      => inst0_smpl_cnt_en,
       q           => smpl_nr_cnt        
         );
         
