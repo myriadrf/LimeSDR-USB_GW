@@ -64,7 +64,8 @@ entity tx_path_top is
       in_pct_reset_n_req   : out std_logic;
       in_pct_rdreq         : out std_logic;
       in_pct_data          : in std_logic_vector(in_pct_data_w-1 downto 0);
-      in_pct_rdy           : in std_logic
+      in_pct_rdy           : in std_logic;
+      in_pct_rdempty       : in std_logic
       );
 end tx_path_top;
 
@@ -91,18 +92,27 @@ signal ch_en_sync_iq_rdclk          : std_logic_vector(1 downto 0);
 signal sample_width_sync_iq_rdclk   : std_logic_vector(1 downto 0);
 
 --inst0
-signal inst0_smpl_buff_rdempty      : std_logic;
-signal inst0_smpl_buff_wrfull       : std_logic;
-signal inst0_smpl_buff_q            : std_logic_vector(out_pct_data_w-1 downto 0);
-signal inst0_pct_size               : std_logic_vector(pct_size_w-1 downto 0);
-signal inst0_in_pct_clr_flag        : std_logic;
-signal inst0_in_pct_clr_flag_reg    : std_logic;
-signal inst0_in_pct_buff_rdy        : std_logic_vector(n_buff-1 downto 0);
+signal inst0_reset_n                : std_logic;
+signal inst0_pct_rdy                : std_logic;
+signal inst0_pct_header             : std_logic_vector(127 downto 0);
+signal inst0_pct_data               : std_logic_vector(127 downto 0);
+signal inst0_pct_data_rdempty       : std_logic;
 
 --inst1
-signal inst1_fifo_rdreq             : std_logic;
-signal inst1_fifo_q                 : std_logic_vector(47 downto 0);
-signal inst1_pct_buff_rdy           : std_logic;
+signal inst1_smpl_buff_rdempty      : std_logic;
+signal inst1_smpl_buff_wrfull       : std_logic;
+signal inst1_smpl_buff_q            : std_logic_vector(out_pct_data_w-1 downto 0);
+signal inst1_pct_size               : std_logic_vector(pct_size_w-1 downto 0);
+signal inst1_in_pct_clr_flag        : std_logic;
+signal inst1_in_pct_clr_flag_reg    : std_logic;
+signal inst1_in_pct_buff_rdy        : std_logic_vector(n_buff-1 downto 0);
+signal inst1_in_pct_reset_n_req     : std_logic;
+signal inst1_in_pct_rdreq           : std_logic;
+
+--inst2
+signal inst2_fifo_rdreq             : std_logic;
+signal inst2_fifo_q                 : std_logic_vector(47 downto 0);
+signal inst2_pct_buff_rdy           : std_logic;
 
 signal pct_loss_flg_int             : std_logic;
 
@@ -205,24 +215,24 @@ begin
    if reset_n = '0' then 
       pct_sync_num_of_rdy_packets <= (others => '0');
    elsif (iq_rdclk'event AND iq_rdclk='1') then 
-      pct_sync_num_of_rdy_packets <= to_unsigned(COUNT_ONES(inst0_in_pct_buff_rdy), 3);
+      pct_sync_num_of_rdy_packets <= to_unsigned(COUNT_ONES(inst1_in_pct_buff_rdy), 3);
    end if; 
 end process;
 
---inst1_pct_buff_rdy signal formation for fifo2diq module
+--inst2_pct_buff_rdy signal formation for fifo2diq module
 process(iq_rdclk, reset_n)
 begin
    if reset_n = '0' then 
-      inst1_pct_buff_rdy <= '0';
+      inst2_pct_buff_rdy <= '0';
    elsif (iq_rdclk'event AND iq_rdclk = '1') then
-      if inst0_smpl_buff_wrfull = '1' then 
+      if inst1_smpl_buff_wrfull = '1' then 
          if pct_sync_num_of_rdy_packets >= unsigned(pct_sync_num_of_packets)then 
-            inst1_pct_buff_rdy <= '1';
+            inst2_pct_buff_rdy <= '1';
          else 
-            inst1_pct_buff_rdy <= '0';
+            inst2_pct_buff_rdy <= '0';
          end if;
       else 
-         inst1_pct_buff_rdy <= '0';
+         inst2_pct_buff_rdy <= '0';
       end if;
    end if;
 end process;
@@ -231,9 +241,9 @@ end process;
 process(sample_width)
 begin
       if sample_width = "01" then 
-         inst0_pct_size <= x"0100";
+         inst1_pct_size <= x"0100";
       else 
-         inst0_pct_size <= x"0400";
+         inst1_pct_size <= x"0400";
       end if;
 end process;
 
@@ -243,13 +253,13 @@ end process;
  begin
    if reset_n_sync_iq_rdclk = '0' then 
       pct_loss_flg_int           <= '0';
-      inst0_in_pct_clr_flag_reg  <= '1';
+      inst1_in_pct_clr_flag_reg  <= '1';
       pct_loss_flg_clr_sync_iq_rdclk_reg <= '0';
    elsif (iq_rdclk'event AND iq_rdclk='1') then
-      inst0_in_pct_clr_flag_reg <= inst0_in_pct_clr_flag;
+      inst1_in_pct_clr_flag_reg <= inst1_in_pct_clr_flag;
       pct_loss_flg_clr_sync_iq_rdclk_reg <= pct_loss_flg_clr_sync_iq_rdclk;
       
-      if inst0_in_pct_clr_flag = '1' AND inst0_in_pct_clr_flag_reg = '0' then 
+      if inst1_in_pct_clr_flag = '1' AND inst1_in_pct_clr_flag_reg = '0' then 
          pct_loss_flg_int <= '1';
       elsif pct_loss_flg_clr_sync_iq_rdclk = '1' AND pct_loss_flg_clr_sync_iq_rdclk_reg = '0' then 
          pct_loss_flg_int <= '0';
@@ -279,11 +289,33 @@ generic map(
         sync_q       => rx_sample_nr_iq_rdclk
         );
 
-
+inst0_one_pct_fifo : entity work.one_pct_fifo
+   generic map(
+      dev_family              => dev_family,
+      g_INFIFO_DATA_WIDTH     => 128,
+      g_MAX_PCT_SIZE          => 4096, -- Packet FIFO size in bytes
+      g_PCT_HDR_SIZE          => 16,
+      g_PCTFIFO_RDATA_WIDTH   => 128
+   )
+   port map(
+      clk               => pct_wrclk,
+      reset_n           => reset_n,
+      infifo_rdreq      => in_pct_rdreq,
+      infifo_data       => in_pct_data,
+      infifo_rdempty    => in_pct_rdempty,
+      pct_rdclk         => pct_wrclk,
+      pct_aclr_n        => inst1_in_pct_reset_n_req,
+      pct_rdy           => inst0_pct_rdy,
+      pct_header        => inst0_pct_header,
+      pct_data_rdreq    => inst1_in_pct_rdreq,
+      pct_data          => inst0_pct_data,
+      pct_data_rdempty  => inst0_pct_data_rdempty
+   ); 
+        
 -- ----------------------------------------------------------------------------
 -- packets2data_top instance
 -- ----------------------------------------------------------------------------
-  packets2data_top_inst0 : entity work.packets2data_top
+  packets2data_top_inst1 : entity work.packets2data_top
    generic map (
       dev_family        => dev_family,
       TX_IN_PCT_SIZE    => TX_IN_PCT_SIZE,    
@@ -306,37 +338,37 @@ generic map(
       ch_en             => ch_en_sync_iq_rdclk,
       sample_width      => sample_width_sync_iq_rdclk,
       
-      pct_size          => inst0_pct_size,
+      pct_size          => inst1_pct_size,
       
       pct_sync_dis      => pct_sync_dis,
       sample_nr         => rx_sample_nr_iq_rdclk,
       
-      in_pct_reset_n_req=> in_pct_reset_n_req,
-      in_pct_rdreq      => in_pct_rdreq,
-      in_pct_data       => in_pct_data,
-      in_pct_rdy        => in_pct_rdy,
-      in_pct_clr_flag   => inst0_in_pct_clr_flag,
-      in_pct_buff_rdy   => inst0_in_pct_buff_rdy,
+      in_pct_reset_n_req=> inst1_in_pct_reset_n_req,
+      in_pct_rdreq      => inst1_in_pct_rdreq,
+      in_pct_data       => inst0_pct_data,
+      in_pct_rdy        => inst0_pct_rdy,
+      in_pct_clr_flag   => inst1_in_pct_clr_flag,
+      in_pct_buff_rdy   => inst1_in_pct_buff_rdy,
       
-      smpl_buff_rdempty => inst0_smpl_buff_rdempty,
-      smpl_buff_wrfull  => inst0_smpl_buff_wrfull,
-      smpl_buff_q       => inst0_smpl_buff_q,    
-      smpl_buff_rdreq   => inst1_fifo_rdreq
+      smpl_buff_rdempty => inst1_smpl_buff_rdempty,
+      smpl_buff_wrfull  => inst1_smpl_buff_wrfull,
+      smpl_buff_q       => inst1_smpl_buff_q,    
+      smpl_buff_rdreq   => inst2_fifo_rdreq
         );
         
         
-pct_rdy_combined_vect <= inst0_in_pct_buff_rdy & inst0_smpl_buff_wrfull;
+pct_rdy_combined_vect <= inst1_in_pct_buff_rdy & inst1_smpl_buff_wrfull;
         
                
 -- ----------------------------------------------------------------------------
 -- fifo2diq instance
 -- ----------------------------------------------------------------------------       
-inst1_fifo_q <=   inst0_smpl_buff_q(63 downto 52) & 
-                  inst0_smpl_buff_q(47 downto 36) &
-                  inst0_smpl_buff_q(31 downto 20) & 
-                  inst0_smpl_buff_q(15 downto 4);
+inst2_fifo_q <=   inst1_smpl_buff_q(63 downto 52) & 
+                  inst1_smpl_buff_q(47 downto 36) &
+                  inst1_smpl_buff_q(31 downto 20) & 
+                  inst1_smpl_buff_q(15 downto 4);
 
-diq2fifo_inst1 : entity work.fifo2diq
+diq2fifo_inst2 : entity work.fifo2diq
    generic map( 
       dev_family     => dev_family,
       iq_width       => iq_width
@@ -353,7 +385,7 @@ diq2fifo_inst1 : entity work.fifo2diq
       pct_sync_mode        => pct_sync_mode,      
       pct_sync_pulse       => pct_sync_pulse,
       pct_sync_size        => pct_sync_size,
-      pct_buff_rdy         => inst1_pct_buff_rdy,
+      pct_buff_rdy         => inst2_pct_buff_rdy,
       --txant              
       txant_cyc_before_en  => txant_cyc_before_en,
       txant_cyc_after_en   => txant_cyc_after_en,
@@ -362,9 +394,9 @@ diq2fifo_inst1 : entity work.fifo2diq
       fsync                => fsync,
       DIQ_h                => DIQ_h,
       DIQ_l                => DIQ_l,
-      fifo_rdempty         => inst0_smpl_buff_rdempty,
-      fifo_rdreq           => inst1_fifo_rdreq,
-      fifo_q               => inst1_fifo_q 
+      fifo_rdempty         => inst1_smpl_buff_rdempty,
+      fifo_rdreq           => inst2_fifo_rdreq,
+      fifo_q               => inst2_fifo_q 
    
       );
 end arch;   

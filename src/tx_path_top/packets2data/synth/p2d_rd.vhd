@@ -69,9 +69,11 @@ signal crnt_buff_pct_synch_dis      : std_logic;
 signal crnt_buff_pct_smpl_nr_equal  : std_logic; 
 signal crnt_buff_pct_smpl_nr_less   : std_logic; 
 signal crnt_buff_cnt                : unsigned(3 downto 0);
+signal crnt_buff_payload_size       : std_logic_vector(15 downto 0);
 
 signal rd_req_int                   : std_logic;
 signal rd_cnt                       : unsigned(15 downto 0);
+signal rd_cnt_max                   : unsigned(15 downto 0);
 
 type state_type is (idle, switch_next_buff, check_next_buf, rd_buff, rd_hold, clr_buff);
 signal current_state, next_state : state_type;   
@@ -168,6 +170,7 @@ begin
          crnt_buff_pct_synch_dis     <= '0';
          crnt_buff_pct_smpl_nr_equal <= '0';
          crnt_buff_pct_smpl_nr_less  <= '0';
+         crnt_buff_payload_size      <= (others=>'0');
       elsif (clk'event AND clk='1') then
          -- Current buffer counter used for MUX select
          if current_state = switch_next_buff then
@@ -185,6 +188,7 @@ begin
          crnt_buff_pct_synch_dis     <= pct_synch_dis(to_integer(crnt_buff_cnt));
          crnt_buff_pct_smpl_nr_equal <= pct_smpl_nr_equal(to_integer(crnt_buff_cnt));
          crnt_buff_pct_smpl_nr_less  <= pct_smpl_nr_less(to_integer(crnt_buff_cnt));
+         crnt_buff_payload_size      <= pct_hdr_0_array(to_integer(crnt_buff_cnt))(23 downto 8);
          
       end if;
    end process;
@@ -194,6 +198,7 @@ begin
    begin
       if reset_n = '0' then 
          rd_cnt <= (others=>'0');
+         rd_cnt_max <= (others=> '0');
       elsif (clk'event AND clk='1') then 
          if current_state = idle then 
             rd_cnt <= (others=>'0');
@@ -203,6 +208,12 @@ begin
             else 
                rd_cnt <= rd_cnt;
             end if;
+         end if;
+         
+         if unsigned(crnt_buff_payload_size) = 0 then 
+            rd_cnt_max <= to_unsigned(510,16);
+         else
+            rd_cnt_max <= "000" & unsigned(crnt_buff_payload_size(15 downto 3));
          end if;
       end if;
    end process;
@@ -264,7 +275,7 @@ begin
          
          when rd_buff =>
             if smpl_buff_almost_full = '0' then
-               if rd_cnt < ((PCT_SIZE-PCT_HDR_SIZE)*8)/64 - 1 then 
+               if rd_cnt < rd_cnt_max - 1 then 
                   next_state <= rd_buff;
                else 
                   next_state <= switch_next_buff;

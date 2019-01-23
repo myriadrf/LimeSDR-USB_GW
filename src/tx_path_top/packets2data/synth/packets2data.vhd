@@ -114,6 +114,8 @@ signal pct_smpl_mux                 : std_logic_vector(63 downto 0);
 signal pct_buff_rdy_int             : std_logic_vector(n_buff-1 downto 0);
 signal pct_size_only_data           : unsigned(pct_size_w-1 downto 0);
 signal half_pct_size_only_data      : unsigned(pct_size_w-1 downto 0);
+type pct_size_array is array (0 to (n_buff-1)) of std_logic_vector(15 downto 0);
+signal pct_buff_size                : pct_size_array;
 
 signal smpl_buff_valid_int          : std_logic;
 
@@ -205,7 +207,7 @@ gen_fifo :
       fifo_inst_isntx : entity work.fifo_inst
          generic map(
             dev_family	    => "Cyclone IV E",
-            wrwidth         => in_pct_data_w,
+            wrwidth         => 128,
             wrusedw_witdth  => 9, --12=2048 words 
             rdwidth         => 64,
             rdusedw_width   => 10,
@@ -229,17 +231,31 @@ gen_fifo :
 end generate gen_fifo;
 
 
+
+
 process(rclk, reset_n)
 begin
    if reset_n = '0' then 
       pct_buff_rdy_int <= (others=>'0');
+      pct_buff_size       <= (others=>(others=>'1'));
    elsif (rclk'event AND rclk='1') then 
       for i in 0 to n_buff-1 loop
-         if unsigned(instx_rdusedw(i)) = half_pct_size_only_data then 
+         if unsigned(instx_rdusedw(i)) = unsigned(pct_buff_size(i)) then 
             pct_buff_rdy_int(i)<= '1';
          else 
             pct_buff_rdy_int(i)<= '0';
          end if;
+         
+         if inst0_pct_hdr_0_valid(i) = '1' then
+            if inst0_pct_hdr_0(23 downto 8) = "0000000000000000" then 
+               pct_buff_size(i) <= std_logic_vector(to_unsigned(510, 16));
+            else 
+               pct_buff_size(i) <= "000" & inst0_pct_hdr_0(23 downto 11);
+            end if;
+         else 
+            pct_buff_size(i) <= pct_buff_size(i);
+         end if;
+         
       end loop;
    end if;
 end process;

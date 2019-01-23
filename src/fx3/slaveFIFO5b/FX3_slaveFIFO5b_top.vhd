@@ -325,20 +325,44 @@ begin
 
    inst2_wrreq <= inst1_socket0_fifo_wr when EP01_sel_sync = '0' else '0';
    
-   inst2_EP01_0_FIFO : entity work.two_fifo_inst   
+--   inst2_EP01_0_FIFO : entity work.two_fifo_inst   
+--   generic map(
+--      dev_family     => dev_family,
+--      wrwidth        => data_width, --32 bits ftdi side, 
+--      wrusedw_witdth => socket0_wrusedw_size,            --10=512 words (2048kB), FTDI configuration requires accept 2048kB buffer  
+--      rdwidth        => EP01_0_rwidth,
+--      rdusedw_width  => socket0_0_rdusedw_size,   
+--      show_ahead     => "OFF",
+--      TRNSF_SIZE     => 512, 
+--      TRNSF_N        => 8
+--   )
+--   port map(
+--      reset_0_n   => EP01_0_sclrn_0,
+--      reset_1_n   => EP01_0_sclrn_1,  
+--      wrclk       => clk,
+--      wrreq       => inst2_wrreq,
+--      data        => inst1_socket0_fifo_data,
+--      wrfull      => open,
+--      wrempty     => open,
+--      wrusedw     => inst2_fifo_wrusedw,
+--      rdclk       => EP01_0_rdclk,
+--      rdreq       => EP01_0_rd,
+--      q           => EP01_0_rdata,
+--      rdempty     => EP01_0_rempty,
+--      rdusedw     => EP01_0_rdusedw             
+--   );	
+
+   inst2_EP01_0_FIFO : entity work.fifo_inst   
    generic map(
       dev_family     => dev_family,
       wrwidth        => data_width, --32 bits ftdi side, 
       wrusedw_witdth => socket0_wrusedw_size,            --10=512 words (2048kB), FTDI configuration requires accept 2048kB buffer  
       rdwidth        => EP01_0_rwidth,
       rdusedw_width  => socket0_0_rdusedw_size,   
-      show_ahead     => "OFF",
-      TRNSF_SIZE     => 512, 
-      TRNSF_N        => 8
+      show_ahead     => "OFF"
    )
    port map(
-      reset_0_n   => EP01_0_sclrn_0,
-      reset_1_n   => EP01_0_sclrn_1,  
+      reset_n     => EP01_0_sclrn_0,
       wrclk       => clk,
       wrreq       => inst2_wrreq,
       data        => inst1_socket0_fifo_data,
@@ -350,7 +374,7 @@ begin
       q           => EP01_0_rdata,
       rdempty     => EP01_0_rempty,
       rdusedw     => EP01_0_rdusedw             
-   );	
+   );
    
    inst3_pct_wr <= inst1_socket0_fifo_wr when EP01_sel_sync = '1' else '0';
    

@@ -32,7 +32,7 @@ entity lms7_trx_top is
       FX3_PCLK_PERIOD         : integer := 10;
       FX3_DQ_WIDTH            : integer := 32;     -- FX3 Data bus size
       FX3_EP01_SIZE           : integer := 4096;   -- Stream PC->FPGA, FIFO size in bytes, same size for FX3_EP01_0 and FX3_EP01_1
-      FX3_EP01_0_RWIDTH       : integer := 128;     -- Stream PC->FPGA, FIFO rd width, FIFO number - 0
+      FX3_EP01_0_RWIDTH       : integer := 128;    -- Stream PC->FPGA, FIFO rd width, FIFO number - 0
       FX3_EP01_1_RWIDTH       : integer := 32;     -- Stream PC->FPGA, FIFO rd width, FIFO number - 1  
       FX3_EP81_SIZE           : integer := 16384;  -- Stream FPGA->PC, FIFO size in bytes
       FX3_EP81_WWIDTH         : integer := 64;     -- Stream FPGA->PC, FIFO wr width

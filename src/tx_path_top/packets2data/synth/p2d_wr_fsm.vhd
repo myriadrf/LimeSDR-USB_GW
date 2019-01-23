@@ -66,6 +66,7 @@ signal current_buff_cnt       : unsigned(3 downto 0);
 signal next_buff_cnt          : unsigned(3 downto 0);
 
 signal rd_cnt                 : unsigned(15 downto 0);
+signal rd_cnt_max             : unsigned(15 downto 0);
 signal pipe_cnt               : unsigned(3 downto 0);
 
 signal current_buff_rdy       : std_logic;
@@ -198,7 +199,7 @@ end process;
 -- ----------------------------------------------------------------------------
 fsm : process(current_state, current_buff_rdy, in_pct_rdy, rd_cnt,
                next_buff_rdy, in_pct_data_valid, pipe_cnt, pct_smpl_nr_less, 
-               crnt_pct_sync_dis, pct_sync_dis) begin
+               crnt_pct_sync_dis, pct_sync_dis, rd_cnt_max) begin
    next_state <= current_state;
    case current_state is
    
@@ -210,7 +211,7 @@ fsm : process(current_state, current_buff_rdy, in_pct_rdy, rd_cnt,
          end if;
       
       when rd_hdr =>
-         next_state <= wait_cmpr_pipe;
+         next_state <= wait_cmpr_pipe;   
          
       when wait_cmpr_pipe => 
          if pipe_cnt > 3 then 
@@ -237,7 +238,7 @@ fsm : process(current_state, current_buff_rdy, in_pct_rdy, rd_cnt,
          next_state <= rd_pct;
                   
       when rd_pct =>
-         if rd_cnt < (PCT_SIZE*8)/pct_data'length - 1 then 
+         if rd_cnt < rd_cnt_max - 1 then 
             next_state <= rd_pct;
          else 
             next_state <= wait_wr_end;
@@ -302,7 +303,8 @@ begin
       pct_hdr_1_reg     <= (others=>'0');
       pct_hdr_1_valid   <= (others=>'0');
       pct_data          <= (others=>'0');
-      pct_data_wrreq    <= (others=>'0');    
+      pct_data_wrreq    <= (others=>'0');
+      rd_cnt_max        <= (others=>'0');
    elsif (clk'event AND clk='1') then
       -- Read request signal for FIFO where packet is stored
       if current_state = rd_pct OR current_state = rd_hdr then 
@@ -321,14 +323,19 @@ begin
       if in_pct_data_valid = '1' AND pct_data_wrreq_cnt = C_HEADER_POS then 
          pct_hdr_0_reg     <= in_pct_data(63 downto 0);
          pct_hdr_1_reg     <= in_pct_data(127 downto 64);
+         if in_pct_data(23 downto 10) = "00000000000000" then 
+            rd_cnt_max  <= to_unsigned(256,16);
+         else 
+            rd_cnt_max  <= unsigned("0000" & in_pct_data(23 downto 12)) + 1;
+         end if;
       end if;
       
       if in_pct_data_valid = '1' AND pct_data_wrreq_cnt = C_HEADER_POS then 
          pct_hdr_0_valid   <= (others=>'0');
          pct_hdr_0_valid(to_integer(current_buff_cnt))   <= '1';
-   
+         
          pct_hdr_1_valid   <= (others=>'0');
-         pct_hdr_1_valid(to_integer(current_buff_cnt))   <= '1';
+         pct_hdr_1_valid(to_integer(current_buff_cnt))   <= '1';  
       else 
          pct_hdr_0_valid   <= (others=>'0');
          pct_hdr_1_valid   <= (others=>'0');
