@@ -20,7 +20,7 @@ use ieee.numeric_std.all;
 entity pct_separate_fsm is
    generic(
       g_DATA_WIDTH   : integer := 32;
-      g_MAX_PCT_SIZE : integer := 4096;   -- Maximum packet size in bytes 
+      g_PCT_MAX_SIZE : integer := 4096;   -- Maximum packet size in bytes 
       g_PCT_HDR_SIZE : integer := 16      -- Packet header size in bytes
    );
    port (
@@ -44,7 +44,7 @@ end pct_separate_fsm;
 architecture arch of pct_separate_fsm is
 --declare signals,  components here
    -- Constants
-constant c_MAX_PCT_WORDS   : integer := g_MAX_PCT_SIZE*8/g_DATA_WIDTH;
+constant c_MAX_PCT_WORDS   : integer := g_PCT_MAX_SIZE*8/g_DATA_WIDTH;
 constant c_PCT_HDR_WORDS   : integer := g_PCT_HDR_SIZE*8/g_DATA_WIDTH;
 constant c_RD_RATIO        : integer := g_DATA_WIDTH/8;
 

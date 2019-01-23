@@ -270,7 +270,6 @@ signal inst6_rx_smpl_cmp_err        : std_logic;
 signal inst6_to_tstcfg_from_rxtx    : t_TO_TSTCFG_FROM_RXTX;
 signal inst6_rx_pct_fifo_aclrn_req  : std_logic;
 signal inst6_tx_in_pct_rdreq        : std_logic;
-signal inst6_tx_in_pct_reset_n_req  : std_logic;
 signal inst6_wfm_in_pct_reset_n_req : std_logic;
 signal inst6_wfm_in_pct_rdreq       : std_logic;
 signal inst6_wfm_phy_clk            : std_logic;
@@ -470,8 +469,7 @@ begin
       EP01_sel             => inst0_from_fpgacfg.wfm_load,
       --stream endpoint fifo (PC->FPGA) 
       EP01_0_rdclk         => inst1_txpll_c1,
-      EP01_0_aclrn_0       => inst0_from_fpgacfg.rx_en,
-      EP01_0_aclrn_1       => inst6_tx_in_pct_reset_n_req,
+      EP01_0_aclrn         => inst0_from_fpgacfg.rx_en,
       EP01_0_rd            => inst6_tx_in_pct_rdreq,
       EP01_0_rdata         => inst2_EP01_0_rdata,
       EP01_0_rempty        => inst2_EP01_0_rempty,
@@ -653,7 +651,6 @@ begin
       tx_DIQ                  => LMS_DIQ1_D,
       tx_fsync                => LMS_DIQ1_IQSEL,
       --fifo ports
-      tx_in_pct_reset_n_req   => inst6_tx_in_pct_reset_n_req,
       tx_in_pct_rdreq         => inst6_tx_in_pct_rdreq,
       tx_in_pct_data          => inst2_EP01_0_rdata,
       tx_in_pct_rdempty       => inst2_EP01_0_rempty,

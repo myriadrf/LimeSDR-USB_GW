@@ -22,8 +22,10 @@ USE lpm.all;
 -- ----------------------------------------------------------------------------
 entity p2d_wr_fsm is
    generic (
-      N_BUFF            : integer := 4;   -- 2,4 valid values
-      PCT_SIZE          : integer := 4096 -- Whole packet size in bytes
+      g_DATA_WIDTH      : integer := 128;
+      g_PCT_MAX_SIZE    : integer := 4096;     
+      g_PCT_HDR_SIZE    : integer := 16;           
+      g_BUFF_COUNT      : integer := 4 -- 2,4 valid values
    );
    port (
       clk               : in std_logic;
@@ -34,19 +36,19 @@ entity p2d_wr_fsm is
       
       in_pct_reset_n_req: out std_logic;
       in_pct_rdreq      : out std_logic;
-      in_pct_data       : in std_logic_vector(127 downto 0);
+      in_pct_data       : in std_logic_vector(g_DATA_WIDTH-1 downto 0);
       in_pct_rdy        : in std_logic;
       
       pct_hdr_0         : out std_logic_vector(63 downto 0);
-      pct_hdr_0_valid   : out std_logic_vector(N_BUFF-1 downto 0);
+      pct_hdr_0_valid   : out std_logic_vector(g_BUFF_COUNT-1 downto 0);
       
       pct_hdr_1         : out std_logic_vector(63 downto 0);
-      pct_hdr_1_valid   : out std_logic_vector(N_BUFF-1 downto 0);
+      pct_hdr_1_valid   : out std_logic_vector(g_BUFF_COUNT-1 downto 0);
       
-      pct_data          : out std_logic_vector(127 downto 0);
-      pct_data_wrreq    : out std_logic_vector(N_BUFF-1 downto 0);
+      pct_data          : out std_logic_vector(g_DATA_WIDTH-1 downto 0);
+      pct_data_wrreq    : out std_logic_vector(g_BUFF_COUNT-1 downto 0);
 
-      pct_buff_rdy      : in std_logic_vector(N_BUFF-1 downto 0)
+      pct_buff_rdy      : in std_logic_vector(g_BUFF_COUNT-1 downto 0)
       
         );
 end p2d_wr_fsm;
@@ -57,7 +59,10 @@ end p2d_wr_fsm;
 architecture arch of p2d_wr_fsm is
 --declare signals,  components here
 
-constant C_HEADER_POS         : integer := 0;
+constant C_HEADER_POS      : integer := 0;
+constant c_PCT_MAX_WORDS   : integer := g_PCT_MAX_SIZE*8/g_DATA_WIDTH;
+constant c_PCT_HDR_WORDS   : integer := g_PCT_HDR_SIZE*8/g_DATA_WIDTH;
+constant c_RD_RATIO        : integer := g_DATA_WIDTH/8;
 
 type state_type is (idle, rd_hdr, wait_cmpr_pipe, check_smpl_nr, clr_fifo, switch_next_buff, rd_pct, wait_wr_end, check_next_buf, switch_current_buff);
 signal current_state, next_state : state_type;  
@@ -128,7 +133,7 @@ begin
          next_buff_rdy <= '0';
       elsif (clk'event AND clk='1') then 
          if current_state = switch_next_buff then 
-            if next_buff_cnt < N_BUFF - 1 then  
+            if next_buff_cnt < g_BUFF_COUNT - 1 then  
                next_buff_cnt <= next_buff_cnt + 1;
             else 
                next_buff_cnt <= (others=>'0');
@@ -323,10 +328,10 @@ begin
       if in_pct_data_valid = '1' AND pct_data_wrreq_cnt = C_HEADER_POS then 
          pct_hdr_0_reg     <= in_pct_data(63 downto 0);
          pct_hdr_1_reg     <= in_pct_data(127 downto 64);
-         if in_pct_data(23 downto 10) = "00000000000000" then 
-            rd_cnt_max  <= to_unsigned(256,16);
+         if in_pct_data(23 downto 8) = "0000000000000000" then 
+            rd_cnt_max  <= to_unsigned(c_PCT_MAX_WORDS,rd_cnt_max'length);
          else 
-            rd_cnt_max  <= unsigned("0000" & in_pct_data(23 downto 12)) + 1;
+            rd_cnt_max  <= unsigned(in_pct_data(23 downto 8))/c_RD_RATIO + c_PCT_HDR_WORDS;
          end if;
       end if;
       

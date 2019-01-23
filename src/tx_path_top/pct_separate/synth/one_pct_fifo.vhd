@@ -22,7 +22,7 @@ entity one_pct_fifo is
    generic(
       dev_family              : string := "Cyclone IV E";
       g_INFIFO_DATA_WIDTH     : integer := 32;
-      g_MAX_PCT_SIZE          : integer := 4096; -- Maximum packet size in bytes 
+      g_PCT_MAX_SIZE          : integer := 4096; -- Maximum packet size in bytes 
       g_PCT_HDR_SIZE          : integer := 16;   -- Packet header size in bytes
       g_PCTFIFO_RDATA_WIDTH   : integer := 128
    );
@@ -49,7 +49,7 @@ end one_pct_fifo;
 architecture arch of one_pct_fifo is
 --declare signals,  components here
 -- Constants
-constant c_MAX_PCT_WORDS         : integer := g_MAX_PCT_SIZE*8/g_PCTFIFO_RDATA_WIDTH;
+constant c_MAX_PCT_WORDS         : integer := g_PCT_MAX_SIZE*8/g_PCTFIFO_RDATA_WIDTH;
 constant c_PCT_HDR_WORDS         : integer := g_PCT_HDR_SIZE*8/g_PCTFIFO_RDATA_WIDTH;
 constant c_RD_RATIO              : integer := g_PCTFIFO_RDATA_WIDTH/8;
 
@@ -60,8 +60,8 @@ signal inst0_pct_header          : std_logic_vector(g_PCT_HDR_SIZE*8-1 downto 0)
 signal inst0_pct_header_valid    : std_logic;
 
 -- inst1
-constant c_INST1_WRUSEDW_WIDTH   : integer := FIFO_WORDS_TO_Nbits(g_MAX_PCT_SIZE/(g_INFIFO_DATA_WIDTH/8),true);
-constant c_INST1_RDUSEDW_WIDTH   : integer := FIFO_WORDS_TO_Nbits(g_MAX_PCT_SIZE/(g_PCTFIFO_RDATA_WIDTH/8),true);
+constant c_INST1_WRUSEDW_WIDTH   : integer := FIFO_WORDS_TO_Nbits(g_PCT_MAX_SIZE/(g_INFIFO_DATA_WIDTH/8),true);
+constant c_INST1_RDUSEDW_WIDTH   : integer := FIFO_WORDS_TO_Nbits(g_PCT_MAX_SIZE/(g_PCTFIFO_RDATA_WIDTH/8),true);
 signal inst1_reset_n             : std_logic;
 signal inst1_wrempty             : std_logic;
 signal inst1_rdusedw             : std_logic_vector(c_INST1_RDUSEDW_WIDTH-1 downto 0);
@@ -91,7 +91,7 @@ begin
    inst0_pct_separate_fsm : entity work.pct_separate_fsm
    generic map(
       g_DATA_WIDTH   => g_INFIFO_DATA_WIDTH,
-      g_MAX_PCT_SIZE => g_MAX_PCT_SIZE,
+      g_PCT_MAX_SIZE => g_PCT_MAX_SIZE,
       g_PCT_HDR_SIZE => g_PCT_HDR_SIZE
    )
    port map(

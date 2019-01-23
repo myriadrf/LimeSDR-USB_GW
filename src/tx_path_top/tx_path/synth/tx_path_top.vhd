@@ -15,15 +15,12 @@ use work.general_pkg.all;
 -- ----------------------------------------------------------------------------
 entity tx_path_top is
    generic( 
-      dev_family           : string := "Cyclone IV E";
-      iq_width             : integer := 12;
-      TX_IN_PCT_SIZE       : integer := 4096; -- TX packet size in bytes
-      TX_IN_PCT_HDR_SIZE   : integer := 16;
-      pct_size_w           : integer := 16;
-      n_buff               : integer := 4; -- 2,4 valid values
-      in_pct_data_w        : integer := 128;
-      out_pct_data_w       : integer := 64;
-      decomp_fifo_size     : integer := 9 -- 256 words
+      g_DEV_FAMILY         : string := "Cyclone IV E";
+      g_IQ_WIDTH           : integer := 12;
+      g_PCT_MAX_SIZE       : integer := 4096; -- TX packet size in bytes
+      g_PCT_HDR_SIZE       : integer := 16;
+      g_BUFF_COUNT         : integer := 4; -- 2,4 valid values
+      g_FIFO_DATA_W        : integer := 128
       );
    port (
       pct_wrclk            : in std_logic;
@@ -56,16 +53,14 @@ entity tx_path_top is
       fidm                 : in std_logic; -- External Frame ID mode. Frame start at fsync = 0, when 0. Frame start at fsync = 1, when 1.
       sample_width         : in std_logic_vector(1 downto 0); --"10"-12bit, "01"-14bit, "00"-16bit;
       --Tx interface data 
-      DIQ                  : out std_logic_vector(iq_width-1 downto 0);
+      DIQ                  : out std_logic_vector(g_IQ_WIDTH-1 downto 0);
       fsync                : out std_logic;
-      DIQ_h                : out std_logic_vector(iq_width downto 0);
-      DIQ_l                : out std_logic_vector(iq_width downto 0);
-      --fifo ports
-      in_pct_reset_n_req   : out std_logic;
-      in_pct_rdreq         : out std_logic;
-      in_pct_data          : in std_logic_vector(in_pct_data_w-1 downto 0);
-      in_pct_rdy           : in std_logic;
-      in_pct_rdempty       : in std_logic
+      DIQ_h                : out std_logic_vector(g_IQ_WIDTH downto 0);
+      DIQ_l                : out std_logic_vector(g_IQ_WIDTH downto 0);
+      --FIFO ports
+      fifo_rdreq           : out std_logic;
+      fifo_data            : in std_logic_vector(g_FIFO_DATA_W-1 downto 0);
+      fifo_rdempty         : in std_logic
       );
 end tx_path_top;
 
@@ -101,11 +96,11 @@ signal inst0_pct_data_rdempty       : std_logic;
 --inst1
 signal inst1_smpl_buff_rdempty      : std_logic;
 signal inst1_smpl_buff_wrfull       : std_logic;
-signal inst1_smpl_buff_q            : std_logic_vector(out_pct_data_w-1 downto 0);
-signal inst1_pct_size               : std_logic_vector(pct_size_w-1 downto 0);
+signal inst1_smpl_buff_q            : std_logic_vector(63 downto 0);
+signal inst1_pct_size               : std_logic_vector(15 downto 0);
 signal inst1_in_pct_clr_flag        : std_logic;
 signal inst1_in_pct_clr_flag_reg    : std_logic;
-signal inst1_in_pct_buff_rdy        : std_logic_vector(n_buff-1 downto 0);
+signal inst1_in_pct_buff_rdy        : std_logic_vector(g_BUFF_COUNT-1 downto 0);
 signal inst1_in_pct_reset_n_req     : std_logic;
 signal inst1_in_pct_rdreq           : std_logic;
 
@@ -120,7 +115,7 @@ signal pct_sync_num_of_packets      : std_logic_vector(2 downto 0);
 signal pct_sync_num_of_packets_12b  : std_logic_vector(2 downto 0);
 signal pct_sync_num_of_packets_16b  : std_logic_vector(2 downto 0);
 signal pct_sync_num_of_rdy_packets  : unsigned(2 downto 0);
-signal pct_rdy_combined_vect        : std_logic_vector(n_buff downto 0);
+signal pct_rdy_combined_vect        : std_logic_vector(g_BUFF_COUNT downto 0);
 
 
 
@@ -276,7 +271,7 @@ pct_loss_flg<= pct_loss_flg_int;
 -- ----------------------------------------------------------------------------
 sync_fifo_rw_inst : entity work.sync_fifo_rw
 generic map( 
-   dev_family  => dev_family,
+   dev_family  => g_DEV_FAMILY,
    data_w      => 64
   )
   port map(
@@ -291,18 +286,18 @@ generic map(
 
 inst0_one_pct_fifo : entity work.one_pct_fifo
    generic map(
-      dev_family              => dev_family,
-      g_INFIFO_DATA_WIDTH     => 128,
-      g_MAX_PCT_SIZE          => 4096, -- Packet FIFO size in bytes
-      g_PCT_HDR_SIZE          => 16,
+      dev_family              => g_DEV_FAMILY,
+      g_INFIFO_DATA_WIDTH     => g_FIFO_DATA_W,
+      g_PCT_MAX_SIZE          => g_PCT_MAX_SIZE, -- Packet FIFO size in bytes
+      g_PCT_HDR_SIZE          => g_PCT_HDR_SIZE,
       g_PCTFIFO_RDATA_WIDTH   => 128
    )
    port map(
       clk               => pct_wrclk,
       reset_n           => reset_n,
-      infifo_rdreq      => in_pct_rdreq,
-      infifo_data       => in_pct_data,
-      infifo_rdempty    => in_pct_rdempty,
+      infifo_rdreq      => fifo_rdreq,
+      infifo_data       => fifo_data,
+      infifo_rdempty    => fifo_rdempty,
       pct_rdclk         => pct_wrclk,
       pct_aclr_n        => inst1_in_pct_reset_n_req,
       pct_rdy           => inst0_pct_rdy,
@@ -317,13 +312,12 @@ inst0_one_pct_fifo : entity work.one_pct_fifo
 -- ----------------------------------------------------------------------------
   packets2data_top_inst1 : entity work.packets2data_top
    generic map (
-      dev_family        => dev_family,
-      TX_IN_PCT_SIZE    => TX_IN_PCT_SIZE,    
-      TX_IN_PCT_HDR_SIZE=> TX_IN_PCT_HDR_SIZE,
-      pct_size_w        => pct_size_w,
-      n_buff            => n_buff, -- 2,4 valid values
-      in_pct_data_w     => in_pct_data_w,
-      out_pct_data_w    => out_pct_data_w
+      g_DEV_FAMILY      => g_DEV_FAMILY,
+      g_PCT_MAX_SIZE    => g_PCT_MAX_SIZE,    
+      g_PCT_HDR_SIZE    => g_PCT_HDR_SIZE,
+      g_BUFF_COUNT      => g_BUFF_COUNT, -- 2,4 valid values
+      in_pct_data_w     => g_FIFO_DATA_W,
+      out_pct_data_w    => 64
    )
    port map(
 
@@ -370,8 +364,8 @@ inst2_fifo_q <=   inst1_smpl_buff_q(63 downto 52) &
 
 diq2fifo_inst2 : entity work.fifo2diq
    generic map( 
-      dev_family     => dev_family,
-      iq_width       => iq_width
+      dev_family     => g_DEV_FAMILY,
+      iq_width       => g_IQ_WIDTH
    )
    port map (
       clk                  => iq_rdclk,

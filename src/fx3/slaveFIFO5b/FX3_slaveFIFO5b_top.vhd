@@ -63,8 +63,7 @@ entity FX3_slaveFIFO5b_top is
       EP01_sel       : in std_logic;      -- 0 - EP01_0,
      --Stream endpoint fifo 0 (PC->FPGA) 
       EP01_0_rdclk   : in std_logic;
-      EP01_0_aclrn_0 : in std_logic;
-      EP01_0_aclrn_1 : in std_logic;
+      EP01_0_aclrn   : in std_logic;
       EP01_0_rd      : in std_logic;
       EP01_0_rdata   : out std_logic_vector(EP01_0_rwidth-1 downto 0);
       EP01_0_rempty  : out std_logic;
@@ -121,10 +120,9 @@ constant socket3_wrusedw_size    : integer := EP8F_wrusedw_width;
 constant socket3_rdusedw_size    : integer := FIFORD_SIZE (EP8F_wwidth, data_width, EP8F_wrusedw_width);
 
 signal EP01_sel_sync                   : std_logic;
-signal EP01_0_sclrn_0                  : std_logic;
-signal EP01_0_sclrn_1                  : std_logic;
+signal EP01_0_sclrn                  : std_logic;
 signal EP01_1_sclrn                    : std_logic;
-signal EP01_0_sclrn_0_reg              : std_logic;
+signal EP01_0_sclrn_reg              : std_logic;
 signal EP01_1_sclrn_reg                : std_logic;
 
 --inst0 
@@ -179,10 +177,7 @@ begin
 -- ----------------------------------------------------------------------------  
    -- Reset signal with synchronous removal to clk clock domain, 
    sync_reg0 : entity work.sync_reg 
-   port map(clk, EP01_0_aclrn_0, '1', EP01_0_sclrn_0);
-   
-   sync_reg1 : entity work.sync_reg 
-   port map(clk, EP01_0_aclrn_1, '1', EP01_0_sclrn_1);
+   port map(clk, EP01_0_aclrn, '1', EP01_0_sclrn);
    
    sync_reg2 : entity work.sync_reg 
    port map(clk, EP01_1_aclrn, '1', EP01_1_sclrn);
@@ -200,11 +195,11 @@ begin
    begin 
       if reset_n = '0' then 
          inst2_reset_n     <= '0';
-         EP01_0_sclrn_0_reg  <= '0';
+         EP01_0_sclrn_reg  <= '0';
       elsif (clk'event AND clk = '1') then 
-         EP01_0_sclrn_0_reg <= EP01_0_sclrn_0;
+         EP01_0_sclrn_reg <= EP01_0_sclrn;
          
-         if EP01_0_sclrn_0 = '1' and EP01_0_sclrn_0_reg = '0' then 
+         if EP01_0_sclrn = '1' and EP01_0_sclrn_reg = '0' then 
             inst2_reset_n <= '0';
          else 
             inst2_reset_n <= '1';
@@ -362,7 +357,7 @@ begin
       show_ahead     => "OFF"
    )
    port map(
-      reset_n     => EP01_0_sclrn_0,
+      reset_n     => EP01_0_sclrn,
       wrclk       => clk,
       wrreq       => inst2_wrreq,
       data        => inst1_socket0_fifo_data,
