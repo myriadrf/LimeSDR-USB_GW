@@ -114,7 +114,7 @@ smpl_buff_wrfull <= fifo_full_sig;
 
   packets2data_inst0 : entity work.packets2data
    generic map (
-      dev_family        => g_DEV_FAMILY,
+      g_DEV_FAMILY      => g_DEV_FAMILY,
       g_PCT_MAX_SIZE    => g_PCT_MAX_SIZE,        
       g_PCT_HDR_SIZE    => g_PCT_HDR_SIZE,
       g_BUFF_COUNT      => g_BUFF_COUNT,
@@ -134,7 +134,7 @@ smpl_buff_wrfull <= fifo_full_sig;
       ch_en			            => ch_en,
       sample_width            => sample_width, 
             
-      pct_size                => pct_size,
+      --pct_size                => pct_size,
                
       pct_sync_dis            => pct_sync_dis,
       sample_nr               => sample_nr,

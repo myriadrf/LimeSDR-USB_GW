@@ -56,7 +56,7 @@ end p2d_rd;
 -- ----------------------------------------------------------------------------
 architecture arch of p2d_rd is
 --declare signals,  components here
-constant c_PCT_MAX_WORDS   : integer := g_PCT_MAX_SIZE*8/g_DATA_W;
+constant c_PCT_MAX_WORDS   : integer := (g_PCT_MAX_SIZE-g_PCT_HDR_SIZE)*8/g_DATA_W;
 constant c_RD_RATIO        : integer := g_DATA_W/8;
 
 type pct_hdr_0_array_type  is array (0 to g_BUFF_COUNT-1) of std_logic_vector(pct_hdr_0'length-1 downto 0);
