@@ -66,7 +66,6 @@ entity rxtx_top is
       tx_DIQ                  : out    std_logic_vector(TX_IQ_WIDTH-1 downto 0);
       tx_fsync                : out    std_logic;
          -- TX FIFO read ports
-      tx_in_pct_reset_n_req   : out    std_logic;
       tx_in_pct_rdreq         : out    std_logic;
       tx_in_pct_data          : in     std_logic_vector(TX_IN_PCT_DATA_W-1 downto 0);
       tx_in_pct_rdempty       : in     std_logic;
@@ -138,9 +137,6 @@ signal inst1_DIQ_h               : std_logic_vector(TX_IQ_WIDTH downto 0);
 signal inst1_DIQ_l               : std_logic_vector(TX_IQ_WIDTH downto 0);
 signal inst1_in_pct_full         : std_logic;
 signal inst1_pct_loss_flg        : std_logic;
-signal inst1_in_pct_rdy          : std_logic;
-signal inst1_in_pct_reset_n_req  : std_logic;
-
 --inst2
 signal inst2_wfm_infifo_wrusedw  : std_logic_vector(WFM_WFM_INFIFO_SIZE-1 downto 0);
 signal inst2_wfm_rdy             : std_logic;
@@ -166,8 +162,7 @@ begin
    -- Reset signal for inst0 with synchronous removal to tx_pct_clk clock domain, 
    sync_reg0 : entity work.sync_reg 
    port map(tx_clk, from_fpgacfg.rx_en, '1', inst0_reset_n);
-   
-   tx_in_pct_reset_n_req   <= inst0_reset_n AND inst1_in_pct_reset_n_req;   
+     
    inst1_reset_n           <= inst0_reset_n;
    inst6_reset_n           <= inst0_reset_n;  
    inst5_reset_n           <= inst0_reset_n;
@@ -180,30 +175,15 @@ begin
 -- tx_path_top instance.
 -- 
 -- ----------------------------------------------------------------------------
-   process(tx_clk, inst1_reset_n)
-      begin
-      if inst1_reset_n = '0' then 
-         inst1_in_pct_rdy <= '0';
-      elsif (tx_clk'event AND tx_clk='1') then 
-         if unsigned(tx_in_pct_rdusedw) < (TX_IN_PCT_SIZE*8)/TX_IN_PCT_DATA_W then 
-            inst1_in_pct_rdy <= '0';
-         else 
-            inst1_in_pct_rdy <= '1';
-         end if;
-      end if;
-   end process;
 
    tx_path_top_inst1 : entity work.tx_path_top
    generic map( 
-      dev_family           => DEV_FAMILY,
-      iq_width             => TX_IQ_WIDTH,
-      TX_IN_PCT_SIZE       => TX_IN_PCT_SIZE,
-      TX_IN_PCT_HDR_SIZE   => TX_IN_PCT_HDR_SIZE,
-      pct_size_w           => 16,
-      n_buff               => TX_N_BUFF,
-      in_pct_data_w        => TX_IN_PCT_DATA_W,
-      out_pct_data_w       => 64,
-      decomp_fifo_size     => 9
+      g_DEV_FAMILY         => DEV_FAMILY,
+      g_IQ_WIDTH           => TX_IQ_WIDTH,
+      g_PCT_MAX_SIZE       => TX_IN_PCT_SIZE,
+      g_PCT_HDR_SIZE       => TX_IN_PCT_HDR_SIZE,
+      g_BUFF_COUNT         => TX_N_BUFF,
+      g_FIFO_DATA_W        => TX_IN_PCT_DATA_W
       )
    port map(
       pct_wrclk            => tx_clk,
@@ -241,10 +221,9 @@ begin
       DIQ_h                => inst1_DIQ_h,
       DIQ_l                => inst1_DIQ_l,
       --fifo ports
-      in_pct_reset_n_req   => inst1_in_pct_reset_n_req,
-      in_pct_rdreq         => tx_in_pct_rdreq,
-      in_pct_data          => tx_in_pct_data,
-      in_pct_rdy           => inst1_in_pct_rdy
+      fifo_rdreq           => tx_in_pct_rdreq,
+      fifo_data            => tx_in_pct_data,
+      fifo_rdempty         => tx_in_pct_rdempty
       );
       
       

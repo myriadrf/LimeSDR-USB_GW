@@ -13,17 +13,17 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.FIFO_PACK.all;
 
 -- ----------------------------------------------------------------------------
 -- Entity declaration
 -- ----------------------------------------------------------------------------
 entity packets2data is
    generic (
-      dev_family        : string := "Cyclone IV E";
-      TX_IN_PCT_SIZE    : integer := 4096;     
-      TX_IN_PCT_HDR_SIZE: integer := 16;           
-      pct_size_w        : integer := 16;
-      n_buff            : integer := 4; -- 2,4 valid values
+      g_DEV_FAMILY      : string := "Cyclone IV E";
+      g_PCT_MAX_SIZE    : integer := 4096;     
+      g_PCT_HDR_SIZE    : integer := 16;           
+      g_BUFF_COUNT      : integer := 4; -- 2,4 valid values
       in_pct_data_w     : integer := 32;
       out_pct_data_w    : integer := 32
    );
@@ -40,8 +40,6 @@ entity packets2data is
 		ch_en			            : in std_logic_vector(1 downto 0); --"01" - Ch. A, "10" - Ch. B, "11" - Ch. A and Ch. B.  
       sample_width            : in std_logic_vector(1 downto 0); --"10"-12bit, "01"-14bit, "00"-16bit;
             
-      pct_size                : in std_logic_vector(pct_size_w-1 downto 0); 
-            
       pct_sync_dis            : in std_logic;
       sample_nr               : in std_logic_vector(63 downto 0);
       
@@ -51,7 +49,7 @@ entity packets2data is
       in_pct_rdy              : in std_logic;
             
       in_pct_clr_flag         : out std_logic;
-      in_pct_buff_rdy         : out std_logic_vector(n_buff-1 downto 0);
+      in_pct_buff_rdy         : out std_logic_vector(g_BUFF_COUNT-1 downto 0);
       
       smpl_buff_almost_full   : in std_logic;
       smpl_buff_q             : out std_logic_vector(out_pct_data_w-1 downto 0);
@@ -65,15 +63,18 @@ end packets2data;
 -- ----------------------------------------------------------------------------
 architecture arch of packets2data is
 --declare signals,  components here
+-- c_PCT_MAX_WORDS represents data words stored in buffers minus header words
+constant c_PCT_MAX_WORDS   : integer := (g_PCT_MAX_SIZE - g_PCT_HDR_SIZE)*8/out_pct_data_w;
+constant c_RD_RATIO        : integer := out_pct_data_w/8;
 
 --inst0
 signal inst0_pct_hdr_0           : std_logic_vector(63 downto 0);
-signal inst0_pct_hdr_0_valid     : std_logic_vector(n_buff-1 downto 0);
+signal inst0_pct_hdr_0_valid     : std_logic_vector(g_BUFF_COUNT-1 downto 0);
 signal inst0_pct_hdr_1           : std_logic_vector(63 downto 0);
-signal inst0_pct_hdr_1_valid     : std_logic_vector(n_buff-1 downto 0);
+signal inst0_pct_hdr_1_valid     : std_logic_vector(g_BUFF_COUNT-1 downto 0);
 signal inst0_pct_data            : std_logic_vector(in_pct_data_w-1 downto 0);
-signal inst0_pct_data_wrreq      : std_logic_vector(n_buff-1 downto 0);
-signal inst0_pct_buff_rdy        : std_logic_vector(n_buff-1 downto 0);
+signal inst0_pct_data_wrreq      : std_logic_vector(g_BUFF_COUNT-1 downto 0);
+signal inst0_pct_buff_rdy        : std_logic_vector(g_BUFF_COUNT-1 downto 0);
 signal inst0_in_pct_wrfull       : std_logic;
 signal inst0_in_pct_reset_n_req  : std_logic;
 
@@ -82,38 +83,39 @@ signal inst0_in_pct_reset_n_req  : std_logic;
 signal pct_sync_dis_rclk            : std_logic;
 
 --inst1
-signal inst1_pct_buff_rdy           : std_logic_vector(n_buff-1 downto 0);
-signal inst1_pct_data_clr_n         : std_logic_vector(n_buff-1 downto 0);
-signal inst1_pct_data_clr           : std_logic_vector(n_buff-1 downto 0);
-signal inst1_pct_data_clr_dis       : std_logic_vector(n_buff-1 downto 0);
+signal inst1_pct_buff_rdy           : std_logic_vector(g_BUFF_COUNT-1 downto 0);
+signal inst1_pct_data_clr_n         : std_logic_vector(g_BUFF_COUNT-1 downto 0);
+signal inst1_pct_data_clr           : std_logic_vector(g_BUFF_COUNT-1 downto 0);
+signal inst1_pct_data_clr_dis       : std_logic_vector(g_BUFF_COUNT-1 downto 0);
 
 --inst2
-signal isnt2_pct_buff_rd_en         : std_logic_vector(n_buff-1 downto 0);
+signal isnt2_pct_buff_rd_en         : std_logic_vector(g_BUFF_COUNT-1 downto 0);
 
 --inst3
-signal inst3_pct_data_rdreq         : std_logic_vector(n_buff-1 downto 0);
-signal inst3_pct_data_rdstate       : std_logic_vector(n_buff-1 downto 0);
-signal inst3_pct_size               : std_logic_vector(pct_size_w-1 downto 0);
+signal inst3_pct_data_rdreq         : std_logic_vector(g_BUFF_COUNT-1 downto 0);
+signal inst3_pct_data_rdstate       : std_logic_vector(g_BUFF_COUNT-1 downto 0);
 signal inst3_rd_fsm_rdy             : std_logic;
 signal inst3_rd_fsm_rd_done         : std_logic;
-signal inst3_pct_buff_rdreq         : std_logic_vector(n_buff-1 downto 0);
-signal inst3_pct_buff_clr_n         : std_logic_vector(n_buff-1 downto 0);
+signal inst3_pct_buff_rdreq         : std_logic_vector(g_BUFF_COUNT-1 downto 0);
+signal inst3_pct_buff_clr_n         : std_logic_vector(g_BUFF_COUNT-1 downto 0);
 signal inst3_pct_buff_sel           : std_logic_vector(3 downto 0);
 
 
 --instx
-signal instx_wrempty                : std_logic_vector(n_buff-1 downto 0);
-type instx_rdusedw_array is array (0 to (n_buff-1)) of std_logic_vector(9 downto 0);
+constant c_INSTX_WRUSEDW_W          : integer := FIFO_WORDS_TO_Nbits(g_PCT_MAX_SIZE/(in_pct_data_w/8),true); 
+constant c_INSTX_RDUSEDW_W          : integer := FIFO_WORDS_TO_Nbits(g_PCT_MAX_SIZE/(out_pct_data_w/8),true);
+signal instx_wrempty                : std_logic_vector(g_BUFF_COUNT-1 downto 0);
+type instx_rdusedw_array is array (0 to (g_BUFF_COUNT-1)) of std_logic_vector(c_INSTX_RDUSEDW_W-1 downto 0);
 signal instx_rdusedw                : instx_rdusedw_array;
-type instx_q_array is array (0 to (n_buff-1)) of std_logic_vector(63 downto 0);
+type instx_q_array is array (0 to (g_BUFF_COUNT-1)) of std_logic_vector(out_pct_data_w-1 downto 0);
 signal instx_q                      : instx_q_array;
-signal instx_q_valid                : std_logic_vector(n_buff-1 downto 0);
+signal instx_q_valid                : std_logic_vector(g_BUFF_COUNT-1 downto 0);
 
 signal pct_smpl_mux                 : std_logic_vector(63 downto 0);
 
-signal pct_buff_rdy_int             : std_logic_vector(n_buff-1 downto 0);
-signal pct_size_only_data           : unsigned(pct_size_w-1 downto 0);
-signal half_pct_size_only_data      : unsigned(pct_size_w-1 downto 0);
+signal pct_buff_rdy_int             : std_logic_vector(g_BUFF_COUNT-1 downto 0);
+type pct_size_array is array (0 to (g_BUFF_COUNT-1)) of std_logic_vector(15 downto 0);
+signal pct_buff_size                : pct_size_array;
 
 signal smpl_buff_valid_int          : std_logic;
 
@@ -124,35 +126,13 @@ begin
 sync_reg1 : entity work.sync_reg 
 port map(rclk, '1', pct_sync_dis, pct_sync_dis_rclk);
 
-
-process(rclk, reset_n)
-begin
-   if reset_n = '0' then 
-      pct_size_only_data <= (others=>'1');
-   elsif (rclk'event AND rclk='1') then 
-      pct_size_only_data <= unsigned(pct_size)-4;
-   end if;
-end process;
-
-process(rclk, reset_n)
-begin
-   if reset_n = '0' then 
-      half_pct_size_only_data <= (others=>'1');
-   elsif (rclk'event AND rclk='1') then
-      half_pct_size_only_data <= unsigned('0' & pct_size_only_data(pct_size_w-1 downto 1));
-   end if;
-end process;
-
-inst3_pct_size <= std_logic_vector(half_pct_size_only_data);
-
-
 process(rclk, reset_n)
 begin
    if reset_n = '0' then
       inst1_pct_data_clr <= (others=>'0');
       in_pct_clr_flag <= '0';
    elsif (rclk'event AND rclk='1') then
-      for i in 0 to n_buff-1 loop
+      for i in 0 to g_BUFF_COUNT-1 loop
          inst1_pct_data_clr <= not inst3_pct_buff_clr_n;
       end loop; 
       if unsigned(inst1_pct_data_clr) > 0 OR inst0_in_pct_reset_n_req = '0' then 
@@ -170,8 +150,10 @@ end process;
 -- ----------------------------------------------------------------------------
 p2d_wr_fsm_inst0 : entity work.p2d_wr_fsm
    generic map(
-      N_BUFF            => n_buff,
-      PCT_SIZE          => TX_IN_PCT_SIZE
+      g_PCT_MAX_SIZE => g_PCT_MAX_SIZE,   
+      g_PCT_HDR_SIZE => g_PCT_HDR_SIZE,         
+      g_BUFF_COUNT   => g_BUFF_COUNT
+       
    )
    port map(
       clk               => wclk,
@@ -201,14 +183,14 @@ p2d_wr_fsm_inst0 : entity work.p2d_wr_fsm
 -- Generated FIFO buffers
 -- ----------------------------------------------------------------------------        
 gen_fifo :
-   for i in 0 to n_buff-1 generate
+   for i in 0 to g_BUFF_COUNT-1 generate
       fifo_inst_isntx : entity work.fifo_inst
          generic map(
-            dev_family	    => "Cyclone IV E",
+            dev_family	    => g_DEV_FAMILY,
             wrwidth         => in_pct_data_w,
-            wrusedw_witdth  => 9, --12=2048 words 
-            rdwidth         => 64,
-            rdusedw_width   => 10,
+            wrusedw_witdth  => c_INSTX_WRUSEDW_W, --12=2048 words 
+            rdwidth         => out_pct_data_w,
+            rdusedw_width   => c_INSTX_RDUSEDW_W,
             show_ahead      => "OFF"
          ) 
          port map(
@@ -229,17 +211,31 @@ gen_fifo :
 end generate gen_fifo;
 
 
+
+
 process(rclk, reset_n)
 begin
    if reset_n = '0' then 
       pct_buff_rdy_int <= (others=>'0');
+      pct_buff_size       <= (others=>(others=>'1'));
    elsif (rclk'event AND rclk='1') then 
-      for i in 0 to n_buff-1 loop
-         if unsigned(instx_rdusedw(i)) = half_pct_size_only_data then 
+      for i in 0 to g_BUFF_COUNT-1 loop
+         if unsigned(instx_rdusedw(i)) = unsigned(pct_buff_size(i)) then 
             pct_buff_rdy_int(i)<= '1';
          else 
             pct_buff_rdy_int(i)<= '0';
          end if;
+         
+         if inst0_pct_hdr_0_valid(i) = '1' then
+            if inst0_pct_hdr_0(23 downto 8) = "0000000000000000" then 
+               pct_buff_size(i) <= std_logic_vector(to_unsigned(c_PCT_MAX_WORDS, 16));
+            else 
+               pct_buff_size(i) <= std_logic_vector(unsigned(in_pct_data(23 downto 8))/c_RD_RATIO);
+            end if;
+         else 
+            pct_buff_size(i) <= pct_buff_size(i);
+         end if;
+         
       end loop;
    end if;
 end process;
@@ -253,9 +249,9 @@ inst1_pct_data_clr_dis <= inst3_pct_data_rdstate when pct_sync_dis_rclk = '0' el
         
 p2d_rd_inst3 : entity work.p2d_rd
    generic map(
-      PCT_SIZE                => TX_IN_PCT_SIZE,    
-      PCT_HDR_SIZE            => TX_IN_PCT_HDR_SIZE,
-      N_BUFF                  => n_buff
+      g_PCT_MAX_SIZE => g_PCT_MAX_SIZE,    
+      g_PCT_HDR_SIZE => g_PCT_HDR_SIZE,
+      g_BUFF_COUNT   => g_BUFF_COUNT
    )  
    port map(   
       clk                     => rclk,
