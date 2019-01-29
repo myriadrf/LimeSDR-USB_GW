@@ -207,6 +207,7 @@ begin
    begin 
       to_periphcfg.PERIPH_INPUT_RD_0 <= (others=>'0');
       to_periphcfg.PERIPH_INPUT_RD_0(0) <= fan_sens_in;
+      to_periphcfg.PERIPH_INPUT_RD_0(1) <= led2_adf_muxout;
    end process;
    
    to_periphcfg.PERIPH_INPUT_RD_1 <= (others=>'0');
