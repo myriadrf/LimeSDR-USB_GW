@@ -135,8 +135,8 @@ begin
          elsif dout_reg_len = '1' then
             case inst_reg(4 downto 0) is	-- mux read-only outputs
                when "00000" => dout_reg <= (15 downto 8 => '0') & GW_TEST_RES & mem(0)(3 downto 0);
-               when "00101" => dout_reg <= (15 downto 6 => '0') & to_tstcfg.TEST_CMPLT(5 downto 0);
-               when "00111" => dout_reg <= (15 downto 6 => '0') & to_tstcfg.TEST_REZ(5 downto 0);
+               when "00101" => dout_reg <= (15 downto 6 => '0') & to_tstcfg.DDR2_2_STATUS(0) &  to_tstcfg_from_rxtx.DDR2_1_STATUS(0) & to_tstcfg.TEST_CMPLT(3 downto 0);
+               when "00111" => dout_reg <= (15 downto 6 => '0') & to_tstcfg.DDR2_2_STATUS(1) &  to_tstcfg_from_rxtx.DDR2_1_STATUS(1) & to_tstcfg.TEST_REZ(3 downto 0);
                when "01001" => dout_reg <= to_tstcfg.FX3_CLK_CNT;
                when "01010" => dout_reg <= to_tstcfg.Si5351C_CLK0_CNT;
                when "01011" => dout_reg <= to_tstcfg.Si5351C_CLK1_CNT;
