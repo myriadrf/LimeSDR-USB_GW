@@ -1,0 +1,9 @@
+Release 2.20 (2019-01-30)
+==========================
+
+RX TX path changes:
+- Short packet feature 
+
+Other changes:
+- ADF lock status can be read from 0x00C8 address
+- Fixed DDR2 test logic
