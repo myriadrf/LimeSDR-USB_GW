@@ -356,12 +356,30 @@ pct_rdy_combined_vect <= inst1_in_pct_buff_rdy & inst1_smpl_buff_wrfull;
                
 -- ----------------------------------------------------------------------------
 -- fifo2diq instance
--- ----------------------------------------------------------------------------       
+-- ----------------------------------------------------------------------------
+
+-- Layout  of IQ samples in "inst1_smpl_buff_q" bus depends on mode:
+------------------------------------------------------------- 
+-- Bus Range   | [63:48] | [47:32] | [31:16] | [15:0] |
+-- SISO mode   | AQ(1)   | AI(1)   | AQ(0)   | AI(0)  |
+-- MIMO mode   | BQ(0)   | BI(0)   | AQ(0)   | AI(0)  |
+-------------------------------------------------------------
+
+-- Drop unused bits of inst1_smpl_buff_q and final 
+-- layout of IQ samples in "inst2_fifo_q" bus:
+------------------------------------------------------------- 
+-- Bus Range   | [47:36] | [35:24] | [23:12] | [11:0] |
+-- SISO mode   | AQ(1)   | AI(1)   | AQ(0)   | AI(0)  |
+-- MIMO mode   | BQ(0)   | BI(0)   | AQ(0)   | AI(0)  |
+-------------------------------------------------------------
+-- * A/B - channel identification. 
+                    
+-- Drop unused bits:
 inst2_fifo_q <=   inst1_smpl_buff_q(63 downto 52) & 
                   inst1_smpl_buff_q(47 downto 36) &
                   inst1_smpl_buff_q(31 downto 20) & 
                   inst1_smpl_buff_q(15 downto 4);
-
+                  
 diq2fifo_inst2 : entity work.fifo2diq
    generic map( 
       dev_family     => g_DEV_FAMILY,
