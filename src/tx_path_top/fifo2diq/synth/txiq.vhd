@@ -224,8 +224,12 @@ fsm : process(current_state, fifo_rdempty, rd_wait_cnt, rd_wait_cnt_max_reg, en)
    case current_state is
    
       when idle => --idle state
-         if fifo_rdempty = '0' AND en = '1' then 
-            next_state <= rd_samples;
+         if en = '1' then
+            if fifo_rdempty = '0' then 
+               next_state <= rd_samples;
+            else 
+               next_state <= zero_samples;
+            end if;
          else 
             next_state <= idle;
          end if;
