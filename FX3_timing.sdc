@@ -24,13 +24,13 @@ set FX3_tH 		.5
 #set FX3_tCO_max 	7
 #set FX3_tCO_min 	0
 
-set FX3_tCO_max 	9
-set FX3_tCO_min 	2
+set FX3_tCO_max 	8
+set FX3_tCO_min 	1
 
 #set FX3_tCFLG_max 	8
 #set FX3_tCFLG_min 	0
 set FX3_tCFLG_max 	8
-set FX3_tCFLG_min 	0
+set FX3_tCFLG_min 	1
 
 set FX3_d_in_max_dly [expr $FX3_tCO_max]
 set FX3_d_in_min_dly [expr $FX3_tCO_min]
