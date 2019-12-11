@@ -12,3 +12,9 @@ Release 2.21 (2019-05-07)
 ==========================
 TX path changes:
 - Modified txiq module to output zero samples if FIFO is empty after enable
+
+Release 2.22 (2019-12-11)
+==========================
+FX3 timing:
+- Adjusted FX3 timing constraints;
+- Applied outpud delay for FX3_CTL lines.
