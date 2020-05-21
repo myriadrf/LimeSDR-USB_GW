@@ -97,6 +97,8 @@ signal rd_wait_cnt_max_reg : unsigned(3 downto 0);
 
 signal zero_valid          : std_logic;
 
+signal txant_en_reg        : std_logic;
+
 type state_type is (idle, rd_samples, zero_samples, wait_rd_cycles);
 signal current_state, next_state : state_type;
   
@@ -297,15 +299,21 @@ process(clk, reset_n)
 process(clk, reset_n)
  begin
    if reset_n = '0' then
-      txant_en  <= '0';
+      txant_en_reg  <= '0';
    elsif (clk'event AND clk = '1') then
-      if current_state = idle then 
-         txant_en <= '0';
+    
+      if current_state = idle OR current_state = zero_samples then 
+         txant_en_reg <= '0';
+      elsif current_state = rd_samples then 
+         txant_en_reg <= '1';
       else 
-         txant_en <= '1';
+         txant_en_reg <= txant_en_reg;
       end if;
+      
    end if;
  end process;
+ 
+ txant_en <= txant_en_reg;
  
  
 -- ----------------------------------------------------------------------------
