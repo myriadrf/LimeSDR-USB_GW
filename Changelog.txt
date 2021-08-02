@@ -18,3 +18,13 @@ Release 2.22 (2019-12-11)
 FX3 timing:
 - Adjusted FX3 timing constraints;
 - Applied outpud delay for FX3_CTL lines.
+
+Release 2.23 (2020-05-21)
+==========================
+TX path changes:
+- Connected tx_ant_en signal trough edge_delay module;
+
+Release 2.24 (2021-08-01)
+==========================
+Clock network:
+- Changed reference clock for DDR2 memory controllers and alive LED, now connected to FX3_PCLK;
