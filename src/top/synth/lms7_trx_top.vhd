@@ -197,7 +197,7 @@ architecture arch of lms7_trx_top is
 --declare signals,  components here
 signal reset_n                   : std_logic; 
 signal reset_n_fx3_pclk          : std_logic;
-signal reset_n_si_clk0           : std_logic;
+signal reset_n_LMK_CLK           : std_logic;
 
 --inst0 (NIOS CPU instance)
 signal inst0_exfifo_if_rd        : std_logic;
@@ -289,9 +289,9 @@ begin
    sync_reg0 : entity work.sync_reg 
    port map(FX3_PCLK, reset_n, '1', reset_n_fx3_pclk);
    
-   -- Reset signal with synchronous removal to SI_CLK0 clock domain, 
+   -- Reset signal with synchronous removal to LMK_CLK clock domain, 
    sync_reg1 : entity work.sync_reg 
-   port map(SI_CLK0, reset_n, '1', reset_n_si_clk0);
+   port map(LMK_CLK, reset_n, '1', reset_n_LMK_CLK);
      
 -- ----------------------------------------------------------------------------
 -- NIOS CPU instance.
@@ -523,7 +523,7 @@ begin
       LMK_CLK           => LMK_CLK,
       ADF_MUXOUT        => ADF_MUXOUT,    
       --DDR2 external memory signals
-      mem_pllref_clk    => SI_CLK1,
+      mem_pllref_clk    => FX3_PCLK,
       mem_odt           => DDR2_2_ODT,
       mem_cs_n          => DDR2_2_CS_N,
       mem_cke           => DDR2_2_CKE,
@@ -553,8 +553,8 @@ begin
    )
    port map(
       -- General ports
-      clk                  => SI_CLK0,
-      reset_n              => reset_n_si_clk0,
+      clk                  => LMK_CLK,
+      reset_n              => reset_n_LMK_CLK,
       -- configuration memory
       to_periphcfg         => inst0_to_periphcfg,
       from_periphcfg       => inst0_from_periphcfg,     
@@ -657,8 +657,8 @@ begin
       tx_in_pct_rdusedw       => inst2_EP01_0_rdusedw,
       
       -- WFM Player
-      wfm_pll_ref_clk         => SI_CLK0,
-      wfm_pll_ref_clk_reset_n => reset_n_si_clk0,    
+      wfm_pll_ref_clk         => FX3_PCLK,
+      wfm_pll_ref_clk_reset_n => reset_n_fx3_pclk,    
       wfm_phy_clk             => inst6_wfm_phy_clk,
          -- WFM FIFO read ports
       wfm_in_pct_reset_n_req  => inst6_wfm_in_pct_reset_n_req,
