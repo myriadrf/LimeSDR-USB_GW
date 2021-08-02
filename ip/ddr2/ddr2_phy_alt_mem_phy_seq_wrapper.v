@@ -103,7 +103,7 @@ module ddr2_phy_alt_mem_phy_seq_wrapper (
   localparam DBG_A_WIDTH                   = 13;
   localparam DQS_PHASE_SETTING             = 2;
   localparam SCAN_CLK_DIVIDE_BY            = 2;
-  localparam PLL_STEPS_PER_CYCLE           = 48;
+  localparam PLL_STEPS_PER_CYCLE           = 64;
   localparam MEM_IF_CLK_PS                 = 6667;
   localparam DQS_DELAY_CTL_WIDTH           = 6;
   localparam MEM_IF_MEMTYPE                = "DDR2";

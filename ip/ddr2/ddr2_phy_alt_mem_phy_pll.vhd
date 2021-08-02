@@ -187,28 +187,28 @@ BEGIN
 	altpll_component : altpll
 	GENERIC MAP (
 		bandwidth_type => "AUTO",
-		clk0_divide_by => 9,
+		clk0_divide_by => 4,
 		clk0_duty_cycle => 50,
-		clk0_multiply_by => 25,
+		clk0_multiply_by => 3,
 		clk0_phase_shift => "0",
-		clk1_divide_by => 9,
+		clk1_divide_by => 2,
 		clk1_duty_cycle => 50,
-		clk1_multiply_by => 50,
+		clk1_multiply_by => 3,
 		clk1_phase_shift => "0",
-		clk2_divide_by => 9,
+		clk2_divide_by => 2,
 		clk2_duty_cycle => 50,
-		clk2_multiply_by => 50,
+		clk2_multiply_by => 3,
 		clk2_phase_shift => "-1667",
-		clk3_divide_by => 9,
+		clk3_divide_by => 2,
 		clk3_duty_cycle => 50,
-		clk3_multiply_by => 50,
+		clk3_multiply_by => 3,
 		clk3_phase_shift => "0",
-		clk4_divide_by => 9,
+		clk4_divide_by => 2,
 		clk4_duty_cycle => 50,
-		clk4_multiply_by => 50,
+		clk4_multiply_by => 3,
 		clk4_phase_shift => "0",
 		compensate_clock => "CLK1",
-		inclk0_input_frequency => 37037,
+		inclk0_input_frequency => 10000,
 		intended_device_family => "Cyclone IV E",
 		lpm_type => "altpll",
 		operation_mode => "NORMAL",
@@ -256,7 +256,7 @@ BEGIN
 		port_extclk3 => "PORT_UNUSED",
 		self_reset_on_loss_lock => "OFF",
 		vco_frequency_control => "MANUAL_PHASE",
-		vco_phase_shift_step => 138,
+		vco_phase_shift_step => 104,
 		width_clock => 5,
 		width_phasecounterselect => 3
 	)
@@ -317,7 +317,7 @@ END SYN;
 -- Retrieval info: PRIVATE: GLOCKED_MODE_CHECK STRING "0"
 -- Retrieval info: PRIVATE: GLOCK_COUNTER_EDIT NUMERIC "1048575"
 -- Retrieval info: PRIVATE: HAS_MANUAL_SWITCHOVER STRING "1"
--- Retrieval info: PRIVATE: INCLK0_FREQ_EDIT STRING "27.000"
+-- Retrieval info: PRIVATE: INCLK0_FREQ_EDIT STRING "100.000"
 -- Retrieval info: PRIVATE: INCLK0_FREQ_UNIT_COMBO STRING "MHz"
 -- Retrieval info: PRIVATE: INCLK1_FREQ_EDIT STRING "100.000"
 -- Retrieval info: PRIVATE: INCLK1_FREQ_EDIT_CHANGED STRING "1"
@@ -334,7 +334,7 @@ END SYN;
 -- Retrieval info: PRIVATE: LVDS_PHASE_SHIFT_UNIT2 STRING "deg"
 -- Retrieval info: PRIVATE: LVDS_PHASE_SHIFT_UNIT3 STRING "deg"
 -- Retrieval info: PRIVATE: LVDS_PHASE_SHIFT_UNIT4 STRING "deg"
--- Retrieval info: PRIVATE: MANUAL_PHASE_SHIFT_STEP_EDIT STRING "138.00000000"
+-- Retrieval info: PRIVATE: MANUAL_PHASE_SHIFT_STEP_EDIT STRING "104.00000000"
 -- Retrieval info: PRIVATE: MANUAL_PHASE_SHIFT_STEP_UNIT STRING "ps"
 -- Retrieval info: PRIVATE: MIG_DEVICE_SPEED_GRADE STRING "Any"
 -- Retrieval info: PRIVATE: MIRROR_CLK0 STRING "0"
@@ -419,28 +419,28 @@ END SYN;
 -- Retrieval info: PRIVATE: ZERO_DELAY_RADIO STRING "0"
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 -- Retrieval info: CONSTANT: BANDWIDTH_TYPE STRING "AUTO"
--- Retrieval info: CONSTANT: CLK0_DIVIDE_BY NUMERIC "9"
+-- Retrieval info: CONSTANT: CLK0_DIVIDE_BY NUMERIC "4"
 -- Retrieval info: CONSTANT: CLK0_DUTY_CYCLE NUMERIC "50"
--- Retrieval info: CONSTANT: CLK0_MULTIPLY_BY NUMERIC "25"
+-- Retrieval info: CONSTANT: CLK0_MULTIPLY_BY NUMERIC "3"
 -- Retrieval info: CONSTANT: CLK0_PHASE_SHIFT STRING "0"
--- Retrieval info: CONSTANT: CLK1_DIVIDE_BY NUMERIC "9"
+-- Retrieval info: CONSTANT: CLK1_DIVIDE_BY NUMERIC "2"
 -- Retrieval info: CONSTANT: CLK1_DUTY_CYCLE NUMERIC "50"
--- Retrieval info: CONSTANT: CLK1_MULTIPLY_BY NUMERIC "50"
+-- Retrieval info: CONSTANT: CLK1_MULTIPLY_BY NUMERIC "3"
 -- Retrieval info: CONSTANT: CLK1_PHASE_SHIFT STRING "0"
--- Retrieval info: CONSTANT: CLK2_DIVIDE_BY NUMERIC "9"
+-- Retrieval info: CONSTANT: CLK2_DIVIDE_BY NUMERIC "2"
 -- Retrieval info: CONSTANT: CLK2_DUTY_CYCLE NUMERIC "50"
--- Retrieval info: CONSTANT: CLK2_MULTIPLY_BY NUMERIC "50"
+-- Retrieval info: CONSTANT: CLK2_MULTIPLY_BY NUMERIC "3"
 -- Retrieval info: CONSTANT: CLK2_PHASE_SHIFT STRING "-1667"
--- Retrieval info: CONSTANT: CLK3_DIVIDE_BY NUMERIC "9"
+-- Retrieval info: CONSTANT: CLK3_DIVIDE_BY NUMERIC "2"
 -- Retrieval info: CONSTANT: CLK3_DUTY_CYCLE NUMERIC "50"
--- Retrieval info: CONSTANT: CLK3_MULTIPLY_BY NUMERIC "50"
+-- Retrieval info: CONSTANT: CLK3_MULTIPLY_BY NUMERIC "3"
 -- Retrieval info: CONSTANT: CLK3_PHASE_SHIFT STRING "0"
--- Retrieval info: CONSTANT: CLK4_DIVIDE_BY NUMERIC "9"
+-- Retrieval info: CONSTANT: CLK4_DIVIDE_BY NUMERIC "2"
 -- Retrieval info: CONSTANT: CLK4_DUTY_CYCLE NUMERIC "50"
--- Retrieval info: CONSTANT: CLK4_MULTIPLY_BY NUMERIC "50"
+-- Retrieval info: CONSTANT: CLK4_MULTIPLY_BY NUMERIC "3"
 -- Retrieval info: CONSTANT: CLK4_PHASE_SHIFT STRING "0"
 -- Retrieval info: CONSTANT: COMPENSATE_CLOCK STRING "CLK1"
--- Retrieval info: CONSTANT: INCLK0_INPUT_FREQUENCY NUMERIC "37037"
+-- Retrieval info: CONSTANT: INCLK0_INPUT_FREQUENCY NUMERIC "10000"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "altpll"
 -- Retrieval info: CONSTANT: OPERATION_MODE STRING "NORMAL"
@@ -488,7 +488,7 @@ END SYN;
 -- Retrieval info: CONSTANT: PORT_extclk3 STRING "PORT_UNUSED"
 -- Retrieval info: CONSTANT: SELF_RESET_ON_LOSS_LOCK STRING "OFF"
 -- Retrieval info: CONSTANT: VCO_FREQUENCY_CONTROL STRING "MANUAL_PHASE"
--- Retrieval info: CONSTANT: VCO_PHASE_SHIFT_STEP NUMERIC "138"
+-- Retrieval info: CONSTANT: VCO_PHASE_SHIFT_STEP NUMERIC "104"
 -- Retrieval info: CONSTANT: WIDTH_CLOCK NUMERIC "5"
 -- Retrieval info: CONSTANT: WIDTH_PHASECOUNTERSELECT NUMERIC "3"
 -- Retrieval info: USED_PORT: @clk 0 0 5 0 OUTPUT_CLK_EXT VCC "@clk[4..0]"

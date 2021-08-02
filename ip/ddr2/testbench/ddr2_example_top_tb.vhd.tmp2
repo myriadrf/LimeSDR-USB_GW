@@ -99,7 +99,7 @@ entity ddr2_example_top_tb is
         BOARD_CLK_DELAY        : in integer := 0;
 
         TINIT_CLOCKS           : in integer := 30004;
-        REF_CLOCK_TICK_IN_PS   : in integer := 37037;
+        REF_CLOCK_TICK_IN_PS   : in integer := 10000;
         -- Below 2 lines for SPR272543: 
         -- Testbench workaround for tests with "dedicated memory clock phase shift" failing, 
         -- because dqs delay isnt' being modelled in simulations

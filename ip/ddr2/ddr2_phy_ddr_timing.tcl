@@ -38,7 +38,7 @@ set ::t(HP) 3.000
 # The maximum allowed length of the mimic path depends on the device family
 set ::t(mimic_shift) 2.500
 # The clock period of the PLL reference clock
-set ::t(inclk_period) 37.037
+set ::t(inclk_period) 10.000
 
 #####################
 # FPGA specifications

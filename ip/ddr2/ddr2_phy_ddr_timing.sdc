@@ -21,7 +21,7 @@
 # family : Cyclone IV E
 # speed_grade : 8
 # local_if_drate : Full
-# pll_ref_clk_mhz : 27.0
+# pll_ref_clk_mhz : 100.0
 # mem_if_clk_mhz : 150.0
 # mem_if_preset : alliance_AS4C64M16D2
 # chip_or_dimm : Discrete Device

@@ -14,6 +14,7 @@ set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) ddr2_phy.v
 set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) ddr2_phy.cmp ]
 set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) ddr2_phy.bsf ]
 set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) ddr2_phy.qip ]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) ddr2_phy.html ]
 set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) ddr2_phy_alt_mem_phy_seq_wrapper.v ]
 set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) ddr2_phy_alt_mem_phy_seq.vhd ]
 set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) ddr2_phy_alt_mem_phy.v ]
