@@ -262,7 +262,7 @@ begin
       from_fpgacfg.wfm_ch_en           <= mem(12) (15 downto 0);
       from_fpgacfg.wfm_play            <= mem(13) (1);
       from_fpgacfg.wfm_load            <= mem(13) (2);
-      from_fpgacfg.wfm_smpl_width      <= mem(13) (1 downto 0);
+      from_fpgacfg.wfm_smpl_width      <= mem(14) (1 downto 0);
       
       from_fpgacfg.sync_size           <= mem(15) (15 downto 0);
       from_fpgacfg.txant_pre           <= mem(16) (15 downto 0);
